@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+set -euo pipefail
+
+cd -- "$(dirname -- "$0")/.."
+
+echo "== JS/TS tests =="
+bun run test
+
+echo "== Rust tests =="
+(
+    cd src-tauri
+    cargo test
+)
+
+echo "== Python tests =="
+(
+    cd ../backend
+    uv run pytest
+)

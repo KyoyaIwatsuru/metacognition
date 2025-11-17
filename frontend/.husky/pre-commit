@@ -1,0 +1,43 @@
+#!/usr/bin/env sh
+set -euo pipefail
+
+cd -- "$(dirname -- "$0")/.."
+
+echo "== JS/TS format check =="
+bun run format:check
+
+echo "== JS/TS lint =="
+bun run lint
+
+echo "== JS/TS tests =="
+bun run test
+
+echo "== Rust format check =="
+(
+    cd src-tauri
+    cargo fmt --all -- --check
+)
+
+echo "== Rust clippy =="
+(
+    cd src-tauri
+    cargo clippy --all-targets --all-features -D warnings
+)
+
+echo "== Rust tests =="
+(
+    cd src-tauri
+    cargo test
+)
+
+echo "== Python format & lint & type check =="
+(
+    cd ../backend
+    uv run pre-commit run --all-files
+)
+
+echo "== Python tests =="
+(
+    cd ../backend
+    uv run pytest
+)
