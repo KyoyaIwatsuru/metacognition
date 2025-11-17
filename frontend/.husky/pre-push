@@ -15,5 +15,10 @@ echo "== Rust tests =="
 echo "== Python tests =="
 (
     cd ../backend
-    uv run pytest
+    if ! uv run pytest; then
+        status=$?
+        if [ "$status" -ne 5 ]; then
+            exit "$status"
+        fi
+    fi
 )

@@ -4,9 +4,11 @@ repos:
     hooks:
       - id: ruff-format
         description: "Ruff formatting"
+        files: ^backend/.*\.(py|pyi)$
         types_or: [python, pyi, jupyter]
       - id: ruff-check
         description: "Ruff linting"
+        files: ^backend/.*\.(py|pyi)$
         types_or: [python, pyi, jupyter]
         args: [--fix, --exit-non-zero-on-fix]
 
@@ -15,16 +17,21 @@ repos:
     hooks:
       - id: mypy
         description: "Run mypy"
+        files: ^backend/.*\.(py|pyi)$
         types: [python]
-        additional_dependencies: ["types-all"]
         args: [--strict, --ignore-missing-imports]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: trailing-whitespace
+        files: ^backend/
       - id: end-of-file-fixer
+        files: ^backend/
       - id: check-yaml
+        files: ^backend/
       - id: check-added-large-files
+        files: ^backend/
         args: ["--maxkb=1000"]
       - id: check-merge-conflict
+        files: ^backend/

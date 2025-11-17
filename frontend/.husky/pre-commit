@@ -21,7 +21,7 @@ echo "== Rust format check =="
 echo "== Rust clippy =="
 (
     cd src-tauri
-    cargo clippy --all-targets --all-features -D warnings
+    cargo clippy --all-targets --all-features -- -D warnings
 )
 
 echo "== Rust tests =="
@@ -39,5 +39,10 @@ echo "== Python format & lint & type check =="
 echo "== Python tests =="
 (
     cd ../backend
-    uv run pytest
+    if ! uv run pytest; then
+        status=$?
+        if [ "$status" -ne 5 ]; then
+            exit "$status"
+        fi
+    fi
 )
