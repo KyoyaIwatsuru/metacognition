@@ -7,6 +7,7 @@ requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.121.2",
     "openai>=2.8.0",
+    "pydantic>=2.12.4",
     "tobii-research==1.11.0",
     "uvicorn[standard]>=0.38.0",
 ]

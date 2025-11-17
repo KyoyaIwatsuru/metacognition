@@ -3,46 +3,56 @@ set -euo pipefail
 
 cd -- "$(dirname -- "$0")/.."
 
-echo "== JS/TS format check =="
-bun run format:check
+echo "== lint-staged =="
+bun run lint-staged
 
-echo "== JS/TS lint =="
-bun run lint
+if git diff --cached --name-only --relative |
+    grep -Eq '^(src/|tests/|package\.json|tsconfig\.json|jest\.config)'; then
+    echo "== JS/TS tests =="
+    bun run test
+else
+    echo "== JS/TS tests skipped (no staged frontend changes) =="
+fi
 
-echo "== JS/TS tests =="
-bun run test
+if git diff --cached --name-only --relative | grep -q '^src-tauri/'; then
+    echo "== Rust format check =="
+    (
+        cd src-tauri
+        cargo fmt --all -- --check
+    )
 
-echo "== Rust format check =="
-(
-    cd src-tauri
-    cargo fmt --all -- --check
-)
+    echo "== Rust clippy =="
+    (
+        cd src-tauri
+        cargo clippy --all-targets --all-features -- -D warnings
+    )
 
-echo "== Rust clippy =="
-(
-    cd src-tauri
-    cargo clippy --all-targets --all-features -- -D warnings
-)
-
-echo "== Rust tests =="
-(
-    cd src-tauri
-    cargo test
-)
+    echo "== Rust tests =="
+    (
+        cd src-tauri
+        cargo test
+    )
+else
+    echo "== Rust checks skipped (no staged changes) =="
+fi
 
 echo "== Python format & lint & type check =="
 (
     cd ../backend
-    uv run pre-commit run --all-files
+    uv run pre-commit run --hook-stage commit
 )
 
-echo "== Python tests =="
-(
-    cd ../backend
-    if ! uv run pytest; then
-        status=$?
-        if [ "$status" -ne 5 ]; then
-            exit "$status"
+if git diff --cached --name-only | grep -q '^backend/'; then
+    echo "== Python tests =="
+    (
+        cd ../backend
+        if ! uv run pytest; then
+            status=$?
+            if [ "$status" -ne 5 ]; then
+                exit "$status"
+            fi
         fi
-    fi
-)
+    )
+else
+    echo "== Python tests skipped (no staged backend changes) =="
+fi
