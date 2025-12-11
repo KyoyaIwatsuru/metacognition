@@ -7,6 +7,7 @@ type HeaderBarProps = {
   eyeTrackerLabel?: string;
   eyeTrackerStatus?: 'connected' | 'disconnected' | 'loading';
   showToggle?: boolean;
+  rightSlot?: React.ReactNode;
 };
 
 /**
@@ -19,6 +20,7 @@ export function HeaderBar({
   eyeTrackerLabel = 'Eye tracker 接続',
   eyeTrackerStatus = 'disconnected',
   showToggle = true,
+  rightSlot,
 }: HeaderBarProps) {
   const isLoading = eyeTrackerStatus === 'loading';
   const isConnected = eyeTrackerStatus === 'connected';
@@ -32,26 +34,29 @@ export function HeaderBar({
     >
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
         <div className="text-lg font-semibold">metacognition</div>
-        {showToggle ? (
-          <div className="flex items-center gap-2">
-            <span
-              className={cn(
-                'h-2.5 w-2.5 rounded-full',
-                isConnected ? 'bg-emerald-500' : 'bg-zinc-400',
-                isLoading ? 'animate-pulse' : ''
-              )}
-              aria-label={isConnected ? 'connected' : 'disconnected'}
-            />
-            <Button
-              variant={isConnected ? 'secondary' : 'default'}
-              size="sm"
-              onClick={onToggleEyeTracker}
-              disabled={isLoading}
-            >
-              {eyeTrackerLabel}
-            </Button>
-          </div>
-        ) : null}
+        <div className="flex items-center gap-3">
+          {rightSlot}
+          {showToggle ? (
+            <div className="flex items-center gap-2">
+              <span
+                className={cn(
+                  'h-2.5 w-2.5 rounded-full',
+                  isConnected ? 'bg-emerald-500' : 'bg-zinc-400',
+                  isLoading ? 'animate-pulse' : ''
+                )}
+                aria-label={isConnected ? 'connected' : 'disconnected'}
+              />
+              <Button
+                variant={isConnected ? 'secondary' : 'default'}
+                size="sm"
+                onClick={onToggleEyeTracker}
+                disabled={isLoading}
+              >
+                {eyeTrackerLabel}
+              </Button>
+            </div>
+          ) : null}
+        </div>
       </div>
     </header>
   );

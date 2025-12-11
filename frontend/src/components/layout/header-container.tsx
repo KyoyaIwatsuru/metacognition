@@ -6,7 +6,11 @@ import { connectEyeTracker, disconnectEyeTracker } from '@/lib/eyetracker';
 import { HeaderBar } from '@/components/layout/header-bar';
 import { useAppStore } from '@/lib/store';
 
-export function HeaderContainer() {
+type HeaderContainerProps = {
+  rightSlot?: React.ReactNode;
+};
+
+export function HeaderContainer({ rightSlot }: HeaderContainerProps) {
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
   const showToggle = useAppStore((s) => s.phase === undefined); // 接続操作は開始前(Home想定)のみ許可
 
@@ -18,7 +22,7 @@ export function HeaderContainer() {
     if (eyeTrackerStatus === 'connected') {
       const res = await disconnectEyeTracker();
       if (!res.ok) {
-        toast.error('Eye tracker の切断に失敗しました');
+        toast.error(`Eye tracker の切断に失敗しました: ${res.error ?? '不明なエラー'}`);
       } else {
         toast.success('Eye tracker を切断しました');
       }
@@ -27,7 +31,7 @@ export function HeaderContainer() {
 
     const res = await connectEyeTracker();
     if (!res.ok) {
-      toast.error('Eye tracker の接続に失敗しました');
+      toast.error(`Eye tracker の接続に失敗しました: ${res.error ?? '不明なエラー'}`);
     } else {
       toast.success('Eye tracker に接続しました');
     }
@@ -41,6 +45,7 @@ export function HeaderContainer() {
       eyeTrackerLabel={label}
       onToggleEyeTracker={handleToggle}
       showToggle={showToggle}
+      rightSlot={rightSlot}
     />
   );
 }

@@ -39,6 +39,7 @@ export function AnalogQuestionClient({
   );
   const [selections, setSelections] =
     useState<Record<string, string | undefined>>(initialSelections);
+  const [timedOut, setTimedOut] = useState(false);
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
 
@@ -67,11 +68,21 @@ export function AnalogQuestionClient({
   };
 
   const handleTimeout = () => {
-    logEvent({ event: 'timeout', passage_id: passageId, analog_id: analog.id });
+    if (timedOut) return;
+    setTimedOut(true);
+    const unanswered = Object.entries(selections)
+      .filter(([, choice]) => !choice)
+      .map(([q]) => q);
+    logEvent({ event: 'timeout', passage_id: passageId, analog_id: analog.id, unanswered });
   };
+
+  const headerTimer = (
+    <Timer totalMs={timerMs} onTimeout={handleTimeout} className="border px-2 py-1" />
+  );
 
   return (
     <AppShell
+      headerSlot={headerTimer}
       leftSlot={
         <>
           <h1 className="text-2xl font-semibold">Analog Question</h1>
@@ -87,17 +98,15 @@ export function AnalogQuestionClient({
       }
       rightSlot={
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="text-sm font-medium text-muted-foreground">残り時間</div>
-            <Timer totalMs={timerMs} onTimeout={handleTimeout} />
-          </div>
           <QuestionList
             questions={analog.questions}
             selections={selections}
             onSelect={handleSelect}
             onSubmit={handleSubmit}
+            showSubmitButton={false}
             showJapanese
             submitLabel={submitLabel}
+            disabled={timedOut}
           />
         </div>
       }

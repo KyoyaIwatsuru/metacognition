@@ -8,6 +8,7 @@ type AppShellProps = {
   rightSlot?: ReactNode;
   leftSlot?: ReactNode;
   showHeader?: boolean;
+  headerSlot?: ReactNode;
 };
 
 /**
@@ -19,10 +20,11 @@ export function AppShell({
   rightSlot,
   leftSlot,
   showHeader = true,
+  headerSlot,
 }: AppShellProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {showHeader ? <HeaderContainer /> : null}
+      {showHeader ? <HeaderContainer rightSlot={headerSlot} /> : null}
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-6 md:py-8">
         {leftSlot || rightSlot ? (
           <div className="grid gap-6 md:grid-cols-[1.1fr_1fr]">

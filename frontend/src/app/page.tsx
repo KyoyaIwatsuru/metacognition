@@ -74,7 +74,7 @@ export default function HomePage() {
     setPhase(phase);
     const res = await startRecording();
     if (!res.ok) {
-      toast.error('recording/start に失敗しました');
+      toast.error(`recording/start に失敗しました: ${res.error ?? '不明なエラー'}`);
       return;
     }
     logEvent({ event: 'phase_start', phase });

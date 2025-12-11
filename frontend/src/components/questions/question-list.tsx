@@ -10,20 +10,22 @@ type QuestionListProps = {
   questions: Question[];
   selections: Record<string, string | undefined>;
   onSelect: (questionId: string, choiceId: string) => void;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   showJapanese?: boolean;
   submitLabel?: string;
   disabled?: boolean;
+  showSubmitButton?: boolean;
 };
 
 export function QuestionList({
   questions,
   selections,
   onSelect,
-  onSubmit,
+  onSubmit = () => {},
   showJapanese = false,
   submitLabel = '回答を確定する',
   disabled = false,
+  showSubmitButton = false,
 }: QuestionListProps) {
   const listId = useId();
 
@@ -65,11 +67,13 @@ export function QuestionList({
           </div>
         ))}
       </div>
-      <div className="flex justify-end">
-        <Button onClick={onSubmit} disabled={disabled}>
-          {submitLabel}
-        </Button>
-      </div>
+      {showSubmitButton ? (
+        <div className="flex justify-end">
+          <Button onClick={onSubmit} disabled={disabled}>
+            {submitLabel}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }
