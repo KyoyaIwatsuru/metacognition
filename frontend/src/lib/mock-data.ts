@@ -153,13 +153,16 @@ const basePassage: Passage = {
   questions: [question1, question2],
 };
 
-// 類題は同じ本文・設問をコピーしIDだけ変えた簡易モック
+// 類題は同じ本文・設問をコピーしIDだけ変えた簡易モック（2問構成）
 const analogs = [1, 2, 3].map((n) => ({
   id: `tr_01_an${n}`,
   title: `Analog ${n}`,
   paragraphsEn: [enParagraph1, enParagraph2],
   paragraphsJa: [jaParagraph1, jaParagraph2],
-  question: { ...question1, id: `tr_01_an${n}_q1` },
+  questions: [
+    { ...question1, id: `tr_01_an${n}_q1` },
+    { ...question2, id: `tr_01_an${n}_q2` },
+  ],
 }));
 
 export const mockTrainingPassages: Passage[] = [

@@ -8,7 +8,6 @@ type AppShellProps = {
   rightSlot?: ReactNode;
   leftSlot?: ReactNode;
   showHeader?: boolean;
-  showEyeTrackerToggle?: boolean;
 };
 
 /**
@@ -20,7 +19,6 @@ export function AppShell({
   rightSlot,
   leftSlot,
   showHeader = true,
-  showEyeTrackerToggle = false,
 }: AppShellProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">

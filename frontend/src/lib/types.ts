@@ -23,7 +23,7 @@ export type Analog = {
   title?: string;
   paragraphsEn: string[];
   paragraphsJa?: string[];
-  question: Question;
+  questions: Question[];
 };
 
 export type Passage = {

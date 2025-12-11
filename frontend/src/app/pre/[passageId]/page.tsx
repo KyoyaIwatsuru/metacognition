@@ -1,48 +1,32 @@
-import { AppShell } from '@/components/layout/app-shell';
-import { Button } from '@/components/ui/button';
-import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { PassageQuestionClient } from '@/components/page-views/passage-question-client';
+import { mockPrePassages } from '@/lib/mock-data';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ passageId: 'sample' }];
+  return [{ passageId: 'pre_01' }];
 }
 
 type PageProps = {
-  params: Promise<{ passageId: string }>;
+  params: { passageId: string };
 };
 
 export default async function PrePassagePage({ params }: PageProps) {
   const { passageId } = await params;
+  const passage = mockPrePassages.find((p) => p.id === passageId);
+
+  if (!passage) {
+    return null;
+  }
 
   return (
-    <AppShell
-      leftSlot={
-        <>
-          <h1 className="text-2xl font-semibold">Pre-test Passage (placeholder)</h1>
-          <p className="text-sm text-zinc-600">passage: {passageId}</p>
-          <div className="rounded-md border bg-card p-4 text-sm text-muted-foreground">
-            本文プレースホルダー（英語のみ表示）
-          </div>
-        </>
-      }
-      rightSlot={
-        <div className="space-y-3">
-          <div className="text-sm text-muted-foreground">設問エリア（ラジオ・タイマーを置く）</div>
-          <div className="rounded-md border bg-card p-4 text-sm text-muted-foreground">
-            TODO: 設問リスト・タイマー・回答確定・次の文章へ
-          </div>
-        </div>
-      }
-      footer={
-        <ConfirmDialog
-          title="次の文章に進みます"
-          description="戻ることはできません。よろしいですか？"
-          confirmLabel="進む"
-        >
-          <Button>次へ</Button>
-        </ConfirmDialog>
-      }
+    <PassageQuestionClient
+      passage={passage}
+      showJapanese={false}
+      confirmTitle="次の文章に進みます"
+      confirmDescription="戻ることはできません。よろしいですか？"
+      confirmLabel="進む"
+      submitLabel="回答を確定する"
     />
   );
 }
