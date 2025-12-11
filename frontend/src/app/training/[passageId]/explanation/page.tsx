@@ -1,4 +1,8 @@
-﻿export const dynamicParams = false;
+import { AppShell } from '@/components/layout/app-shell';
+import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return [{ passageId: 'sample' }];
@@ -12,12 +16,35 @@ export default async function TrainingExplanationPage({ params }: PageProps) {
   const { passageId } = await params;
 
   return (
-    <main className="space-y-3 p-8">
-      <h1 className="text-2xl font-semibold">Training Explanation (placeholder)</h1>
-      <p className="text-sm text-zinc-600">passage: {passageId}</p>
-      <p className="text-sm text-zinc-600">
-        TODO: 英日の設問/選択肢、回答/正答ハイライト、A/B解説差分。
-      </p>
-    </main>
+    <AppShell
+      leftSlot={
+        <>
+          <h1 className="text-2xl font-semibold">Training Explanation (placeholder)</h1>
+          <p className="text-sm text-zinc-600">passage: {passageId}</p>
+          <div className="rounded-md border bg-card p-4 text-sm text-muted-foreground">
+            本文プレースホルダー（英語のみ表示）
+          </div>
+        </>
+      }
+      rightSlot={
+        <div className="space-y-3">
+          <div className="text-sm text-muted-foreground">
+            解説エリア（英日表示、回答ハイライト）
+          </div>
+          <div className="rounded-md border bg-card p-4 text-sm text-muted-foreground">
+            TODO: 解説文、回答/正答ハイライト、A/B差分
+          </div>
+        </div>
+      }
+      footer={
+        <ConfirmDialog
+          title="次へ進みます"
+          description="戻ることはできません。よろしいですか？"
+          confirmLabel="次へ"
+        >
+          <Button>次へ</Button>
+        </ConfirmDialog>
+      }
+    />
   );
 }
