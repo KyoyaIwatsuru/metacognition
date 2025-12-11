@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
+import { logEvent } from '@/lib/logger';
 import { useAppStore } from '@/lib/store';
 import type { Analog, Passage } from '@/lib/types';
 
@@ -22,6 +23,13 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
   const confirmLabel = nextAnalog ? '次の類題へ' : 'Reflection 2 へ';
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
+
+  useEffect(() => {
+    logEvent({ event: 'analog_explanation_open', passage_id: passage.id, analog_id: analog.id });
+    return () => {
+      logEvent({ event: 'analog_explanation_exit', passage_id: passage.id, analog_id: analog.id });
+    };
+  }, [analog.id, passage.id]);
 
   return (
     <AppShell
@@ -87,6 +95,13 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
           description="戻ることはできません。よろしいですか？"
           confirmLabel={confirmLabel}
           triggerLabel={confirmLabel}
+          onConfirm={() =>
+            logEvent({
+              event: 'analog_explanation_exit',
+              passage_id: passage.id,
+              analog_id: analog.id,
+            })
+          }
         />
       }
     />

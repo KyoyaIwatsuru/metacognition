@@ -11,6 +11,7 @@ type ConfirmNavigateButtonProps = {
   description?: string;
   confirmLabel?: string;
   triggerLabel?: string;
+  onConfirm?: () => void;
 };
 
 /**
@@ -22,11 +23,13 @@ export function ConfirmNavigateButton({
   description,
   confirmLabel = '次へ',
   triggerLabel,
+  onConfirm,
 }: ConfirmNavigateButtonProps) {
   const router = useRouter();
   const handleConfirm = useCallback(() => {
+    onConfirm?.();
     router.push(href);
-  }, [href, router]);
+  }, [href, onConfirm, router]);
 
   return (
     <ConfirmDialog

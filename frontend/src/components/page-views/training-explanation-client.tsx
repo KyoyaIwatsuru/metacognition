@@ -1,47 +1,41 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { logEvent } from '@/lib/logger';
 import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
 
-type MetacogFeedbackClientProps = {
+type TrainingExplanationClientProps = {
   passage: Passage;
 };
 
-export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
+export function TrainingExplanationClient({ passage }: TrainingExplanationClientProps) {
   const group = useAppStore((s) => s.group);
-  const router = useRouter();
 
   const firstAnalogId = passage.analogs?.[0]?.id;
-  const analogHref = firstAnalogId
-    ? `/training/${passage.id}/analog/${firstAnalogId}`
-    : `/training/${passage.id}/reflection2`;
-
-  useEffect(() => {
-    if (group !== 'B') {
-      logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
-      router.replace(analogHref);
-    }
-  }, [analogHref, group, passage.id, router]);
-
-  useEffect(() => {
-    if (group === 'B') {
-      logEvent({ event: 'metacog_feedback_open', passage_id: passage.id });
-      return () => logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
-    }
-  }, [group, passage.id]);
+  const nextHref =
+    group === 'B'
+      ? `/training/${passage.id}/metacog-feedback`
+      : firstAnalogId
+        ? `/training/${passage.id}/analog/${firstAnalogId}`
+        : `/training/${passage.id}/reflection2`;
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
+
+  useEffect(() => {
+    logEvent({ event: 'training_explanation_open', passage_id: passage.id });
+    return () => {
+      logEvent({ event: 'training_explanation_exit', passage_id: passage.id });
+    };
+  }, [passage.id]);
 
   return (
     <AppShell
       leftSlot={
         <>
-          <h1 className="text-2xl font-semibold">Training メタ認知フィードバック</h1>
+          <h1 className="text-2xl font-semibold">Training Explanation</h1>
           <p className="text-sm text-zinc-600">passage: {passage.id}</p>
           <div className="space-y-3 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line">
             {paragraphs.map((p, idx) => (
@@ -95,11 +89,12 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
       }
       footer={
         <ConfirmNavigateButton
-          href={analogHref}
-          title="類題へ進みます"
+          href={nextHref}
+          title="次へ進みます"
           description="戻ることはできません。よろしいですか？"
-          confirmLabel="類題へ"
-          onConfirm={() => logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id })}
+          confirmLabel={group === 'B' ? 'メタ認知へ' : '類題へ'}
+          triggerLabel={group === 'B' ? 'メタ認知へ' : '類題へ'}
+          onConfirm={() => logEvent({ event: 'training_explanation_exit', passage_id: passage.id })}
         />
       }
     />

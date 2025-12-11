@@ -48,6 +48,9 @@ export function TrainingReflectionClient({
 
   useEffect(() => {
     logEvent({ event: `${eventPrefix}_open`, passage_id: passage.id });
+    return () => {
+      logEvent({ event: `${eventPrefix}_exit`, passage_id: passage.id });
+    };
   }, [eventPrefix, passage.id]);
 
   const handleTypingStart = () => {
