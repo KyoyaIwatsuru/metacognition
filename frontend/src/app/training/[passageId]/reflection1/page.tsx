@@ -1,4 +1,4 @@
-import { TrainingReflectionClient } from '@/components/page-views/training-reflection-client';
+import { TrainingReflection1View } from '@/components/page-views/training-reflection1-view';
 import { mockTrainingPassages } from '@/lib/mock-data';
 
 export const dynamicParams = false;
@@ -17,17 +17,5 @@ export default async function TrainingReflection1Page({ params }: PageProps) {
 
   if (!passage) return null;
 
-  return (
-    <TrainingReflectionClient
-      passage={passage}
-      questions={passage.questions}
-      title="Training Reflection 1"
-      confirmTitle="類題へ進みます"
-      confirmDescription="次に進むと戻れません。よろしいですか？"
-      confirmLabel="類題へ"
-      confirmHref={`/training/${passage.id}/analog/${passage.analogs?.[0]?.id ?? 'tr_01_an1'}`}
-      submitLabel="送信"
-      eventPrefix="reflection1"
-    />
-  );
+  return <TrainingReflection1View passage={passage} />;
 }

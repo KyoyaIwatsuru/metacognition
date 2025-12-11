@@ -4,7 +4,6 @@ import { useEffect, useMemo } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { logEvent } from '@/lib/logger';
-import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
 
 type TrainingExplanationClientProps = {
@@ -12,15 +11,7 @@ type TrainingExplanationClientProps = {
 };
 
 export function TrainingExplanationClient({ passage }: TrainingExplanationClientProps) {
-  const group = useAppStore((s) => s.group);
-
-  const firstAnalogId = passage.analogs?.[0]?.id;
-  const nextHref =
-    group === 'B'
-      ? `/training/${passage.id}/metacog-feedback`
-      : firstAnalogId
-        ? `/training/${passage.id}/analog/${firstAnalogId}`
-        : `/training/${passage.id}/reflection2`;
+  const nextHref = `/training/${passage.id}/reflection1`;
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
 
@@ -76,12 +67,6 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                     {q.explanationGeneralJa}
                   </p>
                 ) : null}
-                {group === 'B' && q.metacogFeedbackJa ? (
-                  <p>
-                    <span className="font-semibold text-foreground">メタ認知フィードバック:</span>{' '}
-                    {q.metacogFeedbackJa}
-                  </p>
-                ) : null}
               </div>
             </div>
           ))}
@@ -92,8 +77,8 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           href={nextHref}
           title="次へ進みます"
           description="戻ることはできません。よろしいですか？"
-          confirmLabel={group === 'B' ? 'メタ認知へ' : '類題へ'}
-          triggerLabel={group === 'B' ? 'メタ認知へ' : '類題へ'}
+          confirmLabel="振り返りへ"
+          triggerLabel="振り返りへ"
           onConfirm={() => logEvent({ event: 'training_explanation_exit', passage_id: passage.id })}
         />
       }

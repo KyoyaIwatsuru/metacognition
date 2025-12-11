@@ -153,6 +153,9 @@ const basePassage: Passage = {
   questions: [question1, question2],
 };
 
+// Pre/Post 用: 同じ設問を使い回して 3 問に水増し
+const prePostQuestions = [question1, question2, { ...question1, id: 'q3' }];
+
 // 類題は同じ本文・設問をコピーしIDだけ変えた簡易モック（2問構成）
 const analogs = [1, 2, 3].map((n) => ({
   id: `tr_01_an${n}`,
@@ -172,20 +175,18 @@ export const mockTrainingPassages: Passage[] = [
   },
 ];
 
-export const mockPrePassages: Passage[] = [
-  {
-    id: 'pre_01',
-    title: basePassage.title,
-    paragraphsEn: basePassage.paragraphsEn,
-    questions: [question1, question2],
-  },
-];
+const duplicatePassages = (prefix: 'pre' | 'post', count: number): Passage[] => {
+  return Array.from({ length: count }, (_, idx) => {
+    const num = (idx + 1).toString().padStart(2, '0');
+    return {
+      id: `${prefix}_${num}`,
+      title: basePassage.title,
+      paragraphsEn: basePassage.paragraphsEn,
+      questions: prePostQuestions,
+    };
+  });
+};
 
-export const mockPostPassages: Passage[] = [
-  {
-    id: 'post_01',
-    title: basePassage.title,
-    paragraphsEn: basePassage.paragraphsEn,
-    questions: [question1, question2],
-  },
-];
+export const mockPrePassages: Passage[] = duplicatePassages('pre', 3);
+
+export const mockPostPassages: Passage[] = duplicatePassages('post', 3);

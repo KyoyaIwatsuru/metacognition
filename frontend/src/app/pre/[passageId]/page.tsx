@@ -4,7 +4,7 @@ import { mockPrePassages } from '@/lib/mock-data';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ passageId: 'pre_01' }];
+  return mockPrePassages.map((p) => ({ passageId: p.id }));
 }
 
 type PageProps = {
@@ -19,13 +19,19 @@ export default async function PrePassagePage({ params }: PageProps) {
     return null;
   }
 
+  const currentIndex = mockPrePassages.findIndex((p) => p.id === passageId);
+  const nextPassage = currentIndex >= 0 ? mockPrePassages[currentIndex + 1] : undefined;
+  const confirmHref = nextPassage ? `/pre/${nextPassage.id}` : '/pre/complete';
+  const confirmLabel = nextPassage ? '次の文章へ' : '完了へ';
+
   return (
     <PassageQuestionClient
       passage={passage}
       showJapanese={false}
       confirmTitle="次の文章に進みます"
       confirmDescription="戻ることはできません。よろしいですか？"
-      confirmLabel="進む"
+      confirmLabel={confirmLabel}
+      confirmHref={confirmHref}
       submitLabel="回答を確定する"
     />
   );

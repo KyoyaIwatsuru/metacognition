@@ -1,43 +1,14 @@
 'use client';
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { HeaderBar } from '@/components/layout/header-bar';
+import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
-import { connectEyeTracker, disconnectEyeTracker } from '@/lib/eyetracker';
+import { connectEyeTracker, disconnectEyeTracker, startRecording } from '@/lib/eyetracker';
+import { logEvent } from '@/lib/logger';
 import { toast } from 'sonner';
 
-const sections = [
-  {
-    title: 'Pre-test',
-    links: [
-      { href: '/pre/intro', label: 'Pre-test Intro' },
-      { href: '/pre/pre_01', label: 'Pre-test Passage (sample)' },
-      { href: '/pre/complete', label: 'Pre-test Complete' },
-    ],
-  },
-  {
-    title: 'Training',
-    links: [
-      { href: '/training/intro', label: 'Training Intro' },
-      { href: '/training/tr_01', label: 'Training Passage (sample)' },
-      { href: '/training/tr_01/explanation', label: 'Training Explanation' },
-      { href: '/training/tr_01/reflection1', label: 'Training Reflection 1' },
-      { href: '/training/tr_01/metacog-feedback', label: 'Training Metacog Feedback (B only)' },
-      { href: '/training/tr_01/analog/tr_01_an1', label: 'Analog Question (sample)' },
-      { href: '/training/tr_01/analog/tr_01_an1/explanation', label: 'Analog Explanation' },
-      { href: '/training/tr_01/reflection2', label: 'Training Reflection 2' },
-      { href: '/training/complete', label: 'Training Complete' },
-    ],
-  },
-  {
-    title: 'Post-test',
-    links: [
-      { href: '/post/intro', label: 'Post-test Intro' },
-      { href: '/post/post_01', label: 'Post-test Passage (sample)' },
-      { href: '/post/complete', label: 'Post-test Complete' },
-    ],
-  },
-];
+const participants = ['P001', 'P002', 'P003', 'P004'];
 
 function HomeHeader() {
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
@@ -74,33 +45,114 @@ function HomeHeader() {
 }
 
 export default function HomePage() {
+  const router = useRouter();
+  const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
+  const participantId = useAppStore((s) => s.participantId);
+  const group = useAppStore((s) => s.group);
+  const setParticipant = useAppStore((s) => s.setParticipant);
+  const setGroup = useAppStore((s) => s.setGroup);
+  const setPhase = useAppStore((s) => s.setPhase);
+
+  const validate = () => {
+    if (!participantId) {
+      toast.error('参加者IDを選択してください');
+      return false;
+    }
+    if (!group) {
+      toast.error('グループを選択してください');
+      return false;
+    }
+    if (eyeTrackerStatus !== 'connected') {
+      toast.error('Eye tracker を接続してください');
+      return false;
+    }
+    return true;
+  };
+
+  const handleStart = async (phase: 'pre' | 'training' | 'post') => {
+    if (!validate()) return;
+    setPhase(phase);
+    const res = await startRecording();
+    if (!res.ok) {
+      toast.error('recording/start に失敗しました');
+      return;
+    }
+    logEvent({ event: 'phase_start', phase });
+    if (phase === 'pre') router.push('/pre/intro');
+    else if (phase === 'training') router.push('/training/intro');
+    else router.push('/post/intro');
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <HomeHeader />
       <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-8 p-8">
         <header className="space-y-1">
-          <h1 className="text-3xl font-semibold">metacognition (placeholder)</h1>
-          <p className="text-sm text-zinc-600">
-            実装中の各画面へのナビゲーション用プレースホルダーです。
-          </p>
+          <h1 className="text-3xl font-semibold">metacognition</h1>
+          <p className="text-sm text-zinc-600">参加者設定とフェーズ開始を行ってください。</p>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {sections.map((section) => (
-            <section key={section.title} className="rounded-lg border p-4 shadow-sm">
-              <h2 className="text-lg font-semibold">{section.title}</h2>
-              <ul className="mt-3 space-y-2 text-sm">
-                {section.links.map((link) => (
-                  <li key={link.href}>
-                    <Link className="text-blue-600 underline" href={link.href}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
+        <section className="rounded-lg border p-4 shadow-sm space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">参加者 ID</label>
+            <select
+              className="w-full rounded-md border px-3 py-2 text-sm"
+              value={participantId ?? ''}
+              onChange={(e) => setParticipant(e.target.value || undefined)}
+            >
+              <option value="">選択してください</option>
+              {participants.map((id) => (
+                <option key={id} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">グループ</label>
+            <div className="flex gap-6 text-sm">
+              <label className="inline-flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="group"
+                  value="A"
+                  checked={group === 'A'}
+                  onChange={() => setGroup('A')}
+                />
+                <span>A（一般解説のみ）</span>
+              </label>
+              <label className="inline-flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="group"
+                  value="B"
+                  checked={group === 'B'}
+                  onChange={() => setGroup('B')}
+                />
+                <span>B（一般解説＋メタ認知フィードバック）</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-sm text-muted-foreground">
+              Eye tracker 状態: {eyeTrackerStatus === 'connected' ? '接続中' : '未接続'}
+            </p>
+          </div>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-3">
+          <Button variant="default" onClick={() => handleStart('pre')}>
+            Pre-test を開始
+          </Button>
+          <Button variant="default" onClick={() => handleStart('training')}>
+            Training を開始
+          </Button>
+          <Button variant="default" onClick={() => handleStart('post')}>
+            Post-test を開始
+          </Button>
+        </section>
       </main>
     </div>
   );
