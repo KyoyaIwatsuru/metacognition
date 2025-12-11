@@ -24,7 +24,8 @@ export default async function TrainingReflection2Page({ params }: PageProps) {
       title="Training Reflection 2"
       confirmTitle="次へ進みます"
       confirmDescription="戻ることはできません。よろしいですか？"
-      confirmLabel="次へ"
+      confirmLabel="完了へ"
+      confirmHref="/training/complete"
       submitLabel="送信"
       eventPrefix="reflection2"
     />

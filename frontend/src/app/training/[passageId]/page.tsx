@@ -25,7 +25,8 @@ export default async function TrainingPassagePage({ params }: PageProps) {
       showJapanese
       confirmTitle="回答を確定します"
       confirmDescription="次に進むと戻れません。よろしいですか？"
-      confirmLabel="確定して進む"
+      confirmLabel="解説へ"
+      confirmHref={`/training/${passage.id}/explanation`}
       submitLabel="回答を確定する"
     />
   );

@@ -28,9 +28,10 @@ export default async function AnalogQuestionPage({ params }: PageProps) {
     <AnalogQuestionClient
       passageId={passage.id}
       analog={analog}
-      confirmTitle="次の類題へ進みます"
+      confirmTitle="解説へ進みます"
       confirmDescription="戻ることはできません。よろしいですか？"
-      confirmLabel="進む"
+      confirmLabel="解説へ"
+      confirmHref={`/training/${passage.id}/analog/${analog.id}/explanation`}
       submitLabel="回答を確定する"
     />
   );

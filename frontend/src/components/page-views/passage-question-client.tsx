@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { QuestionList } from '@/components/questions/question-list';
 import { Timer } from '@/components/ui/timer';
 import { logEvent } from '@/lib/logger';
@@ -17,6 +18,7 @@ type PassageQuestionClientProps = {
   confirmDescription: string;
   confirmLabel: string;
   submitLabel?: string;
+  confirmHref?: string;
 };
 
 const DEFAULT_TIME_MS = 5 * 60 * 1000;
@@ -29,6 +31,7 @@ export function PassageQuestionClient({
   confirmDescription,
   confirmLabel,
   submitLabel,
+  confirmHref,
 }: PassageQuestionClientProps) {
   const initialSelections = useMemo(
     () => Object.fromEntries(passage.questions.map((q) => [q.id, undefined])),
@@ -95,13 +98,23 @@ export function PassageQuestionClient({
         </div>
       }
       footer={
-        <ConfirmDialog
-          title={confirmTitle}
-          description={confirmDescription}
-          confirmLabel={confirmLabel}
-        >
-          <Button>{confirmLabel}</Button>
-        </ConfirmDialog>
+        confirmHref ? (
+          <ConfirmNavigateButton
+            href={confirmHref}
+            title={confirmTitle}
+            description={confirmDescription}
+            confirmLabel={confirmLabel}
+            triggerLabel={confirmLabel}
+          />
+        ) : (
+          <ConfirmDialog
+            title={confirmTitle}
+            description={confirmDescription}
+            confirmLabel={confirmLabel}
+          >
+            <Button>{confirmLabel}</Button>
+          </ConfirmDialog>
+        )
       }
     />
   );

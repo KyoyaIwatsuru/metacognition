@@ -24,7 +24,8 @@ export default async function TrainingReflection1Page({ params }: PageProps) {
       title="Training Reflection 1"
       confirmTitle="類題へ進みます"
       confirmDescription="次に進むと戻れません。よろしいですか？"
-      confirmLabel="進む"
+      confirmLabel="類題へ"
+      confirmHref={`/training/${passage.id}/analog/${passage.analogs?.[0]?.id ?? 'tr_01_an1'}`}
       submitLabel="送信"
       eventPrefix="reflection1"
     />

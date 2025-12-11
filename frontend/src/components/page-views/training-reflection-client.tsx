@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { ReflectionForm } from '@/components/reflection/reflection-form';
 import { logEvent } from '@/lib/logger';
 import type { Passage, Question } from '@/lib/types';
@@ -16,6 +17,7 @@ type TrainingReflectionClientProps = {
   confirmDescription: string;
   confirmLabel: string;
   submitLabel?: string;
+  confirmHref?: string;
   eventPrefix: 'reflection1' | 'reflection2';
 };
 
@@ -38,6 +40,7 @@ export function TrainingReflectionClient({
   confirmDescription,
   confirmLabel,
   submitLabel = '送信',
+  confirmHref,
   eventPrefix,
 }: TrainingReflectionClientProps) {
   const [value, setValue] = useState('');
@@ -113,13 +116,23 @@ export function TrainingReflectionClient({
         </div>
       }
       footer={
-        <ConfirmDialog
-          title={confirmTitle}
-          description={confirmDescription}
-          confirmLabel={confirmLabel}
-        >
-          <Button>{confirmLabel}</Button>
-        </ConfirmDialog>
+        confirmHref ? (
+          <ConfirmNavigateButton
+            href={confirmHref}
+            title={confirmTitle}
+            description={confirmDescription}
+            confirmLabel={confirmLabel}
+            triggerLabel={confirmLabel}
+          />
+        ) : (
+          <ConfirmDialog
+            title={confirmTitle}
+            description={confirmDescription}
+            confirmLabel={confirmLabel}
+          >
+            <Button>{confirmLabel}</Button>
+          </ConfirmDialog>
+        )
       }
     />
   );
