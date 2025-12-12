@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
@@ -14,7 +14,10 @@ type MetacogFeedbackClientProps = {
 
 export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   const group = useAppStore((s) => s.group);
+  const trainingResult = useAppStore((s) => s.trainingResults[passage.id]);
   const router = useRouter();
+  const loggedOpenRef = useRef(false);
+  const loggedExitRef = useRef(false);
 
   const firstAnalogId = passage.analogs?.[0]?.id;
   const analogHref = firstAnalogId
@@ -22,16 +25,28 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
     : `/training/${passage.id}/reflection2`;
 
   useEffect(() => {
+    if (trainingResult?.allCorrect) {
+      router.replace('/training/complete');
+      return;
+    }
     if (group !== 'B') {
       logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
       router.replace(analogHref);
     }
-  }, [analogHref, group, passage.id, router]);
+  }, [analogHref, group, passage.id, router, trainingResult?.allCorrect]);
 
   useEffect(() => {
     if (group === 'B') {
-      logEvent({ event: 'metacog_feedback_open', passage_id: passage.id });
-      return () => logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
+      if (!loggedOpenRef.current) {
+        logEvent({ event: 'metacog_feedback_open', passage_id: passage.id });
+        loggedOpenRef.current = true;
+      }
+      return () => {
+        if (!loggedExitRef.current) {
+          logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
+          loggedExitRef.current = true;
+        }
+      };
     }
   }, [group, passage.id]);
 
@@ -99,7 +114,6 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
           title="類題へ進みます"
           description="戻ることはできません。よろしいですか？"
           confirmLabel="類題へ"
-          onConfirm={() => logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id })}
         />
       }
     />

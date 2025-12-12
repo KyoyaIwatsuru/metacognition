@@ -1,5 +1,6 @@
 import { AnalogQuestionClient } from '@/components/page-views/analog-question-client';
 import { mockTrainingPassages } from '@/lib/mock-data';
+import { useAppStore } from '@/lib/store';
 
 export const dynamicParams = false;
 
@@ -21,6 +22,11 @@ export default async function AnalogQuestionPage({ params }: PageProps) {
   const analog = passage?.analogs?.find((a) => a.id === analogId);
 
   if (!passage || !analog) {
+    return null;
+  }
+
+  const trainingResult = useAppStore.getState().trainingResults[passage.id];
+  if (trainingResult?.allCorrect) {
     return null;
   }
 

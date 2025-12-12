@@ -59,11 +59,15 @@ export function AnalogQuestionClient({
   };
 
   const handleSubmit = () => {
+    const unanswered = Object.entries(selections)
+      .filter(([, choice]) => !choice)
+      .map(([q]) => q);
     logEvent({
       event: 'analog_answer_submit',
       passage_id: passageId,
       analog_id: analog.id,
       answers: selections,
+      unanswered,
     });
   };
 
@@ -104,7 +108,7 @@ export function AnalogQuestionClient({
             onSelect={handleSelect}
             onSubmit={handleSubmit}
             showSubmitButton={false}
-            showJapanese
+            showJapanese={false}
             submitLabel={submitLabel}
             disabled={timedOut}
           />
@@ -118,12 +122,14 @@ export function AnalogQuestionClient({
             description={confirmDescription}
             confirmLabel={confirmLabel}
             triggerLabel={confirmLabel}
+            onConfirm={handleSubmit}
           />
         ) : (
           <ConfirmDialog
             title={confirmTitle}
             description={confirmDescription}
             confirmLabel={confirmLabel}
+            onConfirm={handleSubmit}
           >
             <Button>{confirmLabel}</Button>
           </ConfirmDialog>

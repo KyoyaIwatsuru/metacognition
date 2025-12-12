@@ -66,6 +66,7 @@ export function TrainingReflectionClient({
       passage_id: passage.id,
       content: value,
     });
+    // 入力が空でも送信扱いとし、再送を防ぐため started フラグだけ維持
   };
 
   return (
@@ -115,6 +116,7 @@ export function TrainingReflectionClient({
             onSubmit={handleSubmit}
             onTypingStart={handleTypingStart}
             submitLabel={submitLabel}
+            showSubmitButton={false}
           />
         </div>
       }
@@ -126,12 +128,14 @@ export function TrainingReflectionClient({
             description={confirmDescription}
             confirmLabel={confirmLabel}
             triggerLabel={confirmLabel}
+            onConfirm={handleSubmit}
           />
         ) : (
           <ConfirmDialog
             title={confirmTitle}
             description={confirmDescription}
             confirmLabel={confirmLabel}
+            onConfirm={handleSubmit}
           >
             <Button>{confirmLabel}</Button>
           </ConfirmDialog>

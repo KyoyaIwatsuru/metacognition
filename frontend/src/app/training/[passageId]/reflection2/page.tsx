@@ -1,5 +1,6 @@
 import { TrainingReflectionClient } from '@/components/page-views/training-reflection-client';
 import { mockTrainingPassages } from '@/lib/mock-data';
+import { useAppStore } from '@/lib/store';
 
 export const dynamicParams = false;
 
@@ -14,8 +15,9 @@ type PageProps = {
 export default async function TrainingReflection2Page({ params }: PageProps) {
   const { passageId } = await params;
   const passage = mockTrainingPassages.find((p) => p.id === passageId);
+  const trainingResult = useAppStore.getState().trainingResults[passageId];
 
-  if (!passage) return null;
+  if (!passage || trainingResult?.allCorrect) return null;
 
   return (
     <TrainingReflectionClient

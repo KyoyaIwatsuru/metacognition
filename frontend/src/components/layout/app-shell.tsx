@@ -3,7 +3,7 @@ import { HeaderContainer } from '@/components/layout/header-container';
 import { ActionBar } from '@/components/layout/action-bar';
 
 type AppShellProps = {
-  children: ReactNode;
+  children?: ReactNode;
   footer?: ReactNode;
   rightSlot?: ReactNode;
   leftSlot?: ReactNode;
@@ -15,7 +15,7 @@ type AppShellProps = {
  * Common page shell: header on top, 2-column main area, optional footer.
  */
 export function AppShell({
-  children,
+  children = null,
   footer,
   rightSlot,
   leftSlot,

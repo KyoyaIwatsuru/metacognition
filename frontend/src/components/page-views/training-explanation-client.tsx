@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { logEvent } from '@/lib/logger';
+import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
 
 type TrainingExplanationClientProps = {
@@ -11,14 +12,27 @@ type TrainingExplanationClientProps = {
 };
 
 export function TrainingExplanationClient({ passage }: TrainingExplanationClientProps) {
-  const nextHref = `/training/${passage.id}/reflection1`;
+  const trainingResult = useAppStore(
+    (s) => s.trainingResults[passage.id] ?? { allCorrect: false, answers: {} }
+  );
+  const allCorrect = trainingResult.allCorrect;
+  const nextHref = allCorrect ? '/training/complete' : `/training/${passage.id}/reflection1`;
+  const confirmLabel = allCorrect ? '完了へ' : '振り返りへ';
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
+  const loggedOpenRef = useRef(false);
+  const loggedExitRef = useRef(false);
 
   useEffect(() => {
-    logEvent({ event: 'training_explanation_open', passage_id: passage.id });
+    if (!loggedOpenRef.current) {
+      logEvent({ event: 'training_explanation_open', passage_id: passage.id });
+      loggedOpenRef.current = true;
+    }
     return () => {
-      logEvent({ event: 'training_explanation_exit', passage_id: passage.id });
+      if (!loggedExitRef.current) {
+        logEvent({ event: 'training_explanation_exit', passage_id: passage.id });
+        loggedExitRef.current = true;
+      }
     };
   }, [passage.id]);
 
@@ -77,9 +91,8 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           href={nextHref}
           title="次へ進みます"
           description="戻ることはできません。よろしいですか？"
-          confirmLabel="振り返りへ"
-          triggerLabel="振り返りへ"
-          onConfirm={() => logEvent({ event: 'training_explanation_exit', passage_id: passage.id })}
+          confirmLabel={confirmLabel}
+          triggerLabel={confirmLabel}
         />
       }
     />

@@ -1,4 +1,4 @@
-import { PassageQuestionClient } from '@/components/page-views/passage-question-client';
+import { TrainingQuestionClient } from '@/components/page-views/training-question-client';
 import { mockTrainingPassages } from '@/lib/mock-data';
 
 export const dynamicParams = false;
@@ -19,15 +19,5 @@ export default async function TrainingPassagePage({ params }: PageProps) {
     return null;
   }
 
-  return (
-    <PassageQuestionClient
-      passage={passage}
-      showJapanese
-      confirmTitle="回答を確定します"
-      confirmDescription="次に進むと戻れません。よろしいですか？"
-      confirmLabel="解説へ"
-      confirmHref={`/training/${passage.id}/explanation`}
-      submitLabel="回答を確定する"
-    />
-  );
+  return <TrainingQuestionClient passage={passage} />;
 }

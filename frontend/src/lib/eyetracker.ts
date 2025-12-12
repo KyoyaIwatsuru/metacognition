@@ -1,9 +1,19 @@
 import { logEvent } from '@/lib/logger';
 import { useAppStore } from '@/lib/store';
 
-const BASE = 'http://10.20.0.255:8765';
+const BASE = process.env.NEXT_PUBLIC_EYETRACKER_BASE || 'http://localhost:8765';
 
 type FetchResult = { ok: true; body: string; data?: unknown } | { ok: false; error: string };
+
+function extractMessage(data: unknown): string | null {
+  if (typeof data === 'object' && data !== null) {
+    const msg = (data as Record<string, unknown>).message;
+    if (typeof msg === 'string') {
+      return msg;
+    }
+  }
+  return null;
+}
 
 async function get(path: string): Promise<FetchResult> {
   const controller = new AbortController();
@@ -18,7 +28,7 @@ async function get(path: string): Promise<FetchResult> {
       /* ignore parse error */
     }
     if (!res.ok) {
-      const message = data?.message ?? text ?? 'unknown error';
+      const message = (extractMessage(data) ?? text) || 'unknown error';
       return { ok: false, error: `HTTP ${res.status}: ${message}` };
     }
     return { ok: true, body: text, data };
@@ -87,7 +97,6 @@ export async function disconnectEyeTracker() {
 export async function startRecording() {
   const res = await get('/recording/start');
   if (res.ok) {
-    logEvent({ event: 'eyetracker_recording_start' });
     return { ok: true };
   }
   return { ok: false, error: res.error };

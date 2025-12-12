@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -7,7 +8,7 @@ type HeaderBarProps = {
   eyeTrackerLabel?: string;
   eyeTrackerStatus?: 'connected' | 'disconnected' | 'loading';
   showToggle?: boolean;
-  rightSlot?: React.ReactNode;
+  rightSlot?: ReactNode;
 };
 
 /**

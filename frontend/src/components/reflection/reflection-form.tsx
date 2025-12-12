@@ -12,6 +12,7 @@ type ReflectionFormProps = {
   onTypingStart?: () => void;
   disabled?: boolean;
   submitLabel?: string;
+  showSubmitButton?: boolean;
 };
 
 export function ReflectionForm({
@@ -22,6 +23,7 @@ export function ReflectionForm({
   onTypingStart,
   disabled = false,
   submitLabel = '送信',
+  showSubmitButton = true,
 }: ReflectionFormProps) {
   const startedRef = useRef(false);
 
@@ -43,11 +45,13 @@ export function ReflectionForm({
         rows={5}
         placeholder="自由に記述してください"
       />
-      <div className="flex justify-end">
-        <Button onClick={onSubmit} disabled={disabled}>
-          {submitLabel}
-        </Button>
-      </div>
+      {showSubmitButton ? (
+        <div className="flex justify-end">
+          <Button onClick={onSubmit} disabled={disabled}>
+            {submitLabel}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }

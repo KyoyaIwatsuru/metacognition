@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 import { connectEyeTracker, disconnectEyeTracker, startRecording } from '@/lib/eyetracker';
 import { logEvent } from '@/lib/logger';
+import { resetLogPath } from '@/lib/tauri-log-bridge';
 import { toast } from 'sonner';
 
 const participants = ['P001', 'P002', 'P003', 'P004'];
@@ -74,9 +75,13 @@ export default function HomePage() {
     setPhase(phase);
     const res = await startRecording();
     if (!res.ok) {
+      // 録画開始失敗時はフェーズを元に戻し、ログファイルパスもリセット
+      setPhase(undefined);
+      resetLogPath();
       toast.error(`recording/start に失敗しました: ${res.error ?? '不明なエラー'}`);
       return;
     }
+    logEvent({ event: 'eyetracker_recording_start' });
     logEvent({ event: 'phase_start', phase });
     if (phase === 'pre') router.push('/pre/intro');
     else if (phase === 'training') router.push('/training/intro');

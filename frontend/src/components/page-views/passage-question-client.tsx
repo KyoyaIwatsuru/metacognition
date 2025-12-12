@@ -19,6 +19,7 @@ type PassageQuestionClientProps = {
   confirmLabel: string;
   submitLabel?: string;
   confirmHref?: string;
+  onSubmit?: (answers: Record<string, string | undefined>) => void;
 };
 
 const DEFAULT_TIME_MS = 5 * 60 * 1000;
@@ -32,6 +33,7 @@ export function PassageQuestionClient({
   confirmLabel,
   submitLabel,
   confirmHref,
+  onSubmit,
 }: PassageQuestionClientProps) {
   const initialSelections = useMemo(
     () => Object.fromEntries(passage.questions.map((q) => [q.id, undefined])),
@@ -58,11 +60,16 @@ export function PassageQuestionClient({
   };
 
   const handleSubmit = () => {
+    const unanswered = Object.entries(selections)
+      .filter(([, choice]) => !choice)
+      .map(([q]) => q);
     logEvent({
       event: 'answer_submit',
       passage_id: passage.id,
       answers: selections,
+      unanswered,
     });
+    onSubmit?.(selections);
   };
 
   const handleTimeout = () => {
@@ -114,12 +121,14 @@ export function PassageQuestionClient({
             description={confirmDescription}
             confirmLabel={confirmLabel}
             triggerLabel={confirmLabel}
+            onConfirm={handleSubmit}
           />
         ) : (
           <ConfirmDialog
             title={confirmTitle}
             description={confirmDescription}
             confirmLabel={confirmLabel}
+            onConfirm={handleSubmit}
           >
             <Button>{confirmLabel}</Button>
           </ConfirmDialog>

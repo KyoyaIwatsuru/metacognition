@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { logEvent } from '@/lib/logger';
@@ -23,11 +23,23 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
   const confirmLabel = nextAnalog ? '次の類題へ' : 'Reflection 2 へ';
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
+  const loggedOpenRef = useRef(false);
+  const loggedExitRef = useRef(false);
 
   useEffect(() => {
-    logEvent({ event: 'analog_explanation_open', passage_id: passage.id, analog_id: analog.id });
+    if (!loggedOpenRef.current) {
+      logEvent({ event: 'analog_explanation_open', passage_id: passage.id, analog_id: analog.id });
+      loggedOpenRef.current = true;
+    }
     return () => {
-      logEvent({ event: 'analog_explanation_exit', passage_id: passage.id, analog_id: analog.id });
+      if (!loggedExitRef.current) {
+        logEvent({
+          event: 'analog_explanation_exit',
+          passage_id: passage.id,
+          analog_id: analog.id,
+        });
+        loggedExitRef.current = true;
+      }
     };
   }, [analog.id, passage.id]);
 
@@ -95,13 +107,6 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
           description="戻ることはできません。よろしいですか？"
           confirmLabel={confirmLabel}
           triggerLabel={confirmLabel}
-          onConfirm={() =>
-            logEvent({
-              event: 'analog_explanation_exit',
-              passage_id: passage.id,
-              analog_id: analog.id,
-            })
-          }
         />
       }
     />
