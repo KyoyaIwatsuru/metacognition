@@ -18,7 +18,7 @@ export function ActionBar({ children, className }: ActionBarProps) {
         className
       )}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-end gap-3 px-4 py-3">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-end gap-2 px-3 py-2">
         {children}
       </div>
     </footer>

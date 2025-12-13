@@ -23,13 +23,13 @@ export function AppShell({
   headerSlot,
 }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="h-screen bg-background text-foreground overflow-hidden flex flex-col">
       {showHeader ? <HeaderContainer rightSlot={headerSlot} /> : null}
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-6 md:py-8">
+      <main className="flex w-full flex-1 flex-col gap-2 px-8 py-2 overflow-hidden">
         {leftSlot || rightSlot ? (
-          <div className="grid gap-6 md:grid-cols-[1.1fr_1fr]">
-            <section className="space-y-4 md:pr-2">{leftSlot}</section>
-            <section className="space-y-4 md:pl-2">{rightSlot ?? children}</section>
+          <div className="grid h-full gap-6 md:grid-cols-[2.0fr_1fr]">
+            <section className="h-full overflow-hidden pr-3">{leftSlot}</section>
+            <section className="h-full overflow-hidden pl-3">{rightSlot ?? children}</section>
           </div>
         ) : (
           children

@@ -43,14 +43,7 @@ export function Timer({ totalMs, onTimeout, running = true, className }: TimerPr
     intervalRef.current = setInterval(() => {
       setRemaining((prev) => {
         const next = prev - 1000;
-        if (next <= 0) {
-          if (!timeoutFiredRef.current) {
-            timeoutFiredRef.current = true;
-            onTimeout?.();
-          }
-          return 0;
-        }
-        return next;
+        return next <= 0 ? 0 : next;
       });
     }, 1000);
 
@@ -60,12 +53,20 @@ export function Timer({ totalMs, onTimeout, running = true, className }: TimerPr
         intervalRef.current = null;
       }
     };
-  }, [onTimeout, running]);
+  }, [running]);
+
+  // Handle timeout in a separate effect to avoid updating parent state during render
+  useEffect(() => {
+    if (remaining <= 0 && !timeoutFiredRef.current) {
+      timeoutFiredRef.current = true;
+      onTimeout?.();
+    }
+  }, [remaining, onTimeout]);
 
   return (
-    <div className={cn('inline-flex items-center gap-2 rounded-md border px-3 py-1.5', className)}>
-      <span className="text-xs uppercase text-muted-foreground">Time</span>
-      <span className="font-mono text-lg tabular-nums">{formatTime(remaining)}</span>
+    <div className={cn('inline-flex items-center gap-1.5 rounded border px-2 py-1', className)}>
+      <span className="text-[11px] uppercase text-muted-foreground">Time</span>
+      <span className="font-mono text-base tabular-nums">{formatTime(remaining)}</span>
     </div>
   );
 }

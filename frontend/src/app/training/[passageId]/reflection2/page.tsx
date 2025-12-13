@@ -23,7 +23,6 @@ export default async function TrainingReflection2Page({ params }: PageProps) {
     <TrainingReflectionClient
       passage={passage}
       questions={passage.questions}
-      title="Training Reflection 2"
       confirmTitle="次へ進みます"
       confirmDescription="戻ることはできません。よろしいですか？"
       confirmLabel="完了へ"

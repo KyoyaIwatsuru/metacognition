@@ -48,6 +48,21 @@ async function getStatus() {
   return { ok: true as const, connected, supported };
 }
 
+/** 起動時にアイトラッカーの接続状態を確認してstoreを更新する */
+export async function checkEyeTrackerStatus() {
+  const { setEyeTrackerStatus } = useAppStore.getState();
+  setEyeTrackerStatus('loading');
+
+  const status = await getStatus();
+  if (status.ok && status.connected) {
+    setEyeTrackerStatus('connected');
+    return { ok: true, connected: true };
+  }
+
+  setEyeTrackerStatus('disconnected');
+  return { ok: status.ok, connected: false };
+}
+
 export async function connectEyeTracker() {
   const { setEyeTrackerStatus } = useAppStore.getState();
   setEyeTrackerStatus('loading');

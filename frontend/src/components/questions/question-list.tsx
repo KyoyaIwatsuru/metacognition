@@ -1,10 +1,12 @@
 'use client';
 
-import { useId } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import type { Question } from '@/lib/types';
+
+// TOEIC choice labels
+const CHOICE_LABELS = ['(A)', '(B)', '(C)', '(D)'] as const;
 
 type QuestionListProps = {
   questions: Question[];
@@ -27,46 +29,44 @@ export function QuestionList({
   disabled = false,
   showSubmitButton = false,
 }: QuestionListProps) {
-  const listId = useId();
-
   return (
-    <div className="space-y-6" aria-labelledby={listId}>
-      <div id={listId} className="text-base font-semibold">
-        設問
-      </div>
-      <div className="space-y-4">
-        {questions.map((q, index) => (
-          <div key={q.id} className="rounded-md border bg-card p-4">
-            <div className="mb-2 text-sm font-medium text-muted-foreground">
-              Q{index + 1}. {q.promptEn}
-            </div>
-            {showJapanese && q.promptJa ? (
-              <div className="mb-2 text-xs text-muted-foreground">{q.promptJa}</div>
-            ) : null}
-            <RadioGroup
-              value={selections[q.id] ?? ''}
-              onValueChange={(val) => onSelect(q.id, val)}
-              className="space-y-2"
-              disabled={disabled}
-            >
-              {q.choices.map((choice) => (
-                <Label
-                  key={choice.id}
-                  className="flex cursor-pointer items-start gap-2 rounded-md border p-2 hover:bg-accent data-[state=checked]:border-primary"
-                >
-                  <RadioGroupItem value={choice.id} className="mt-1" />
-                  <div className="space-y-1">
-                    <div className="text-sm">{choice.textEn}</div>
+    <div className="space-y-4">
+      {questions.map((q, index) => (
+        <div key={q.id} className="space-y-1">
+          <div className="text-[14px] leading-[2.4]">
+            Q{index + 1}. {q.promptEn}
+          </div>
+          {showJapanese && q.promptJa ? (
+            <div className="text-[12px] text-muted-foreground leading-[2.4]">{q.promptJa}</div>
+          ) : null}
+          <RadioGroup
+            value={selections[q.id] ?? ''}
+            onValueChange={(val) => onSelect(q.id, val)}
+            className="space-y-0"
+            disabled={disabled}
+          >
+            {q.choices.map((choice, choiceIndex) => (
+              <Label
+                key={choice.id}
+                className="flex cursor-pointer items-start gap-2 hover:bg-slate-50"
+              >
+                <RadioGroupItem value={choice.id} className="mt-2" />
+                <div className="flex gap-1.5">
+                  <span className="text-[14px] leading-[2.4]">{CHOICE_LABELS[choiceIndex]}</span>
+                  <div>
+                    <div className="text-[14px] leading-[2.4]">{choice.textEn}</div>
                     {showJapanese && choice.textJa ? (
-                      <div className="text-xs text-muted-foreground">{choice.textJa}</div>
+                      <div className="text-[11px] text-muted-foreground leading-[2.4]">
+                        {choice.textJa}
+                      </div>
                     ) : null}
                   </div>
-                </Label>
-              ))}
-            </RadioGroup>
-          </div>
-        ))}
-      </div>
+                </div>
+              </Label>
+            ))}
+          </RadioGroup>
+        </div>
+      ))}
       {showSubmitButton ? (
         <div className="flex justify-end">
           <Button onClick={onSubmit} disabled={disabled}>

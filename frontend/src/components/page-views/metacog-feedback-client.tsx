@@ -1,18 +1,24 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
+import { PassageBody } from '@/components/passage/passage-body';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { logEvent } from '@/lib/logger';
 import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
+
+const CHOICE_LABELS = ['A', 'B', 'C', 'D'] as const;
 
 type MetacogFeedbackClientProps = {
   passage: Passage;
 };
 
 export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
+  const [locale, setLocale] = useState<'en' | 'ja'>('en');
+  const [selectedQuestion, setSelectedQuestion] = useState('0');
   const group = useAppStore((s) => s.group);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id]);
   const router = useRouter();
@@ -52,60 +58,113 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
 
+  const handleLocaleChange = (newLocale: string) => {
+    setLocale(newLocale as 'en' | 'ja');
+    logEvent({
+      event: 'locale_tab_click',
+      passage_id: passage.id,
+      locale: newLocale,
+    });
+  };
+
+  const handleQuestionTabChange = (newQuestion: string) => {
+    setSelectedQuestion(newQuestion);
+    logEvent({
+      event: 'question_tab_click',
+      passage_id: passage.id,
+      question_index: Number(newQuestion),
+    });
+  };
+
   return (
     <AppShell
       leftSlot={
-        <>
-          <h1 className="text-2xl font-semibold">Training メタ認知フィードバック</h1>
-          <p className="text-sm text-zinc-600">passage: {passage.id}</p>
-          <div className="space-y-3 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line">
-            {paragraphs.map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
+        <div className="h-full flex flex-col overflow-hidden">
+          <Tabs value={locale} onValueChange={handleLocaleChange} className="shrink-0">
+            <TabsList>
+              <TabsTrigger value="en">English</TabsTrigger>
+              <TabsTrigger value="ja">日本語</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <div className={`flex-1 mt-2 ${locale === 'ja' ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+            <PassageBody
+              sections={passage.sections}
+              paragraphsEn={paragraphs}
+              direction={passage.direction}
+              directionJa={passage.directionJa}
+              locale={locale}
+            />
           </div>
-        </>
+        </div>
       }
       rightSlot={
-        <div className="space-y-4">
-          {passage.questions.map((q, idx) => (
-            <div key={q.id} className="space-y-2 rounded-md border bg-card p-4">
-              <div className="text-sm font-semibold text-foreground">Q{idx + 1}</div>
-              <div className="text-sm">{q.promptEn}</div>
-              {q.promptJa ? (
-                <div className="text-xs text-muted-foreground">{q.promptJa}</div>
-              ) : null}
-              <ul className="space-y-1 text-sm">
-                {q.choices.map((c) => (
-                  <li key={c.id}>
-                    <span className="font-mono mr-1">({c.id.toUpperCase()})</span>
-                    {c.textEn}
-                    {c.textJa ? (
-                      <span className="text-xs text-muted-foreground ml-1">{c.textJa}</span>
-                    ) : null}
-                    {c.id === q.correctChoiceId ? (
-                      <span className="ml-2 rounded bg-emerald-100 px-2 py-0.5 text-xs text-emerald-800">
-                        正答
-                      </span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                {q.explanationGeneralJa ? (
-                  <p>
-                    <span className="font-semibold text-foreground">一般解説:</span>{' '}
-                    {q.explanationGeneralJa}
-                  </p>
-                ) : null}
-                {group === 'B' && q.metacogFeedbackJa ? (
-                  <p>
-                    <span className="font-semibold text-foreground">メタ認知フィードバック:</span>{' '}
-                    {q.metacogFeedbackJa}
-                  </p>
-                ) : null}
-              </div>
-            </div>
-          ))}
+        <div className="h-full flex flex-col overflow-hidden">
+          {/* 問題タブ */}
+          <Tabs
+            value={selectedQuestion}
+            onValueChange={handleQuestionTabChange}
+            className="shrink-0"
+          >
+            <TabsList>
+              {passage.questions.map((_, idx) => (
+                <TabsTrigger key={idx} value={String(idx)}>
+                  Q{idx + 1}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+
+          {/* 選択された問題の内容 */}
+          <div className="flex-1 mt-2 overflow-hidden">
+            {passage.questions.map((q, idx) => {
+              if (String(idx) !== selectedQuestion) return null;
+              return (
+                <div key={q.id} className="space-y-2 h-full">
+                  {/* 設問 */}
+                  <div className="text-sm">
+                    <span className="font-semibold">Q{idx + 1}</span>{' '}
+                    {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                  </div>
+
+                  {/* 選択肢 */}
+                  <ul className="space-y-0.5 text-sm">
+                    {q.choices.map((c, cIdx) => {
+                      const isCorrect = c.id === q.correctChoiceId;
+                      return (
+                        <li key={c.id} className={isCorrect ? 'text-blue-600 font-medium' : ''}>
+                          <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                          {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                          {isCorrect ? (
+                            <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                              正解
+                            </span>
+                          ) : null}
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  {/* 解説 */}
+                  {q.explanationGeneralJa ? (
+                    <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
+                      {q.explanationGeneralJa}
+                    </p>
+                  ) : null}
+
+                  {/* メタ認知フィードバック */}
+                  {group === 'B' && q.metacogFeedbackJa ? (
+                    <div className="text-sm text-slate-800 mt-4 space-y-1">
+                      {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
+                        <p key={pIdx} className="whitespace-pre-line leading-snug">
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
         </div>
       }
       footer={
@@ -114,6 +173,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
           title="類題へ進みます"
           description="戻ることはできません。よろしいですか？"
           confirmLabel="類題へ"
+          triggerLabel="類題へ"
         />
       }
     />

@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
+import { PassageBody } from '@/components/passage/passage-body';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
-import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { QuestionList } from '@/components/questions/question-list';
 import { Timer } from '@/components/ui/timer';
 import { logEvent } from '@/lib/logger';
@@ -33,6 +34,7 @@ export function AnalogQuestionClient({
   submitLabel,
   confirmHref,
 }: AnalogQuestionClientProps) {
+  const router = useRouter();
   const initialSelections = useMemo(
     () => Object.fromEntries(analog.questions.map((q) => [q.id, undefined])),
     [analog.questions]
@@ -40,6 +42,7 @@ export function AnalogQuestionClient({
   const [selections, setSelections] =
     useState<Record<string, string | undefined>>(initialSelections);
   const [timedOut, setTimedOut] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
 
@@ -58,7 +61,7 @@ export function AnalogQuestionClient({
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     const unanswered = Object.entries(selections)
       .filter(([, choice]) => !choice)
       .map(([q]) => q);
@@ -69,11 +72,15 @@ export function AnalogQuestionClient({
       answers: selections,
       unanswered,
     });
-  };
+    if (confirmHref) {
+      router.push(confirmHref);
+    }
+  }, [selections, passageId, analog.id, confirmHref, router]);
 
   const handleTimeout = () => {
     if (timedOut) return;
     setTimedOut(true);
+    setDialogOpen(true);
     const unanswered = Object.entries(selections)
       .filter(([, choice]) => !choice)
       .map(([q]) => q);
@@ -85,56 +92,41 @@ export function AnalogQuestionClient({
   );
 
   return (
-    <AppShell
-      headerSlot={headerTimer}
-      leftSlot={
-        <>
-          <h1 className="text-2xl font-semibold">Analog Question</h1>
-          <p className="text-sm text-zinc-600">
-            passage: {passageId} / analog: {analog.id}
-          </p>
-          <div className="space-y-3 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line">
-            {paragraphs.map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
+    <>
+      <AppShell
+        headerSlot={headerTimer}
+        leftSlot={
+          <PassageBody
+            sections={analog.sections}
+            paragraphsEn={paragraphs}
+            direction={analog.direction}
+          />
+        }
+        rightSlot={
+          <div className="space-y-4">
+            <QuestionList
+              questions={analog.questions}
+              selections={selections}
+              onSelect={handleSelect}
+              onSubmit={handleSubmit}
+              showSubmitButton={false}
+              showJapanese={false}
+              submitLabel={submitLabel}
+              disabled={timedOut}
+            />
           </div>
-        </>
-      }
-      rightSlot={
-        <div className="space-y-4">
-          <QuestionList
-            questions={analog.questions}
-            selections={selections}
-            onSelect={handleSelect}
-            onSubmit={handleSubmit}
-            showSubmitButton={false}
-            showJapanese={false}
-            submitLabel={submitLabel}
-            disabled={timedOut}
-          />
-        </div>
-      }
-      footer={
-        confirmHref ? (
-          <ConfirmNavigateButton
-            href={confirmHref}
-            title={confirmTitle}
-            description={confirmDescription}
-            confirmLabel={confirmLabel}
-            triggerLabel={confirmLabel}
-            onConfirm={handleSubmit}
-          />
-        ) : (
-          <ConfirmDialog
-            title={confirmTitle}
-            description={confirmDescription}
-            confirmLabel={confirmLabel}
-            onConfirm={handleSubmit}
-          >
-            <Button>{confirmLabel}</Button>
-          </ConfirmDialog>
-        )
-      }
-    />
+        }
+        footer={<Button onClick={() => setDialogOpen(true)}>{confirmLabel}</Button>}
+      />
+      <ConfirmDialog
+        title={timedOut ? '時間切れです' : confirmTitle}
+        description={timedOut ? '制限時間になりました。次の文章に進みます。' : confirmDescription}
+        confirmLabel={confirmLabel}
+        onConfirm={handleSubmit}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        allowCancel={!timedOut}
+      />
+    </>
   );
 }

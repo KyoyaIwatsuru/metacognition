@@ -1,10 +1,16 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { HeaderBar } from '@/components/layout/header-bar';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
-import { connectEyeTracker, disconnectEyeTracker, startRecording } from '@/lib/eyetracker';
+import {
+  checkEyeTrackerStatus,
+  connectEyeTracker,
+  disconnectEyeTracker,
+  startRecording,
+} from '@/lib/eyetracker';
 import { logEvent } from '@/lib/logger';
 import { resetLogPath } from '@/lib/tauri-log-bridge';
 import { toast } from 'sonner';
@@ -53,6 +59,11 @@ export default function HomePage() {
   const setParticipant = useAppStore((s) => s.setParticipant);
   const setGroup = useAppStore((s) => s.setGroup);
   const setPhase = useAppStore((s) => s.setPhase);
+
+  // 初期化時にアイトラッカーの接続状態を確認
+  useEffect(() => {
+    checkEyeTrackerStatus();
+  }, []);
 
   const validate = () => {
     if (!participantId) {

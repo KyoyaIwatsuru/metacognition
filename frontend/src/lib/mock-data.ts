@@ -1,14 +1,23 @@
 ﻿import type { Passage } from '@/lib/types';
 
-const enParagraph1 = `Questions 181-185 refer to the following advertisement and letter.
+// 広告の本文（3段落）
+const adBodyEn = [
+  "Renting a suit from Keller Attire has never been easier! We now have an expanded range of men's formal wear in sizes XS to XXL, all available to rent online.",
+  'Whether you are attending a wedding, a black-tie event, or some other special occasion, we have the right suit for you. Visit our Web site at www.kellerattire.com to see our full range of styles, colors, and fabrics. One of our style experts is ready to chat with you about your choices and walk you through our super accurate online Measuring Wizard. We will help you find a great suit that fits you perfectly!',
+  'Our standard delivery service will get your order to you in three to five days. For faster service, we offer overnight delivery for an additional charge of $50.',
+];
 
-KELLER ATTIRE
+// 手紙の本文（3段落）
+const letterBodyEn = [
+  'I recently ordered a suit from Keller Attire to wear to an important client dinner in New York. I chose your overnight delivery service and provided a New York address for delivery. However, the suit was delivered to my home address in Dallas instead—I was already on my way to New York at the time.',
+  'Your customer service team handled the problem with spotless professionalism. As there was not enough time to send a replacement, they arranged for a local rental company to deliver a similar suit to my hotel at no additional cost to me.',
+  "I am extremely grateful for your team's superior customer service. I will certainly use Keller Attire again in the future.",
+];
 
-(1) Renting a suit from Keller Attire has never been easier! We now have an expanded range of men’s formal wear in sizes XS to XXL, all available to rent online.
+// 旧形式の段落（後方互換性のため維持）
+const enParagraph1 = `Q1-4 refer to the following advertisement and letter.
 
-(2) Whether you are attending a wedding, a black-tie event, or some other special occasion, we have the right suit for you. Visit our Web site at www.kellerattire.com to see our full range of styles, colors, and fabrics. One of our style experts is ready to chat with you about your choices and walk you through our super accurate online Measuring Wizard. We will help you find a great suit that fits you perfectly!
-
-(3) Our standard delivery service will get your order to you in three to five days. For faster service, we offer overnight delivery for an additional charge of $50.`;
+${adBodyEn.join('\n\n')}`;
 
 const enParagraph2 = `Antonio Varela
 808 Avenue K, Apt. 5B
@@ -23,26 +32,32 @@ Chicago, IL 60611
 
 Dear Ms. Ford,
 
-(1) I recently ordered a suit from Keller Attire to wear to an important client dinner in New York. I chose your overnight delivery service and provided a New York address for delivery. However, the suit was delivered to my home address in Dallas instead—I was already on my way to New York at the time.
-
-(2) Your customer service team handled the problem with spotless professionalism. As there was not enough time to send a replacement, they arranged for a local rental company to deliver a similar suit to my hotel at no additional cost to me.
-
-(3) I am extremely grateful for your team’s superior customer service. I will certainly use Keller Attire again in the future.
+${letterBodyEn.join('\n\n')}
 
 Yours sincerely,
 
 Antonio Varela
 Antonio Varela`;
 
-const jaParagraph1 = `問題181-185は次の広告と手紙に関するものです。
+// 広告の本文（日本語・3段落）
+const adBodyJa = [
+  'Keller衣装社からスーツを借りるのが、これまでにないほど簡単になりました。現在、男性用フォーマルウエアがXSからXXLまでの幅広いサイズ展開となり、全てオンラインでお借りいただけます。',
+  '結婚式、準正装のイベント、あるいはその他の特別な行事のいずれにご出席であれ、当社はあなたにぴったりのスーツをご用意しております。当社ウェブサイトのwww.Kelleratire.comにアクセスして、幅広いスタイル、色、そして生地をご覧ください。当社のスタイリング専門家の一人がいつでもあなたが選んだ品についてチャットでお話しし、当社の極めて精密なオンラインの採寸ウィザードの使い方を一つ一つ丁寧にご説明します。あなたがご自身にぴったり合う素晴らしいスーツを見つけられるよう、私たちがお手伝いをいたします。',
+  '当社の標準配送サービスは、ご注文品を3～5日でお手元にお届けします。より早いサービスとして、追加料金50ドルで翌日配送をご提供しております。',
+];
+
+// 手紙の本文（日本語・3段落）
+const letterBodyJa = [
+  '私は先日、ニューヨークでの顧客との大事な夕食会に着るためのスーツをKeller衣装社で注文しました。私は貴社の翌日配送サービスを選択し、ニューヨークのある住所を配送先として伝えました。しかしながら、そこではなく、ダラスの私の自宅住所にスーツが届けられたのですー私はそのときにはすでにニューヨークへ向かう途中でした。',
+  '貴社の顧客サービスチームは、非の打ちどころのないプロ意識を持ってその問題に対処してくれました。代替品を送るのに十分な時間がなかったため、彼らは私に追加の費用を求めることなく、現地のレンタル会社が類似のスーツを私のホテルに届けるよう手配してくれたのです。',
+  '貴社のチームの優れた顧客サービスに非常に感謝しています。私は将来、必ずまたKeller衣装社を利用するつもりです。',
+];
+
+const jaParagraph1 = `問題Q1-4は次の広告と手紙に関するものです。
 
 Keller 衣装社
 
-Keller衣装社からスーツを借りるのが、これまでにないほど簡単になりました。現在、男性用フォーマルウエアがXSからXXLまでの幅広いサイズ展開となり、全てオンラインでお借りいただけます。
-
-結婚式、準正装のイベント、あるいはその他の特別な行事のいずれにご出席であれ、当社はあなたにぴったりのスーツをご用意しております。当社ウェブサイトのwww.Kelleratire.comにアクセスして、幅広いスタイル、色、そして生地をご覧ください。当社のスタイリング専門家の一人がいつでもあなたが選んだ品についてチャットでお話しし、当社の極めて精密なオンラインの採寸ウィザードの使い方を一つ一つ丁寧にご説明します。あなたがご自身にぴったり合う素晴らしいスーツを見つけられるよう、私たちがお手伝いをいたします。
-
-当社の標準配送サービスは、ご注文品を3～5日でお手元にお届けします。より早いサービスとして、追加料金50ドルで翌日配送をご提供しております。`;
+${adBodyJa.join('\n\n')}`;
 
 const jaParagraph2 = `Antonio Varela
 K 大通り 808 番地、アパート 5B 号室
@@ -57,11 +72,7 @@ Keller 衣装社
 
 Ford 様
 
-私は先日、ニューヨークでの顧客との大事な夕食会に着るためのスーツをKeller衣装社で注文しました。私は貴社の翌日配送サービスを選択し、ニューヨークのある住所を配送先として伝えました。しかしながら、そこではなく、ダラスの私の自宅住所にスーツが届けられたのですー私はそのときにはすでにニューヨークへ向かう途中でした。
-
-貴社の顧客サービスチームは、非の打ちどころのないプロ意識を持ってその問題に対処してくれました。代替品を送るのに十分な時間がなかったため、彼らは私に追加の費用を求めることなく、現地のレンタル会社が類似のスーツを私のホテルに届けるよう手配してくれたのです。
-
-貴社のチームの優れた顧客サービスに非常に感謝しています。私は将来、必ずまたKeller衣装社を利用するつもりです。
+${letterBodyJa.join('\n\n')}
 
 敬具
 
@@ -148,20 +159,92 @@ const question2 = {
 const basePassage: Passage = {
   id: 'tr_01',
   title: 'Keller Attire advertisement and letter',
+  direction: 'Q1-4 refer to the following advertisement and letter.',
+  directionJa: '問題Q1-4は次の広告と手紙に関するものです。',
   paragraphsEn: [enParagraph1, enParagraph2],
   paragraphsJa: [jaParagraph1, jaParagraph2],
+  sections: [
+    {
+      layoutType: 'ad',
+      locale: 'en',
+      ad: {
+        headline: 'KELLER ATTIRE',
+        body: adBodyEn,
+      },
+    },
+    {
+      layoutType: 'letter',
+      locale: 'en',
+      letter: {
+        sender: {
+          name: 'Antonio Varela',
+          address: ['808 Avenue K, Apt. 5B', 'Dallas, TX 75246'],
+        },
+        date: 'October 14',
+        recipient: {
+          name: 'Joanne Ford',
+          title: 'President',
+          company: 'Keller Attire, Inc.',
+          address: ['2200 East Fourth Street', 'Chicago, IL 60611'],
+        },
+        greeting: 'Dear Ms. Ford,',
+        body: letterBodyEn,
+        closing: 'Yours sincerely,',
+        signature: 'Antonio Varela',
+        senderName: 'Antonio Varela',
+      },
+    },
+    {
+      layoutType: 'ad',
+      locale: 'ja',
+      ad: {
+        headline: 'KELLER衣装',
+        body: adBodyJa,
+      },
+    },
+    {
+      layoutType: 'letter',
+      locale: 'ja',
+      letter: {
+        sender: {
+          name: 'Antonio Varela',
+          address: ['K 大通り 808 番地、アパート 5B 号室', 'ダラス, TX 75246'],
+        },
+        date: '10月14日',
+        recipient: {
+          name: 'Joanne Ford',
+          title: '社長',
+          company: 'Keller 衣装社',
+          address: ['東4番通り 2200 番地', 'シカゴ, IL 60611'],
+        },
+        greeting: 'Ford 様',
+        body: letterBodyJa,
+        closing: '敬具',
+        signature: 'Antonio Varela',
+        senderName: 'Antonio Varela',
+      },
+    },
+  ],
   questions: [question1, question2],
 };
 
-// Pre/Post 用: 同じ設問を使い回して 3 問に水増し
-const prePostQuestions = [question1, question2, { ...question1, id: 'q3' }];
+// Pre/Post 用: 同じ設問を使い回して 4 問に水増し
+const prePostQuestions = [
+  question1,
+  question2,
+  { ...question1, id: 'q3' },
+  { ...question2, id: 'q4' },
+];
 
 // 類題は同じ本文・設問をコピーしIDだけ変えた簡易モック（2問構成）
 const analogs = [1, 2, 3].map((n) => ({
   id: `tr_01_an${n}`,
   title: `Analog ${n}`,
+  direction: basePassage.direction,
+  directionJa: basePassage.directionJa,
   paragraphsEn: [enParagraph1, enParagraph2],
   paragraphsJa: [jaParagraph1, jaParagraph2],
+  sections: basePassage.sections,
   questions: [
     { ...question1, id: `tr_01_an${n}_q1` },
     { ...question2, id: `tr_01_an${n}_q2` },
@@ -181,7 +264,10 @@ const duplicatePassages = (prefix: 'pre' | 'post', count: number): Passage[] => 
     return {
       id: `${prefix}_${num}`,
       title: basePassage.title,
+      direction: basePassage.direction,
+      directionJa: basePassage.directionJa,
       paragraphsEn: basePassage.paragraphsEn,
+      sections: basePassage.sections,
       questions: prePostQuestions,
     };
   });

@@ -40,7 +40,6 @@ export function TrainingReflection1View({ passage }: TrainingReflection1ViewProp
     <TrainingReflectionClient
       passage={passage}
       questions={passage.questions}
-      title="Training Reflection 1"
       confirmTitle="次へ進みます"
       confirmDescription="戻ることはできません。よろしいですか？"
       confirmLabel={confirmLabel}
