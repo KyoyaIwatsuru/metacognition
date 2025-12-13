@@ -10,6 +10,10 @@ import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
 
 const CHOICE_LABELS = ['A', 'B', 'C', 'D'] as const;
+const EMPTY_TRAINING_RESULT = {
+  allCorrect: false,
+  answers: {} as Record<string, string | undefined>,
+};
 
 type TrainingExplanationClientProps = {
   passage: Passage;
@@ -18,12 +22,14 @@ type TrainingExplanationClientProps = {
 export function TrainingExplanationClient({ passage }: TrainingExplanationClientProps) {
   const [locale, setLocale] = useState<'en' | 'ja'>('en');
 
-  const trainingResult = useAppStore(
-    (s) => s.trainingResults[passage.id] ?? { allCorrect: false, answers: {} }
-  );
+  const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
   const allCorrect = trainingResult.allCorrect;
   const nextHref = allCorrect ? '/training/complete' : `/training/${passage.id}/reflection1`;
-  const confirmLabel = allCorrect ? '完了へ' : '振り返りへ';
+  const confirmLabel = allCorrect ? 'Practiceを終了する' : '振り返りへ';
+  const confirmTitle = allCorrect ? 'Practiceを終了します' : '次へ進みます';
+  const confirmDescription = allCorrect
+    ? 'Practiceを終了します。戻ることはできません。よろしいですか？'
+    : '戻ることはできません。よろしいですか？';
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
   const loggedOpenRef = useRef(false);
@@ -78,28 +84,59 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
             return (
               <div key={q.id} className="space-y-1">
                 {/* 設問 */}
-                <div className="text-sm">
-                  <span className="font-semibold">Q{idx + 1}</span>{' '}
-                  {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
-                </div>
-
-                {/* 選択肢 */}
-                <ul className="space-y-0.5 text-sm">
-                  {q.choices.map((c, cIdx) => {
-                    const isCorrect = c.id === q.correctChoiceId;
-                    return (
-                      <li key={c.id} className={isCorrect ? 'text-blue-600 font-medium' : ''}>
-                        <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                        {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
-                        {isCorrect ? (
-                          <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
-                            正解
+                {(() => {
+                  const userAnswer = trainingResult.answers[q.id];
+                  const isUnanswered = !userAnswer;
+                  return (
+                    <>
+                      <div className="text-sm text-foreground">
+                        <span className="font-semibold">Q{idx + 1}</span>{' '}
+                        {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                        {isUnanswered ? (
+                          <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                            未回答
                           </span>
                         ) : null}
-                      </li>
-                    );
-                  })}
-                </ul>
+                      </div>
+
+                      {/* 選択肢 */}
+                      <ul className="space-y-0.5 text-sm">
+                        {q.choices.map((c, cIdx) => {
+                          const isCorrect = c.id === q.correctChoiceId;
+                          const isUserAnswer = c.id === userAnswer;
+                          const isWrongAnswer = isUserAnswer && !isCorrect;
+                          return (
+                            <li
+                              key={c.id}
+                              className={
+                                isCorrect
+                                  ? 'text-blue-600 font-medium'
+                                  : isWrongAnswer
+                                    ? 'text-red-600'
+                                    : ''
+                              }
+                            >
+                              <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                              {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                              {isCorrect ? (
+                                <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                                  正解
+                                </span>
+                              ) : null}
+                              {isUserAnswer ? (
+                                <span
+                                  className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                                >
+                                  あなたの回答
+                                </span>
+                              ) : null}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </>
+                  );
+                })()}
 
                 {/* 解説 */}
                 {q.explanationGeneralJa ? (
@@ -115,8 +152,8 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
       footer={
         <ConfirmNavigateButton
           href={nextHref}
-          title="次へ進みます"
-          description="戻ることはできません。よろしいですか？"
+          title={confirmTitle}
+          description={confirmDescription}
           confirmLabel={confirmLabel}
           triggerLabel={confirmLabel}
         />

@@ -65,7 +65,7 @@ export function Timer({ totalMs, onTimeout, running = true, className }: TimerPr
 
   return (
     <div className={cn('inline-flex items-center gap-1.5 rounded border px-2 py-1', className)}>
-      <span className="text-[11px] uppercase text-muted-foreground">Time</span>
+      <span className="text-[11px] uppercase text-foreground">Time</span>
       <span className="font-mono text-base tabular-nums">{formatTime(remaining)}</span>
     </div>
   );

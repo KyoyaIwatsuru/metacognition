@@ -29,6 +29,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   const analogHref = firstAnalogId
     ? `/training/${passage.id}/analog/${firstAnalogId}`
     : `/training/${passage.id}/reflection2`;
+  const nextLabel = firstAnalogId ? '次へ' : '振り返りへ';
 
   useEffect(() => {
     if (trainingResult?.allCorrect) {
@@ -118,25 +119,50 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
           <div className="flex-1 mt-2 overflow-hidden">
             {passage.questions.map((q, idx) => {
               if (String(idx) !== selectedQuestion) return null;
+              const userAnswer = trainingResult?.answers[q.id];
+              const isUnanswered = !userAnswer;
               return (
                 <div key={q.id} className="space-y-2 h-full">
                   {/* 設問 */}
-                  <div className="text-sm">
+                  <div className="text-sm text-foreground">
                     <span className="font-semibold">Q{idx + 1}</span>{' '}
                     {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                    {isUnanswered ? (
+                      <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                        未回答
+                      </span>
+                    ) : null}
                   </div>
 
                   {/* 選択肢 */}
                   <ul className="space-y-0.5 text-sm">
                     {q.choices.map((c, cIdx) => {
                       const isCorrect = c.id === q.correctChoiceId;
+                      const isUserAnswer = c.id === userAnswer;
+                      const isWrongAnswer = isUserAnswer && !isCorrect;
                       return (
-                        <li key={c.id} className={isCorrect ? 'text-blue-600 font-medium' : ''}>
+                        <li
+                          key={c.id}
+                          className={
+                            isCorrect
+                              ? 'text-blue-600 font-medium'
+                              : isWrongAnswer
+                                ? 'text-red-600'
+                                : ''
+                          }
+                        >
                           <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
                           {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
                           {isCorrect ? (
                             <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
                               正解
+                            </span>
+                          ) : null}
+                          {isUserAnswer ? (
+                            <span
+                              className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                            >
+                              あなたの回答
                             </span>
                           ) : null}
                         </li>
@@ -170,10 +196,10 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
       footer={
         <ConfirmNavigateButton
           href={analogHref}
-          title="類題へ進みます"
+          title="次へ進みます"
           description="戻ることはできません。よろしいですか？"
-          confirmLabel="類題へ"
-          triggerLabel="類題へ"
+          confirmLabel={nextLabel}
+          triggerLabel={nextLabel}
         />
       }
     />

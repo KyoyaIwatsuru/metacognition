@@ -1,4 +1,4 @@
-import { TrainingReflectionClient } from '@/components/page-views/training-reflection-client';
+import { AnalogReflectionClient } from '@/components/page-views/analog-reflection-client';
 import { mockTrainingPassages } from '@/lib/mock-data';
 import { useAppStore } from '@/lib/store';
 
@@ -17,18 +17,19 @@ export default async function TrainingReflection2Page({ params }: PageProps) {
   const passage = mockTrainingPassages.find((p) => p.id === passageId);
   const trainingResult = useAppStore.getState().trainingResults[passageId];
 
-  if (!passage || trainingResult?.allCorrect) return null;
+  // Skip if passage not found, no analogs, or all correct
+  if (!passage || !passage.analogs?.length || trainingResult?.allCorrect) {
+    return null;
+  }
 
   return (
-    <TrainingReflectionClient
+    <AnalogReflectionClient
       passage={passage}
-      questions={passage.questions}
-      confirmTitle="次へ進みます"
-      confirmDescription="戻ることはできません。よろしいですか？"
-      confirmLabel="完了へ"
+      analogs={passage.analogs}
+      confirmTitle="Practiceを終了します"
+      confirmDescription="Practiceを終了します。戻ることはできません。よろしいですか？"
+      confirmLabel="Practiceを終了する"
       confirmHref="/training/complete"
-      submitLabel="送信"
-      eventPrefix="reflection2"
     />
   );
 }

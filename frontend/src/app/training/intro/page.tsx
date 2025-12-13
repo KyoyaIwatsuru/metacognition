@@ -17,12 +17,12 @@ export default function TrainingIntroPage() {
 
   return (
     <main className="space-y-4 p-8">
-      <h1 className="text-2xl font-semibold">Training を開始します</h1>
-      <p className="text-sm text-zinc-600">
-        これから Training
-        を行います。問題を解いたあとに解説が表示されます。間違えた問題については、振り返りを書き、その後で似たタイプの問題にも取り組んでもらいます。
-      </p>
-      <Button onClick={() => router.push('/training/tr_01')}>Training を開始</Button>
+      <h1 className="text-2xl font-semibold">Practice を開始します</h1>
+      <div className="space-y-2 text-sm text-zinc-600">
+        <p>Practiceでは、英語の長文読解の練習を行います。</p>
+        <p>問題を解いた後に解説が表示されます。画面の指示に従って進めてください。</p>
+      </div>
+      <Button onClick={() => router.push('/training/tr_01')}>Practice を開始</Button>
     </main>
   );
 }

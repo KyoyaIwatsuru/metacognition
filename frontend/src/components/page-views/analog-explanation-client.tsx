@@ -10,6 +10,7 @@ import { useAppStore } from '@/lib/store';
 import type { Analog, Passage } from '@/lib/types';
 
 const CHOICE_LABELS = ['A', 'B', 'C', 'D'] as const;
+const EMPTY_RESULT: Record<string, string | undefined> = {};
 
 type AnalogExplanationClientProps = {
   passage: Passage;
@@ -20,6 +21,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
   const [locale, setLocale] = useState<'en' | 'ja'>('en');
   const [selectedQuestion, setSelectedQuestion] = useState('0');
   const group = useAppStore((s) => s.group);
+  const analogResult = useAppStore((s) => s.analogResults[analog.id] ?? EMPTY_RESULT);
 
   const handleLocaleChange = (newLocale: string) => {
     setLocale(newLocale as 'en' | 'ja');
@@ -46,7 +48,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
   const nextHref = nextAnalog
     ? `/training/${passage.id}/analog/${nextAnalog.id}`
     : `/training/${passage.id}/reflection2`;
-  const confirmLabel = nextAnalog ? '次の類題へ' : '振り返り2へ';
+  const confirmLabel = nextAnalog ? '次へ' : '振り返りへ';
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
   const loggedOpenRef = useRef(false);
@@ -113,23 +115,48 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
             <div className="flex-1 mt-2 overflow-hidden">
               {analog.questions.map((q, idx) => {
                 if (String(idx) !== selectedQuestion) return null;
+                const userAnswer = analogResult[q.id];
+                const isUnanswered = !userAnswer;
                 return (
                   <div key={q.id} className="space-y-2 h-full">
-                    <div className="text-sm">
+                    <div className="text-sm text-foreground">
                       <span className="font-semibold">Q{idx + 1}</span>{' '}
                       {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                      {isUnanswered ? (
+                        <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                          未回答
+                        </span>
+                      ) : null}
                     </div>
 
                     <ul className="space-y-0.5 text-sm">
                       {q.choices.map((c, cIdx) => {
                         const isCorrect = c.id === q.correctChoiceId;
+                        const isUserAnswer = c.id === userAnswer;
+                        const isWrongAnswer = isUserAnswer && !isCorrect;
                         return (
-                          <li key={c.id} className={isCorrect ? 'text-blue-600 font-medium' : ''}>
+                          <li
+                            key={c.id}
+                            className={
+                              isCorrect
+                                ? 'text-blue-600 font-medium'
+                                : isWrongAnswer
+                                  ? 'text-red-600'
+                                  : ''
+                            }
+                          >
                             <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
                             {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
                             {isCorrect ? (
                               <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
                                 正解
+                              </span>
+                            ) : null}
+                            {isUserAnswer ? (
+                              <span
+                                className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                              >
+                                あなたの回答
                               </span>
                             ) : null}
                           </li>
@@ -195,37 +222,64 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
       }
       rightSlot={
         <div className="space-y-4 overflow-y-auto h-full">
-          {analog.questions.map((q, idx) => (
-            <div key={q.id} className="space-y-1">
-              <div className="text-sm">
-                <span className="font-semibold">Q{idx + 1}</span>{' '}
-                {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+          {analog.questions.map((q, idx) => {
+            const userAnswer = analogResult[q.id];
+            const isUnanswered = !userAnswer;
+            return (
+              <div key={q.id} className="space-y-1">
+                <div className="text-sm text-foreground">
+                  <span className="font-semibold">Q{idx + 1}</span>{' '}
+                  {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                  {isUnanswered ? (
+                    <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                      未回答
+                    </span>
+                  ) : null}
+                </div>
+
+                <ul className="space-y-0.5 text-sm">
+                  {q.choices.map((c, cIdx) => {
+                    const isCorrect = c.id === q.correctChoiceId;
+                    const isUserAnswer = c.id === userAnswer;
+                    const isWrongAnswer = isUserAnswer && !isCorrect;
+                    return (
+                      <li
+                        key={c.id}
+                        className={
+                          isCorrect
+                            ? 'text-blue-600 font-medium'
+                            : isWrongAnswer
+                              ? 'text-red-600'
+                              : ''
+                        }
+                      >
+                        <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                        {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                        {isCorrect ? (
+                          <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                            正解
+                          </span>
+                        ) : null}
+                        {isUserAnswer ? (
+                          <span
+                            className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                          >
+                            あなたの回答
+                          </span>
+                        ) : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {q.explanationGeneralJa ? (
+                  <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
+                    {q.explanationGeneralJa}
+                  </p>
+                ) : null}
               </div>
-
-              <ul className="space-y-0.5 text-sm">
-                {q.choices.map((c, cIdx) => {
-                  const isCorrect = c.id === q.correctChoiceId;
-                  return (
-                    <li key={c.id} className={isCorrect ? 'text-blue-600 font-medium' : ''}>
-                      <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                      {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
-                      {isCorrect ? (
-                        <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
-                          正解
-                        </span>
-                      ) : null}
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {q.explanationGeneralJa ? (
-                <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
-                  {q.explanationGeneralJa}
-                </p>
-              ) : null}
-            </div>
-          ))}
+            );
+          })}
         </div>
       }
       footer={

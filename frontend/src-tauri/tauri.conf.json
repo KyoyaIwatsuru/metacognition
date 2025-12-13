@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "metacognition",
+        "title": "Reading Practice",
         "width": 1280,
         "height": 800,
         "resizable": true,

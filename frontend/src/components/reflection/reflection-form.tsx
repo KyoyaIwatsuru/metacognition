@@ -37,7 +37,7 @@ export function ReflectionForm({
 
   return (
     <div className="space-y-3">
-      <div className="text-sm text-muted-foreground">{prompt}</div>
+      <div className="text-sm text-foreground">{prompt}</div>
       <Textarea
         value={value}
         onChange={handleChange}

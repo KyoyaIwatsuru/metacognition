@@ -13,6 +13,7 @@ export type AppState = {
     string,
     { answers: Record<string, string | undefined>; allCorrect: boolean }
   >;
+  analogResults: Record<string, Record<string, string | undefined>>;
   logs: LogEvent[];
   setParticipant: (id: string | undefined) => void;
   setGroup: (group: Group | undefined) => void;
@@ -24,6 +25,7 @@ export type AppState = {
     passageId: string,
     result: { answers: Record<string, string | undefined>; allCorrect: boolean }
   ) => void;
+  setAnalogResult: (analogId: string, answers: Record<string, string | undefined>) => void;
   pushLog: (event: Omit<LogEvent, 'timestamp' | 'participantId' | 'group' | 'phase'>) => LogEvent;
   reset: () => void;
 };
@@ -36,6 +38,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   currentPassageId: undefined,
   currentAnalogId: undefined,
   trainingResults: {},
+  analogResults: {},
   logs: [],
 
   setParticipant: (id) =>
@@ -55,6 +58,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   setTrainingResult: (passageId, result) =>
     set((state) => ({
       trainingResults: { ...state.trainingResults, [passageId]: result },
+    })),
+  setAnalogResult: (analogId, answers) =>
+    set((state) => ({
+      analogResults: { ...state.analogResults, [analogId]: answers },
     })),
 
   pushLog: (event) => {
@@ -86,6 +93,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         currentPassageId: undefined,
         currentAnalogId: undefined,
         trainingResults: {},
+        analogResults: {},
         logs: [],
       };
     }),

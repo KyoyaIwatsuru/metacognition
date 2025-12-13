@@ -27,12 +27,12 @@ export function TrainingReflection1View({ passage }: TrainingReflection1ViewProp
     if (group === 'B') {
       return {
         confirmHref: `/training/${passage.id}/metacog-feedback`,
-        confirmLabel: 'メタ認知へ',
+        confirmLabel: '次へ',
       };
     }
     return {
       confirmHref: `/training/${passage.id}/analog/${firstAnalogId}`,
-      confirmLabel: '類題へ',
+      confirmLabel: '次へ',
     };
   }, [firstAnalogId, group, passage.id]);
 

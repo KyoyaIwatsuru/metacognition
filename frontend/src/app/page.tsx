@@ -104,15 +104,17 @@ export default function HomePage() {
       <HomeHeader />
       <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-8 p-8">
         <header className="space-y-1">
-          <h1 className="text-3xl font-semibold">metacognition</h1>
-          <p className="text-sm text-zinc-600">参加者設定とフェーズ開始を行ってください。</p>
+          <h1 className="text-3xl font-semibold">Reading Practice</h1>
+          <p className="text-sm text-zinc-600">
+            参加者IDとグループを選択し、Eye trackerを接続してからフェーズを開始してください。
+          </p>
         </header>
 
         <section className="rounded-lg border p-4 shadow-sm space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">参加者 ID</label>
             <select
-              className="w-full rounded-md border px-3 py-2 text-sm"
+              className="w-full rounded-md border px-3 py-2 text-sm bg-background cursor-pointer transition-all duration-150 hover:border-primary hover:shadow-md focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
               value={participantId ?? ''}
               onChange={(e) => setParticipant(e.target.value || undefined)}
             >
@@ -128,32 +130,43 @@ export default function HomePage() {
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">グループ</label>
             <div className="flex gap-6 text-sm">
-              <label className="inline-flex items-center gap-2">
+              <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-all duration-150 hover:bg-accent hover:shadow-sm">
                 <input
                   type="radio"
                   name="group"
                   value="A"
                   checked={group === 'A'}
                   onChange={() => setGroup('A')}
+                  className="w-4 h-4 cursor-pointer accent-primary"
                 />
-                <span>A（一般解説のみ）</span>
+                <span>A</span>
               </label>
-              <label className="inline-flex items-center gap-2">
+              <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-all duration-150 hover:bg-accent hover:shadow-sm">
                 <input
                   type="radio"
                   name="group"
                   value="B"
                   checked={group === 'B'}
                   onChange={() => setGroup('B')}
+                  className="w-4 h-4 cursor-pointer accent-primary"
                 />
-                <span>B（一般解説＋メタ認知フィードバック）</span>
+                <span>B</span>
               </label>
             </div>
           </div>
 
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">
-              Eye tracker 状態: {eyeTrackerStatus === 'connected' ? '接続中' : '未接続'}
+            <p className="text-sm text-foreground">
+              Eye tracker 状態:{' '}
+              <span
+                className={
+                  eyeTrackerStatus === 'connected'
+                    ? 'text-emerald-600 font-medium'
+                    : 'text-zinc-500 font-medium'
+                }
+              >
+                {eyeTrackerStatus === 'connected' ? '接続中' : '未接続'}
+              </span>
             </p>
           </div>
         </section>
@@ -163,7 +176,7 @@ export default function HomePage() {
             Pre-test を開始
           </Button>
           <Button variant="default" onClick={() => handleStart('training')}>
-            Training を開始
+            Practice を開始
           </Button>
           <Button variant="default" onClick={() => handleStart('post')}>
             Post-test を開始

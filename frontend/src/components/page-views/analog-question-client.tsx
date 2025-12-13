@@ -9,6 +9,7 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { QuestionList } from '@/components/questions/question-list';
 import { Timer } from '@/components/ui/timer';
 import { logEvent } from '@/lib/logger';
+import { useAppStore } from '@/lib/store';
 import type { Analog } from '@/lib/types';
 
 type AnalogQuestionClientProps = {
@@ -35,6 +36,7 @@ export function AnalogQuestionClient({
   confirmHref,
 }: AnalogQuestionClientProps) {
   const router = useRouter();
+  const setAnalogResult = useAppStore((s) => s.setAnalogResult);
   const initialSelections = useMemo(
     () => Object.fromEntries(analog.questions.map((q) => [q.id, undefined])),
     [analog.questions]
@@ -72,10 +74,11 @@ export function AnalogQuestionClient({
       answers: selections,
       unanswered,
     });
+    setAnalogResult(analog.id, selections);
     if (confirmHref) {
       router.push(confirmHref);
     }
-  }, [selections, passageId, analog.id, confirmHref, router]);
+  }, [selections, passageId, analog.id, confirmHref, router, setAnalogResult]);
 
   const handleTimeout = () => {
     if (timedOut) return;
@@ -120,7 +123,7 @@ export function AnalogQuestionClient({
       />
       <ConfirmDialog
         title={timedOut ? '時間切れです' : confirmTitle}
-        description={timedOut ? '制限時間になりました。次の文章に進みます。' : confirmDescription}
+        description={timedOut ? '制限時間になりました。次の問題に進みます。' : confirmDescription}
         confirmLabel={confirmLabel}
         onConfirm={handleSubmit}
         open={dialogOpen}

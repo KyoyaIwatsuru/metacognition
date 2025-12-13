@@ -34,7 +34,7 @@ export function HeaderBar({
       )}
     >
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-2">
-        <div className="text-sm font-semibold">metacognition</div>
+        <div className="text-sm font-semibold">Reading Practice</div>
         <div className="flex items-center gap-1.5">
           {rightSlot}
           {showToggle ? (

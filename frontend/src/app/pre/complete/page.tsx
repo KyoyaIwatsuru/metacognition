@@ -25,8 +25,10 @@ export default function PreCompletePage() {
   return (
     <main className="space-y-4 p-8">
       <h1 className="text-2xl font-semibold">Pre-test 完了</h1>
-      <p className="text-sm text-zinc-600">おつかれさまでした。記録を停止して Home に戻ります。</p>
-      <Button onClick={handleFinish}>終了して Home へ戻る</Button>
+      <p className="text-sm text-zinc-600">
+        おつかれさまでした。下のボタンを押すと最初の画面に戻ります。
+      </p>
+      <Button onClick={handleFinish}>終了する</Button>
     </main>
   );
 }

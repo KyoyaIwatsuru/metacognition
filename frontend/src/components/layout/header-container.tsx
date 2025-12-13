@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { connectEyeTracker, disconnectEyeTracker } from '@/lib/eyetracker';
 import { HeaderBar } from '@/components/layout/header-bar';
@@ -11,8 +12,12 @@ type HeaderContainerProps = {
 };
 
 export function HeaderContainer({ rightSlot }: HeaderContainerProps) {
+  const pathname = usePathname();
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
-  const showToggle = useAppStore((s) => s.phase === undefined); // 接続操作は開始前(Home想定)のみ許可
+  const phase = useAppStore((s) => s.phase);
+  // 接続操作はHome画面のみ許可（パス名でも判定し、HMRでstoreがリセットされても対応）
+  const isHomePage = pathname === '/';
+  const showToggle = phase === undefined && isHomePage;
 
   const handleToggle = useCallback(async () => {
     if (eyeTrackerStatus === 'loading') {
