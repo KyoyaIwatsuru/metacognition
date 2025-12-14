@@ -133,7 +133,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                 const userAnswer = analogResult[q.id];
                 const isUnanswered = !userAnswer;
                 return (
-                  <div key={q.id} className="space-y-2 h-full">
+                  <div key={q.id} className="space-y-2 h-full select-none">
                     <div className="text-sm text-foreground">
                       <span className="font-semibold">Q{idx + 1}</span>{' '}
                       {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
@@ -171,7 +171,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                               <span
                                 className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
                               >
-                                あなたの答
+                                あなたの解答
                               </span>
                             ) : null}
                           </li>
@@ -236,7 +236,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
             const userAnswer = analogResult[q.id];
             const isUnanswered = !userAnswer;
             return (
-              <div key={q.id} className="space-y-1">
+              <div key={q.id} className="space-y-1 select-none">
                 <div className="text-sm text-foreground">
                   <span className="font-semibold">Q{idx + 1}</span>{' '}
                   {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}

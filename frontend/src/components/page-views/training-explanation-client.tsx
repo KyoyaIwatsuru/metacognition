@@ -142,70 +142,72 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           const isUnanswered = !userAnswer;
           return (
             <div key={q.id} className="space-y-2">
-              {/* 設問 */}
-              <div className="text-sm text-foreground">
-                <span className="font-semibold">Q{idx + 1}</span>{' '}
-                {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
-                {isUnanswered ? (
-                  <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
-                    未回答
-                  </span>
+              {/* 設問・選択肢・解説（コピー防止） */}
+              <div className="select-none">
+                <div className="text-sm text-foreground">
+                  <span className="font-semibold">Q{idx + 1}</span>{' '}
+                  {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                  {isUnanswered ? (
+                    <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                      未回答
+                    </span>
+                  ) : null}
+                </div>
+
+                {/* 選択肢 */}
+                <ul className="space-y-0.5 text-sm mt-2">
+                  {q.choices.map((c, cIdx) => {
+                    const isCorrect = c.id === q.correctChoiceId;
+                    const isUserAnswer = c.id === userAnswer;
+                    const isWrongAnswer = isUserAnswer && !isCorrect;
+                    return (
+                      <li
+                        key={c.id}
+                        className={
+                          isCorrect
+                            ? 'text-blue-600 font-medium'
+                            : isWrongAnswer
+                              ? 'text-red-600'
+                              : ''
+                        }
+                      >
+                        <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                        {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                        {isCorrect ? (
+                          <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                            正解
+                          </span>
+                        ) : null}
+                        {isUserAnswer ? (
+                          <span
+                            className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                          >
+                            あなたの解答
+                          </span>
+                        ) : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {/* 解説 */}
+                {q.explanationGeneralJa ? (
+                  <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
+                    {q.explanationGeneralJa}
+                  </p>
+                ) : null}
+
+                {/* メタ認知フィードバック */}
+                {q.metacogFeedbackJa ? (
+                  <div className="text-sm text-slate-800 mt-4 space-y-1">
+                    {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
+                      <p key={pIdx} className="whitespace-pre-line leading-snug">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
                 ) : null}
               </div>
-
-              {/* 選択肢 */}
-              <ul className="space-y-0.5 text-sm">
-                {q.choices.map((c, cIdx) => {
-                  const isCorrect = c.id === q.correctChoiceId;
-                  const isUserAnswer = c.id === userAnswer;
-                  const isWrongAnswer = isUserAnswer && !isCorrect;
-                  return (
-                    <li
-                      key={c.id}
-                      className={
-                        isCorrect
-                          ? 'text-blue-600 font-medium'
-                          : isWrongAnswer
-                            ? 'text-red-600'
-                            : ''
-                      }
-                    >
-                      <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                      {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
-                      {isCorrect ? (
-                        <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
-                          正解
-                        </span>
-                      ) : null}
-                      {isUserAnswer ? (
-                        <span
-                          className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
-                        >
-                          あなたの解答
-                        </span>
-                      ) : null}
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {/* 解説 */}
-              {q.explanationGeneralJa ? (
-                <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
-                  {q.explanationGeneralJa}
-                </p>
-              ) : null}
-
-              {/* メタ認知フィードバック */}
-              {q.metacogFeedbackJa ? (
-                <div className="text-sm text-slate-800 mt-4 space-y-1">
-                  {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
-                    <p key={pIdx} className="whitespace-pre-line leading-snug">
-                      {para}
-                    </p>
-                  ))}
-                </div>
-              ) : null}
 
               {/* 振り返り欄 */}
               {!allCorrect && (
@@ -235,7 +237,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           const userAnswer = trainingResult.answers[q.id];
           const isUnanswered = !userAnswer;
           return (
-            <div key={q.id} className="space-y-1">
+            <div key={q.id} className="space-y-1 select-none">
               {/* 設問 */}
               <div className="text-sm text-foreground">
                 <span className="font-semibold">Q{idx + 1}</span>{' '}
