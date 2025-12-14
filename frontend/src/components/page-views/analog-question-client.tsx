@@ -24,7 +24,7 @@ type AnalogQuestionClientProps = {
   confirmHref?: string;
 };
 
-const DEFAULT_TIME_MS = 5 * 60 * 1000;
+const DEFAULT_TIME_MS = 3 * 60 * 1000;
 
 export function AnalogQuestionClient({
   passageId,
