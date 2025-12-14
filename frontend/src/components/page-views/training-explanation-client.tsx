@@ -6,6 +6,7 @@ import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-
 import { PassageBody } from '@/components/passage/passage-body';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
 
@@ -46,6 +47,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
 
   useEffect(() => {
     if (!loggedOpenRef.current) {
+      captureScreen();
       logEvent({ event: 'training_explanation_open', passage_id: passage.id });
       loggedOpenRef.current = true;
     }

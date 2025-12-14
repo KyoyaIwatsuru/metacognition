@@ -9,6 +9,9 @@ export function generateStaticParams() {
     { passageId: 'tr_01', analogId: 'tr_01_an1' },
     { passageId: 'tr_01', analogId: 'tr_01_an2' },
     { passageId: 'tr_01', analogId: 'tr_01_an3' },
+    { passageId: 'tr_02', analogId: 'tr_02_an1' },
+    { passageId: 'tr_02', analogId: 'tr_02_an2' },
+    { passageId: 'tr_02', analogId: 'tr_02_an3' },
   ];
 }
 

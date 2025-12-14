@@ -7,6 +7,7 @@ import { PassageBody } from '@/components/passage/passage-body';
 import { ReflectionForm } from '@/components/reflection/reflection-form';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Analog, Passage } from '@/lib/types';
 
@@ -46,6 +47,7 @@ export function AnalogReflectionClient({
 
   useEffect(() => {
     if (!loggedOpenRef.current) {
+      captureScreen();
       logEvent({ event: 'reflection2_open', passage_id: passage.id });
       loggedOpenRef.current = true;
     }

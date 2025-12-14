@@ -7,6 +7,7 @@ import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-
 import { PassageBody } from '@/components/passage/passage-body';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
 
@@ -45,6 +46,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   useEffect(() => {
     if (group === 'B') {
       if (!loggedOpenRef.current) {
+        captureScreen();
         logEvent({ event: 'metacog_feedback_open', passage_id: passage.id });
         loggedOpenRef.current = true;
       }

@@ -8,6 +8,7 @@ import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-
 import { ReflectionForm } from '@/components/reflection/reflection-form';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Passage, Question } from '@/lib/types';
 import { PassageBody } from '@/components/passage/passage-body';
@@ -53,6 +54,7 @@ export function TrainingReflectionClient({
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
 
   useEffect(() => {
+    captureScreen();
     logEvent({ event: `${eventPrefix}_open`, passage_id: passage.id });
     return () => {
       logEvent({ event: `${eventPrefix}_exit`, passage_id: passage.id });

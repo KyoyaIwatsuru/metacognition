@@ -3,6 +3,7 @@
 import type { PassageSection } from '@/lib/types';
 import { AdBody } from '@/components/passage/passage-section-ad';
 import { LetterBody } from '@/components/passage/passage-section-letter';
+import { ReportBody } from '@/components/passage/passage-section-report';
 
 type PassageBodyProps = {
   sections?: PassageSection[];
@@ -40,6 +41,9 @@ export function PassageBody({
             }
             if (section.layoutType === 'letter') {
               return <LetterBody key={idx} letter={section.letter} />;
+            }
+            if (section.layoutType === 'report') {
+              return <ReportBody key={idx} report={section.report} />;
             }
             return (
               <div

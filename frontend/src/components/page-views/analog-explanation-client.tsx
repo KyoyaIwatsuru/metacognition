@@ -6,6 +6,7 @@ import { PassageBody } from '@/components/passage/passage-body';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Analog, Passage } from '@/lib/types';
 
@@ -56,6 +57,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
 
   useEffect(() => {
     if (!loggedOpenRef.current) {
+      captureScreen();
       logEvent({ event: 'analog_explanation_open', passage_id: passage.id, analog_id: analog.id });
       loggedOpenRef.current = true;
     }

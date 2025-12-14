@@ -4,11 +4,13 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 
 export default function PreIntroPage() {
   const router = useRouter();
 
   useEffect(() => {
+    captureScreen();
     logEvent({ event: 'phase_intro_enter', phase: 'pre' });
     return () => {
       logEvent({ event: 'phase_intro_exit', phase: 'pre' });

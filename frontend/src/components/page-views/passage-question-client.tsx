@@ -8,6 +8,7 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { QuestionList } from '@/components/questions/question-list';
 import { Timer } from '@/components/ui/timer';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { PassageBody } from '@/components/passage/passage-body';
 import type { Passage } from '@/lib/types';
 
@@ -49,6 +50,7 @@ export function PassageQuestionClient({
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
 
   useEffect(() => {
+    captureScreen();
     logEvent({ event: 'question_screen_open', passage_id: passage.id });
   }, [passage.id]);
 
@@ -66,17 +68,29 @@ export function PassageQuestionClient({
     const unanswered = Object.entries(selections)
       .filter(([, choice]) => !choice)
       .map(([q]) => q);
+    const results = Object.entries(selections).map(([questionId, choiceId]) => {
+      const question = passage.questions.find((q) => q.id === questionId);
+      return {
+        question_id: questionId,
+        choice_id: choiceId,
+        is_correct: choiceId ? question?.correctChoiceId === choiceId : null,
+      };
+    });
+    const correctCount = results.filter((r) => r.is_correct === true).length;
     logEvent({
       event: 'answer_submit',
       passage_id: passage.id,
       answers: selections,
+      results,
+      correct_count: correctCount,
+      total_count: passage.questions.length,
       unanswered,
     });
     onSubmit?.(selections);
     if (confirmHref) {
       router.push(confirmHref);
     }
-  }, [selections, passage.id, onSubmit, confirmHref, router]);
+  }, [selections, passage.id, passage.questions, onSubmit, confirmHref, router]);
 
   const handleTimeout = () => {
     if (timedOut) return;

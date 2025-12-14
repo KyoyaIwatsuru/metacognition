@@ -15,7 +15,7 @@ import { logEvent } from '@/lib/logger';
 import { resetLogPath } from '@/lib/tauri-log-bridge';
 import { toast } from 'sonner';
 
-const participants = ['P001', 'P002', 'P003', 'P004'];
+const participants = ['Pre001', 'Pre002', 'Pre003', 'Pre004'];
 
 function HomeHeader() {
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);

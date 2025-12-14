@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { logEvent } from '@/lib/logger';
+import { useAppStore } from '@/lib/store';
 
 export default function TrainingIntroPage() {
   const router = useRouter();
+  const group = useAppStore((s) => s.group);
 
   useEffect(() => {
     logEvent({ event: 'phase_intro_enter', phase: 'training' });
@@ -15,6 +17,9 @@ export default function TrainingIntroPage() {
     };
   }, []);
 
+  // Group A → tr_01, Group B → tr_02
+  const passageId = group === 'B' ? 'tr_02' : 'tr_01';
+
   return (
     <main className="space-y-4 p-8">
       <h1 className="text-2xl font-semibold">Practice を開始します</h1>
@@ -22,7 +27,7 @@ export default function TrainingIntroPage() {
         <p>Practiceでは、英語の長文読解の練習を行います。</p>
         <p>問題を解いた後に解説が表示されます。画面の指示に従って進めてください。</p>
       </div>
-      <Button onClick={() => router.push('/training/tr_01')}>Practice を開始</Button>
+      <Button onClick={() => router.push(`/training/${passageId}`)}>Practice を開始</Button>
     </main>
   );
 }

@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { stopRecording } from '@/lib/eyetracker';
 import { useAppStore } from '@/lib/store';
 import { toast } from 'sonner';
@@ -10,6 +12,10 @@ import { toast } from 'sonner';
 export default function PostCompletePage() {
   const router = useRouter();
   const setPhase = useAppStore((s) => s.setPhase);
+
+  useEffect(() => {
+    captureScreen();
+  }, []);
 
   const handleFinish = async () => {
     const res = await stopRecording();

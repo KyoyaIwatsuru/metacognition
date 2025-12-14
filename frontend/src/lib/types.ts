@@ -53,6 +53,7 @@ export type LogEvent = {
 export type PassageSection =
   | { layoutType: 'ad'; locale: 'en' | 'ja'; ad: AdContent }
   | { layoutType: 'letter'; locale: 'en' | 'ja'; letter: LetterContent }
+  | { layoutType: 'report'; locale: 'en' | 'ja'; report: ReportContent }
   | { layoutType: 'plain'; locale: 'en' | 'ja'; paragraphs: string[] };
 
 export type AdContent = {
@@ -86,4 +87,13 @@ export type LetterContent = {
   closing?: string; // "Yours sincerely,"
   signature?: string; // 署名（イタリック体で表示）
   senderName?: string; // 活字の名前
+};
+
+export type ReportContent = {
+  header: string; // 組織名・会社名（ヘッダー）
+  title: string; // 報告書タイトル
+  meta?: { label: string; value: string }[]; // Client, Property, Purpose, Dates等
+  bodyTitle?: string; // 本文見出し（太字で表示）例: "Summary of main findings..."
+  body: string[]; // 本文段落
+  footer?: string; // Assessment prepared by...
 };

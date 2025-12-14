@@ -9,6 +9,7 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { QuestionList } from '@/components/questions/question-list';
 import { Timer } from '@/components/ui/timer';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Analog } from '@/lib/types';
 
@@ -49,6 +50,7 @@ export function AnalogQuestionClient({
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
 
   useEffect(() => {
+    captureScreen();
     logEvent({ event: 'analog_question_open', passage_id: passageId, analog_id: analog.id });
   }, [analog.id, passageId]);
 
@@ -67,18 +69,30 @@ export function AnalogQuestionClient({
     const unanswered = Object.entries(selections)
       .filter(([, choice]) => !choice)
       .map(([q]) => q);
+    const results = Object.entries(selections).map(([questionId, choiceId]) => {
+      const question = analog.questions.find((q) => q.id === questionId);
+      return {
+        question_id: questionId,
+        choice_id: choiceId,
+        is_correct: choiceId ? question?.correctChoiceId === choiceId : null,
+      };
+    });
+    const correctCount = results.filter((r) => r.is_correct === true).length;
     logEvent({
       event: 'analog_answer_submit',
       passage_id: passageId,
       analog_id: analog.id,
       answers: selections,
+      results,
+      correct_count: correctCount,
+      total_count: analog.questions.length,
       unanswered,
     });
     setAnalogResult(analog.id, selections);
     if (confirmHref) {
       router.push(confirmHref);
     }
-  }, [selections, passageId, analog.id, confirmHref, router, setAnalogResult]);
+  }, [selections, passageId, analog.id, analog.questions, confirmHref, router, setAnalogResult]);
 
   const handleTimeout = () => {
     if (timedOut) return;

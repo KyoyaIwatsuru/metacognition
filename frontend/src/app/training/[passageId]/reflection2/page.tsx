@@ -5,7 +5,7 @@ import { useAppStore } from '@/lib/store';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ passageId: 'tr_01' }];
+  return [{ passageId: 'tr_01' }, { passageId: 'tr_02' }];
 }
 
 type PageProps = {
