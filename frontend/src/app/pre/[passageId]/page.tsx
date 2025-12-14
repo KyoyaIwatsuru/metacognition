@@ -36,7 +36,7 @@ export default async function PrePassagePage({ params }: PageProps) {
       confirmDescription={confirmDescription}
       confirmLabel={confirmLabel}
       confirmHref={confirmHref}
-      submitLabel="回答を確定する"
+      submitLabel="解答を確定する"
     />
   );
 }

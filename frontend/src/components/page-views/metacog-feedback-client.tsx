@@ -164,7 +164,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
                             <span
                               className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
                             >
-                              あなたの回答
+                              あなたの解答
                             </span>
                           ) : null}
                         </li>

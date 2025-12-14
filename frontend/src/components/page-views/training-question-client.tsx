@@ -22,11 +22,11 @@ export function TrainingQuestionClient({ passage }: TrainingQuestionClientProps)
     <PassageQuestionClient
       passage={passage}
       showJapanese={false}
-      confirmTitle="回答を確定します"
+      confirmTitle="解答を確定します"
       confirmDescription="次に進むと戻れません。よろしいですか？"
-      confirmLabel="解説へ"
+      confirmLabel="解答する"
       confirmHref={`/training/${passage.id}/explanation`}
-      submitLabel="回答を確定する"
+      submitLabel="解答を確定する"
       onSubmit={handleSubmit}
     />
   );

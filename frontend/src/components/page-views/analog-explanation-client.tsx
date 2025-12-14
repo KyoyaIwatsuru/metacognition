@@ -5,6 +5,13 @@ import { AppShell } from '@/components/layout/app-shell';
 import { PassageBody } from '@/components/passage/passage-body';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
@@ -73,21 +80,27 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
     };
   }, [analog.id, passage.id]);
 
+  // ヘッダー用言語ドロップダウン
+  const headerLocaleDropdown = (
+    <Select value={locale} onValueChange={handleLocaleChange}>
+      <SelectTrigger size="sm" className="w-24 font-semibold">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="en">English</SelectItem>
+        <SelectItem value="ja">日本語</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+
   // Group B: メタ認知付き（タブで問題切り替え）
   if (group === 'B') {
     return (
       <AppShell
+        headerSlot={headerLocaleDropdown}
         leftSlot={
-          <div className="h-full flex flex-col overflow-hidden">
-            <Tabs value={locale} onValueChange={handleLocaleChange} className="shrink-0">
-              <TabsList>
-                <TabsTrigger value="en">English</TabsTrigger>
-                <TabsTrigger value="ja">日本語</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            <div
-              className={`flex-1 mt-2 ${locale === 'ja' ? 'overflow-y-auto' : 'overflow-hidden'}`}
-            >
+          <div className="h-full overflow-hidden">
+            <div className={`h-full ${locale === 'ja' ? 'overflow-y-auto' : 'overflow-hidden'}`}>
               <PassageBody
                 sections={analog.sections}
                 paragraphsEn={paragraphs}
@@ -158,7 +171,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                               <span
                                 className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
                               >
-                                あなたの回答
+                                あなたの答
                               </span>
                             ) : null}
                           </li>
@@ -203,15 +216,10 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
   // Group A: 通常解説（スクロール可）
   return (
     <AppShell
+      headerSlot={headerLocaleDropdown}
       leftSlot={
-        <div className="h-full flex flex-col overflow-hidden">
-          <Tabs value={locale} onValueChange={handleLocaleChange} className="shrink-0">
-            <TabsList>
-              <TabsTrigger value="en">English</TabsTrigger>
-              <TabsTrigger value="ja">日本語</TabsTrigger>
-            </TabsList>
-          </Tabs>
-          <div className={`flex-1 mt-2 ${locale === 'ja' ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+        <div className="h-full overflow-hidden">
+          <div className={`h-full ${locale === 'ja' ? 'overflow-y-auto' : 'overflow-hidden'}`}>
             <PassageBody
               sections={analog.sections}
               paragraphsEn={paragraphs}
@@ -266,7 +274,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                           <span
                             className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
                           >
-                            あなたの回答
+                            あなたの解答
                           </span>
                         ) : null}
                       </li>

@@ -25,7 +25,7 @@ export function QuestionList({
   onSelect,
   onSubmit = () => {},
   showJapanese = false,
-  submitLabel = '回答を確定する',
+  submitLabel = '解答を確定する',
   disabled = false,
   showSubmitButton = false,
 }: QuestionListProps) {

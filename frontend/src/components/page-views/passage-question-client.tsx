@@ -135,7 +135,7 @@ export function PassageQuestionClient({
       />
       <ConfirmDialog
         title={timedOut ? '時間切れです' : confirmTitle}
-        description={timedOut ? '制限時間になりました。次の問題に進みます。' : confirmDescription}
+        description={timedOut ? '制限時間になりました。解説に進みます。' : confirmDescription}
         confirmLabel={confirmLabel}
         onConfirm={handleSubmit}
         open={dialogOpen}

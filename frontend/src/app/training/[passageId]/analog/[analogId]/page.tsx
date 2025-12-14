@@ -37,11 +37,11 @@ export default async function AnalogQuestionPage({ params }: PageProps) {
     <AnalogQuestionClient
       passageId={passage.id}
       analog={analog}
-      confirmTitle="解説へ進みます"
+      confirmTitle="解答を確定します"
       confirmDescription="戻ることはできません。よろしいですか？"
-      confirmLabel="解説へ"
+      confirmLabel="解答する"
       confirmHref={`/training/${passage.id}/analog/${analog.id}/explanation`}
-      submitLabel="回答を確定する"
+      submitLabel="解答を確定する"
     />
   );
 }
