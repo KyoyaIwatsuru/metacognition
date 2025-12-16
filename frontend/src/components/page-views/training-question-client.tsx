@@ -25,7 +25,7 @@ export function TrainingQuestionClient({ passage }: TrainingQuestionClientProps)
       confirmTitle="解答を確定します"
       confirmDescription="次に進むと戻れません。よろしいですか？"
       confirmLabel="解答する"
-      confirmHref={`/training/${passage.id}/explanation`}
+      confirmHref={`/training/${passage.id}/reflection1`}
       submitLabel="解答を確定する"
       onSubmit={handleSubmit}
     />

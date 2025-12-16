@@ -35,6 +35,7 @@ type TrainingReflectionClientProps = {
   submitLabel?: string;
   confirmHref?: string;
   eventPrefix: 'reflection1' | 'reflection2';
+  prompt?: React.ReactNode;
 };
 
 const defaultPrompt = (
@@ -53,6 +54,7 @@ export function TrainingReflectionClient({
   submitLabel = '送信',
   confirmHref,
   eventPrefix,
+  prompt = defaultPrompt,
 }: TrainingReflectionClientProps) {
   const [locale, setLocale] = useState<'en' | 'ja'>('en');
   const [selectedQuestion, setSelectedQuestion] = useState('0');
@@ -204,7 +206,7 @@ export function TrainingReflectionClient({
                   {/* 振り返り欄 */}
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <ReflectionForm
-                      prompt={defaultPrompt}
+                      prompt={prompt}
                       value={value}
                       onChange={setValue}
                       onSubmit={handleSubmit}

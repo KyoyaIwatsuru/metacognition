@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { PassageBody } from '@/components/passage/passage-body';
-import { ReflectionForm } from '@/components/reflection/reflection-form';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Select,
@@ -24,27 +23,25 @@ const EMPTY_TRAINING_RESULT = {
   answers: {} as Record<string, string | undefined>,
 };
 
-const reflectionPrompt = (
-  <>
-    <p>解説を読んで思ったことを自由に書いてください。</p>
-    <p>どんな内容でもかまいません。</p>
-  </>
-);
-
 type TrainingExplanationClientProps = {
   passage: Passage;
 };
 
 export function TrainingExplanationClient({ passage }: TrainingExplanationClientProps) {
   const [locale, setLocale] = useState<'en' | 'ja'>('en');
-  const [reflectionValue, setReflectionValue] = useState('');
   const [selectedQuestion, setSelectedQuestion] = useState('0');
-  const reflectionStartedRef = useRef(false);
 
   const group = useAppStore((s) => s.group);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
-  // 常に類題1へ進む
-  const nextHref = `/training/${passage.id}/analog/${passage.id}_an1`;
+
+  // A群: 類題1へ、B群: metacog-feedbackへ
+  const nextHref = useMemo(() => {
+    if (group === 'B') {
+      return `/training/${passage.id}/metacog-feedback`;
+    }
+    return `/training/${passage.id}/analog/${passage.id}_an1`;
+  }, [group, passage.id]);
+
   const confirmLabel = '次へ';
   const confirmTitle = '次へ進みます';
   const confirmDescription = '戻ることはできません。よろしいですか？';
@@ -68,21 +65,6 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
       event: 'question_tab_click',
       passage_id: passage.id,
       question_index: Number(newQuestion),
-    });
-  };
-
-  const handleReflectionTypingStart = () => {
-    if (!reflectionStartedRef.current) {
-      reflectionStartedRef.current = true;
-      logEvent({ event: 'reflection1_typing_start', passage_id: passage.id });
-    }
-  };
-
-  const handleReflectionSubmit = () => {
-    logEvent({
-      event: 'reflection1_submit',
-      passage_id: passage.id,
-      content: reflectionValue,
     });
   };
 
@@ -203,18 +185,6 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                   </div>
                 ) : null}
               </div>
-
-              {/* 振り返り欄 */}
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <ReflectionForm
-                  prompt={reflectionPrompt}
-                  value={reflectionValue}
-                  onChange={setReflectionValue}
-                  onSubmit={handleReflectionSubmit}
-                  onTypingStart={handleReflectionTypingStart}
-                  showSubmitButton={false}
-                />
-              </div>
             </div>
           );
         })}
@@ -287,18 +257,6 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
             </div>
           );
         })}
-
-        {/* 振り返り欄 */}
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <ReflectionForm
-            prompt={reflectionPrompt}
-            value={reflectionValue}
-            onChange={setReflectionValue}
-            onSubmit={handleReflectionSubmit}
-            onTypingStart={handleReflectionTypingStart}
-            showSubmitButton={false}
-          />
-        </div>
       </div>
     </div>
   );
@@ -327,7 +285,6 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           description={confirmDescription}
           confirmLabel={confirmLabel}
           triggerLabel={confirmLabel}
-          onConfirm={handleReflectionSubmit}
         />
       }
     />
