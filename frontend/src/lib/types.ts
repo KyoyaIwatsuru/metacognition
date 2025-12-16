@@ -54,7 +54,12 @@ export type PassageSection =
   | { layoutType: 'ad'; locale: 'en' | 'ja'; ad: AdContent }
   | { layoutType: 'letter'; locale: 'en' | 'ja'; letter: LetterContent }
   | { layoutType: 'report'; locale: 'en' | 'ja'; report: ReportContent }
-  | { layoutType: 'plain'; locale: 'en' | 'ja'; paragraphs: string[] };
+  | { layoutType: 'plain'; locale: 'en' | 'ja'; paragraphs: string[] }
+  | { layoutType: 'webpage'; locale: 'en' | 'ja'; webpage: WebpageContent }
+  | { layoutType: 'schedule'; locale: 'en' | 'ja'; schedule: ScheduleContent }
+  | { layoutType: 'article'; locale: 'en' | 'ja'; article: ArticleContent }
+  | { layoutType: 'notice'; locale: 'en' | 'ja'; notice: NoticeContent }
+  | { layoutType: 'orderForm'; locale: 'en' | 'ja'; orderForm: OrderFormContent };
 
 export type AdContent = {
   headline?: string;
@@ -96,4 +101,36 @@ export type ReportContent = {
   bodyTitle?: string; // 本文見出し（太字で表示）例: "Summary of main findings..."
   body: string[]; // 本文段落
   footer?: string; // Assessment prepared by...
+};
+
+export type WebpageContent = {
+  url: string; // ブラウザのアドレスバーに表示するURL
+  title: string; // ページタイトル（見出し）
+  body: string[]; // 本文段落
+};
+
+export type ScheduleContent = {
+  header: string; // 会社名（例: "Marsantis Shipping"）
+  subheader?: string; // ルート名（例: "Valencia to Toyohashi Service"）
+  subheader2?: string; // スケジュール名（例: "Spring Schedule"）
+  columns: string[]; // テーブルヘッダー列名
+  rows: string[][]; // データ行
+};
+
+export type ArticleContent = {
+  headline: string; // 記事見出し（例: "Burger City Bistro to Become BC Bistro"）
+  byline?: string; // 著者名（例: "By Lola Jimenez"）
+  body: string[]; // 本文段落（[1][2][3][4]などのマーカー含む）
+};
+
+export type NoticeContent = {
+  title: string; // タイトル（例: "Crofton Power"）
+  body: string[]; // 本文段落（セクションヘッダーを含む、[1][2][3][4]マーカー含む）
+};
+
+export type OrderFormContent = {
+  title: string; // フォームタイトル（例: "Greencove Catering Reservation Request"）
+  fields: { label: string; value: string }[]; // フィールド（ラベル: 値）
+  checkboxes?: { label: string; checked: boolean }[]; // チェックボックス項目
+  lastField?: { label: string; value: string }; // チェックボックス後に表示するフィールド
 };

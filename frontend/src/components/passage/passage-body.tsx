@@ -2,8 +2,13 @@
 
 import type { PassageSection } from '@/lib/types';
 import { AdBody } from '@/components/passage/passage-section-ad';
+import { ArticleBody } from '@/components/passage/passage-section-article';
 import { LetterBody } from '@/components/passage/passage-section-letter';
+import { NoticeBody } from '@/components/passage/passage-section-notice';
+import { OrderFormBody } from '@/components/passage/passage-section-order-form';
 import { ReportBody } from '@/components/passage/passage-section-report';
+import { ScheduleBody } from '@/components/passage/passage-section-schedule';
+import { WebpageBody } from '@/components/passage/passage-section-webpage';
 
 type PassageBodyProps = {
   sections?: PassageSection[];
@@ -44,6 +49,21 @@ export function PassageBody({
             }
             if (section.layoutType === 'report') {
               return <ReportBody key={idx} report={section.report} />;
+            }
+            if (section.layoutType === 'webpage') {
+              return <WebpageBody key={idx} webpage={section.webpage} />;
+            }
+            if (section.layoutType === 'schedule') {
+              return <ScheduleBody key={idx} schedule={section.schedule} />;
+            }
+            if (section.layoutType === 'article') {
+              return <ArticleBody key={idx} article={section.article} />;
+            }
+            if (section.layoutType === 'notice') {
+              return <NoticeBody key={idx} notice={section.notice} />;
+            }
+            if (section.layoutType === 'orderForm') {
+              return <OrderFormBody key={idx} orderForm={section.orderForm} />;
             }
             return (
               <div
