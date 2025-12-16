@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { PassageBody } from '@/components/passage/passage-body';
@@ -33,13 +32,6 @@ export function TrainingReflection1View({ passage }: TrainingReflection1ViewProp
   const startedRef = useRef(false);
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (trainingResult?.allCorrect) {
-      router.replace('/training/complete');
-    }
-  }, [router, trainingResult?.allCorrect]);
 
   useEffect(() => {
     captureScreen();

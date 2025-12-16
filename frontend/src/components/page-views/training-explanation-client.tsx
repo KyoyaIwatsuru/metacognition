@@ -34,13 +34,10 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
   const group = useAppStore((s) => s.group);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
 
-  // A群: 類題1へ、B群: metacog-feedbackへ
+  // A群・B群共通: 類題1へ
   const nextHref = useMemo(() => {
-    if (group === 'B') {
-      return `/training/${passage.id}/metacog-feedback`;
-    }
     return `/training/${passage.id}/analog/${passage.id}_an1`;
-  }, [group, passage.id]);
+  }, [passage.id]);
 
   const confirmLabel = '次へ';
   const confirmTitle = '次へ進みます';
@@ -192,68 +189,85 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
     </div>
   );
 
-  // A群用: 全問題を一覧表示
+  // A群用: タブで問題を切り替えて表示（B群と同じUIだがメタ認知フィードバックなし）
   const renderGroupAContent = () => (
-    <div className="h-full overflow-y-auto">
-      <div className="space-y-4">
+    <div className="h-full flex flex-col overflow-hidden">
+      {/* 問題タブ */}
+      <div className="shrink-0">
+        <Tabs value={selectedQuestion} onValueChange={handleQuestionTabChange}>
+          <TabsList>
+            {passage.questions.map((_, idx) => (
+              <TabsTrigger key={idx} value={String(idx)}>
+                Q{idx + 1}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+      </div>
+
+      {/* 選択された問題の内容 */}
+      <div className="flex-1 mt-2 overflow-y-auto">
         {passage.questions.map((q, idx) => {
+          if (String(idx) !== selectedQuestion) return null;
           const userAnswer = trainingResult.answers[q.id];
           const isUnanswered = !userAnswer;
           return (
-            <div key={q.id} className="space-y-1 select-none">
-              {/* 設問 */}
-              <div className="text-sm text-foreground">
-                <span className="font-semibold">Q{idx + 1}</span>{' '}
-                {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
-                {isUnanswered ? (
-                  <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
-                    未回答
-                  </span>
+            <div key={q.id} className="space-y-2">
+              {/* 設問・選択肢・解説（コピー防止） */}
+              <div className="select-none">
+                <div className="text-sm text-foreground">
+                  <span className="font-semibold">Q{idx + 1}</span>{' '}
+                  {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                  {isUnanswered ? (
+                    <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                      未回答
+                    </span>
+                  ) : null}
+                </div>
+
+                {/* 選択肢 */}
+                <ul className="space-y-0.5 text-sm mt-2">
+                  {q.choices.map((c, cIdx) => {
+                    const isCorrect = c.id === q.correctChoiceId;
+                    const isUserAnswer = c.id === userAnswer;
+                    const isWrongAnswer = isUserAnswer && !isCorrect;
+                    return (
+                      <li
+                        key={c.id}
+                        className={
+                          isCorrect
+                            ? 'text-blue-600 font-medium'
+                            : isWrongAnswer
+                              ? 'text-red-600'
+                              : ''
+                        }
+                      >
+                        <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                        {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                        {isCorrect ? (
+                          <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                            正解
+                          </span>
+                        ) : null}
+                        {isUserAnswer ? (
+                          <span
+                            className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                          >
+                            あなたの解答
+                          </span>
+                        ) : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {/* 解説 */}
+                {q.explanationGeneralJa ? (
+                  <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
+                    {q.explanationGeneralJa}
+                  </p>
                 ) : null}
               </div>
-
-              {/* 選択肢 */}
-              <ul className="space-y-0.5 text-sm">
-                {q.choices.map((c, cIdx) => {
-                  const isCorrect = c.id === q.correctChoiceId;
-                  const isUserAnswer = c.id === userAnswer;
-                  const isWrongAnswer = isUserAnswer && !isCorrect;
-                  return (
-                    <li
-                      key={c.id}
-                      className={
-                        isCorrect
-                          ? 'text-blue-600 font-medium'
-                          : isWrongAnswer
-                            ? 'text-red-600'
-                            : ''
-                      }
-                    >
-                      <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                      {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
-                      {isCorrect ? (
-                        <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
-                          正解
-                        </span>
-                      ) : null}
-                      {isUserAnswer ? (
-                        <span
-                          className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
-                        >
-                          あなたの解答
-                        </span>
-                      ) : null}
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {/* 解説 */}
-              {q.explanationGeneralJa ? (
-                <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
-                  {q.explanationGeneralJa}
-                </p>
-              ) : null}
             </div>
           );
         })}

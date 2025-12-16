@@ -213,7 +213,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
     );
   }
 
-  // Group A: 通常解説（スクロール可）
+  // Group A: タブで問題を切り替えて表示（B群と同じUIだがメタ認知フィードバックなし）
   return (
     <AppShell
       headerSlot={headerLocaleDropdown}
@@ -231,65 +231,82 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
         </div>
       }
       rightSlot={
-        <div className="space-y-4 overflow-y-auto h-full">
-          {analog.questions.map((q, idx) => {
-            const userAnswer = analogResult[q.id];
-            const isUnanswered = !userAnswer;
-            return (
-              <div key={q.id} className="space-y-1 select-none">
-                <div className="text-sm text-foreground">
-                  <span className="font-semibold">Q{idx + 1}</span>{' '}
-                  {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
-                  {isUnanswered ? (
-                    <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
-                      未回答
-                    </span>
+        <div className="h-full flex flex-col overflow-hidden">
+          <Tabs
+            value={selectedQuestion}
+            onValueChange={handleQuestionTabChange}
+            className="shrink-0"
+          >
+            <TabsList>
+              {analog.questions.map((_, idx) => (
+                <TabsTrigger key={idx} value={String(idx)}>
+                  Q{idx + 1}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+
+          <div className="flex-1 mt-2 overflow-y-auto">
+            {analog.questions.map((q, idx) => {
+              if (String(idx) !== selectedQuestion) return null;
+              const userAnswer = analogResult[q.id];
+              const isUnanswered = !userAnswer;
+              return (
+                <div key={q.id} className="space-y-2 select-none">
+                  <div className="text-sm text-foreground">
+                    <span className="font-semibold">Q{idx + 1}</span>{' '}
+                    {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                    {isUnanswered ? (
+                      <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                        未回答
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <ul className="space-y-0.5 text-sm">
+                    {q.choices.map((c, cIdx) => {
+                      const isCorrect = c.id === q.correctChoiceId;
+                      const isUserAnswer = c.id === userAnswer;
+                      const isWrongAnswer = isUserAnswer && !isCorrect;
+                      return (
+                        <li
+                          key={c.id}
+                          className={
+                            isCorrect
+                              ? 'text-blue-600 font-medium'
+                              : isWrongAnswer
+                                ? 'text-red-600'
+                                : ''
+                          }
+                        >
+                          <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                          {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                          {isCorrect ? (
+                            <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                              正解
+                            </span>
+                          ) : null}
+                          {isUserAnswer ? (
+                            <span
+                              className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                            >
+                              あなたの解答
+                            </span>
+                          ) : null}
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  {q.explanationGeneralJa ? (
+                    <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
+                      {q.explanationGeneralJa}
+                    </p>
                   ) : null}
                 </div>
-
-                <ul className="space-y-0.5 text-sm">
-                  {q.choices.map((c, cIdx) => {
-                    const isCorrect = c.id === q.correctChoiceId;
-                    const isUserAnswer = c.id === userAnswer;
-                    const isWrongAnswer = isUserAnswer && !isCorrect;
-                    return (
-                      <li
-                        key={c.id}
-                        className={
-                          isCorrect
-                            ? 'text-blue-600 font-medium'
-                            : isWrongAnswer
-                              ? 'text-red-600'
-                              : ''
-                        }
-                      >
-                        <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                        {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
-                        {isCorrect ? (
-                          <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
-                            正解
-                          </span>
-                        ) : null}
-                        {isUserAnswer ? (
-                          <span
-                            className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
-                          >
-                            あなたの解答
-                          </span>
-                        ) : null}
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                {q.explanationGeneralJa ? (
-                  <p className="text-sm text-slate-800 mt-1 whitespace-pre-line">
-                    {q.explanationGeneralJa}
-                  </p>
-                ) : null}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       }
       footer={

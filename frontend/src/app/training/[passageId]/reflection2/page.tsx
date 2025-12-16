@@ -1,6 +1,5 @@
 import { AnalogReflectionClient } from '@/components/page-views/analog-reflection-client';
 import { mockTrainingPassages } from '@/lib/mock-data';
-import { useAppStore } from '@/lib/store';
 
 export const dynamicParams = false;
 
@@ -15,10 +14,9 @@ type PageProps = {
 export default async function TrainingReflection2Page({ params }: PageProps) {
   const { passageId } = await params;
   const passage = mockTrainingPassages.find((p) => p.id === passageId);
-  const trainingResult = useAppStore.getState().trainingResults[passageId];
 
-  // Skip if passage not found, no analogs, or all correct
-  if (!passage || !passage.analogs?.length || trainingResult?.allCorrect) {
+  // Skip if passage not found or no analogs
+  if (!passage || !passage.analogs?.length) {
     return null;
   }
 

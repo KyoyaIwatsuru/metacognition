@@ -33,15 +33,11 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   const nextLabel = firstAnalogId ? '次へ' : '振り返りへ';
 
   useEffect(() => {
-    if (trainingResult?.allCorrect) {
-      router.replace('/training/complete');
-      return;
-    }
     if (group !== 'B') {
       logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
       router.replace(analogHref);
     }
-  }, [analogHref, group, passage.id, router, trainingResult?.allCorrect]);
+  }, [analogHref, group, passage.id, router]);
 
   useEffect(() => {
     if (group === 'B') {
