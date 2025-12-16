@@ -43,16 +43,11 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
 
   const group = useAppStore((s) => s.group);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
-  const allCorrect = trainingResult.allCorrect;
-  // 全問正解ならPractice終了、そうでなければ類題1へ
-  const nextHref = allCorrect
-    ? '/training/complete'
-    : `/training/${passage.id}/analog/${passage.id}_an1`;
-  const confirmLabel = allCorrect ? 'Practiceを終了する' : '次へ';
-  const confirmTitle = allCorrect ? 'Practiceを終了します' : '次へ進みます';
-  const confirmDescription = allCorrect
-    ? 'Practiceを終了します。戻ることはできません。よろしいですか？'
-    : '戻ることはできません。よろしいですか？';
+  // 常に類題1へ進む
+  const nextHref = `/training/${passage.id}/analog/${passage.id}_an1`;
+  const confirmLabel = '次へ';
+  const confirmTitle = '次へ進みます';
+  const confirmDescription = '戻ることはできません。よろしいですか？';
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
   const loggedOpenRef = useRef(false);
@@ -210,18 +205,16 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
               </div>
 
               {/* 振り返り欄 */}
-              {!allCorrect && (
-                <div className="mt-6 pt-4 border-t border-gray-200">
-                  <ReflectionForm
-                    prompt={reflectionPrompt}
-                    value={reflectionValue}
-                    onChange={setReflectionValue}
-                    onSubmit={handleReflectionSubmit}
-                    onTypingStart={handleReflectionTypingStart}
-                    showSubmitButton={false}
-                  />
-                </div>
-              )}
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <ReflectionForm
+                  prompt={reflectionPrompt}
+                  value={reflectionValue}
+                  onChange={setReflectionValue}
+                  onSubmit={handleReflectionSubmit}
+                  onTypingStart={handleReflectionTypingStart}
+                  showSubmitButton={false}
+                />
+              </div>
             </div>
           );
         })}
@@ -296,18 +289,16 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
         })}
 
         {/* 振り返り欄 */}
-        {!allCorrect && (
-          <div className="mt-6 pt-4 border-t border-gray-200">
-            <ReflectionForm
-              prompt={reflectionPrompt}
-              value={reflectionValue}
-              onChange={setReflectionValue}
-              onSubmit={handleReflectionSubmit}
-              onTypingStart={handleReflectionTypingStart}
-              showSubmitButton={false}
-            />
-          </div>
-        )}
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <ReflectionForm
+            prompt={reflectionPrompt}
+            value={reflectionValue}
+            onChange={setReflectionValue}
+            onSubmit={handleReflectionSubmit}
+            onTypingStart={handleReflectionTypingStart}
+            showSubmitButton={false}
+          />
+        </div>
       </div>
     </div>
   );
@@ -336,7 +327,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           description={confirmDescription}
           confirmLabel={confirmLabel}
           triggerLabel={confirmLabel}
-          onConfirm={!allCorrect ? handleReflectionSubmit : undefined}
+          onConfirm={handleReflectionSubmit}
         />
       }
     />
