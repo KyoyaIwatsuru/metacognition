@@ -22,8 +22,8 @@ type TrainingReflection1ViewProps = {
 
 const reflection1Prompt = (
   <>
-    <p>問題を解いて思ったことを自由に書いてください。</p>
-    <p>どんな内容でもかまいません。</p>
+    <p>この問題を解いてどういったところを意識しましたか？気をつけたところはありますか？</p>
+    <p>自由に書いてください。（30文字以上）</p>
   </>
 );
 
@@ -135,8 +135,9 @@ export function TrainingReflection1View({ passage }: TrainingReflection1ViewProp
           title="次へ進みます"
           description="戻ることはできません。よろしいですか？"
           confirmLabel="次へ"
-          triggerLabel="次へ"
+          triggerLabel={value.length < 30 ? `次へ（あと${30 - value.length}文字）` : '次へ'}
           onConfirm={handleSubmit}
+          disabled={value.length < 30}
         />
       }
     />

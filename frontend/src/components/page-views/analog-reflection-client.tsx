@@ -6,13 +6,6 @@ import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-
 import { PassageBody } from '@/components/passage/passage-body';
 import { ReflectionForm } from '@/components/reflection/reflection-form';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
@@ -33,7 +26,7 @@ type AnalogReflectionClientProps = {
 const defaultPrompt = (
   <>
     <p>この3問を通してどういったところを意識しましたか？気をつけたところはありますか？</p>
-    <p>自由に書いてください。</p>
+    <p>自由に書いてください。（30文字以上）</p>
   </>
 );
 
@@ -112,22 +105,19 @@ export function AnalogReflectionClient({
 
   if (!currentAnalog) return null;
 
-  // ヘッダー用言語ドロップダウン
-  const headerLocaleDropdown = (
-    <Select value={locale} onValueChange={handleLocaleChange}>
-      <SelectTrigger size="sm" className="w-24 font-semibold">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="en">English</SelectItem>
-        <SelectItem value="ja">日本語</SelectItem>
-      </SelectContent>
-    </Select>
+  // ヘッダー用言語切り替えタブ
+  const headerLocaleToggle = (
+    <Tabs value={locale} onValueChange={handleLocaleChange}>
+      <TabsList>
+        <TabsTrigger value="en">English</TabsTrigger>
+        <TabsTrigger value="ja">日本語</TabsTrigger>
+      </TabsList>
+    </Tabs>
   );
 
   return (
     <AppShell
-      headerSlot={headerLocaleDropdown}
+      headerSlot={headerLocaleToggle}
       leftSlot={
         <div className="h-full overflow-hidden">
           <div className={`h-full ${locale === 'ja' ? 'overflow-y-auto' : 'overflow-hidden'}`}>
@@ -234,8 +224,11 @@ export function AnalogReflectionClient({
           title={confirmTitle}
           description={confirmDescription}
           confirmLabel={confirmLabel}
-          triggerLabel={confirmLabel}
+          triggerLabel={
+            value.length < 30 ? `${confirmLabel}（あと${30 - value.length}文字）` : confirmLabel
+          }
           onConfirm={handleSubmit}
+          disabled={value.length < 30}
         />
       }
     />

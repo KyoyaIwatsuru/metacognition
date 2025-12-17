@@ -24,7 +24,7 @@ type PassageQuestionClientProps = {
   onSubmit?: (answers: Record<string, string | undefined>) => void;
 };
 
-const DEFAULT_TIME_MS = 3 * 60 * 1000;
+const DEFAULT_TIME_MS = 6 * 60 * 1000;
 
 export function PassageQuestionClient({
   passage,

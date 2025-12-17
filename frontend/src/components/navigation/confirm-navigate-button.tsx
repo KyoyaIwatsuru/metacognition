@@ -12,6 +12,7 @@ type ConfirmNavigateButtonProps = {
   confirmLabel?: string;
   triggerLabel?: string;
   onConfirm?: () => void;
+  disabled?: boolean;
 };
 
 /**
@@ -24,6 +25,7 @@ export function ConfirmNavigateButton({
   confirmLabel = '次へ',
   triggerLabel,
   onConfirm,
+  disabled = false,
 }: ConfirmNavigateButtonProps) {
   const router = useRouter();
   const handleConfirm = useCallback(() => {
@@ -38,7 +40,7 @@ export function ConfirmNavigateButton({
       confirmLabel={confirmLabel}
       onConfirm={handleConfirm}
     >
-      <Button>{triggerLabel ?? confirmLabel}</Button>
+      <Button disabled={disabled}>{triggerLabel ?? confirmLabel}</Button>
     </ConfirmDialog>
   );
 }
