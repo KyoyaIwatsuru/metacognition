@@ -33,14 +33,14 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   const nextLabel = firstAnalogId ? '次へ' : '振り返りへ';
 
   useEffect(() => {
-    if (group !== 'B') {
+    if (!group?.startsWith('B')) {
       logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
       router.replace(analogHref);
     }
   }, [analogHref, group, passage.id, router]);
 
   useEffect(() => {
-    if (group === 'B') {
+    if (group?.startsWith('B')) {
       if (!loggedOpenRef.current) {
         captureScreen();
         logEvent({ event: 'metacog_feedback_open', passage_id: passage.id });
@@ -176,7 +176,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
                   ) : null}
 
                   {/* メタ認知フィードバック */}
-                  {group === 'B' && q.metacogFeedbackJa ? (
+                  {group?.startsWith('B') && q.metacogFeedbackJa ? (
                     <div className="text-sm text-slate-800 mt-4 space-y-1">
                       {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
                         <p key={pIdx} className="whitespace-pre-line leading-snug">

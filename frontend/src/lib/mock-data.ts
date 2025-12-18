@@ -109,7 +109,8 @@ const question1 = {
   explanationGeneralJa: `Keler衣装社社長のFordさんに宛てた手紙である2つ目の本文の1段落で、Varelaさんは注文したスーツが指定先とは違う宛先に配送されたと伝え、同2段落の1行目で「貴社の顧客サービスチームは、非の打ちどころのないプロ意識を持ってその問題に対処してくれた」と同社の顧客対応を壊めている。さらに同3段落の1行目で、I am extemely grateful for your team's superior customer service.「貴社のチームの優れた品でサービスに非常に感謝している」とその対応への感謝を述べているので、VarelaさんはFordさんの会社の顧客サービスを称賛するために手紙を書いたと考えられる。praise「～を称賛する」。
 （B）express「～を表す」、concern「懸念」、policy「方針」。
 （C） invite～to do「～に…するよう招く」。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は「なぜ手紙を書いたか」という目的を問うものです。手紙の目的を問う設問では、本文全体を通して筆者が伝えようとしている主要なメッセージを把握することが重要です。`,
 };
 
 const question2 = {
@@ -135,7 +136,8 @@ const question2 = {
 （A）2つ目の本文の冒頭の差出人住所より、住んでいるのはダラスであり、ニューヨークではない。
 （B）2つ目の本文で、顧客対応を優めているので不適切。be dissatisied with～「〜に不満を感じている」。
 （C） be unable to do「〜することができない」。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は「～について何が分かるか」という推測を問うものです。複数の文書から情報を組み合わせて判断する必要がある場合があります。`,
 };
 
 const basePassage: Passage = {
@@ -292,7 +294,8 @@ const tr01An1Q1 = {
   ],
   correctChoiceId: 'tr_01_an1_q1_a',
   explanationGeneralJa: `1つ目の本文のEメールの一番下の送信者氏名の肩書から、Aznarさんは営業業務を担当していると分かる。AznarさんはLeeさんに宛てて、同1段落の2～3行目で、Leeさんが注文したトラックについて、Apparently the earliest we can get the TC73 trucks to you is 8 May, which puts us three days behind our estimated delivery date.「どうやら、TC73 トラックを届けることができる最短日程は5月8日で、当社が見積もった納期より3日遅れるということになる」とトラックの納期の遅延について伝えている。以降でその理由や謝罪を述べていることからも、（A）が正解。delay「遅延」。（B） shipment「出荷、配送」。（D） clarify「〜を明確にする」。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は「なぜEメールを書いたか」という目的を問うものです。メールの目的は冒頭部分で明示されることが多いです。`,
 };
 
 const tr01An1Q2 = {
@@ -323,7 +326,8 @@ const tr01An1Q2 = {
   ],
   correctChoiceId: 'tr_01_an1_q2_c',
   explanationGeneralJa: `1つ目の本文の1段落1～2行目で、Leeさんが注文したトラックについて、Aznarさんは海運会社のMarsantis社と連絡を取っていたとあり、続く同2~3行目で、TC73トラックが輸送先である注文主のLeeさんの元に到着可能な日程は最短で5月8日と伝えている。2つ目の本文のMarsantis海運社の船便のスケジュール表を見ると、同4段落のYoshimo号という船が5月8日にアメリカのサンディエゴに寄港する予定だと分かるので、（C）が正解。destination「目的地」。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は具体的な情報を問うものです。複数の文書から情報を照合して答えを導き出す必要があります。`,
 };
 
 const tr01An1Q3 = {
@@ -354,7 +358,8 @@ const tr01An1Q3 = {
   ],
   correctChoiceId: 'tr_01_an1_q3_b',
   explanationGeneralJa: `2つ目の本文のスケジュール表で、カナダのハリファクスと日本の豊橋の間にある欄を見ると、同2段落より Pegasus号はベラクルスの欄には日付の記載がなく、サンディエゴの欄にはcancelled「中止」とある。よって同号は、ベラクルスにもサンディエゴにも寄港せず、カナダから日本に直行すると分かるので（B）が正解。directly「直接、真っすぐに」。（A）（C）（D）いずれもメキシコのベラクルスに寄港するので直行ではない。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問はスケジュール表から具体的な情報を読み取る問題です。各船の寄港地を確認し、直行便を特定する必要があります。`,
 };
 
 const tr01Analog1 = {
@@ -466,7 +471,8 @@ const tr01Analog2Q1 = {
 （B）注文書より、イベントの予定開始時刻。
 （C）注文書より、イベントの予定終了時刻の1時間前。
 （D）注文書より、イベントの予定終了時刻。`,
-  metacogFeedbackJa: ``,
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は複数の文書から情報を照合する問題です。注文書の時刻とEメールでの提案を組み合わせて正解を導きます。`,
 };
 
 const tr01Analog2Q2 = {
@@ -500,7 +506,8 @@ const tr01Analog2Q2 = {
 （B）クレジットカード情報は話題に上っていない。
 （C）2つ目本文の3段落1～2行目に、いったん最終的な選択を確認したら見積もりを送ると書かれているだけ。approve「～を承認する」。
 （D）注文書の「スタッフが必要」の項目の「はい」にチェックがあるが、server「給仕人」の数の確認は求めていない。clarify「〜を明らかにする」。`,
-  metacogFeedbackJa: ``,
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は「なぜ電話を求めているか」という理由を問うものです。Eメールの文脈から電話の目的を正しく読み取る必要があります。`,
 };
 
 const tr01Analog2 = {
@@ -666,7 +673,8 @@ const tr01Analog3Q1 = {
 （A）2つ目の本文の1段落6～7行目で、購入したい製品が11月中旬まで届かないことを述べているが、苦情を言っているわけではない。
 （C）2つ目の本文の1段落9～11行目で言及しているcreditは、店舗信用払い制度のことで、クレジットカードを紛失したという記述はない。inquire about～「～について問い合わせる」。
 （D）2つ目の本文の1段落1～3行目で、値引きされた洗濯機を買おうと新店舗を訪れたことを述べているが、広告キャンペーンに対して感想を伝えているわけではない。feedback「意見、感想」、advertising「広告（の）」。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は「なぜEメールを送ったか」という目的を問うものです。Eメール全体の内容から主要な目的を把握することが重要です。`,
 };
 
 const tr01Analog3Q2 = {
@@ -698,7 +706,8 @@ const tr01Analog3Q2 = {
   correctChoiceId: 'tr_01_an3_q2_d',
   explanationGeneralJa: `Liさんは2つ目の本文のEメールの1段落3～5行目で、Grove家電店の販売員のDawsonさんが買い物の手助けをしてくれたことを書いている。同1～2行目で「値引きされた洗濯機の一台を買おうと思い、『昨日新しい店舗を訪れた」と述べているので、Liさんは「新しい店舗」でDawsonさんに接客してもらったと分かる。店舗については、1つ目の本文の広告の2段落2行目に、our latest location in Covington「当社のコヴィントンの最新店舗」と記載がある。よって、（D）が正解。
 （A）（B）（C）1つ目の本文の2段落2行目より、いずれもGrove家電店の店舗がある場所だが、新店舗だとの記述はない。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は具体的な場所を問うものです。広告とEメールの情報を照合して、新店舗の場所を特定する必要があります。`,
 };
 
 const tr01Analog3Q3 = {
@@ -733,7 +742,8 @@ const tr01Analog3Q3 = {
 （A）2つ目の本文のヘッダー部分より、McDonaldさんとはEメールの受信者で、Grove 家電店の責任者などと考えられるが、Liさんが来月再びMcDonaldさんに連絡を取ることを示すような記載はない。
 （C）2つ目の本文の1段落8～9行目に、今使用中の洗濯機は壊れていないとあるが、売却に関する記述はない。
 （D）2つ目の本文の1段落5～6行目に、販売員のDawsonさんが店舗で同社製品の動画を見せてくれたことが述べられているのみ。`,
-  metacogFeedbackJa: '',
+  metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
+この設問は推論を問うものです。広告の店舗信用払い制度とEメールの記述を組み合わせて、頭金支払いの事実を推測します。`,
 };
 
 const tr01Analog3 = {
@@ -1343,6 +1353,757 @@ const tr02Passage: Passage = {
   questions: [tr02Question1, tr02Question2, tr02Question3],
 };
 
+// ===== tr_03: A3/B3群用 Text Message Chain =====
+
+const tr03MessagesEn = [
+  {
+    sender: 'Ian Tsukase',
+    time: '9:32 A.M.',
+    text: "Good morning. I want to update you on tomorrow's training session for our new servers here at the restaurant. The trainer from the corporate office will be here at 10:15 A.M. Eleven of the twelve hires will be here, but one has a conflict.",
+  },
+  {
+    sender: 'Anouk Claasen',
+    time: '9:33 A.M.',
+    text: 'Right. Fiona Leffley mentioned during her interview that she was going to be out of the country this week. I think she was a good choice. She lacks experience, but she is friendly and hardworking.',
+  },
+  {
+    sender: 'Ian Tsukase',
+    time: '9:35 A.M.',
+    text: 'Then, the trainer should come back next week.',
+  },
+  {
+    sender: 'Anouk Claasen',
+    time: '9:36 A.M.',
+    text: 'No need. We can record the most important parts and send them to Ms. Leffley. And then, she can shadow one of our more experienced servers for a few shifts.',
+  },
+  {
+    sender: 'Ian Tsukase',
+    time: '9:37 A.M.',
+    text: "OK. I'll check with the serving team to see who can work with her next week.",
+  },
+];
+
+const tr03MessagesJa = [
+  {
+    sender: 'Ian Tsukase',
+    time: '午前9時32分',
+    text: 'おはようございます。当レストランの新しい給仕人向けの明日の研修会について、最新情報をお伝えしたいと思います。本社からの指導係が午前10時15分にここに来る予定です。12人の新規雇用者のうち11人はここに来ますが、1人は予定が重なって来られません。',
+  },
+  {
+    sender: 'Anouk Claasen',
+    time: '午前9時33分',
+    text: 'そうなのです。Fiona Leffleyは面接で、今週国外にいる予定だと言っていました。彼女は良い選択だったと思います。経験は不足していますが、人当たりが良く仕事熱心です。',
+  },
+  {
+    sender: 'Ian Tsukase',
+    time: '午前9時35分',
+    text: 'では、指導係は来週また来た方がいいですね。',
+  },
+  {
+    sender: 'Anouk Claasen',
+    time: '午前9時36分',
+    text: '必要ありません。私たちは最も重要な部分を録画してLeffleyさんに送ることができますから。その後、彼女は幾つかのシフトで経験豊富な給仕人の一人に付いて仕事を学ぶことができますよ。',
+  },
+  {
+    sender: 'Ian Tsukase',
+    time: '午前9時37分',
+    text: '分かりました。来週誰が彼女と一緒に働けるのか、給仕チームと相談してみます。',
+  },
+];
+
+const tr03Question1 = {
+  id: 'tr03_q1',
+  promptEn: 'What is indicated about Ms. Leffley?',
+  promptJa: 'Leffleyさんについて何が示されていますか。',
+  choices: [
+    {
+      id: 'tr03_q1_a',
+      textEn: 'She will attend a meeting at the corporate office.',
+      textJa: '本社で会議に出席する予定である。',
+    },
+    {
+      id: 'tr03_q1_b',
+      textEn: 'She will begin a new job soon.',
+      textJa: '間もなく新しい仕事を始める予定である。',
+    },
+    {
+      id: 'tr03_q1_c',
+      textEn: 'She is an experienced server.',
+      textJa: '経験豊富な給仕人である。',
+    },
+    {
+      id: 'tr03_q1_d',
+      textEn: 'She rescheduled an interview.',
+      textJa: '面接の予定を変更した。',
+    },
+  ],
+  correctChoiceId: 'tr03_q1_b',
+  explanationGeneralJa: `Leffleyさんについては、Claasenさんが2段落で、今週国外にいるという予定を面接で言っていたと伝えている。これは1段落の、新しい給仕人向けの研修会に「12人の新規雇用者のうち11人はここに来るが、1人は予定が重なって来られない」というTsukaseさんの発言に対して述べたものである。予定が重複して研修会に参加できない新しい給仕人がLeffleyさんだと判断できるので、（B）が正解。
+（A）1段落で、本社から指導係が来ると述べているだけ。
+（C）2段落で、Leffleyさんは経験が不足していると述べられている。
+（D）2段落に、Leffleyさんは面接中に今週国外にいる予定だと言ったとあるが、面接の予定を変更したとは述べられていない。reschedule「～の予定を変更する」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック - 要追加】
+この設問は「～について何が示されているか」という情報の読み取りを問うものです。複数のメッセージから関連する情報を統合して判断する必要があります。`,
+};
+
+const tr03Question2 = {
+  id: 'tr03_q2',
+  promptEn:
+    'At 9:35 A.M., what does Mr. Tsukase most likely mean when he writes, "Then, the trainer should come back next week"?',
+  promptJa:
+    '午前9時35分に"Then, the trainer should come back next week"という発言で、Tsukaseさんは何を意図していると考えられますか。',
+  choices: [
+    {
+      id: 'tr03_q2_a',
+      textEn: 'He has learned that the trainer is currently unavailable.',
+      textJa: '指導係は現在都合がつかないことを知った。',
+    },
+    {
+      id: 'tr03_q2_b',
+      textEn: "He wants to accommodate Ms. Leffley's schedule.",
+      textJa: 'Leffleyさんの予定に合わせたい。',
+    },
+    {
+      id: 'tr03_q2_c',
+      textEn: 'He thinks some materials are not ready for use.',
+      textJa: 'まだ使う用意ができていない資料があると思っている。',
+    },
+    {
+      id: 'tr03_q2_d',
+      textEn: 'He will be on vacation later this week.',
+      textJa: '今週中に休暇に入る予定である。',
+    },
+  ],
+  correctChoiceId: 'tr03_q2_b',
+  explanationGeneralJa: `Tsukaseさんが1段落で、新規雇用者の1人が明日の研修会に出席できないと述べたのに対し、Claasenさんは2段落で、それを肯定した後、Fiona Leffleyは今週国外にいる予定だと述べている。それに対して、Tsukaseさんは3段落の下線部で、「では、指導係は来週また来た方がいいですね」と発言している。これは、明日の研修会に出席できないLeffleyさんの予定に合わせたいと考えているものと判断できる。よって、（B）が正解。accommodate「～（状況・条件）に合わせる」。
+（A）1段落で、指導係は明日の研修会に来る予定だと言っている。currently「現在、目下」、unavailable「都合がつかない」。
+（C）資料については言及されていない。
+（D）Tsukaseさんの休暇については言及されていない。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック - 要追加】
+この設問は発言の意図を問うものです。前後の文脈から、なぜその発言をしたのかを推測する必要があります。会話の流れを追って、各発言者の意図を把握しましょう。`,
+};
+
+const tr03Passage: Passage = {
+  id: 'tr_03',
+  title: 'Restaurant Training Session',
+  direction: 'Questions 1-2 refer to the following text-message chain.',
+  directionJa: '問題1-2は次のテキストメッセージのやり取りに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'textMessageChain' as const,
+      locale: 'en' as const,
+      textMessageChain: {
+        messages: tr03MessagesEn,
+      },
+    },
+    {
+      layoutType: 'textMessageChain' as const,
+      locale: 'ja' as const,
+      textMessageChain: {
+        messages: tr03MessagesJa,
+      },
+    },
+  ],
+  questions: [tr03Question1, tr03Question2],
+};
+
+// ===== tr_03 類題1: Online Chat Discussion =====
+
+const tr03An1MessagesEn = [
+  {
+    sender: 'Melissa Hewitt',
+    time: '11:11 A.M.',
+    text: "Hi. Did either of you have trouble submitting your project reports this morning on the construction of the Wiley Tower Apartment Building? I received the secure link to upload mine, but I can't get it to work.",
+  },
+  {
+    sender: 'Carmen Longoria',
+    time: '11:12 A.M.',
+    text: "I'm still writing my report, so I have not tried it yet. We have until the end of the day tomorrow to submit, though, right?",
+  },
+  {
+    sender: 'Melissa Hewitt',
+    time: '11:14 A.M.',
+    text: "There's been an update. One of the contractors requested the reports sooner, so we need to submit them today. My manager e-mailed us about the change in the due date last week.",
+  },
+  {
+    sender: 'Carmen Longoria',
+    time: '11:15 A.M.',
+    text: "I didn't see that e-mail from Mr. Wood. I still need to finalize cost estimates for the construction materials. And we have the meeting about Wiley Tower this afternoon.",
+  },
+  {
+    sender: 'Devin Mayer',
+    time: '11:16 A.M.',
+    text: 'Yes. And Mr. Wood requested that we provide a summary at the meeting.',
+  },
+];
+
+const tr03An1MessagesJa = [
+  {
+    sender: 'Melissa Hewitt',
+    time: '午前11時11分',
+    text: 'こんにちは。お2人のどちらか、今朝Wileyタワーマンションの建設に関するプロジェクト報告書の提出に支障がありましたか。私の分をアップロードするのに安全なリンクを受け取ったのですが、うまくいきません。',
+  },
+  {
+    sender: 'Carmen Longoria',
+    time: '午前11時12分',
+    text: '私はまだ報告書を書いているところなので、それを試していません。でも、提出期限は明日いっぱいですよね？',
+  },
+  {
+    sender: 'Melissa Hewitt',
+    time: '午前11時14分',
+    text: '更新があったのです。請負業者の一つが報告書をもっと早く受け取りたいと要望してきたので、私たちは今日提出する必要があります。先週、私の上司が期日の変更についてEメールを送ってきましたよ。',
+  },
+  {
+    sender: 'Carmen Longoria',
+    time: '午前11時15分',
+    text: 'Woodさんからのそのメールを見ていませんでした。私はまだ建設資材の費用見積もりをまとめる必要があります。それに、今日の午後Wileyタワーに関する会議があるのです。',
+  },
+  {
+    sender: 'Devin Mayer',
+    time: '午前11時16分',
+    text: 'そうです。そして、Woodさんは私たちにその会議で概要を説明することを要請してきました。',
+  },
+];
+
+const tr03An1Q1 = {
+  id: 'tr_03_an1_q1',
+  promptEn:
+    'At 11:14 A.M., what does Ms. Hewitt most likely mean when she writes, "There\'s been an update"?',
+  promptJa:
+    '午前11時14分に、"There\'s been an update"という発言で、Hewittさんは何を意図していると考えられますか。',
+  choices: [
+    {
+      id: 'tr_03_an1_q1_a',
+      textEn: 'A deadline has changed.',
+      textJa: '最終期限が変更になった。',
+    },
+    {
+      id: 'tr_03_an1_q1_b',
+      textEn: 'A link has been replaced.',
+      textJa: 'リンクが差し替えられた。',
+    },
+    {
+      id: 'tr_03_an1_q1_c',
+      textEn: 'A price has increased.',
+      textJa: '価格が上昇した。',
+    },
+    {
+      id: 'tr_03_an1_q1_d',
+      textEn: 'A report can no longer be revised.',
+      textJa: '報告書はもはや修正できない。',
+    },
+  ],
+  correctChoiceId: 'tr_03_an1_q1_a',
+  explanationGeneralJa: `Hewittさんが1段落で、報告書の提出について尋ねたのに対し、Longoriaさんは2段落で、まだ書いているところだと述べ、期限は明日中であることを確認している。それに対して、Hewittさんは3段落の下線部で、「更新があった」と発言した後、請負業者の要望で報告書の提出が早まり、期日変更を知らせるEメールが届いたと述べている。よって、Hewittさんの下線部の発言は、提出の最終期限の変更を伝えていると判断できるので、（A）が正解。deadline「最終期限」。
+（B）1段落で、安全なリンクを受け取ったとあるのみ。replace「〜を取り替える」。
+（C）4段落で、Longoriaさんが費用の見積もりについて言及しているのみ。
+（D）報告書の修正については話題に上っていない。revise「～を修正する」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック - 要追加】
+この設問は発言の意図を問うものです。下線部の直後に続く説明から、「更新」が何を指しているのかを特定しましょう。`,
+};
+
+const tr03An1Q2 = {
+  id: 'tr_03_an1_q2',
+  promptEn: 'Who most likely is Mr. Wood?',
+  promptJa: 'Woodさんは誰だと考えられますか。',
+  choices: [
+    {
+      id: 'tr_03_an1_q2_a',
+      textEn: 'A construction worker',
+      textJa: '建設作業員',
+    },
+    {
+      id: 'tr_03_an1_q2_b',
+      textEn: 'A tenant at Wiley Tower',
+      textJa: 'Wileyタワーの賃借人',
+    },
+    {
+      id: 'tr_03_an1_q2_c',
+      textEn: "Ms. Hewitt's manager",
+      textJa: 'Hewittさんの上司',
+    },
+    {
+      id: 'tr_03_an1_q2_d',
+      textEn: 'A technical support staff member',
+      textJa: '技術サポートのスタッフ',
+    },
+  ],
+  correctChoiceId: 'tr_03_an1_q2_c',
+  explanationGeneralJa: `Woodさんについては、Longoriaさんが4段落で、WoodさんからのEメールは見ていなかったと発言している。そのEメールは、Hewittさんが3段落で、「先週、私の上司が期日の変更についてEメールを送ってきた」と述べているものを指している。よって、WoodさんとはHewittさんの上司だと考えられるので、（C）が正解。
+（A）建設に関する話題から連想され得る点に注意。
+（B）tenant「賃借人」。
+（D）1段落で、アップロードができないというトラブルへの言及があるのみ。technical「技術上の」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック - 要追加】
+この設問は人物の特定を問うものです。複数のメッセージから同一人物への言及を見つけ、情報を統合して判断しましょう。`,
+};
+
+const tr03An1Q3 = {
+  id: 'tr_03_an1_q3',
+  promptEn: 'What is Ms. Longoria concerned about?',
+  promptJa: 'Longoriaさんは何を心配していますか。',
+  choices: [
+    {
+      id: 'tr_03_an1_q3_a',
+      textEn: 'She is unable to attend a meeting.',
+      textJa: '会議に出席できない。',
+    },
+    {
+      id: 'tr_03_an1_q3_b',
+      textEn: 'She deleted an e-mail by mistake.',
+      textJa: '誤ってEメールを削除した。',
+    },
+    {
+      id: 'tr_03_an1_q3_c',
+      textEn: 'She has not finished some estimates.',
+      textJa: '見積もりを仕上げていない。',
+    },
+    {
+      id: 'tr_03_an1_q3_d',
+      textEn: 'She is unsure about the materials she chose.',
+      textJa: '自分が選んだ資材について確信がない。',
+    },
+  ],
+  correctChoiceId: 'tr_03_an1_q3_c',
+  explanationGeneralJa: `Longoriaさんは4段落で、提出期限の前倒しを知らせるEメールは見ていなかったと述べ、まだ建設資材の費用の見積もりをまとめる必要があるため報告書は提出できない旨の発言をしている。この内容を、has not finished「～を仕上げていない」を用いて表した（C）が正解。be concerned about〜「～について心配している」。
+（A）4段落で、会議があると発言しているのみ。be unable to do「〜することができない」。
+（B）4段落で、Eメールを見ていないと発言しているが、削除したとは述べていない。delete「～を削除する」、by mistake「誤って」。
+（D）4段落で、資材の見積もりが未完了だと述べているだけ。be unsure about〜「～について確信がない」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック - 要追加】
+この設問は懸念事項の特定を問うものです。特定の人物の発言内容から、その人が心配していることを読み取りましょう。`,
+};
+
+const tr03Analog1 = {
+  id: 'tr_03_an1',
+  title: 'Online Chat Discussion - Wiley Tower',
+  direction: 'Questions 1-3 refer to the following online chat discussion.',
+  directionJa: '問題1-3は次のオンラインチャットの話し合いに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'onlineChatDiscussion' as const,
+      locale: 'en' as const,
+      onlineChatDiscussion: {
+        messages: tr03An1MessagesEn,
+      },
+    },
+    {
+      layoutType: 'onlineChatDiscussion' as const,
+      locale: 'ja' as const,
+      onlineChatDiscussion: {
+        messages: tr03An1MessagesJa,
+      },
+    },
+  ],
+  questions: [tr03An1Q1, tr03An1Q2, tr03An1Q3],
+};
+
+// ===== tr_03 類題2: Text Message Chain =====
+
+const tr03An2MessagesEn = [
+  {
+    sender: 'Minyuan Deng',
+    time: '9:12 P.M.',
+    text: 'Hi Charlene. Are you still in the library, by any chance?',
+  },
+  {
+    sender: 'Charlene Tillman',
+    time: '9:13 P.M.',
+    text: 'I just locked up. Do you need something?',
+  },
+  {
+    sender: 'Minyuan Deng',
+    time: '9:14 P.M.',
+    text: "I forgot to tell you that since it's the day before a holiday, we have to change the library voicemail message.",
+  },
+  {
+    sender: 'Charlene Tillman',
+    time: '9:15 P.M.',
+    text: "Oh, that's right! The regular message says we open tomorrow at 8:00.",
+  },
+  {
+    sender: 'Minyuan Deng',
+    time: '9:16 P.M.',
+    text: "I'm sorry I didn't remind you earlier.",
+  },
+  {
+    sender: 'Charlene Tillman',
+    time: '9:17 P.M.',
+    text: "That's fine, Minyuan. I'll see to it. Have a good evening.",
+  },
+  {
+    sender: 'Minyuan Deng',
+    time: '9:18 P.M.',
+    text: 'You as well, Charlene. And thank you for taking my daily 4:00 P.M. shift today. I appreciate it and am happy to return the favor.',
+  },
+];
+
+const tr03An2MessagesJa = [
+  {
+    sender: 'Minyuan Deng',
+    time: '午後9時12分',
+    text: 'こんばんは、Charlene。ひょっとして、まだ図書館内にいますか。',
+  },
+  {
+    sender: 'Charlene Tillman',
+    time: '午後9時13分',
+    text: 'ちょうど図書館の戸締まりをしたところです。何かご用ですか。',
+  },
+  {
+    sender: 'Minyuan Deng',
+    time: '午後9時14分',
+    text: '伝えるのを忘れていましたが、今日は祝日の前日なので、図書館の留守番電話のメッセージを変更する必要があります。',
+  },
+  {
+    sender: 'Charlene Tillman',
+    time: '午後9時15分',
+    text: 'ああ、そうでした！通常のメッセージでは、明日当館は8時に開館すると流れますね。',
+  },
+  {
+    sender: 'Minyuan Deng',
+    time: '午後9時16分',
+    text: 'もっと早くに念を押さなくてすみません。',
+  },
+  {
+    sender: 'Charlene Tillman',
+    time: '午後9時17分',
+    text: '大丈夫ですよ、Minyuan。私がやっておきます。良い夜を過ごしてください。',
+  },
+  {
+    sender: 'Minyuan Deng',
+    time: '午後9時18分',
+    text: 'あなたの方も、Charlene。そして今日は、私のいつもの午後4時からのシフトを引き受けてくれてありがとうございます。感謝していますので、このご親切にぜひお返しをしたいと思っています。',
+  },
+];
+
+const tr03An2Q1 = {
+  id: 'tr_03_an2_q1',
+  promptEn:
+    'At 9:17 P.M., what does Ms. Tillman most likely mean when she writes, "I\'ll see to it"?',
+  promptJa:
+    '午後9時17分に、"I\'ll see to it"という発言で、Tillmanさんは何を意図していると考えられますか。',
+  choices: [
+    {
+      id: 'tr_03_an2_q1_a',
+      textEn: 'She will check that the library doors are locked.',
+      textJa: '図書館のドアが施錠されていることを確認するつもりである。',
+    },
+    {
+      id: 'tr_03_an2_q1_b',
+      textEn: "She will post a holiday greeting on the library's Web site.",
+      textJa: '図書館のウェブサイトに祝日のあいさつを掲載するつもりである。',
+    },
+    {
+      id: 'tr_03_an2_q1_c',
+      textEn: 'She will change a voicemail message.',
+      textJa: '留守番電話のメッセージを変更するつもりである。',
+    },
+    {
+      id: 'tr_03_an2_q1_d',
+      textEn: 'She will send Ms. Deng a reminder e-mail.',
+      textJa: 'Dengさんに再確認のEメールを送るつもりである。',
+    },
+  ],
+  correctChoiceId: 'tr_03_an2_q1_c',
+  explanationGeneralJa: `2段落で、ちょうど図書館の戸締まりをしたと述べたTillmanさんに、Dengさんは3段落で、祝日の前日なので留守番電話のメッセージを変更する必要があることを伝えるのを忘れていた、と述べている。Dengさんが5段落で、早めに念を押さなかったことを謝ると、Tillmanさんは6段落で、大丈夫だと言った後、下線部の発言で、"I'll see to it"「私がやっておく」と応答している。下線部のitは3段落の留守番電話のメッセージを変更することを指すので、（C）が正解。
+（A）Tillmanさんは2段落で、戸締まりをしたと述べているが、その後、ドアの施錠確認は話題にされていない。
+（B）ウェブサイトのgreeting「あいさつ」については述べられていない。
+（D）Dengさんは5段落で、早めに念を押さなかったことを謝っているが、TillmanさんがDengさんに確認や念押しを目的としたリマインドメールを送るとは述べていない。reminder「思い出させるもの」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック】
+この設問は発言の意図を問うものです。"I'll see to it"の"it"が何を指しているかを、直前の会話の流れから特定しましょう。`,
+};
+
+const tr03An2Q2 = {
+  id: 'tr_03_an2_q2',
+  promptEn: 'What is suggested about Ms. Deng?',
+  promptJa: 'Dengさんについて何が分かりますか。',
+  choices: [
+    {
+      id: 'tr_03_an2_q2_a',
+      textEn: 'She usually starts work in the library in the afternoon.',
+      textJa: '普段、午後に図書館で仕事を始める。',
+    },
+    {
+      id: 'tr_03_an2_q2_b',
+      textEn: 'She is responsible for opening the library in the morning.',
+      textJa: '朝、図書館を開館するのを担当している。',
+    },
+    {
+      id: 'tr_03_an2_q2_c',
+      textEn: 'She forgot that the library will be closed tomorrow.',
+      textJa: '図書館が明日休館であることを忘れていた。',
+    },
+    {
+      id: 'tr_03_an2_q2_d',
+      textEn: 'She recently did Ms. Tillman a favor.',
+      textJa: '最近Tillmanさんのお願いを聞いた。',
+    },
+  ],
+  correctChoiceId: 'tr_03_an2_q2_a',
+  explanationGeneralJa: `Dengさんは7段落で、「今日は、私のいつもの午後4時からのシフトを引き受けてくれてありがとう」とお礼を言っている。よって、Dengさんは普段、午後に図書館での仕事を始めていると分かるので、（A）が正解。
+（B）4段落に、図書館は（午前）8時に開館するとあるが、7段落より、Dengさんのシフト開始は午後4時なので、開館はDengさんの担当業務とは考えられない。be responsible for～「～に対して責任がある」。
+（C）3段落で、Dengさんは明日が祝日のため留守番電話のメッセージを変更する必要性に言及しており、明日は開館時刻が通常と異なることが分かるが、休館かどうかは不明。
+（D）7段落より、TillmanさんがDengさんの頼み事を聞いたことが分かる。それに対してDengさんはお返しをしたいと発言しているのみ。do～a favor「〜の願いを聞く、～に便宜を図る」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック】
+この設問は人物についての推測を問うものです。会話全体から、Dengさんの勤務形態に関する情報を探しましょう。`,
+};
+
+const tr03Analog2 = {
+  id: 'tr_03_an2',
+  title: 'Text Message Chain - Library Voicemail',
+  direction: 'Questions 1-2 refer to the following text-message chain.',
+  directionJa: '問題1-2は次のテキストメッセージのやりとりに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'textMessageChain' as const,
+      locale: 'en' as const,
+      textMessageChain: {
+        messages: tr03An2MessagesEn,
+      },
+    },
+    {
+      layoutType: 'textMessageChain' as const,
+      locale: 'ja' as const,
+      textMessageChain: {
+        messages: tr03An2MessagesJa,
+      },
+    },
+  ],
+  questions: [tr03An2Q1, tr03An2Q2],
+};
+
+// ===== tr_03 類題3: Online Chat Discussion =====
+
+const tr03An3MessagesEn = [
+  {
+    sender: 'Charu Aiyar',
+    time: '11:32 A.M.',
+    text: "Hello, Jack and Marcia. I wanted to update you on the search for new delivery drivers. I just hired two new people for our Hilltown location. Since I won't be there this week, I'll need your assistance.",
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '11:34 A.M.',
+    text: 'When will the new hires start?',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '11:35 A.M.',
+    text: 'One of them, James Hesney, can start tomorrow. The other, Luke Pfaff, will start on Friday.',
+  },
+  {
+    sender: 'Marcia Berk',
+    time: '11:35 A.M.',
+    text: 'Excellent.',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '11:36 A.M.',
+    text: 'Can you keep them busy at the restaurant between deliveries? Their shift is noon till 8 or 9 P.M. Wednesday through Sunday, so there will be some slow times.',
+  },
+  {
+    sender: 'Marcia Berk',
+    time: '11:36 A.M.',
+    text: 'They could fold pizza boxes. I like having all the boxes ready before the dinner rush hour.',
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '11:37 A.M.',
+    text: 'Additionally, they can take telephone orders and take out the trash.',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '11:37 A.M.',
+    text: "I'll also ask them to sweep the kitchen floors throughout the day. Jack, can you start training James tomorrow? Marcia, could you start Luke's training on Friday?",
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '11:38 A.M.',
+    text: "Sure. Let's also enroll them in a basic food-handling certificate course. Having that certification would allow them to prepare sauce and dough when needed. This would give me more time to assemble salads and pasta dishes.",
+  },
+  {
+    sender: 'Marcia Berk',
+    time: '11:39 A.M.',
+    text: "I've got a planned day off.",
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '11:40 A.M.',
+    text: 'Oh, right. I forgot.',
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '11:40 A.M.',
+    text: "I'll do it, then. No problem.",
+  },
+];
+
+const tr03An3MessagesJa = [
+  {
+    sender: 'Charu Aiyar',
+    time: '午前11時32分',
+    text: 'Jack、そしてMarcia、こんにちは。配達員探しについて最新情報をお知らせしたいと思っていました。ヒルタウン店に新規2名を採用したところです。私は今週そちらの店に行かないので、お二人の助けが必要になります。',
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '午前11時34分',
+    text: '新規雇用者はいつ仕事を始めるのですか。',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '午前11時35分',
+    text: 'そのうちの一名のJames Hesneyは明日から働けます。もう一名のLuke Pfaffは金曜日に始めます。',
+  },
+  {
+    sender: 'Marcia Berk',
+    time: '午前11時35分',
+    text: '大変結構ですね。',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '午前11時36分',
+    text: '配達の合間に彼らにレストランで業務を与えることはできますか。彼らのシフトは、水曜日から日曜日の正午から午後8時か9時までなので、暇な時間もあるでしょう。',
+  },
+  {
+    sender: 'Marcia Berk',
+    time: '午前11時36分',
+    text: 'ピザの箱を折ることができるでしょう。私は夕食の繁忙時間帯の前に全ての箱を用意しておきたいのです。',
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '午前11時37分',
+    text: 'それに、電話注文を受けたり、ごみを出したりもできます。',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '午前11時37分',
+    text: '私は一日を通してキッチンの床を掃除してくれるよう頼みます。Jackは、明日Jamesの研修を始めてもらえますか。Marciaは、金曜日にLukeの研修を始めてもらえますか。',
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '午前11時38分',
+    text: '分かりました。それから、彼らを基本的な食品取扱免許コースに受講登録させましょう。あの資格があれば、必要なときにソースや生地を作ることができます。これで、私がサラダやパスタ料理をこしらえる時間がもっと増えるでしょうから。',
+  },
+  {
+    sender: 'Marcia Berk',
+    time: '午前11時39分',
+    text: '私は一日休暇を取ることになっていまして。',
+  },
+  {
+    sender: 'Charu Aiyar',
+    time: '午前11時40分',
+    text: 'ああ、そうでした。忘れていました。',
+  },
+  {
+    sender: 'Jack Plebani',
+    time: '午前11時40分',
+    text: 'では、私がやります。問題ないですよ。',
+  },
+];
+
+const tr03An3Q1 = {
+  id: 'tr_03_an3_q1',
+  promptEn: 'What will most likely happen tomorrow?',
+  promptJa: '明日何が起こると考えられますか。',
+  choices: [
+    {
+      id: 'tr_03_an3_q1_a',
+      textEn: 'Vacation requests will be reviewed.',
+      textJa: '休暇申請が審査される。',
+    },
+    {
+      id: 'tr_03_an3_q1_b',
+      textEn: 'A training program will begin.',
+      textJa: '研修プログラムが始まる。',
+    },
+    {
+      id: 'tr_03_an3_q1_c',
+      textEn: 'A shipment of unfolded pizza boxes will arrive.',
+      textJa: '折られていないピザの箱の発送品が届く。',
+    },
+    {
+      id: 'tr_03_an3_q1_d',
+      textEn: 'Some servers will learn how to make pizza sauce.',
+      textJa: '何人かの給仕人がピザソースの作り方を学ぶ。',
+    },
+  ],
+  correctChoiceId: 'tr_03_an3_q1_b',
+  explanationGeneralJa: `Aiyarさんは3段落で、新規採用者のJames Hesneyが明日から働けると述べ、8段落でJack Plebaniさんに、明日Jamesの研修を始めてもらえるかと頼んでいる。これに対してPlebaniさんは9段落で快諾しており、明日、新規採用者の研修が始まると分かるので、（B）が正解。
+（A）10段落より、Marcia Berkさんが金曜日に休暇取得予定だと分かるが、休暇申請の審査への言及はない。request「申請」、review「～を審査する」。
+（C）6段落で、配達の合間の仕事としてピザの箱を折ることに言及しているのみ。shipment「発送品」、unfolded「折られていない」。
+（D）9段落で、資格があればできる作業としてソース作りが挙げられているのみ。server「給仕人」。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック】
+この設問は「明日」という時間に関する情報を問うものです。複数のメッセージから「明日」に関連する情報を探し、それらを統合して判断しましょう。`,
+};
+
+const tr03An3Q2 = {
+  id: 'tr_03_an3_q2',
+  promptEn:
+    'At 11:39 A.M., what does Ms. Berk most likely mean when she writes, "I\'ve got a planned day off"?',
+  promptJa:
+    '午前11時39分に、"I\'ve got a planned day off"という発言で、Berkさんは何を意図していると考えられますか。',
+  choices: [
+    {
+      id: 'tr_03_an3_q2_a',
+      textEn: 'She forgot to tell Ms. Aiyar about her schedule.',
+      textJa: 'Aiyarさんに自分の予定を伝えるのを忘れた。',
+    },
+    {
+      id: 'tr_03_an3_q2_b',
+      textEn: 'She has not taken a vacation day in a long time.',
+      textJa: '長い間休暇を取っていない。',
+    },
+    {
+      id: 'tr_03_an3_q2_c',
+      textEn: 'She cannot train anyone on Friday.',
+      textJa: '金曜日は誰にも研修をすることができない。',
+    },
+    {
+      id: 'tr_03_an3_q2_d',
+      textEn: 'She will find someone else to make dough on Friday.',
+      textJa: '金曜日に生地を作る他の人を探す。',
+    },
+  ],
+  correctChoiceId: 'tr_03_an3_q2_c',
+  explanationGeneralJa: `Ms. BerkはMarcia Berkさんのこと。Aiyarさんは8段落でBerkさんに、金曜日に新規採用者のLukeの研修を始めてもらえるかと頼んでいるが、Berkさんは10段落の下線部の発言で、「私は一日休暇を取ることになっている」と応答している。それを受けたAiyarさんが11段落で、そのことを失念していたと述べると、同僚のPlebaniさんが12段落で、研修を代行することを申し出ている。以上から、Berkさんは下線部の発言で、金曜日は終日休暇中のため、自分は研修が行えないということを伝えていると判断できる。よって、（C）が正解。
+（A）Aiyarさんの11段落の「忘れていた」という発言から、Berkさんは事前に休暇予定をAiyarさんに伝えていたと考えられる。
+（B）Berkさんが長い間休暇を取っていないことを示す言及はない。
+（D）直前のPlebaniさんの発言で、資格があればできる作業として生地作りに言及があるだけで、Berkさんがこの時点で生地を作る人を探すことを意図しているとは考えられない。`,
+  metacogFeedbackJa: `【B3グループ用メタ認知フィードバック】
+この設問は発言の意図を問うものです。直前のAiyarさんの依頼内容と、Berkさんの発言後の会話の流れから、この発言が何を意味しているかを推測しましょう。`,
+};
+
+const tr03Analog3 = {
+  id: 'tr_03_an3',
+  title: 'Online Chat Discussion - Hilltown Restaurant',
+  direction: 'Questions 1-2 refer to the following online chat discussion.',
+  directionJa: '問題1-2は次のオンラインチャットの話し合いに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'onlineChatDiscussion' as const,
+      locale: 'en' as const,
+      onlineChatDiscussion: {
+        messages: tr03An3MessagesEn,
+      },
+    },
+    {
+      layoutType: 'onlineChatDiscussion' as const,
+      locale: 'ja' as const,
+      onlineChatDiscussion: {
+        messages: tr03An3MessagesJa,
+      },
+    },
+  ],
+  questions: [tr03An3Q1, tr03An3Q2],
+};
+
+const tr03Analogs = [tr03Analog1, tr03Analog2, tr03Analog3];
+
 export const mockTrainingPassages: Passage[] = [
   {
     ...basePassage,
@@ -1351,6 +2112,10 @@ export const mockTrainingPassages: Passage[] = [
   {
     ...tr02Passage,
     analogs: tr02Analogs,
+  },
+  {
+    ...tr03Passage,
+    analogs: tr03Analogs,
   },
 ];
 

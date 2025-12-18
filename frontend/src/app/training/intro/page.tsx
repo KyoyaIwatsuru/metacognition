@@ -17,8 +17,8 @@ export default function TrainingIntroPage() {
     };
   }, []);
 
-  // Group A → tr_01, Group B → tr_02
-  const passageId = group === 'B' ? 'tr_02' : 'tr_01';
+  // A1/B1 → tr_01, A2/B2 → tr_02, A3/B3 → tr_03
+  const passageId = group?.endsWith('3') ? 'tr_03' : group?.endsWith('2') ? 'tr_02' : 'tr_01';
 
   return (
     <main className="space-y-4 p-8">

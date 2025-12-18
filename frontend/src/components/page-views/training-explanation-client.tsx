@@ -27,12 +27,16 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
   const group = useAppStore((s) => s.group);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
 
-  // A群・B群共通: 類題1へ
+  // 類題がある場合は類題1へ、ない場合はreflection2へ
   const nextHref = useMemo(() => {
-    return `/training/${passage.id}/analog/${passage.id}_an1`;
-  }, [passage.id]);
+    if (passage.analogs && passage.analogs.length > 0) {
+      return `/training/${passage.id}/analog/${passage.analogs[0].id}`;
+    }
+    return `/training/${passage.id}/reflection2`;
+  }, [passage.id, passage.analogs]);
 
-  const confirmLabel = '次へ';
+  const hasAnalogs = passage.analogs && passage.analogs.length > 0;
+  const confirmLabel = hasAnalogs ? '次へ' : '振り返りへ';
   const confirmTitle = '次へ進みます';
   const confirmDescription = '戻ることはできません。よろしいですか？';
 
@@ -281,7 +285,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
           </div>
         </div>
       }
-      rightSlot={group === 'B' ? renderGroupBContent() : renderGroupAContent()}
+      rightSlot={group?.startsWith('B') ? renderGroupBContent() : renderGroupAContent()}
       footer={
         <ConfirmNavigateButton
           href={nextHref}

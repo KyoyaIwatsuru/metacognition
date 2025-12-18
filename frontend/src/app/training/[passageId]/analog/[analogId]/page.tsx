@@ -11,6 +11,9 @@ export function generateStaticParams() {
     { passageId: 'tr_02', analogId: 'tr_02_an1' },
     { passageId: 'tr_02', analogId: 'tr_02_an2' },
     { passageId: 'tr_02', analogId: 'tr_02_an3' },
+    { passageId: 'tr_03', analogId: 'tr_03_an1' },
+    { passageId: 'tr_03', analogId: 'tr_03_an2' },
+    { passageId: 'tr_03', analogId: 'tr_03_an3' },
   ];
 }
 

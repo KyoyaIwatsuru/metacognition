@@ -127,31 +127,57 @@ export default function HomePage() {
             </select>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="text-sm font-medium text-foreground">グループ</label>
-            <div className="flex gap-6 text-sm">
-              <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-all duration-150 hover:bg-accent hover:shadow-sm">
-                <input
-                  type="radio"
-                  name="group"
-                  value="A"
-                  checked={group === 'A'}
-                  onChange={() => setGroup('A')}
-                  className="w-4 h-4 cursor-pointer accent-primary"
-                />
-                <span>A</span>
-              </label>
-              <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-all duration-150 hover:bg-accent hover:shadow-sm">
-                <input
-                  type="radio"
-                  name="group"
-                  value="B"
-                  checked={group === 'B'}
-                  onChange={() => setGroup('B')}
-                  className="w-4 h-4 cursor-pointer accent-primary"
-                />
-                <span>B</span>
-              </label>
+            <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
+              {/* A群グループ */}
+              <span className="text-xs font-semibold text-zinc-500 self-center">A群</span>
+              <div className="flex gap-2">
+                {(['A1', 'A2', 'A3'] as const).map((g) => (
+                  <label
+                    key={g}
+                    className={`inline-flex items-center justify-center w-16 py-2 rounded-md border cursor-pointer transition-all duration-150 ${
+                      group === g
+                        ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                        : 'bg-background border-input hover:bg-accent hover:border-primary/50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="group"
+                      value={g}
+                      checked={group === g}
+                      onChange={() => setGroup(g)}
+                      className="sr-only"
+                    />
+                    <span className="font-medium">{g}</span>
+                  </label>
+                ))}
+              </div>
+              {/* B群グループ */}
+              <span className="text-xs font-semibold text-zinc-500 self-center">B群</span>
+              <div className="flex gap-2">
+                {(['B1', 'B2', 'B3'] as const).map((g) => (
+                  <label
+                    key={g}
+                    className={`inline-flex items-center justify-center w-16 py-2 rounded-md border cursor-pointer transition-all duration-150 ${
+                      group === g
+                        ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                        : 'bg-background border-input hover:bg-accent hover:border-primary/50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="group"
+                      value={g}
+                      checked={group === g}
+                      onChange={() => setGroup(g)}
+                      className="sr-only"
+                    />
+                    <span className="font-medium">{g}</span>
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
 

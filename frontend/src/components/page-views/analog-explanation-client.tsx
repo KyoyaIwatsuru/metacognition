@@ -83,8 +83,8 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
     </Tabs>
   );
 
-  // Group B: メタ認知付き（タブで問題切り替え）
-  if (group === 'B') {
+  // Group B系: メタ認知付き（タブで問題切り替え）
+  if (group?.startsWith('B')) {
     return (
       <AppShell
         headerSlot={headerLocaleToggle}

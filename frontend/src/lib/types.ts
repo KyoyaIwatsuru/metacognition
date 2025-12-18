@@ -1,5 +1,5 @@
 ﻿export type Phase = 'pre' | 'training' | 'post';
-export type Group = 'A' | 'B';
+export type Group = 'A1' | 'A2' | 'A3' | 'B1' | 'B2' | 'B3';
 export type EyeTrackerStatus = 'disconnected' | 'connected' | 'loading';
 
 export type Choice = {
@@ -59,7 +59,17 @@ export type PassageSection =
   | { layoutType: 'schedule'; locale: 'en' | 'ja'; schedule: ScheduleContent }
   | { layoutType: 'article'; locale: 'en' | 'ja'; article: ArticleContent }
   | { layoutType: 'notice'; locale: 'en' | 'ja'; notice: NoticeContent }
-  | { layoutType: 'orderForm'; locale: 'en' | 'ja'; orderForm: OrderFormContent };
+  | { layoutType: 'orderForm'; locale: 'en' | 'ja'; orderForm: OrderFormContent }
+  | {
+      layoutType: 'textMessageChain';
+      locale: 'en' | 'ja';
+      textMessageChain: TextMessageChainContent;
+    }
+  | {
+      layoutType: 'onlineChatDiscussion';
+      locale: 'en' | 'ja';
+      onlineChatDiscussion: OnlineChatDiscussionContent;
+    };
 
 export type AdContent = {
   headline?: string;
@@ -133,4 +143,20 @@ export type OrderFormContent = {
   fields: { label: string; value: string }[]; // フィールド（ラベル: 値）
   checkboxes?: { label: string; checked: boolean }[]; // チェックボックス項目
   lastField?: { label: string; value: string }; // チェックボックス後に表示するフィールド
+};
+
+export type TextMessageChainContent = {
+  messages: {
+    sender: string; // 送信者名（例: "Ian Tsukase"）
+    time: string; // 送信時刻（例: "9:32 A.M."）
+    text: string; // メッセージ本文
+  }[];
+};
+
+export type OnlineChatDiscussionContent = {
+  messages: {
+    sender: string; // 送信者名（例: "Melissa Hewitt"）
+    time: string; // 送信時刻（例: "11:11 A.M."）
+    text: string; // メッセージ本文
+  }[];
 };

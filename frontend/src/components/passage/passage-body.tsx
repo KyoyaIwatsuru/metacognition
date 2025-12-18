@@ -8,6 +8,8 @@ import { NoticeBody } from '@/components/passage/passage-section-notice';
 import { OrderFormBody } from '@/components/passage/passage-section-order-form';
 import { ReportBody } from '@/components/passage/passage-section-report';
 import { ScheduleBody } from '@/components/passage/passage-section-schedule';
+import { TextMessageChainBody } from '@/components/passage/passage-section-text-message-chain';
+import { OnlineChatDiscussionBody } from '@/components/passage/passage-section-online-chat-discussion';
 import { WebpageBody } from '@/components/passage/passage-section-webpage';
 
 type PassageBodyProps = {
@@ -64,6 +66,17 @@ export function PassageBody({
             }
             if (section.layoutType === 'orderForm') {
               return <OrderFormBody key={idx} orderForm={section.orderForm} />;
+            }
+            if (section.layoutType === 'textMessageChain') {
+              return <TextMessageChainBody key={idx} textMessageChain={section.textMessageChain} />;
+            }
+            if (section.layoutType === 'onlineChatDiscussion') {
+              return (
+                <OnlineChatDiscussionBody
+                  key={idx}
+                  onlineChatDiscussion={section.onlineChatDiscussion}
+                />
+              );
             }
             return (
               <div

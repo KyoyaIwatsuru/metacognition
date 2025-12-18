@@ -4,7 +4,7 @@ import { mockTrainingPassages } from '@/lib/mock-data';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ passageId: 'tr_01' }, { passageId: 'tr_02' }];
+  return [{ passageId: 'tr_01' }, { passageId: 'tr_02' }, { passageId: 'tr_03' }];
 }
 
 type PageProps = {
