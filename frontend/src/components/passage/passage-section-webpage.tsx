@@ -14,20 +14,11 @@ export function WebpageBody({ webpage }: WebpageBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800">
       {/* ブラウザ風アドレスバー */}
-      <div className="flex items-center border-b-2 border-black">
-        {/* スクロールボタン（上） */}
-        <div className="flex flex-col border-r-2 border-black px-1 py-0.5">
-          <span className="text-xs leading-none">▲</span>
-        </div>
-
-        {/* URL入力欄 */}
-        <div className="flex-1 px-2 py-1">
-          <div className="border border-black px-2 py-0.5 bg-white text-sm">{webpage.url}</div>
-        </div>
-
-        {/* ドロップダウン矢印 */}
-        <div className="border-l-2 border-black px-2 py-1">
-          <span className="text-sm">▼</span>
+      <div className="border-b-2 border-black px-2 py-1">
+        {/* URL入力欄（ドロップダウン矢印を内包） */}
+        <div className="border border-black bg-white text-sm flex items-center">
+          <span className="flex-1 px-2 py-0.5">{webpage.url}</span>
+          <span className="border-l border-black px-2 py-0.5">▼</span>
         </div>
       </div>
 

@@ -10,7 +10,20 @@ import { ReportBody } from '@/components/passage/passage-section-report';
 import { ScheduleBody } from '@/components/passage/passage-section-schedule';
 import { TextMessageChainBody } from '@/components/passage/passage-section-text-message-chain';
 import { OnlineChatDiscussionBody } from '@/components/passage/passage-section-online-chat-discussion';
+import { MemoBody } from '@/components/passage/passage-section-memo';
+import { ChatTabletBody } from '@/components/passage/passage-section-chat-tablet';
+import { PressReleaseBody } from '@/components/passage/passage-section-press-release';
 import { WebpageBody } from '@/components/passage/passage-section-webpage';
+import { EmailFormBody } from '@/components/passage/passage-section-email-form';
+import { ConferenceScheduleBody } from '@/components/passage/passage-section-conference-schedule';
+import { CustomerServiceExchangeBody } from '@/components/passage/passage-section-customer-service-exchange';
+import { CustomerReviewsBody } from '@/components/passage/passage-section-customer-reviews';
+import { PackageTrackingBody } from '@/components/passage/passage-section-package-tracking';
+import { EmailTableBody } from '@/components/passage/passage-section-email-table';
+import { CertificateBody } from '@/components/passage/passage-section-certificate';
+import { InvoiceBody } from '@/components/passage/passage-section-invoice';
+import { AdChainBorderBody } from '@/components/passage/passage-section-ad-chain-border';
+import { NewsletterProfileBody } from '@/components/passage/passage-section-newsletter-profile';
 
 type PassageBodyProps = {
   sections?: PassageSection[];
@@ -76,6 +89,54 @@ export function PassageBody({
                   key={idx}
                   onlineChatDiscussion={section.onlineChatDiscussion}
                 />
+              );
+            }
+            if (section.layoutType === 'memo') {
+              return <MemoBody key={idx} memo={section.memo} />;
+            }
+            if (section.layoutType === 'chatTablet') {
+              return <ChatTabletBody key={idx} chatTablet={section.chatTablet} />;
+            }
+            if (section.layoutType === 'pressRelease') {
+              return <PressReleaseBody key={idx} pressRelease={section.pressRelease} />;
+            }
+            if (section.layoutType === 'emailForm') {
+              return <EmailFormBody key={idx} emailForm={section.emailForm} />;
+            }
+            if (section.layoutType === 'conferenceSchedule') {
+              return (
+                <ConferenceScheduleBody key={idx} conferenceSchedule={section.conferenceSchedule} />
+              );
+            }
+            if (section.layoutType === 'customerServiceExchange') {
+              return (
+                <CustomerServiceExchangeBody
+                  key={idx}
+                  customerServiceExchange={section.customerServiceExchange}
+                />
+              );
+            }
+            if (section.layoutType === 'customerReviews') {
+              return <CustomerReviewsBody key={idx} customerReviews={section.customerReviews} />;
+            }
+            if (section.layoutType === 'packageTracking') {
+              return <PackageTrackingBody key={idx} packageTracking={section.packageTracking} />;
+            }
+            if (section.layoutType === 'emailTable') {
+              return <EmailTableBody key={idx} emailTable={section.emailTable} />;
+            }
+            if (section.layoutType === 'certificate') {
+              return <CertificateBody key={idx} certificate={section.certificate} />;
+            }
+            if (section.layoutType === 'invoice') {
+              return <InvoiceBody key={idx} invoice={section.invoice} />;
+            }
+            if (section.layoutType === 'adChainBorder') {
+              return <AdChainBorderBody key={idx} adChainBorder={section.adChainBorder} />;
+            }
+            if (section.layoutType === 'newsletterProfile') {
+              return (
+                <NewsletterProfileBody key={idx} newsletterProfile={section.newsletterProfile} />
               );
             }
             return (

@@ -12,21 +12,43 @@ type ArticleBodyProps = {
  * Uses 2-column newspaper-style layout.
  */
 export function ArticleBody({ article }: ArticleBodyProps) {
-  return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800">
-      {/* ヘッドライン + 著者名 */}
-      <div className="border-b border-black px-3 py-2 text-center">
-        <h2 className="text-base font-bold">{article.headline}</h2>
-        {article.byline ? <p className="text-sm mt-1">{article.byline}</p> : null}
-      </div>
+  // 本文を2つに分割（左カラムと右カラム）
+  const midPoint = Math.ceil(article.body.length / 2);
+  const leftBody = article.body.slice(0, midPoint);
+  const rightBody = article.body.slice(midPoint);
 
-      {/* 本文（2カラム新聞スタイル） */}
-      <div className="px-3 py-2 columns-2 gap-4">
-        {article.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify mb-3 break-inside-avoid">
-            {p}
-          </p>
-        ))}
+  return (
+    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800 p-3">
+      {/* 2カラムレイアウト */}
+      <div className="flex gap-6">
+        {/* 左カラム：タイトル + 著者名 + 本文 */}
+        <div className="flex-1">
+          <h2 className="text-base font-bold mb-1">{article.headline}</h2>
+          {article.byline ? <p className="text-sm mb-2">{article.byline}</p> : null}
+          {leftBody.map((p, idx) => (
+            <p key={idx} className="whitespace-pre-line text-justify mb-3">
+              {p}
+            </p>
+          ))}
+        </div>
+
+        {/* 右カラム：タイトル＋著者分のスペーサー + 本文 */}
+        <div className="flex-1">
+          {/* タイトルと著者と同じ高さの透明スペーサー（個別にinvisible） */}
+          <h2 className="text-base font-bold mb-1 invisible" aria-hidden="true">
+            {article.headline}
+          </h2>
+          {article.byline ? (
+            <p className="text-sm mb-2 invisible" aria-hidden="true">
+              {article.byline}
+            </p>
+          ) : null}
+          {rightBody.map((p, idx) => (
+            <p key={idx} className="whitespace-pre-line text-justify mb-3">
+              {p}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );

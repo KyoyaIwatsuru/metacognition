@@ -80,7 +80,7 @@ Antonio Varela（署名）
 Antonio Varela`;
 
 const question1 = {
-  id: 'q1',
+  id: 'tr_01_q1',
   promptEn: 'Why did Mr. Varela write to Ms. Ford?',
   promptJa: 'Varela さんはなぜ Ford さんに手紙を書いたのですか。',
   choices: [
@@ -114,7 +114,7 @@ const question1 = {
 };
 
 const question2 = {
-  id: 'q2',
+  id: 'tr_01_q2',
   promptEn: 'What is suggested about Mr. Varela?',
   promptJa: 'Varela さんについて何が分かりますか。',
   choices: [
@@ -2119,6 +2119,2641 @@ export const mockTrainingPassages: Passage[] = [
   },
 ];
 
+// ===== Pre-Test 問題1: Online Chat Discussion (Paycheck) =====
+
+const pre01MessagesEn = [
+  {
+    sender: 'Rex Martinez',
+    time: '10:16 A.M.',
+    text: 'Hello, Tzu-Tsu. Could you please assist me with regard to my paycheck?',
+  },
+  {
+    sender: 'Tzu-Tsu Yeh',
+    time: '10:18 A.M.',
+    text: 'Of course. Was it scheduled to arrive before today?',
+  },
+  {
+    sender: 'Rex Martinez',
+    time: '10:19 A.M.',
+    text: 'It was supposed to—yes.',
+  },
+  {
+    sender: 'Tzu-Tsu Yeh',
+    time: '10:20 A.M.',
+    text: 'Let me check to make sure that all of your paperwork is on file.',
+  },
+  {
+    sender: 'Tzu-Tsu Yeh',
+    time: '10:33 A.M.',
+    text: 'The Employee Agreement was not signed by the director until yesterday,\neven though you filled it out last week. The payment was sent out this\nmorning and you should receive it tomorrow.',
+  },
+  {
+    sender: 'Rex Martinez',
+    time: '10:34 A.M.',
+    text: 'OK. Thank you very much for your help.',
+  },
+];
+
+const pre01MessagesJa = [
+  {
+    sender: 'Rex Martinez',
+    time: '午前10時16分',
+    text: 'こんにちは、Tzu-Tsuさん。私の給与支払小切手のことで助けていただけますか。',
+  },
+  {
+    sender: 'Tzu-Tsu Yeh',
+    time: '午前10時18分',
+    text: 'もちろんです。それは今日より前に届く予定だったのですか。',
+  },
+  {
+    sender: 'Rex Martinez',
+    time: '午前10時19分',
+    text: 'そのはずでした一はい。',
+  },
+  {
+    sender: 'Tzu-Tsu Yeh',
+    time: '午前10時20分',
+    text: 'あなたの事務書類が全てファイルに保管されているか確認させてください。',
+  },
+  {
+    sender: 'Tzu-Tsu Yeh',
+    time: '午前10時33分',
+    text: '従業員契約書が昨日になってようやく部長に署名されたのですよ、あなたは先週それを記入していたのに。支払いは今朝発送されたので、あなたは明日それを受け取るはずです。',
+  },
+  {
+    sender: 'Rex Martinez',
+    time: '午前10時34分',
+    text: '分かりました。助けていただいてどうもありがとうございました。',
+  },
+];
+
+const pre01Q1 = {
+  id: 'pre_01_q1',
+  promptEn:
+    'At 10:19 A.M., what does Mr. Martinez most likely mean when he writes, "It was supposed to"?',
+  promptJa:
+    '午前10時19分に、Martinezさんは"lt was supposed to"という発言で、何を意味していると考えられますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'His paperwork should have been completed sooner.',
+      textJa: '彼の事務書類はもっと早く記入完了されるべきだった。',
+    },
+    {
+      id: 'b',
+      textEn: 'He received a different amount of money than he agreed to.',
+      textJa: '彼は同意していたものとは異なる額のお金を受け取った。',
+    },
+    {
+      id: 'c',
+      textEn: 'His bank account should have been set up last week.',
+      textJa: '彼の銀行口座は先週に開設されているはずだった。',
+    },
+    {
+      id: 'd',
+      textEn: 'He expected to have already received a payment.',
+      textJa: '彼はすでに支払いを受け取っている予定であった。',
+    },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa: `1段落の給与支払小切手のことで助けてほしいという Marinezさんからの依頼に対し、Yehさんは2段落で快諾し、続けてWas it scheduled to arrive before today？「それは今日より前に届く予定だったのか」と尋ねている。それに対し Martinezさんは下線部の発言をした後、yesと肯定している。itはその前の1段落で述べられているmy paycheck「私の給与支払小切手」を指しているので、Marinezさんは、自分が給与支払小切手をもっと前に受け取る予定だったと伝えていると考えられる。expect to do「～する予定である、～する見込みである」。
+（A） 事務書類への言及は下線部の発言の後なので、不適切。complete「～に全て記入する」。
+（B） agree to〜「～に同意する」。
+（C） bank account「銀行口座」に関する言及はない。set up～「～を開設する」。`,
+  metacogFeedbackJa: '',
+};
+
+const pre01Q2 = {
+  id: 'pre_01_q2',
+  promptEn: 'In what department does Ms. Yeh most likely work?',
+  promptJa: 'Yehさんはどんな部署で働いていると考えられますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'Sales',
+      textJa: '営業部',
+    },
+    {
+      id: 'b',
+      textEn: 'Advertising',
+      textJa: '宣伝部',
+    },
+    {
+      id: 'c',
+      textEn: 'Payroll',
+      textJa: '給与部',
+    },
+    {
+      id: 'd',
+      textEn: 'Customer Relations',
+      textJa: '顧客窓口',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa: `Yehさんは、Martinezさんが給与支払小切手のことで手助けを求めたのに対し2段落で快諾し、4段落で事務書類の保管状況を確認すると申し出ている。さらに5段落で、従業員契約書が昨日ようやく部長に署名された、と給与支払いの遅延理由を説明し、「支払いは今朝発送されたので、あなたは明日それを受け取るはずだ」と、Martinezさんが給与支払い小切手を受け取る予定日を伝えている。よって、Yehさんは給与支払いを担当する部署で働いていると考えられる。payroll「給与支払業務」。
+（B） advertising「広告すること、広告」。
+（D） customer relations「顧客窓口」。`,
+  metacogFeedbackJa: '',
+};
+
+const pre01Passage: Passage = {
+  id: 'pre_01',
+  title: 'Online Chat Discussion - Paycheck',
+  direction: 'Questions 1-2 refer to the following online chat discussion.',
+  directionJa: '問題1-2は次のオンラインチャットの話し合いに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'onlineChatDiscussion' as const,
+      locale: 'en' as const,
+      onlineChatDiscussion: {
+        messages: pre01MessagesEn,
+      },
+    },
+    {
+      layoutType: 'onlineChatDiscussion' as const,
+      locale: 'ja' as const,
+      onlineChatDiscussion: {
+        messages: pre01MessagesJa,
+      },
+    },
+  ],
+  questions: [pre01Q1, pre01Q2],
+};
+
+// ===== Pre-Test 問題2: E-mail (Business Cards) =====
+
+const pre02EmailEn = {
+  headers: [
+    { label: 'To:', value: 'All sales representatives' },
+    { label: 'From:', value: 'Pooja Mitra' },
+    { label: 'Date:', value: 'November 6' },
+    { label: 'Subject:', value: 'New business cards' },
+  ],
+  body: [
+    'Hello,',
+    'We need to replace all the business cards used by our sales representatives. Normally we only replace them at the end of the fiscal year, but we have adopted a new corporate logo after our recent merger with Central Fabrication Ltd. — [1] —.',
+    'Please check your current cards to see if any updates are needed in your office location, official title, or other information. — [2] —. If so, please e-mail Ms. Fujita in the graphic design department and let her know what additional updates are needed. — [3] —.',
+    'Be sure to contact Ms. Fujita no later than Friday, November 10. — [4] —.',
+    'Pooja Mitra\nSales Manager, Custom Blinds',
+  ],
+  showScrollbar: true,
+};
+
+const pre02EmailJa = {
+  headers: [
+    { label: '受信者：', value: '営業担当者各位' },
+    { label: '送信者：', value: 'Pooja Mitra' },
+    { label: '日付：', value: '11月6日' },
+    { label: '件名：', value: '新しい名刺' },
+  ],
+  body: [
+    'お疲れさまです。',
+    '当社では営業担当者が使用している名刺を全て取り換える必要があります。通常、当社は会計年度末にのみ取り換えを行うのですが、先頃のCentral製造株式会社との合併後、新しい企業ロゴを採用しました。— [1] —',
+    'ご自分の事務所所在地、正式な肩書、その他の情報について更新が必要かどうか、現在の名刺を確かめてください。— [2] —。もし必要ならば、グラフィックデザイン部のFujitaさんにEメールを送り、どんな追加の更新が必要かを彼女に知らせてください。— [3] —。',
+    '11月10日金曜日までに、必ずFujitaさんにご連絡ください。— [4] —。',
+    'Pooja Mitra\nCustom ブラインド社　営業部長',
+  ],
+  showScrollbar: true,
+};
+
+const pre02Q1 = {
+  id: 'pre_02_q1',
+  promptEn: 'What does Ms. Mitra ask the sales representatives to do by November 10?',
+  promptJa: 'Mitraさんは営業担当者に11月10日までに何をするように求めていますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'Report their most recent sales figures',
+      textJa: '最新の売上高を報告する',
+    },
+    {
+      id: 'b',
+      textEn: 'Return their current business cards to the graphic design department',
+      textJa: '現在の名刺をグラフィックデザイン部に返却する',
+    },
+    {
+      id: 'c',
+      textEn: 'Tell Ms. Fujita about any required changes to their cards',
+      textJa: 'Fujitaさんに名刺に必要な変更について伝える',
+    },
+    {
+      id: 'd',
+      textEn: 'Arrange a personal meeting with Ms. Fujita',
+      textJa: 'Fujitaさんとの個人面談を取り決める',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    'MitraさんとはEメールの送信者で、最後の署名から営業部長と分かる。受信者は営業担当者全員。11月10日という日付については3段落に、「11月10日金曜日までに、必ずFujitaさんに連絡してください」とある。Fujitaさんとは2段落2～3行目より、グラフィックデザイン部の担当者で、同1～3行目で、情報更新の必要性の有無を確かめて、必要ならFujitaさんに追加更新について知らせるように指示が出されている。この内容を、any required changes「必要な変更」を用いて表している（C）が正解。\n（A） sales figures「売上高」については言及がない。\n（B） 現在の名刺を返却するという記述はない。\n（D） 3段落で、Fujitaさんに連絡するよう指示されているが、個人面談の手配は話題に上っていない。arrange「～を取り決める」。',
+  metacogFeedbackJa: '',
+};
+
+const pre02Q2 = {
+  id: 'pre_02_q2',
+  promptEn:
+    'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n"Therefore, we will begin printing new cards next Monday."',
+  promptJa:
+    '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「そのため、来週月曜日に新しい名刺の印刷を開始する予定です」',
+  choices: [
+    { id: 'a', textEn: '[1]', textJa: '[1]' },
+    { id: 'b', textEn: '[2]', textJa: '[2]' },
+    { id: 'c', textEn: '[3]', textJa: '[3]' },
+    { id: 'd', textEn: '[4]', textJa: '[4]' },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa:
+    '挿入文は、来週月曜日に新しい名刺の印刷を開始するという予定を述べたもの。前の文から結果や結論を導く際に使われるTherefore「それゆえに、そのため」で始まっているので、新しい名刺を印刷する理由を述べる内容に続くと考えられる。1段落1行目で、営業担当者の名刺の取り換えの必要性を伝えており、続く同1～3行目では、通常は会計年度末に行うが、最近の合併で新しい企業ロゴを採用したと述べている。この直後の（A）［1］に挿入文を入れると、新しい企業ロゴを採用した結果、来週に新しい名刺の印刷を開始する、という自然な流れになる。',
+  metacogFeedbackJa: '',
+};
+
+const pre02Passage: Passage = {
+  id: 'pre_02',
+  title: 'E-mail - Business Cards',
+  direction: 'Questions 1-2 refer to the following e-mail.',
+  directionJa: '問題1-2は次のEメールに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'en' as const,
+      emailTable: pre02EmailEn,
+    },
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'ja' as const,
+      emailTable: pre02EmailJa,
+    },
+  ],
+  questions: [pre02Q1, pre02Q2],
+};
+
+// ===== Pre-Test 問題3: Customer Reviews (Online Design Business) =====
+
+const pre03ReviewsEn = {
+  navItems: ['Home', 'Products', 'Reviews', 'Contact Us'],
+  activeNav: 'Reviews',
+  reviews: [
+    {
+      name: 'Adrianna Rossi',
+      rating: 5,
+      text: 'Mr. Prescott runs a top-notch online business. I have never worked with a designer this talented before. I was able to give a very specific description of what I wanted and my expectations were exceeded. I could have never imagined my wedding invitations turning out so beautiful! A friend needs new brochures for her business, and I will definitely refer her to this shop. Thanks!',
+    },
+    {
+      name: 'Prisha Deol',
+      rating: 2,
+      text: 'I am not pleased with my recent order. I had bought birthday party invitations previously from this store and was satisfied. This time, I ordered customized programs for my piano recital. I loved the proof that I was sent, but these do not look like the proof at all. The printing looks grainy and cheap. Also, the programs have a white mark at the top on the front and the back. It just does not look very professional.',
+    },
+    {
+      name: 'Isak Larsson',
+      rating: 5,
+      text: 'The owner was fast to respond to my questions before I had even purchased anything. My business cards were designed in days and arrived quickly, even with international shipping to Sweden. They were exactly how I wanted them, even though I gave the designer only a few details and asked whether they could be completed in a hurry. This was a great experience.',
+    },
+  ],
+};
+
+const pre03ReviewsJa = {
+  navItems: ['ホーム', '製品', 'レビュー', 'お問い合わせ'],
+  activeNav: 'レビュー',
+  reviews: [
+    {
+      name: 'Adrianna Rossi',
+      rating: 5,
+      text: 'Prescottさんは最高のオンラインの事業を運営しています。私は、これほど才能のあるデザイナーの方にお仕事していただいたことは、これまで一度もありません。私は希望していたことを非常に具体的に説明させてもらうことができました、そして、私の期待を上回るものになりました。私は自分の結婚式の招待状がこんなに美しいものになるとは全く想像していませんでした！友人が自分の事業のために新しいパンフレットを必要としているので、私は断然、彼女にこの店を紹介します。ありがとうございました！',
+    },
+    {
+      name: 'Prisha Deol',
+      rating: 2,
+      text: '私は最近の注文品には満足していません。私は以前この店で誕生日パーティーの招待状を購入したことがあり、満足でした。今回、自分のピアノリサイタル用に特注プログラムを注文しました。私は送られてきた校正刷りをとても気に入ったのですが、今回のものは、校正刷りと同じようには全く見えません。印刷は粗くて安っぽく見えます。また、プログラムの表と裏の上部に白い染みがあります。プロの仕上がりにはとても見えません。',
+    },
+    {
+      name: 'Isak Larsson',
+      rating: 5,
+      text: 'まだ何かを購入する前でさえ、私の質問への店主の返答は迅速でした。私の名刺は数日でデザインされ、スウェーデンへの国際配送にもかかわらず早々に到着しました。私はデザイナーの方にほんのわずかな詳細しかお伝えせず、急いで仕上げられるかどうか尋ねたのですが、それらはまさに私が希望した通りの出来でした。これは素晴らしい経験でした。',
+    },
+  ],
+};
+
+const pre03Q1 = {
+  id: 'pre_03_q1',
+  promptEn: 'What type of service does the business most likely provide?',
+  promptJa: 'この店はどんな種類のサービスを提供していると考えられますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'Home decorating',
+      textJa: '住宅の装飾',
+    },
+    {
+      id: 'b',
+      textEn: 'Event planning',
+      textJa: 'イベントの企画',
+    },
+    {
+      id: 'c',
+      textEn: 'Custom printing',
+      textJa: '特注の印刷',
+    },
+    {
+      id: 'd',
+      textEn: 'Fashion accessorizing',
+      textJa: 'ファッション小物使い',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    '1段落で、Rossiさんがこの店で結婚式の招待状を作成したこと、そして個人事業用のパンフレットを必要とする友人に同店を紹介することが述べられている。2段落では、Deolさんが過去に同店で誕生日パーティーの招待状を購入したこと、今回は自分のピアノリサイタル用の特注プログラムを注文したことが述べられており、3段落では、Larssonさんが名刺を注文したことが分かる。よって、この店が提供しているサービスは特注の印刷と考えられる。\n（D） accessorize「〜にアクセサリーを付ける」。',
+  metacogFeedbackJa: '',
+};
+
+const pre03Q2 = {
+  id: 'pre_03_q2',
+  promptEn: 'What does Ms. Rossi indicate about her items?',
+  promptJa: 'Rossiさんは自分の品物について何を示していますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'They were made according to her instructions.',
+      textJa: 'それらは彼女の指示に従って作られた。',
+    },
+    {
+      id: 'b',
+      textEn: 'They were shipped to another country.',
+      textJa: 'それらは別の国へ配送された。',
+    },
+    {
+      id: 'c',
+      textEn: 'They were constructed with inexpensive materials.',
+      textJa: 'それらは安価な材料で組み立てられた。',
+    },
+    {
+      id: 'd',
+      textEn: 'They were not the correct color.',
+      textJa: 'それらは正しい色ではなかった。',
+    },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa:
+    '1段落3～4行目で、Rossiさんは注文した結婚式の招待状について、I was able to give a very specific description of what I wanted and my expectations were exceeded.「私は希望していたことを非常に具体的に説明させてもらうことができた、そして、私の期待を上回るものになった」と述べているので（A）が正解。according to 〜「〜に従って」、instructions「指示」。\n（B）3段落より、外国への配送について言及しているのはRossiさんではなくLarssonさん。\n（C）（D）材料や色についての言及はない。（C） construct「～を組み立てる」、inexpensive「安価な」。',
+  metacogFeedbackJa: '',
+};
+
+const pre03Q3 = {
+  id: 'pre_03_q3',
+  promptEn: 'What does Mr. Larsson discuss in his review?',
+  promptJa: 'Larssonさんはレビューで何について述べていますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'The instructions for placing an order',
+      textJa: '注文するための説明',
+    },
+    {
+      id: 'b',
+      textEn: 'The variety of product choices',
+      textJa: '製品の選択肢の多様性',
+    },
+    {
+      id: 'c',
+      textEn: 'The efficiency of the business',
+      textJa: 'その店の手際の良さ',
+    },
+    {
+      id: 'd',
+      textEn: 'The weight of the merchandise',
+      textJa: '商品の重量',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    'Larssonさんは3段落で、名刺を注文した際の店の対応について評価を述べている。同2行目で、商品の購入前でも店主が迅速に質問に回答してくれたこと、続く同2～4行目で、国際配送という状況でも商品到着が早かったこと、同4～5行目で、詳細のわずかな説明と至急の納品であっても、希望通りの出来だったことを述べている。よって、Larssonさんはレビューで、店の手際が良かったことを説明していると言えるので、（C）が正解。discuss「〜について論じる」。efficiency「（仕事上の）手際の良さ、効率の良さ」。\n（A） instructions「説明」、place an order「注文する」。\n（B） variety「多様性」。\n（D） weight「重量」、merchandise「商品」。',
+  metacogFeedbackJa: '',
+};
+
+const pre03Passage: Passage = {
+  id: 'pre_03',
+  title: 'Customer Reviews - Online Design Business',
+  direction: 'Questions 1-3 refer to the following customer reviews.',
+  directionJa: '問題1-3は次の顧客レビューに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'customerReviews' as const,
+      locale: 'en' as const,
+      customerReviews: pre03ReviewsEn,
+    },
+    {
+      layoutType: 'customerReviews' as const,
+      locale: 'ja' as const,
+      customerReviews: pre03ReviewsJa,
+    },
+  ],
+  questions: [pre03Q1, pre03Q2, pre03Q3],
+};
+
+// ===== Pre-Test 問題4: Text-Message Chain (Weekly Meeting) =====
+
+const pre04MessagesEn = [
+  {
+    sender: 'Linda Farr',
+    time: '8:48 A.M.',
+    text: "Megumi and Ricardo, I suggest going to Sofia's Place for our weekly meeting instead of gathering here in our usual conference room. The three of us could easily report on progress made on the Humbert project over lunch. Thoughts?",
+  },
+  {
+    sender: 'Megumi Sugiyama',
+    time: '8:50 A.M.',
+    text: 'I could use a break from the office.',
+  },
+  {
+    sender: 'Ricardo Thompson',
+    time: '8:51 A.M.',
+    text: 'Alright by me. But what about staying close by and going to Crab Bay Café?',
+  },
+  {
+    sender: 'Linda Farr',
+    time: '8:52 A.M.',
+    text: "It's closer, but there's usually a wait because seating is limited. I don't want to go over an hour. Plus, I love the salads at Sofia's.",
+  },
+  {
+    sender: 'Ricardo Thompson',
+    time: '8:53 A.M.',
+    text: "True. They're great.",
+  },
+  {
+    sender: 'Megumi Sugiyama',
+    time: '8:55 A.M.',
+    text: "Sofia's it is then! But could we change the time? I find our usual meeting time a bit early for lunch.",
+  },
+  {
+    sender: 'Linda Farr',
+    time: '8:56 A.M.',
+    text: "Yes, 11:00 is a bit early for lunch, isn't it? OK, what time works best? 11:30? 12:00?",
+  },
+  {
+    sender: 'Ricardo Thompson',
+    time: '8:57 A.M.',
+    text: 'Hmmm. How about 12:30?',
+  },
+  {
+    sender: 'Megumi Sugiyama',
+    time: '8:58 A.M.',
+    text: 'Perfect!',
+  },
+  {
+    sender: 'Linda Farr',
+    time: '8:59 A.M.',
+    text: 'Sounds good. See you then!',
+  },
+];
+
+const pre04MessagesJa = [
+  {
+    sender: 'Linda Farr',
+    time: '午前8時48分',
+    text: "Megumi、そしてRicardo、毎週の定例ミーティングで、ここのいつもの会議室に集まるのではなくSofia's Placeに行くのはどうかしら。私たち3人で、昼食を取りながらHumbertプロジェクトの進捗について気楽に伝えられるし。どう思う？",
+  },
+  {
+    sender: 'Megumi Sugiyama',
+    time: '午前8時50分',
+    text: '私はオフィスから離れて一息つけるとありがたいわ。',
+  },
+  {
+    sender: 'Ricardo Thompson',
+    time: '午前8時51分',
+    text: '僕は構わないよ。でも、近場にとどまって、Crab Bayカフェに行くのはどうかな？',
+  },
+  {
+    sender: 'Linda Farr',
+    time: '午前8時52分',
+    text: "そこはもっと近いけれど、席数が限られているから、たいてい待ち時間があるのよ。私は1時間以上かけたくないわ。それに、私はSofia'sのサラダが大好きなの。",
+  },
+  {
+    sender: 'Ricardo Thompson',
+    time: '午前8時53分',
+    text: '確かに。あれはすごくおいしいよね。',
+  },
+  {
+    sender: 'Megumi Sugiyama',
+    time: '午前8時55分',
+    text: "では、Sofia'sに決まりね！ただ、時間を変更できるかしら？いつものミーティングの時間は昼食には少し早いと思うの。",
+  },
+  {
+    sender: 'Linda Farr',
+    time: '午前8時56分',
+    text: 'そうね、11時は昼食には少し早いわね。それなら、何時が一番都合がいいかしら？11時30分？12時？',
+  },
+  {
+    sender: 'Ricardo Thompson',
+    time: '午前8時57分',
+    text: 'うーん。12時30分はどう？',
+  },
+  {
+    sender: 'Megumi Sugiyama',
+    time: '午前8時58分',
+    text: '完璧！',
+  },
+  {
+    sender: 'Linda Farr',
+    time: '午前8時59分',
+    text: 'いいわね。そのときに会いましょう！',
+  },
+];
+
+const pre04Q1 = {
+  id: 'pre_04_q1',
+  promptEn:
+    'At 8:50 A.M., what does Ms. Sugiyama mean when she writes, "I could use a break from the office"?',
+  promptJa:
+    '午前8時50分に、Sugiyamaさんは"I could use a break from the office"という発言で、何を意味していますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'She approves of meeting elsewhere.',
+      textJa: '彼女は他の場所で会合することに賛成している。',
+    },
+    {
+      id: 'b',
+      textEn: 'She wants to ask for time off from work.',
+      textJa: '彼女は仕事を休むことを願い出たいと思っている。',
+    },
+    {
+      id: 'c',
+      textEn: 'She is looking forward to her vacation.',
+      textJa: '彼女は自分の休暇を楽しみにしている。',
+    },
+    {
+      id: 'd',
+      textEn: 'She is happy to run an errand for Ms. Farr.',
+      textJa: '彼女は喜んでFarrさんのために用事をする。',
+    },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa:
+    "Farrさんは1段落で、今度のミーティングをいつも利用している社内の会議室ではなくSofia's Placeという飲食店で行うことを提案し、他の2人にどう思うかと意見を求めている。それに対し、Sugiyamaさんは下線部で「私はオフィスから離れて一息つけるとありがたい」と答えているので、他の場所でミーティングを行うことに賛成していると考えられる。よって、（A）が正解。approve of ～「～に賛成する」、meet「会合する」、elsewhere「他の場所で」。\n（B） ask for〜「～を求める」、time off from～「～を休むこと」。\n（D） be happy to do「喜んで〜する」、run an errand for~「〜の使い走りをする」。",
+  metacogFeedbackJa: '',
+};
+
+const pre04Passage: Passage = {
+  id: 'pre_04',
+  title: 'Text-Message Chain - Weekly Meeting',
+  direction: 'Question 1 refers to the following text-message chain.',
+  directionJa: '問題1は次のテキストメッセージのやりとりに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'chatTablet' as const,
+      locale: 'en' as const,
+      chatTablet: {
+        messages: pre04MessagesEn,
+      },
+    },
+    {
+      layoutType: 'chatTablet' as const,
+      locale: 'ja' as const,
+      chatTablet: {
+        messages: pre04MessagesJa,
+      },
+    },
+  ],
+  questions: [pre04Q1],
+};
+
+// ===== Pre-Test 問題5: Article (Mini-Museums) =====
+
+const pre05ArticleEn = {
+  headline: 'Mini-Museums on the Rise',
+  byline: 'By Erika Eaton',
+  body: [
+    'JACKSON (January 4)—Known for its large collection of culturally significant artifacts, the Haywood Museum is partnering with several municipalities throughout the Haywood Mountain region to open satellite locations. — [1] —. The first 5,000-square-meter "mini-museum" is set to open this May in Jackson. According to Haywood Museum Director Thaddeus Lopez, three more mini-museums are planned. — [2] —.',
+    "Speaking at Tuesday's groundbreaking ceremony in Jackson, Lopez said the mini-museums are part of the Haywood Museum's broader goal to enhance the public's appreciation of local history. — [3] —. \"Our exhibits and programs seek to honor our region's past in ways that are authentic and interactive,\" Lopez told about 40 onlookers, including Jackson Mayor Max Wu.",
+    "In addition to building mini-museums, the Haywood Museum has recently partnered with Merriweather University to record, analyze, and organize oral histories of longtime members of the Haywood community. — [4] —. To nominate someone to share their story for Ms. Finley's project, please visit www.haywoodmuseum.org.",
+  ],
+};
+
+const pre05ArticleJa = {
+  headline: '増えるミニ博物館',
+  byline: 'Erika Eaton 記',
+  body: [
+    'ジャクソン（1月4日）—文化的に重要な工芸品の大規模なコレクションで知られるHaywood博物館は、Haywood Mountain地域の幾つかの地方自治体と提携してサテライト館を幾つかオープンする。— [1] —。一番手となる5,000平方メートルの「ミニ博物館」がこの5月、ジャクソンにオープンする予定だ。Haywood博物館のThaddeus Lopez館長によると、さらに3つのミニ博物館が計画されている。— [2] —。',
+    '火曜日にジャクソンで行われた起工式で演説したLopezは、ミニ博物館は、郷土史に対する一般市民の理解を向上させるという、Haywood博物館のより大きな目標の一環だと述べた。— [3] —。「当館の展示物やプログラム制作は、真正かつ双方向的な方法でわれわれの祖先に敬意を表すことを目指しています」と、LopezはジャクソンのMax Wu市長をはじめとする約40人の見物人に語った。',
+    'ミニ博物館の建設に加えて、Haywood博物館は、Haywood地域の長年の住民の口述歴史を録音、分析、整理するために、Merriweather大学のMollie Finleyを雇用した。— [4] —。Finley氏のプロジェクトのために体験を語ってくれる人物を推薦するにはwww.haywoodmuseum.orgにアクセスしてほしい。',
+  ],
+};
+
+const pre05Q1 = {
+  id: 'pre_05_q1',
+  promptEn:
+    'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n"The recordings will be converted into virtual reality experiences for visitors to enjoy."',
+  promptJa:
+    '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「録音は、来場者が楽しめるバーチャルリアリティー体験に作り変えられる予定である」',
+  choices: [
+    { id: 'a', textEn: '[1]', textJa: '［1］' },
+    { id: 'b', textEn: '[2]', textJa: '［2］' },
+    { id: 'c', textEn: '[3]', textJa: '［3］' },
+    { id: 'd', textEn: '[4]', textJa: '［4］' },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    '挿入文は、録音がバーチャルリアリティー体験に変換されるということを述べたもの。主語のThe recordings「その録音（物）」に着目する。3段落1～5行目で、住民の口述歴史を録音、分析、整理するために、Finleyさんが雇用されたことが述べられている。この直後の（D）［4］に挿入文を入れると、口述歴史を録音したものは来場者が楽しめるバーチャルリアリティー体験に変換される、という自然な流れになる。convert～into...「〜を…に変換する」、virtual reality「仮想現実」。\n（A）（B）（C）いずれも挿入文の主語のThe recordingsが何を指すのかが不明確となり、適切ではない。',
+  metacogFeedbackJa: '',
+};
+
+const pre05Passage: Passage = {
+  id: 'pre_05',
+  title: 'Article - Mini-Museums',
+  direction: 'Question 1 refers to the following article.',
+  directionJa: '問題1は次の記事に関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'article' as const,
+      locale: 'en' as const,
+      article: pre05ArticleEn,
+    },
+    {
+      layoutType: 'article' as const,
+      locale: 'ja' as const,
+      article: pre05ArticleJa,
+    },
+  ],
+  questions: [pre05Q1],
+};
+
+// ===== Pre-Test 問題6: E-mail and Certificate (Arborlee International) =====
+
+const pre06Q1 = {
+  id: 'pre_06_q1',
+  promptEn: 'What is the purpose of the e-mail?',
+  promptJa: 'Eメールの目的は何ですか。',
+  choices: [
+    { id: 'A', textEn: 'To announce a business acquisition', textJa: '事業の買収を発表すること' },
+    {
+      id: 'B',
+      textEn: 'To inform employees of a charitable giving option',
+      textJa: '従業員に慈善事業への寄付の一つの選択肢を知らせること',
+    },
+    {
+      id: 'C',
+      textEn: "To recognize an employee's community service",
+      textJa: '従業員の地域社会への奉仕活動を評価すること',
+    },
+    {
+      id: 'D',
+      textEn: 'To encourage organizations to conserve resources',
+      textJa: '団体に資源を保護するよう奨励すること',
+    },
+  ],
+  correctChoiceId: 'B',
+  explanationGeneralJa:
+    '1つ目の本文のEメールは、Vernment社の寄付月間委員会が全従業員宛てに送信したもの。同1段落1～2行目で、I would like to draw your attention to one more charity to consider.「検討すべきもう一つの慈善団体に皆さんの注目を集めたいと思う」と述べ、同2段落では、森林再生活動に尽力しているArborlee Internationalという団体について詳しく紹介している。よって、寄付先の選択肢として同団体をVernment社の従業員に知らせることがEメールの目的だと考えられるので、（B）が正解。inform〜of…「～に・・・を知らせる」、charitable giving「慈善事業への寄付」、option「選択肢」。\n（A） announce「～を発表する」、acquisition「買収、取得」。\n（C） recognize「〜を評価する、～を認める」、community service「地域社会への奉仕活動」。\n（D） encourage～to do「〜に・するよう奨励する」、conserve「～を保護する」、resource「資源」',
+  metacogFeedbackJa: '',
+};
+
+const pre06Q2 = {
+  id: 'pre_06_q2',
+  promptEn: 'According to the e-mail, who will plant trees?',
+  promptJa: 'Eメールによると、誰が木を植えますか。',
+  choices: [
+    { id: 'A', textEn: 'People living in deforested areas', textJa: '森林伐採地域に暮らす人々' },
+    { id: 'B', textEn: 'Representatives from government agencies', textJa: '政府機関の代表者' },
+    { id: 'C', textEn: 'The Month of Giving committee', textJa: '寄付月間委員会' },
+    { id: 'D', textEn: 'Volunteers from Vernment, Inc.', textJa: 'Vernment社のボランティア' },
+  ],
+  correctChoiceId: 'A',
+  explanationGeneralJa:
+    '1つ目の本文の2段落1～2行目に、Arborlee Internationalという団体が森林再生が必要な場所で若木を根付かせるために世界各地の地域社会と共に尽力していることに言及があり、同3〜4行目に、Local citizens are hired and taught the skills required to plant the trees and to care for them「地元住民が雇用され、木を植えてそれらを手入れするのに必要な技術を教わっている」とある。よって、木を植えるのは、森林再生が必要な地域に暮らす地元住民と分かるので、（A）が正解。deforest「〜の森林を伐採する」。\n（B） representative「代表者」、government「政府」、agency「機関」。',
+  metacogFeedbackJa: '',
+};
+
+const pre06Q3 = {
+  id: 'pre_06_q3',
+  promptEn: 'What is the purpose of planting the trees?',
+  promptJa: '木を植える目的は何ですか。',
+  choices: [
+    {
+      id: 'A',
+      textEn: 'To provide inexpensive building materials',
+      textJa: '安価な建築資材を提供すること',
+    },
+    { id: 'B', textEn: 'To increase incomes in an area', textJa: '地域の収入を増やすこと' },
+    { id: 'C', textEn: 'To improve the environment', textJa: '環境を改善すること' },
+    { id: 'D', textEn: 'To beautify a city', textJa: '都市を美化すること' },
+  ],
+  correctChoiceId: 'C',
+  explanationGeneralJa:
+    '1つ目の本文の2段落1～2行目に、Arborlee Internationalは森林再生が必要な場所で植林のために各地の地域社会と連携しているとあり、同4～6行目にはArborlee wants the trees to grow strong and provide shade, oxygen, and soil stabilization for previously barren areas.「Arborleeは木が丈夫に成長し、それらが以前は不毛だった地帯に木陰、酸素、土壌の安定化をもたらすことを望んでいる」とある。よって、植林の目的は森林伐採地域の環境を改善することと分かる。\n（A） inexpensive「安価な」、material「材料」。\n（B） income「収入」。\n（D） beautify「〜を美化する」。',
+  metacogFeedbackJa: '',
+};
+
+const pre06Q4 = {
+  id: 'pre_06_q4',
+  promptEn: 'For what was the contribution from Vernment, Inc., most likely used?',
+  promptJa: 'Vernment社からの寄付金は、何のために使われたと考えられますか。',
+  choices: [
+    {
+      id: 'A',
+      textEn: 'Planting thousands of new trees',
+      textJa: '何千本もの新しい木を植えること',
+    },
+    {
+      id: 'B',
+      textEn: 'Making improvements to the landscaping on a corporate campus',
+      textJa: '会社の敷地内の景観を改善すること',
+    },
+    {
+      id: 'C',
+      textEn: 'Saving native trees from being harvested',
+      textJa: '自生木が伐採されるのを防ぐこと',
+    },
+    {
+      id: 'D',
+      textEn: 'Printing materials that outline the mission of Arborlee International',
+      textJa: 'Arborlee Internationalの使命を概説する資料を印刷すること',
+    },
+  ],
+  correctChoiceId: 'A',
+  explanationGeneralJa:
+    '1つ目の本文の2段落6行目より、Arborlee Internationalへの寄付金は全て植林に使われると分かり、同6～7行目に「例えば1,000ドルの寄贈なら、1,000本の植林の資金となる」とある。同団体からVernment社へ贈られた2つ目の本文の感謝状を見ると、1段落1行目より同社の寄付額は7,260ドルと分かる。さらに同4～5行目には、the Rio Alto Forest Reserve in Bolivia, a project completed with the help of your funds「貴社の資金協力によって完成したプロジェクトである、ボリビアのRio Alto保護林」とあることから、Vernment社からの寄付金は保護林に7,260本の木を植えることに充てられたと考えられる。\n（B） improvement「改良」、landscaping「景観設計」、corporate「会社の」、campus「敷地」。\n（C） save～from doing「〜が・しないで済むようにする」、harvest「～を伐採する、～を収穫する」。\n（D） outline「〜を概説する」。',
+  metacogFeedbackJa: '',
+};
+
+const pre06Passage: Passage = {
+  id: 'pre_06',
+  title: 'E-mail and Certificate - Arborlee International',
+  direction: 'Questions 1-4 refer to the following e-mail and certificate.',
+  directionJa: '問題1-4は次のEメールと証明書に関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    // English email
+    {
+      layoutType: 'emailTable',
+      locale: 'en',
+      emailTable: {
+        headers: [
+          { label: 'From:', value: 'Month of Giving Committee' },
+          { label: 'To:', value: 'All Vernment Employees' },
+          { label: 'Date:', value: 'April 26' },
+          { label: 'Subject:', value: 'Only a few days left' },
+        ],
+        body: [
+          "As our company's Month of Giving comes to a close, I would like to draw your attention to one more charity to consider. We have been profiling some of the lesser-known, but well-respected, organizations that are important to our colleagues. If you have not already made your voluntary contribution, take a moment to learn about this worthy cause. Remember that as your employer, Vernment, Inc., will match up to $100 of your contributions to eligible charities during this month.",
+          'Arborlee International works with communities in North America, South America, and Asia to establish young trees in areas that need to be reforested. Experts assist their partners in choosing the most appropriate native trees to plant. Local citizens are hired and taught the skills required to plant the trees and to care for them. Arborlee wants the trees to grow strong and provide shade, oxygen, and soil stabilization for previously barren areas. Every dollar donated goes toward the planting of trees; a gift of $1,000, for example, funds the planting of 1,000 trees. Go to www.arborlee.org to learn more.',
+        ],
+      },
+    },
+    // Japanese email
+    {
+      layoutType: 'emailTable',
+      locale: 'ja',
+      emailTable: {
+        headers: [
+          { label: '送信者：', value: '寄付月間委員会' },
+          { label: '宛先：', value: 'Vernment社従業員' },
+          { label: '日付：', value: '4月26日' },
+          { label: '件名：', value: '残りわずか数日' },
+        ],
+        body: [
+          '当社の寄付月間が終わりに近づいてきましたので、検討すべきもう一つの慈善団体に皆さんの注目を集めたいと思います。当委員会ではこれまで、あまり知られていないながらも非常に高く評価され、同僚の皆さんにとって注目すべき団体を幾つか紹介してきました。あなたがまだ自発的な寄付をしていないのであれば、少し時間を取ってこの価値ある理念について知ってください。皆さんの雇用主としてVernment社は今月中、対象となる慈善団体へのあなたの寄付額のうち最大100ドルまで同額を拠出するということを覚えておいてください。',
+          'Arborlee Internationalは、森林再生が必要な地域で若木を根付かせるために、北米、南米、そしてアジアの地域社会と共に力を尽くしています。最も植栽に適したその土地固有の木を選ぶにあたって、専門家がその共同事業者たちに手を貸しています。地元住民が雇用され、木を植えてそれらを手入れするのに必要な技術を教わっています。Arborleeは木が丈夫に成長し、それらが以前は不毛だった地帯に木陰、酸素、土壌の安定化をもたらすことを望んでいます。寄付金は全て、植林に使われます。例えば1,000ドルの寄贈なら、1,000本の植林の資金となります。さらに知るにはwww.arborlee.orgにアクセスしてください。',
+        ],
+      },
+    },
+    // English certificate
+    {
+      layoutType: 'certificate',
+      locale: 'en',
+      certificate: {
+        organization: 'ARBORLEE INTERNATIONAL',
+        title: 'CERTIFICATE OF APPRECIATION',
+        subtitle: 'FOR',
+        recipient: 'Vernment, Inc.',
+        body: [
+          "Many thanks for the generous gift of $7,260 generated by your company and for spreading the word about Arborlee International and its mission. In recognition of your contribution, your company's name will be displayed on a plaque at the entrance gate of the Rio Alto Forest Reserve in Bolivia, a project completed with the help of your funds.",
+        ],
+        signature: 'Jennifer Price',
+        signerName: 'Jennifer Price',
+        signerTitle: 'President, Arborlee International',
+      },
+    },
+    // Japanese certificate
+    {
+      layoutType: 'certificate',
+      locale: 'ja',
+      certificate: {
+        organization: 'ARBORLEE INTERNATIONAL',
+        title: '感謝状',
+        subtitle: '',
+        recipient: 'Vernment社',
+        body: [
+          '貴社が集められた7,260ドルという多額のご献金、そしてArborlee Internationalとその使命に関する情報を広めてくださったことに対し、深く感謝いたします。貴社の貢献をたたえまして、貴社の資金協力によって完成したプロジェクトである、ボリビアのRio Alto保護林の入り口の門にある記念プレートに貴社名を掲示いたします。',
+        ],
+        signature: 'Jennifer Price',
+        signerName: 'Jennifer Price',
+        signerTitle: 'Arborlee International 代表',
+      },
+    },
+  ],
+  questions: [pre06Q1, pre06Q2, pre06Q3, pre06Q4],
+};
+
+// ===== Pre-Test 問題7: Advertisement, E-mail, and Profile (Moonstone Properties) =====
+
+const pre07AdEn = {
+  headline: 'Looking for an Apartment? Check Out Moonstone Properties',
+  body: [
+    'Moonstone Properties opened its first apartment complex in New York City twenty years ago and later expanded into Philadelphia and Pittsburgh. This December, we are opening our fourth Moonstone apartment complex in Baltimore.',
+    'Conveniently located at 2 James Street, the complex is a short walk to a public park, grocery store, library, and bus stop. Each of our four buildings has a fitness center and community room.',
+  ],
+  bullets: [
+    'Building 1: Next door to the Floral Café. Bicycle storage room.',
+    'Building 2: Rooftop vegetable garden. Next to Finlay Park.',
+    'Building 3: River view. Private balconies.',
+    'Building 4: Close to a playground. Parking garage under the building.',
+  ],
+};
+
+const pre07AdJa = {
+  headline: 'マンションをお探しですか？ Moonstone 不動産社を訪れてみてください',
+  body: [
+    'Moonstone 不動産社は20年前にニューヨーク市で最初の複合集合住宅をオープンし、その後、フィラデルフィアとピッツバーグにも進出しました。この12月、当社の4件目となるMoonstone複合集合住宅がボルチモアにオープンします。',
+    'この複合集合住宅はジェームズ通り2番地という便利な立地で、公共公園、食料品店、図書館、バス停まで歩いてすぐです。4棟の建物それぞれにフィットネスセンターと集会室があります。',
+  ],
+  bullets: [
+    '1号棟：Floralカフェの隣り。自転車保管室。',
+    '2号棟：屋上菜園。Finlay公園の隣り。',
+    '3号棟：川の眺め。専用バルコニー。',
+    '4号棟：遊戯場に近い。建物の下に駐車場。',
+  ],
+};
+
+const pre07EmailEn = {
+  headers: [
+    { label: 'To:', value: 'Aisha Abara <aishaabara@jmail.net>' },
+    { label: 'From:', value: 'Suzanna Cohen <scohen@moonstone.com>' },
+    { label: 'Date:', value: 'Saturday, January 12' },
+    { label: 'Subject:', value: 'Apartment tour' },
+  ],
+  body: [
+    'Dear Ms. Abara,',
+    'Thank you for completing the inquiry form on our Web site. Per your request, I will meet you at 10 A.M. tomorrow at the Floral Café to give you a tour of the apartment complex. We have several vacant units available in each building. If you see an apartment you like, you can put down a deposit and sign a lease agreement immediately.',
+    'You indicated that you need two bedrooms but did not mention whether you prefer a certain building. Please let me know if you do.',
+    'Best,',
+    'Suzanna Cohen, Leasing Agent\nMoonstone Properties',
+  ],
+  showScrollbar: true,
+};
+
+const pre07EmailJa = {
+  headers: [
+    { label: '受信者：', value: 'Aisha Abara <aishaabara@jmail.net>' },
+    { label: '送信者：', value: 'Suzanna Cohen <scohen@moonstone.com>' },
+    { label: '日付：', value: '1月12日　土曜日' },
+    { label: '件名：', value: 'マンションの見学' },
+  ],
+  body: [
+    'Abara様',
+    'ウェブサイトのお問い合わせフォームにご記入いただきありがとうございます。ご要望通り、明日午前10時にFloralカフェでお客さまにお会いして、当複合集合住宅をご案内いたします。各棟に数戸の空室がございます。気に入ったお部屋があれば、即日頭金をお支払いの上、賃貸契約を結ぶことが可能です。',
+    '寝室が2つ必要とご記入いただきましたが、特定の棟をご希望かどうかは書かれていませんでした。もしご希望があれば、お知らせください。',
+    'よろしくお願いします。',
+    '賃貸担当代理人　Suzanna Cohen\nMoonstone 不動産社',
+  ],
+  showScrollbar: true,
+};
+
+const pre07ProfileEn = {
+  title: 'Moonstone Apartments Newsletter',
+  sectionTitle: 'Resident Profile: Aisha Abara',
+  body: [
+    'Aisha can often be spotted sipping coffee at the Floral Café or enjoying the peaceful view of the river from her balcony. An avid reader, Aisha visits the library weekly. She also enjoys jogging and tennis when she is not teaching chemistry at Spurlock High School. We are delighted to welcome Aisha to the Moonstone community.',
+  ],
+};
+
+const pre07ProfileJa = {
+  title: 'Moonstone マンション会報',
+  sectionTitle: '居住者紹介：Aisha Abara',
+  body: [
+    'AishaがFloralカフェでコーヒーを飲んだり、バルコニーから川の穏やかな眺めを楽しんだりしているのをしばしば見かけることができます。熱心な読書家であるAishaは、毎週図書館を訪れています。また、Spurlock高校で化学を教えている以外のときには、ジョギングやテニスを楽しんでいます。AishaをMoonstoneのコミュニティーに迎えることができて、大変うれしく思います。',
+  ],
+};
+
+const pre07Q1 = {
+  id: 'pre_07_q1',
+  promptEn: 'Where does Ms. Cohen most likely work?',
+  promptJa: 'Cohenさんはどこで働いていると考えられますか。',
+  choices: [
+    { id: 'a', textEn: 'In New York City', textJa: 'ニューヨーク市' },
+    { id: 'b', textEn: 'In Philadelphia', textJa: 'フィラデルフィア' },
+    { id: 'c', textEn: 'In Pittsburgh', textJa: 'ピッツバーグ' },
+    { id: 'd', textEn: 'In Baltimore', textJa: 'ボルチモア' },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    'Cohenさんとは、2つ目の本文Eメールの送信者で、署名欄より、Moonstone不動産社の賃貸担当代理人。件名にApartment tour「マンションの見学」とあり、同Eメールの1段落1～2行目には、「明日午前10時にFloralカフェでお客さまに会って、当複合集合住宅を案内する」と書かれている。このFloralカフェは1つ目の本文の広告の3段落1行目にある、Building 1: Next door to the Floral Cafe.という記載から、1号棟の隣にあると分かる。また、同1段落2～3行目より、この1号棟はボルチモアに新規オープンした複合集合住宅の1つの棟だと分かる。よって、Cohenさんはボルチモアの住宅を担当しており、その見学案内を行うと考えられるので、（D）が正解。\n（A）（B）（C）1つ目の本文の1段落1～2行目より、Moonstone不動産社の複合集合住宅がある場所だが、Cohenさんがこれらの場所で働いていると考えられる記述はない。',
+  metacogFeedbackJa: '',
+};
+
+const pre07Q2 = {
+  id: 'pre_07_q2',
+  promptEn: 'What information does Ms. Cohen ask Ms. Abara to provide?',
+  promptJa: 'CohenさんはAbaraさんにどんな情報を提供するように頼んでいますか。',
+  choices: [
+    { id: 'a', textEn: 'How many bedrooms she wants', textJa: 'ベッドルームが幾つ欲しいか' },
+    { id: 'b', textEn: 'When she wants to move in', textJa: 'いつ入居したいか' },
+    {
+      id: 'c',
+      textEn: 'When she will return a signed lease',
+      textJa: 'いつ署名済みの賃貸契約書を戻してくれるか',
+    },
+    {
+      id: 'd',
+      textEn: 'Whether she prefers a particular building',
+      textJa: '特定の建物を希望するかどうか',
+    },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    '2つ目の本文Eメールの送信者であるCohenさんは、受信者のAbaraさんに対して同2段落1～2行目で、「寝室が2つ必要なことは記入してくれたが、特定の棟を希望するかどうかは書かれていなかった。希望があれば知らせてほしい」と述べている。よって、CohenさんはAbaraさんに、棟の希望があれば教えてほしいと頼んでいると分かるので、（D）が正解。certainを（D）ではparticularと言い換えている。\n（A）2つ目の本文の2段落1～2行目より、Abaraさんは寝室が2つ必要であることが分かっている。\n（B）入居希望日は話題に上っていない。\n（C）2つ目の本文の1段落3～4行目で、気に入った部屋があれば賃貸契約を即日結ぶことができると書かれているが、署名済みのlease「賃貸契約書」の返却については言及されていない。',
+  metacogFeedbackJa: '',
+};
+
+const pre07Q3 = {
+  id: 'pre_07_q3',
+  promptEn: 'In what building does Ms. Abara live?',
+  promptJa: 'Abaraさんはどの建物に住んでいますか。',
+  choices: [
+    { id: 'a', textEn: 'Building 1', textJa: '1号棟' },
+    { id: 'b', textEn: 'Building 2', textJa: '2号棟' },
+    { id: 'c', textEn: 'Building 3', textJa: '3号棟' },
+    { id: 'd', textEn: 'Building 4', textJa: '4号棟' },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    'Abaraさんは2つ目の本文Eメールの受信者であり、3つ目の本文の人物紹介で取り上げられている新規居住者。3つ目の本文の人物紹介の1段落1～2行目から、Abaraさんは「バルコニーから川の穏やかな眺めを楽しんでいる」ことが分かる。1つ目の本文の広告の3段落に、「3号棟：川の眺め。専用バルコニー」という記載があるので、Abaraさんが住んでいるのは（C）「3号棟」と考えられる。\n（A）3つ目の本文の1段落1行目から、AbaraさんがよくFloralカフェを利用していることが分かり、1つ目の本文の3段落より、1号棟はFloralカフェの隣だが、他の3棟もFloralカフェから近いと考えられるので、Abaraさんが1号棟に住んでいることを示す根拠にはならない。\n（B）3つ目の本文の1段落3～4行目に、ジョギングやテニスを楽しむと書かれていることから、1つ目の本文の3段落に公園の隣とある2号棟を連想して選ばないよう注意。',
+  metacogFeedbackJa: '',
+};
+
+const pre07Passage: Passage = {
+  id: 'pre_07',
+  title: 'Advertisement, E-mail, and Profile - Moonstone Properties',
+  direction: 'Questions 1-3 refer to the following advertisement, e-mail, and profile.',
+  directionJa: '問題1-3は次の広告、Eメール、人物紹介に関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    // English advertisement
+    {
+      layoutType: 'ad' as const,
+      locale: 'en' as const,
+      ad: pre07AdEn,
+    },
+    // Japanese advertisement
+    {
+      layoutType: 'ad' as const,
+      locale: 'ja' as const,
+      ad: pre07AdJa,
+    },
+    // English email
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'en' as const,
+      emailTable: pre07EmailEn,
+    },
+    // Japanese email
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'ja' as const,
+      emailTable: pre07EmailJa,
+    },
+    // English profile
+    {
+      layoutType: 'newsletterProfile' as const,
+      locale: 'en' as const,
+      newsletterProfile: pre07ProfileEn,
+    },
+    // Japanese profile
+    {
+      layoutType: 'newsletterProfile' as const,
+      locale: 'ja' as const,
+      newsletterProfile: pre07ProfileJa,
+    },
+  ],
+  questions: [pre07Q1, pre07Q2, pre07Q3],
+};
+
+// ===== Pre-Test 問題8: Advertisement and E-mails (Adeletto and Sons) =====
+
+const pre08Q1 = {
+  id: 'pre_08_q1',
+  promptEn: 'What is suggested about Adeletto and Sons?',
+  promptJa: 'Adeletto and Sons社について何が分かりますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'It creates products made of artificial leather.',
+      textJa: '同社は合成皮革製の製品を作る。',
+    },
+    {
+      id: 'b',
+      textEn: 'It produces shoes and handbags.',
+      textJa: '同社は靴やハンドバッグを製造する。',
+    },
+    {
+      id: 'c',
+      textEn: 'It plans to open a new international office soon.',
+      textJa: '同社は間もなく新たな海外事務所を開く予定である。',
+    },
+    {
+      id: 'd',
+      textEn: 'It sells leather to manufacturing companies.',
+      textJa: '同社は製造業の企業に革を販売する。',
+    },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    '1つ目の本文のAdeletto and Sons社の広告の1段落1行目で、同社は1849年以来、革の加工と染色を行ってきたと述べられ、続く同2～4行目に、「貴社の工場製品ラインがどのようなものでも、当社の熟練工が貴社の仕様に合わせた最高品質の革を提供することによって、貴社製品の表面を美しく装い仕上げる手伝いをする」とあるので、同社は製造業の企業に革を販売すると分かる。manufacturing「製造業の」。\n（A） made of〜「〜でできた」、artificial leather「合成皮革」。\n（B） 1つ目の本文の2段落3〜4行目で靴やハンドバッグ向けの革のコレクションが列挙されているが、靴やハンドバッグそのものを製造していると述べられてはいない。produce「～を製造する」。\n（C） international「海外の、国際的な」。',
+  metacogFeedbackJa: '',
+};
+
+const pre08Q2 = {
+  id: 'pre_08_q2',
+  promptEn: 'What is one purpose of the first e-mail?',
+  promptJa: '1通目のEメールの1つの目的は何ですか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'To promote boat rentals for events',
+      textJa: '行事向けの船のレンタルを促進すること',
+    },
+    {
+      id: 'b',
+      textEn: 'To complain about a late shipment',
+      textJa: '発送の遅延に不満を述べること',
+    },
+    {
+      id: 'c',
+      textEn: 'To ask for advice about seat coverings',
+      textJa: '座席張りに関する助言を求めること',
+    },
+    {
+      id: 'd',
+      textEn: 'To request instructions for preserving a delicate material',
+      textJa: '繊細な素材を保護するための説明を要望すること',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    '1通目のEメールである2つ目の本文は、造船業のJaehak Marine社のChoさんが加工会社であるAdeletto and Sons社のGrandeさん宛てに送信したもので、件名には「周遊船製品ラインの座席」とある。Choさんは同1段落1～3行目で、受け取った見本は座席に使う革としては繊細で薄過ぎると述べ、同2段落2～4行目で、丈夫で耐久性のある革が必要だと書いている。同2段落5～7行目では、「こぼれた飲食物による損傷は、これまで私たちが当社の座席に関して抱えてきた課題なので、今回は必ず正しい選択をしたい。これらのニーズを満たす、Adeletto and Sons社の最適な素材を見極める手助けをお願いしたい」とニーズを伝えた上で座席張りについての助言を求めているので、（C）が正解。seat Covering「座席張り」\n（A） promote「〜を促進する」、rental「レンタル、賃借」。\n（B） complain about～「～に不満を述べる」。\n（D） instructions「指示」、preserve「～を保護する」、delicate「繊細な」。',
+  metacogFeedbackJa: '',
+};
+
+const pre08Q3 = {
+  id: 'pre_08_q3',
+  promptEn: "What collection best suits Mr. Cho's needs?",
+  promptJa: 'どのコレクションがChoさんのニーズに最も合いますか。',
+  choices: [
+    { id: 'a', textEn: 'Roma', textJa: 'ローマ' },
+    { id: 'b', textEn: 'Genoa', textJa: 'ジェノバ' },
+    { id: 'c', textEn: 'Vicenza', textJa: 'ビチェンツァ' },
+    { id: 'd', textEn: 'Milano', textJa: 'ミラノ' },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa:
+    'Choさんが求めているものは、1通目のEメールの2つ目の本文の1段落1行目のleather for the seats in our line of touring boats「当社が製造する周遊船の座席に使う革」である。さらにChoさんは同2段落で、耐久性が重要な座席の革の条件について述べている。従って、1つ目の本文の2段落1行目に、「ローマコレクション自動車、航空機、船舶使用に」とある、船舶向けのローマコレクションがChoさんのニーズに最も合うと判断できる。suit「～に合う」。',
+  metacogFeedbackJa: '',
+};
+
+const pre08Q4 = {
+  id: 'pre_08_q4',
+  promptEn: 'What will probably be most important to Mr. Cho when he places a full order?',
+  promptJa: '正式注文をする際に、Choさんにとっておそらく何が最も重要ですか。',
+  choices: [
+    { id: 'a', textEn: 'The shipping time', textJa: '運送時間' },
+    { id: 'b', textEn: 'The amount of the discount', textJa: '割引額' },
+    { id: 'c', textEn: 'The color selection', textJa: '色の選択' },
+    { id: 'd', textEn: 'The finishing treatment', textJa: '仕上げ処理' },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    '3つ目の本文の2段落1～2行目で、GrandeさんはChoさんの説明から判断すると、Choさんの会社が革の防汚加工処理に興味を持つ可能性に言及し、同2～4行目で、苛酷に使用される製品を取り扱う顧客に評判の仕上げ処理を紹介した後、Choさんに見本注文にそのオプションの追加を希望するかどうか尋ねている。2つ目の本文の2段落4〜7行目でChoさんは、Most importantly「最も重要なことだが」と言って、座席への飲食物のこぼれに対する革の損傷を以前からの課題として挙げ、素材の見極めの手助けを頼んでいる。よって、Choさんにとって汚れに対して耐性を持たせる仕上げ処理が最重要だと判断できる。\n（C） selection「選択」。',
+  metacogFeedbackJa: '',
+};
+
+const pre08Passage: Passage = {
+  id: 'pre_08',
+  title: 'Advertisement and E-mails - Adeletto and Sons',
+  direction: 'Questions 1-4 refer to the following advertisement and e-mails.',
+  directionJa: '問題1-4は次の広告と2通のEメールに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    // English advertisement
+    {
+      layoutType: 'adChainBorder' as const,
+      locale: 'en' as const,
+      adChainBorder: {
+        headline: 'ADELETTO AND SONS',
+        body: [
+          'Our family business has been processing and dyeing fine leather since 1849. Whatever your factory product line, our experts will help you to wrap and finish your items beautifully by providing you with the highest-quality leather tailored to your specifications. Speedy worldwide shipping is guaranteed. Choose from the following collections, all of which are available in a variety of finishes and in over 100 designer colors.',
+        ],
+        bullets: [
+          'ROMA COLLECTION, for automotive, aviation, and seagoing use',
+          'GENOA COLLECTION, for fine furniture',
+          'VICENZA COLLECTION, for both dress shoes and casual footwear',
+          'MILANO COLLECTION, for handbags and personal accessories',
+        ],
+      },
+    },
+    // Japanese advertisement
+    {
+      layoutType: 'adChainBorder' as const,
+      locale: 'ja' as const,
+      adChainBorder: {
+        headline: 'ADELETTO AND SONS 社',
+        body: [
+          '家族経営会社である私どもは1849年以来、上質な革を加工し染め続けてきました。貴社の工場製品ラインがどのようなものであれ、当社の熟練工が貴社の仕様に合わせた最高品質の革をご提供することによって、貴社製品の表面を美しく装い仕上げるお手伝いをします。世界中に迅速な配送を保証いたします。下記のコレクションからお選びください。これらは全て、さまざまな仕上げと100を超えるデザイナーカラーにてご用意できます。',
+        ],
+        bullets: [
+          'ローマ コレクション　自動車、航空機、船舶の使用に',
+          'ジェノバ コレクション　上質な家具用に',
+          'ビチェンツァ コレクション　正装用とカジュアル用の靴のどちらにも',
+          'ミラノ コレクション　ハンドバッグや身の回りの小物類用に',
+        ],
+      },
+    },
+    // English email 1 (from Cho to Grande)
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'en' as const,
+      emailTable: {
+        headers: [
+          { label: 'To:', value: 'Domenico Grande <d.grande@adeletto.it>' },
+          { label: 'From:', value: 'Youngjoon Cho <yjcho@jaehakmarine.co.kr>' },
+          { label: 'Date:', value: '15 February' },
+          { label: 'Subject:', value: 'Touring Line seating' },
+        ],
+        body: [
+          'Dear Mr. Grande:',
+          'We received the sample shipment of leather for the seats in our line of touring boats. While the color and texture are very pleasing, this leather is much too fine and thin for our purposes. It seems to be more like a glove leather, appropriate for small personal items. We are concerned that it will easily tear and become worn out, even with normal use.',
+          'Jaehak Marine builds boats for touring companies to use for weddings, corporate parties, and gala events. Naturally, the seating must be comfortable, but the surface should be sturdy and durable enough to withstand weight and friction as well as continual exposure to moisture. Most importantly, we must choose a leather that will stand up to the frequent spills that occur when food and beverages are served. Damage from spills is an issue we have had with our seats in the past, so we want to be certain to make the right choice this time. Please help us identify the best Adeletto and Sons material to meet these needs.',
+          'We look forward to your recommendation.',
+          'Sincerely,',
+          'Youngjoon Cho',
+          'Product Development, Jaehak Marine',
+        ],
+        showScrollbar: true,
+      },
+    },
+    // Japanese email 1
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'ja' as const,
+      emailTable: {
+        headers: [
+          { label: '宛先：', value: 'Domenico Grande <d.grande@adeletto.it>' },
+          { label: '送信者：', value: 'Youngjoon Cho <yjcho@jaehakmarine.co.kr>' },
+          { label: '日付：', value: '2月15日' },
+          { label: '件名：', value: '観光用ラインの座席' },
+        ],
+        body: [
+          'Grande 様',
+          '当社が製造する周遊船の座席に使う革の見本の荷物を受け取りました。色や手触りは大変魅力的なのですが、この革は私たちの用途にはあまりにも繊細で薄過ぎます。むしろ手袋の革のような、小さな身の回り品に適しているようです。たとえ通常の使い方でも、簡単に裂けて擦り切れてしまうことを私たちは懸念しています。',
+          '当Jaehak Marine社はツアー会社向けに、結婚式、企業のパーティー、また祝賀会に利用する船を造っています。当然ながら、座席は快適でなければなりませんが、その表面は重量や摩擦だけでなく、湿気に継続的にさらされることにも耐えられるだけ十分に丈夫で耐久性があることが望まれます。そして最も重要なことですが、私たちは、飲食物提供時に頻繁にこぼれても耐え得る革を選ばなければなりません。こぼれた飲食物による損傷は、これまで私たちが当社の座席に関して抱えてきた課題ですので、今回は必ず正しい選択をしたいと思っています。これらのニーズを満たす、Adeletto and Sons社の最適な素材を見極める手助けをお願いいたします。',
+          '貴社からのご提案をお待ちしております。',
+          '敬具',
+          'Youngjoon Cho',
+          '製品開発部, Jaehak Marine 社',
+        ],
+        showScrollbar: true,
+      },
+    },
+    // English email 2 (from Grande to Cho) with decorative header
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'en' as const,
+      emailTable: {
+        title: '*E-mail*',
+        headers: [
+          { label: 'To:', value: 'Youngjoon Cho <yjcho@jaehakmarine.co.kr>' },
+          { label: 'From:', value: 'Domenico Grande <d.grande@adeletto.it>' },
+          { label: 'Date:', value: '16 February' },
+          { label: 'Subject:', value: 'RE: Touring Line seating' },
+        ],
+        body: [
+          'Dear Mr. Cho:',
+          'We are so sorry for the error. Your sample should never have been prepared with our softest and most delicate leather product. We will send you new samples.',
+          'Given what you have said about the usage your seating must withstand, we think you may also be interested in our special stain-resistant leather treatment. This type of finishing treatment is very popular with clients whose products are subject to heavy, repeated use. Please let us know if you would like to add this option to your sample order. Also, let us know if you would like your new samples in the same neutral color that you originally requested.',
+          'Adeletto and Sons can have your samples delivered to you in Jeju City within three days, and we will offer a 10 percent discount when you are ready to place a full order.',
+          'Thank you,',
+          'Domenico Grande',
+          'Director of Client Relations, Adeletto and Sons',
+        ],
+      },
+    },
+    // Japanese email 2
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'ja' as const,
+      emailTable: {
+        title: '*E-mail*',
+        headers: [
+          { label: '宛先：', value: 'Youngjoon Cho <yjcho@jaehakmarine.co.kr>' },
+          { label: '送信者：', value: 'Domenico Grande <d.grande@adeletto.it>' },
+          { label: '日付：', value: '2月16日' },
+          { label: '件名：', value: 'RE：観光用ラインの座席' },
+        ],
+        body: [
+          'Cho 様',
+          'このたびの間違いにつきまして大変申し訳なく存じます。貴社のための見本は、当社の最も柔らかく繊細な革でご用意すべきではございませんでした。新しい見本をお送りいたします。',
+          'あなたがご説明くださった、座席が耐久性を必要とする使い方を考慮しますと、貴社は当社の特殊防汚加工処理にもご興味をお持ちになる可能性があると存じます。このタイプの仕上げ処理は、繰り返し苛酷に使用される製品を取り扱うお客様方に大変好評です。見本のご注文にこのオプションを追加なさりたいかどうかお知らせください。また、新しい見本を最初に貴社がご要望になったのと同じ中間色でご希望かどうかもお知らせください。',
+          'Adeletto and Sons社は見本をチェジュ市の貴社の元に3日以内にお届けすることができます。また正式にご注文していただけるのであれば10パーセント引きをご提供いたします。',
+          'よろしくお願いいたします。',
+          'Domenico Grande',
+          '顧客関係部部長, Adeletto and Sons 社',
+        ],
+      },
+    },
+  ],
+  questions: [pre08Q1, pre08Q2, pre08Q3, pre08Q4],
+};
+
+// ===== Post-Test 問題1: Customer Service Exchange (Bank Account Issue) =====
+
+const post01MessagesEn = [
+  {
+    sender: 'Mariam Abebe',
+    time: '9:05 A.M.',
+    text: "Hello. I'm Mariam Abebe with Heisler & Wilcox. Since last week my staff members and I have been having trouble accessing one of our bank accounts electronically.",
+  },
+  {
+    sender: 'Josue Martin',
+    time: '9:07 A.M.',
+    text: 'Sorry to hear that, Ms. Abebe. Let me look into this for you.',
+  },
+  {
+    sender: 'Josue Martin',
+    time: '9:09 A.M.',
+    text: 'Your publishing company has a few accounts with us. Which one are you referring to?',
+  },
+  {
+    sender: 'Mariam Abebe',
+    time: '9:09 A.M.',
+    text: 'The one ending in 8409.',
+  },
+  {
+    sender: 'Josue Martin',
+    time: '9:11 A.M.',
+    text: 'It looks like that account has been locked due to multiple failed log-in attempts. To unlock the account, the password must be reset.',
+  },
+  {
+    sender: 'Mariam Abebe',
+    time: '9:12 A.M.',
+    text: "Actually, my assistants and I have taken great care to enter the password correctly. Besides, we've tried changing it already, but we weren't able to.",
+  },
+  {
+    sender: 'Josue Martin',
+    time: '9:13 A.M.',
+    text: 'I see. I will report your problem to our Enhanced Technical Support team. A technician will be contacting you within two hours.',
+  },
+  {
+    sender: 'Mariam Abebe',
+    time: '9:14 A.M.',
+    text: 'Thank you.',
+  },
+];
+
+const post01MessagesJa = [
+  {
+    sender: 'Mariam Abebe',
+    time: '午前9時5分',
+    text: 'こんにちは。Heisler & Wilcox社のMariam Abebeです。先週からスタッフと私は、社の銀行口座の1つにオンラインでアクセスできなくて困っています。',
+  },
+  {
+    sender: 'Josue Martin',
+    time: '午前9時7分',
+    text: 'それはお気の毒に思います、Abebe様。お客さまのために、この件を調べさせてください。',
+  },
+  {
+    sender: 'Josue Martin',
+    time: '午前9時9分',
+    text: 'お客さまの出版社は、当行に幾つかの口座をお持ちですね。どの口座のことをおっしゃっていますか。',
+  },
+  {
+    sender: 'Mariam Abebe',
+    time: '午前9時9分',
+    text: '末尾が8409のものです。',
+  },
+  {
+    sender: 'Josue Martin',
+    time: '午前9時11分',
+    text: 'その口座は、ログインの試みに複数回失敗したためにロックされているようです。この口座のロックを解除するには、パスワードがリセットされる必要があります。',
+  },
+  {
+    sender: 'Mariam Abebe',
+    time: '午前9時12分',
+    text: '実のところ、アシスタントたちと私はパスワードを正確に入力するよう、相当気を付けていました。それに、私たちはすでにそれを変更しようと試みたのですが、できなかったのです。',
+  },
+  {
+    sender: 'Josue Martin',
+    time: '午前9時13分',
+    text: '分かりました。私が、当行の高度技術サポートチームにお客さまの問題を報告します。2時間以内に技術者がお客さまにご連絡いたします。',
+  },
+  {
+    sender: 'Mariam Abebe',
+    time: '午前9時14分',
+    text: 'ありがとうございます。',
+  },
+];
+
+const post01Q1 = {
+  id: 'post_01_q1',
+  promptEn: 'What most likely is true about Ms. Abebe?',
+  promptJa: 'Abebeさんについて正しいと考えられることは何ですか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'She has been locked out of her office before.',
+      textJa: '彼女は以前、自分の執務室の中に入れなくなってしまったことがある。',
+    },
+    {
+      id: 'b',
+      textEn: 'She oversees staff at a publishing company.',
+      textJa: '彼女は出版社でスタッフを監督している。',
+    },
+    {
+      id: 'c',
+      textEn: 'She will be submitting a report in two hours.',
+      textJa: '彼女は2時間後に報告書を提出することになっている。',
+    },
+    {
+      id: 'd',
+      textEn: 'She had contacted Mr. Martin last week.',
+      textJa: '彼女は先週、Martinさんに連絡していた。',
+    },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa:
+    'Abebeさんは1段落で、自分とスタッフは、自社の銀行口座の1つにオンラインでアクセスできなくて困っている、と問題を伝えている。3段落より、Abebeさんの勤務先は出版社と分かる。また、Abebeさんは6段落でmy assistants and I「私のアシスタントたちと私」と書いていることから、彼女は出版社で部下を持つ立場にあると考えられる。よって、（B）が正解。oversee「～を監督する」。\n（A） lock～out of…「~を…から閉め出す」。\n（C） submit「〜を提出する」、report「報告書」。',
+  metacogFeedbackJa: '',
+};
+
+const post01Q2 = {
+  id: 'post_01_q2',
+  promptEn: 'At 9:13 A.M., what does Mr. Martin most likely mean when he writes, "I see"?',
+  promptJa: '午前9時13分に、Martinさんは"I see"という発言で、何を意味していると考えられますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'He knows that Ms. Abebe tried to access the account repeatedly.',
+      textJa: '彼は、Abebeさんが繰り返し口座にアクセスしようとしたことを知っている。',
+    },
+    {
+      id: 'b',
+      textEn: 'He noticed that Ms. Abebe had changed her password.',
+      textJa: '彼は、Abebeさんがパスワードを変更していたことに気付いた。',
+    },
+    {
+      id: 'c',
+      textEn: 'He understands why Ms. Abebe rejects his suggestion.',
+      textJa: '彼は、なぜAbebeさんが彼の提案を却下するのかを理解している。',
+    },
+    {
+      id: 'd',
+      textEn: 'He realizes why Ms. Abebe needs on-site assistance.',
+      textJa: '彼は、なぜAbebeさんが現場での手助けを必要とするのか分かっている。',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    '1段落の、銀行口座にオンラインでアクセスできないというAbebeさんからの問い合わせに、Martinさんは5段落で、口座のロックを解除するにはパスワードのリセットが必要だと伝えている。それに対しAbebeさんは6段落で、パスワードを入力する際には注意を払ってきたと述べた後、「私たちはすでにそれを変更しようと試みたが、できなかった」と、Martinさんの提案を退けている。それに返答してMartinさんは下線部の発言をし、続けて問題を高度技術サポートチームに報告すると申し出ている。よって、Martinさんは、Abebeさんが自分の提案に同意しなかった理由を理解したため、下線部の発言をしたと考えられる。reject「〜を却下する」、suggestion「提案」。\n（A） repeatedly「繰り返し」。\n（B）6段落でAbebeさん自身が、パスワード変更を試みたができなかったと述べている。notice「～に気付く」。\n（D） realize「〜がよく分かる、～を認識する」、on-site「現場での」、assistance「手助け」。',
+  metacogFeedbackJa: '',
+};
+
+const post01Passage: Passage = {
+  id: 'post_01',
+  title: 'Customer Service Exchange - Bank Account Issue',
+  direction: 'Questions 1-2 refer to the following online customer-service exchange.',
+  directionJa: '問題1-2は次のオンライン顧客サービスのやりとりに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'customerServiceExchange' as const,
+      locale: 'en' as const,
+      customerServiceExchange: {
+        messages: post01MessagesEn,
+      },
+    },
+    {
+      layoutType: 'customerServiceExchange' as const,
+      locale: 'ja' as const,
+      customerServiceExchange: {
+        messages: post01MessagesJa,
+      },
+    },
+  ],
+  questions: [post01Q1, post01Q2],
+};
+
+// ===== Post-Test 問題2: Memo (Company-wide discussion) =====
+
+const post02MemoEn = {
+  to: 'All employees',
+  from: 'Patricia Ogdencort, CEO',
+  date: '22 June',
+  subject: 'Company-wide discussion',
+  body: [
+    'Here at Ogdencort, we believe in partnering with our employees to make positive changes. — [1] —. As such, we would like one representative from each department to participate in company-wide discussions on reducing costs.',
+    'Employees interested in serving as a representative must have worked at Ogdencort for a minimum of one year. — [2] —. Also, they must have received positive performance reviews and must be able to attend four meetings during one calendar year. Department heads are asked to withhold from serving as representatives. Please submit your name for consideration to your department head no later than 20 August. — [3] —. Successful applicants will be notified within one week of the deadline.',
+    'We will also be creating a suggestion box. — [4] —. Further information will be provided soon.',
+  ],
+};
+
+const post02MemoJa = {
+  to: '従業員各位',
+  from: 'Patricia Ogdencort、最高経営責任者',
+  date: '6月22日',
+  subject: '全社討議',
+  body: [
+    '当Ogdencort社では、従業員と連携して積極的な改善を図っていくことを信条としています。そこで、各部門から代表者1名に、経費削減に関する全社討議への参加をお願いします。',
+    '代表者を務めることに興味がある従業員は、最低限1年間Ogdencort社で勤務していなければなりません。また、その人物たちは肯定的な勤務評定を受けている必要があり、1年間に4回開かれる会議に出席できる必要もあります。部門長は、代表者を務めることを控えるようお願いします。検討のために、8月20日までに所属の部門長に氏名を提出してください。※各部門長が最終決定を下します。選出者は提出期限から1週間以内に通知されます。',
+    '提案箱も新設することになっています。より詳しい情報については近日中にお知らせします。',
+  ],
+};
+
+const post02Q1 = {
+  id: 'post_02_q1',
+  promptEn: 'What is the purpose of the memo?',
+  promptJa: 'メモの目的は何ですか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'To request ideas for reducing costs',
+      textJa: '経費削減のための案を求めること',
+    },
+    {
+      id: 'b',
+      textEn: 'To announce a company initiative',
+      textJa: '会社の新たな取り組みを告知すること',
+    },
+    {
+      id: 'c',
+      textEn: 'To offer training for future leaders',
+      textJa: '将来のリーダーのための研修を提供すること',
+    },
+    {
+      id: 'd',
+      textEn: 'To collect data on employee performance reviews',
+      textJa: '従業員の勤務評定に関するデータを収集すること',
+    },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa: `1段落2～4行目で、経費削減に関する全社討議のために各部門から代表者1名を出すことが求められており、2段落では代表者の要件と決定手順が説明されている。さらに3段落では、新たに提案箱を設置することが伝えられている。よって、メモの目的は会社のこれらの新たな取り組みについて全従業員に告知することだと分かる。announce「～を告知する」、iniiative 「新しい試み、新規行動計画」。
+（A）1段落2～4行目に経費削減に言及があるが、メモではその案を求められてはいない。`,
+  metacogFeedbackJa: '',
+};
+
+const post02Q2 = {
+  id: 'post_02_q2',
+  promptEn:
+    'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n"Each department head will make the final decision."',
+  promptJa:
+    '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「各部門長が最終決定を下します」',
+  choices: [
+    {
+      id: 'a',
+      textEn: '[1]',
+      textJa: '[1]',
+    },
+    {
+      id: 'b',
+      textEn: '[2]',
+      textJa: '[2]',
+    },
+    {
+      id: 'c',
+      textEn: '[3]',
+      textJa: '[3]',
+    },
+    {
+      id: 'd',
+      textEn: '[4]',
+      textJa: '[4]',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa: `挿入文は最終決定を行う人物を伝えるもの。2段落の後半で全社討議に参加する各部門の代表者の決定手順が述べられている。同5〜6行目に、Please submit your name for consideration to your department head「検討のために、所属の部門長に氏名を提出してください」と応募手順の説明があり、その後ろに「選出者は提出期限から1週間以内に通知される」と決定結果の通知時期が案内されている。よって、この間の（C）［3］に挿入文を入れると、代表者の応募、決定とその結果発表までの一連の流れを説明することになり、適切。
+make a decision「決定を下す」、final「最終的な」。`,
+  metacogFeedbackJa: '',
+};
+
+const post02Passage: Passage = {
+  id: 'post_02',
+  title: 'Memo - Company-wide discussion',
+  direction: 'Questions 1-2 refer to the following memo.',
+  directionJa: '問題1-2は次のメモに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'memo' as const,
+      locale: 'en' as const,
+      memo: post02MemoEn,
+    },
+    {
+      layoutType: 'memo' as const,
+      locale: 'ja' as const,
+      memo: post02MemoJa,
+    },
+  ],
+  questions: [post02Q1, post02Q2],
+};
+
+// ===== Post-Test 問題3: Press Release (Photography Equipment Swap and Sell) =====
+
+const post03PressReleaseEn = {
+  releaseType: 'FOR IMMEDIATE RELEASE',
+  contact: {
+    name: 'Carla Guerra',
+    phone: '512-555-0172',
+    email: 'c_guerra@dupontcamera.com',
+  },
+  headline: 'Dupont Camera Store Hosts Its Tenth Annual Photography Equipment Swap and Sell',
+  body: [
+    "(Monday, June 12)—Dupont Camera Store is once again hosting its photography equipment Swap and Sell event. On Friday, June 16, the store's showroom will be packed with tables of new and used photography gear from various vendors and hobbyists. Entry is $6 cash. Doors open at 10:00 A.M., and the event lasts until 5:00 P.M.",
+    '"This is an event people look forward to all year," said Dupont Camera Store\'s marketing manager Don Bergner. "Every time we\'ve hosted it, a line has started forming about an hour before we even open the doors."',
+    'Professional dealers and camera companies can rent tables for $250 as an official vendor. Tables are 6 meters by 2 meters and include clear plastic clips for attaching a company banner or poster. Hobby photographers wanting to sell or trade a few handheld items can pay an entry fee of $50 and bring crates or camera bags of gear to set up in a designated area on the floor.',
+    '"I went to the event last year and definitely plan to go again," said Jonathan McDougall. "I didn\'t have anything to sell, but I got to meet some interesting people. I also ended up finding some accessories for my outdated camera model that I hadn\'t been able to find online."',
+  ],
+};
+
+const post03PressReleaseJa = {
+  releaseType: '即日解禁',
+  contact: {
+    name: 'Carla Guerra',
+    phone: '512-555-0172',
+    email: 'c_guerra@dupontcamera.com',
+  },
+  headline: 'Dupontカメラストア社が、毎年恒例の写真撮影機材の交換・販売会の第10回を開催',
+  body: [
+    '（6月12日、月曜日）ーDupontカメラストア社は再び、写真撮影機材の交換・販売のイベントを開催します。6月16日金曜日に、当社のショールームは、各種販売業者と愛好家からの新品および中古の写真撮影機材のテーブルでいっぱいになるでしょう。入場料は6ドルの現金払いです。開場は午前10時で、イベントは午後5時まで続きます。',
+    '「これは、人々が一年通じて楽しみにしているイベントです」とDupontカメラストア社のマーケティング部長であるDon Bergnerは述べました。「当社がこれを開催するたびに、開場する1時間くらい前にはもう列が出来始めるのです」。',
+    '専門取扱業者やカメラ会社は公式販売業者として、250 ドルでテーブルを借りることができます。テーブルは幅6メートル、奥行2メートルで、会社の横断幕やポスターを取り付けるための透明なプラスチック製クリップが含まれます。数点の小型製品を販売または交換したい写真愛好家の方々は、入場料50ドルを支払って、機材が入った箱やカメラバッグを持ち込み、会場の指定場所に並べることができます。',
+    '「私は昨年このイベントに足を運んだのですが、絶対にまた行くつもりです」とJonathan McDougallは語りました。「私は売るものは何もありませんでしたが、興味深い人々に出会う機会を得ました。また、オンラインでは見つけることができなかった自分の旧型のカメラの付属品をついに見つけることにもなったのです」。',
+  ],
+};
+
+const post03Q1 = {
+  id: 'post_03_q1',
+  promptEn: 'What does Mr. Bergner imply about the event?',
+  promptJa: 'Bergnerさんはイベントについて何を示唆していますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'Tickets sell out within a few days.',
+      textJa: 'チケットは数日以内に売り切れる。',
+    },
+    {
+      id: 'b',
+      textEn: 'Attendees start arriving before 10:00 A.M.',
+      textJa: '参加者は午前10時よりも前に到着し始める。',
+    },
+    {
+      id: 'c',
+      textEn: 'It is hosted by a different camera company each year.',
+      textJa: 'それは毎年異なるカメラ会社によって主催される。',
+    },
+    {
+      id: 'd',
+      textEn: "Store staff will unload the vendors' items.",
+      textJa: '店舗スタッフが販売業者の商品の荷降ろしをする。',
+    },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa: `2段落1～2行目より、BergnerさんとはDupontカメラストア社のマーケティング部長。Bergnerさんは同2～3行目で、毎年恒例の写真撮影装材の交換・販売のイベントについて、Every time weve hosted it, a line has started forming about an hour before we even open thedoors.「当社がこれを開催するたびに、開場する1時間くらい前にはもう列が出来始める」と述べている。1段落の4行目に、今年のイベントの開催について、「開場は午前10日と下さいるので、Bargnerさんは、開場時効である午前10時よりも前に参加者が会場に到着し始めることを示していると考えられる。attendee「参加者」。
+（A） sell out「売り切れる」。
+（D） unload「～を降ろす」。`,
+  metacogFeedbackJa: '',
+};
+
+const post03Q2 = {
+  id: 'post_03_q2',
+  promptEn: 'What is suggested about hobby photographers?',
+  promptJa: '写真愛好家について、何が分かりますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'They will not be provided with a table.',
+      textJa: '彼らにはテーブルが提供されない。',
+    },
+    {
+      id: 'b',
+      textEn: 'They can sell only certain items.',
+      textJa: '彼らは特定の品物しか販売できない。',
+    },
+    {
+      id: 'c',
+      textEn: 'They pay the same entry fee as the public.',
+      textJa: '彼らは一般の人々と同額の入場料を支払う。',
+    },
+    {
+      id: 'd',
+      textEn: 'They have to sign up online.',
+      textJa: '彼らはオンラインで参加登録をしなければならない。',
+    },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa: `3段落の3~5行目にHobby photographers wanting to sell or trade a few handheld items can ...... bring crates or camera bags of gear to set up in a designated area on the floor.「数点の小型製品を販売または交換したい写真愛好家は、機材が入った箱やカメラバッグを持ち込み、会場の指定場所に並べることができる」とある。テーブルの貸し出しについては同1〜3行目に、商用の業者に対する貸し出しが説明されているだけで、写真愛好家に対する貸し出しの記載はない。よって、出展する写真愛好家には、テーブルの貸し出しはないと分かる。provide～with …「〜に・・・を提供する」。
+（B）3段落の3～5行目に「数点の小型製品」とあるが、写真愛好家が販売可能な品を限定する記述はない。
+（C）1段落の3行目より、一般入場料は6ドルだが、3段落の3〜4行目より、写真愛好家が出展するための入場料は50ドルで、一般入場料と同額ではない。the public「一般の人々」。
+（D）sign up「参加登録をする」。`,
+  metacogFeedbackJa: '',
+};
+
+const post03Q3 = {
+  id: 'post_03_q3',
+  promptEn: 'What does Mr. McDougall mention about his experience at the event last year?',
+  promptJa: 'McDougallさんは、昨年のイベントでの経験について何を述べていますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'He was representing his employer.',
+      textJa: '彼は自身の雇用先を代表して参加していた。',
+    },
+    {
+      id: 'b',
+      textEn: 'He learned about new online camera stores.',
+      textJa: '彼は、新しいオンラインのカメラ店について知った。',
+    },
+    {
+      id: 'c',
+      textEn: 'He found some rare items he wanted.',
+      textJa: '彼は欲しかった希少品を見つけた。',
+    },
+    {
+      id: 'd',
+      textEn: 'He sold an old camera and bag.',
+      textJa: '彼は古いカメラとバッグを売った。',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa: `McDougallさんは4段落で、昨年のイベントに参加したときの経験について語っている。同2～4行目で、I also ended up finding some accessories for my outdated camera model that I hadn't been able to find online.「また、オンラインでは見つけることができなかった自分の旧型のカメラの付属品をついに見つけることにもなった」と述べているので、探していた希少な品を昨年のイベントの会場で発見できたと考えられる。よって、（C）が正解。rare「希少な、まれな」。
+（A） represent「〜の代表として出ている」、employer「雇用企業、雇用者」。
+（D）4段落の2行目で、私は売るものは何もなかった、と述べているので不適切。`,
+  metacogFeedbackJa: '',
+};
+
+const post03Passage: Passage = {
+  id: 'post_03',
+  title: 'Press Release - Photography Equipment Swap and Sell',
+  direction: 'Questions 1-3 refer to the following press release.',
+  directionJa: '問題1-3は次のプレスリリースに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'pressRelease' as const,
+      locale: 'en' as const,
+      pressRelease: post03PressReleaseEn,
+    },
+    {
+      layoutType: 'pressRelease' as const,
+      locale: 'ja' as const,
+      pressRelease: post03PressReleaseJa,
+    },
+  ],
+  questions: [post03Q1, post03Q2, post03Q3],
+};
+
+// ===== Post-Test 問題4: Chat Tablet (Client Questionnaire) =====
+
+const post04MessagesEn = [
+  {
+    sender: 'Gail Oneta',
+    time: '1:20 P.M.',
+    text: 'Hi, Mary. Can you send me a copy of the client questionnaire you mentioned during our meeting yesterday?',
+  },
+  {
+    sender: 'Mary Huang',
+    time: '1:21 P.M.',
+    text: 'Sure. I will e-mail you the link to it right now.',
+  },
+  {
+    sender: 'Gail Oneta',
+    time: '1:22 P.M.',
+    text: "OK. Got it. But I can't edit the document for some reason.",
+  },
+  {
+    sender: 'Mary Huang',
+    time: '1:23 P.M.',
+    text: 'Let me check with Brian Becker. Brian, I just sent Gail a link to the client questionnaire, but she cannot edit it.',
+  },
+  {
+    sender: 'Brian Becker',
+    time: '1:24 P.M.',
+    text: "It's probably because Gail has not been approved as an editor. Gail, I'll enter your name in the system now.",
+  },
+  {
+    sender: 'Gail Oneta',
+    time: '1:25 P.M.',
+    text: "OK. Thanks. I'm able to edit now. Would it be OK for me to add a few more questions to the document?",
+  },
+  {
+    sender: 'Brian Becker',
+    time: '1:26 P.M.',
+    text: "That's fine. But I would limit it to two or three at most. We promised the client that the questionnaire will take only ten minutes to complete.",
+  },
+  {
+    sender: 'Gail Oneta',
+    time: '1:27 P.M.',
+    text: "OK, understood. I'll keep that in mind.",
+  },
+  {
+    sender: 'Mary Huang',
+    time: '1:28 P.M.',
+    text: "So Brian, we will see you next on Tuesday at the Querol Health Services Center for the meeting with their team. It will be our first meeting with them, so it's important for us all to be there.",
+  },
+  {
+    sender: 'Brian Becker',
+    time: '1:29 P.M.',
+    text: "Right. Thanks for reminding me. I'll put it on my calendar.",
+  },
+];
+
+const post04MessagesJa = [
+  {
+    sender: 'Gail Oneta',
+    time: '午後1時20分',
+    text: 'こんにちは、Mary。昨日会議中にあなたが言っていた顧客アンケートを1部、私に送ってもらえますか。',
+  },
+  {
+    sender: 'Mary Huang',
+    time: '午後1時21分',
+    text: 'いいですよ。今すぐそのリンクをEメールで送ります。',
+  },
+  {
+    sender: 'Gail Oneta',
+    time: '午後1時22分',
+    text: 'はい。受け取りました。でも、どういうわけか、私はこの文書を編集することができないのです。',
+  },
+  {
+    sender: 'Mary Huang',
+    time: '午後1時23分',
+    text: 'Brian Beckerに確認してみますね。Brian、私はたった今Gailに顧客アンケートへのリンクを送信したのですが、彼女がそれを編集できないのです。',
+  },
+  {
+    sender: 'Brian Becker',
+    time: '午後1時24分',
+    text: 'それはおそらく、Gailが編集者として承認されていないからでしょう。Gail、僕が今システムにあなたの名前を入力しますよ。',
+  },
+  {
+    sender: 'Gail Oneta',
+    time: '午後1時25分',
+    text: '了解。ありがとう。これで編集できるようになりました。文書にあと幾つか質問を加えてもいいですか。',
+  },
+  {
+    sender: 'Brian Becker',
+    time: '午後1時26分',
+    text: '構いませんよ。でも僕なら、多くてもそれを2つか3つに限定するでしょうね。当社は顧客に、アンケートに全て記入するのに10分しかかからないと約束したのです。',
+  },
+  {
+    sender: 'Gail Oneta',
+    time: '午後1時27分',
+    text: 'なるほど、分かりました。そのことを心にとどめておきます。',
+  },
+  {
+    sender: 'Mary Huang',
+    time: '午後1時28分',
+    text: 'それではBrian、次は火曜日にQuerol医療サービスセンターで、先方チームとの会合で会いましょう。それが先方との初会合になるので、その場に私たち全員がいることが大切です。',
+  },
+  {
+    sender: 'Brian Becker',
+    time: '午後1時29分',
+    text: 'そうですね。思い出させてくれてありがとう。それを僕の予定表に入れておきます。',
+  },
+];
+
+const post04Q1 = {
+  id: 'post_04_q1',
+  promptEn: 'At 1:27 P.M., what does Ms. Oneta mean when she writes, "I\'ll keep that in mind"?',
+  promptJa:
+    '午後1時27分に、Onetaさんは"I\'ll keep that in mind"という発言で、何を意味していますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'She must ask permission to access a report.',
+      textJa: '彼女は、報告書にアクセスするための許可を求めなければならない。',
+    },
+    {
+      id: 'b',
+      textEn: 'She will limit the number of changes she makes to a questionnaire.',
+      textJa: '彼女は、アンケートに加える変更の数を限定するつもりである。',
+    },
+    {
+      id: 'c',
+      textEn: 'She will remember the password to open a document.',
+      textJa: '彼女は、文書を開くためのパスワードを覚えておくつもりである。',
+    },
+    {
+      id: 'd',
+      textEn: 'She has been given a strict deadline to complete a task.',
+      textJa: '彼女は、作業を完了するのに厳守すべき締め切りを課されている。',
+    },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa: `6段落でOnetaさんが文書に質問を加えてもよいかと尋ねているのに対し、Beckerさんは7段落で、構わないと述べながらも、「でも僕なら、多くてもそれを2つか3つに限定するだろう」と伝え、アンケート記入にかかる時間について顧客に10分と約束した、とその理由を説明している。それを受けたOnetaさんはOK, understood. とBeckerさんの助言を受け入れてから下線部の発言をしている。よってBeckerさんの助言に従って、約束した時間内で顧客がアンケートを完了できるよう、加える質問数を限定するつもりだと考えられる。（B）が正解。
+（A） permission「許可」、access「～にアクセスする」。
+（D） strict「厳密な」、task「作業」。`,
+  metacogFeedbackJa: '',
+};
+
+const post04Q2 = {
+  id: 'post_04_q2',
+  promptEn: 'What is Mr. Becker going to note on his calendar?',
+  promptJa: 'Beckerさんは自分の予定表に何を書き留めるつもりですか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'A team review of a document',
+      textJa: 'チームでの文書の見直し',
+    },
+    {
+      id: 'b',
+      textEn: 'An appointment with a new client',
+      textJa: '新規顧客と会う約束',
+    },
+    {
+      id: 'c',
+      textEn: 'A celebration of a new contract',
+      textJa: '新規契約の祝賀会',
+    },
+    {
+      id: 'd',
+      textEn: 'A consultation with a medical professional',
+      textJa: '医療専門家との相談',
+    },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa: `9段落でHuangさんはBeckerさんに対し、「次は火曜日にQuerol医療サービスセンターで、先方チームとの会合で会おう」と言い、それは初会合なので自分たち全員の参加が大切だ、と伝えている。Beckerさんは、それに答えて10段落で、I'll put it on my calendar.「それを僕の予定表に入れておく」と述べている。よって、新規顧客との初会合を自分の予定表に書き留めるつもりだと分かる。hotel〜を書き留める」。 appointment「会う約束」。
+（A） review「見直し、再検討」。
+（C） celebration「祝賀会」、contract「契約」。
+（D） consultation 「相談」、professional「専門家」。`,
+  metacogFeedbackJa: '',
+};
+
+const post04Passage: Passage = {
+  id: 'post_04',
+  title: 'Chat Tablet - Client Questionnaire',
+  direction: 'Questions 1-2 refer to the following online chat discussion.',
+  directionJa: '問題1-2は次のオンラインチャットの話し合いに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'chatTablet' as const,
+      locale: 'en' as const,
+      chatTablet: {
+        messages: post04MessagesEn,
+      },
+    },
+    {
+      layoutType: 'chatTablet' as const,
+      locale: 'ja' as const,
+      chatTablet: {
+        messages: post04MessagesJa,
+      },
+    },
+  ],
+  questions: [post04Q1, post04Q2],
+};
+
+// ===== Post-Test 問題5: Notice (Bellamy Office Tower) =====
+
+const post05NoticeEn = {
+  title: 'Attention Bellamy Office Tower Tenants and Staff',
+  body: [
+    'Beginning Monday, November 11, and through the end of the month, the mosaic fountains in the lobby area will be repaired and retiled. — [1] —. Most of the work will be done outside of regular business hours. — [2] —.',
+    'While the project is ongoing, please enter and exit the building through the rear doors rather than the front doors. — [3] —. Also, please refrain from using the lobby to socialize or make phone calls until the repairs and retiling are finished. — [4] —. The work on the fountains is expected to be done by December 1.',
+    'If you have any questions or concerns, e-mail facilities@bellamy.com. Thank you in advance for your cooperation.',
+    'Ricardo Nieves, Facilities Manager\nBellamy Office Tower',
+  ],
+};
+
+const post05NoticeJa = {
+  title: 'Bellamy オフィスタワーのテナントとその従業員の皆さまへのお知らせ',
+  body: [
+    '11月11日月曜日からその月末まで、ロビーエリアのモザイクの噴水が補修され、タイルが張り替えられます。— [1] —。大部分の工事は通常の営業時間外に行われます。— [2] —。',
+    '工事が進行している間は、正面玄関ではなく裏口を通って出入りしてください。— [3] —。また、補修とタイルの張り替えが終わるまでは、歓談や通話にロビーを使用することはご遠慮ください。— [4] —。噴水の工事は12月1日までに終わる見込みです。',
+    'ご質問やご懸念がありましたら、facilities@bellamy.comにEメールをお送りください。ご協力をよろしくお願いいたします。',
+    '施設管理者　Ricardo Nieves\nBellamy オフィスタワー',
+  ],
+};
+
+const post05Q1 = {
+  id: 'post_05_q1',
+  promptEn:
+    'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n"Instead, consider using the lounge on the tenth floor."',
+  promptJa:
+    '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「その代わりに、10階のラウンジの利用をご検討ください」',
+  choices: [
+    { id: 'a', textEn: '[1]', textJa: '[1]' },
+    { id: 'b', textEn: '[2]', textJa: '[2]' },
+    { id: 'c', textEn: '[3]', textJa: '[3]' },
+    { id: 'd', textEn: '[4]', textJa: '[4]' },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    '挿入文では、Instead「その代わりに」と述べてから、10階のラウンジを利用することを勧めている。2段落2～3行目で、補修とタイル張りが終わるまではロビーでの歓談や通話を控えるよう依頼している。この直後の（D）［4］に挿入文を入れると、工事中はロビーの代わりに10階のラウンジを利用することを勧めていることになり、流れとして適切。\n（A）（B）（C）Insteadが何の代わりを意味するか不明確となり、流れにも合わない。',
+  metacogFeedbackJa: '',
+};
+
+const post05Passage: Passage = {
+  id: 'post_05',
+  title: 'Notice - Bellamy Office Tower',
+  direction: 'Question 1 refers to the following notice.',
+  directionJa: '問題1は次のお知らせに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'notice' as const,
+      locale: 'en' as const,
+      notice: post05NoticeEn,
+    },
+    {
+      layoutType: 'notice' as const,
+      locale: 'ja' as const,
+      notice: post05NoticeJa,
+    },
+  ],
+  questions: [post05Q1],
+};
+
+// ===== Post-Test 問題6: Package Tracking + Email =====
+
+const post06TrackingEn = {
+  title: 'National Package Service (NPS) Package Tracking',
+  subtitle: 'Shipment number: DM5671',
+  columns: ['Location', 'Date', 'Local time', 'Action'],
+  rows: [
+    ['Baltimore, MD', 'May 2', '7:15 A.M.', 'Origin scan'],
+    ['Baltimore, MD', 'May 2', '8:22 A.M.', 'Departure scan'],
+    ['Hartford, CT', 'May 3', '4:48 P.M.', 'Arrival scan'],
+    ['Hartford, CT', 'May 4', '6:30 A.M.', 'Departure scan'],
+    ['Lowell, MA', 'May 4', '3:43 P.M.', 'Arrival scan'],
+    ['Lowell, MA', 'May 5', '9:47 A.M.', 'Departure scan'],
+    ['Windham, NH', 'May 5', '1:26 P.M.', 'Arrival scan'],
+    ['Windham, NH', 'May 5', '5:17 P.M.', 'Loaded for delivery'],
+    ['Windham, NH', 'May 6', '7:34 A.M.', 'Delivered'],
+  ],
+  footerLeft: [
+    { label: 'Shipped by:', value: 'Deymantis, Inc.' },
+    { label: 'Shipment category:', value: 'Package' },
+    { label: 'Billed on:', value: 'May 1' },
+  ],
+  footerRight: [
+    { label: 'Weight:', value: '23.5 kilograms' },
+    { label: 'Service:', value: 'Ground shipment' },
+    { label: 'Message on package:', value: '' },
+    { label: '', value: 'Shipment of part number 264' },
+  ],
+};
+
+const post06TrackingJa = {
+  title: '全国小包配送便（NPS）小包追跡',
+  subtitle: '配達番号：DM5671',
+  columns: ['場所', '日付', '現地時間', '実施（事項）'],
+  rows: [
+    ['ボルティモア, MD', '5月2日', '午前7時15分', '発送元の読み取り'],
+    ['ボルティモア, MD', '5月2日', '午前8時22分', '出発の読み取り'],
+    ['ハートフォード, CT', '5月3日', '午後4時48分', '到着の読み取り'],
+    ['ハートフォード, CT', '5月4日', '午前6時30分', '出発の読み取り'],
+    ['ローウェル, MA', '5月4日', '午後3時43分', '到着の読み取り'],
+    ['ローウェル, MA', '5月5日', '午前9時47分', '出発の読み取り'],
+    ['ウィンダム, NH', '5月5日', '午後1時26分', '到着の読み取り'],
+    ['ウィンダム, NH', '5月5日', '午後5時17分', '配達のため積載完了'],
+    ['ウィンダム, NH', '5月6日', '午前7時34分', '配達完了'],
+  ],
+  footerLeft: [
+    { label: '発送者：', value: 'Deymantis社' },
+    { label: '配送区分：', value: '小包' },
+    { label: '請求日：', value: '5月1日' },
+  ],
+  footerRight: [
+    { label: '重量：', value: '23.5キログラム' },
+    { label: '送付方法：', value: '陸送' },
+    { label: '小包の伝言欄：', value: '' },
+    { label: '', value: '番号264の部品の発送' },
+  ],
+};
+
+const post06EmailEn = {
+  to: 'Mervin Hartley',
+  from: 'Caroline Launey',
+  date: 'May 11',
+  subject: 'Re: Deymantis package',
+  greeting: 'Dear Mr. Hartley,',
+  body: [
+    'We received the package ahead of schedule and were able to install the Deymantis blade (part 264) on the day it arrived and test it the next day. We closed the mill to test the blade on various lengths and types of damaged lumber. The tests with the new cutting blade were successful, and so Monday was our first day at full operational status. I will send you an initial report on our revised processing times by the end of this week.',
+  ],
+  closing: 'Sincerely,',
+  signature: {
+    name: 'Caroline Launey',
+    title: 'Milford Lumber Mill',
+  },
+};
+
+const post06EmailJa = {
+  to: 'Mervin Hartley',
+  from: 'Caroline Launey',
+  date: '5月11日',
+  subject: 'Re：Deymantis社の小包',
+  greeting: 'Hartley様',
+  body: [
+    '私たちは予定よりも早く小包を受け取り、到着したその日にDeymantis社製の刃（部品264）を取り付け、翌日にはそれをテストすることができました。私たちは製材所を休業して、さまざまな長さや種類の傷んだ木材でその刃をテストしました。この新しい切断用の刃を使ったテストは成功し、従って月曜日は当製材所のフル稼働初日となりました。今週末までに、あなたに修正された処理時間に関する初回報告書をお送りします。',
+  ],
+  closing: '敬具',
+  signature: {
+    name: 'Caroline Launey',
+    title: 'Milford製材所',
+  },
+};
+
+const post06Q1 = {
+  id: 'post_06_q1',
+  promptEn: 'Why did Ms. Launey write the e-mail?',
+  promptJa: 'LauneyさんはなぜEメールを書いたのですか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'To provide an update',
+      textJa: '最新情報を提供するため',
+    },
+    {
+      id: 'b',
+      textEn: 'To explain a delay',
+      textJa: '遅延について説明するため',
+    },
+    {
+      id: 'c',
+      textEn: 'To order a new part',
+      textJa: '新しい部品を注文するため',
+    },
+    {
+      id: 'd',
+      textEn: 'To request a report',
+      textJa: '報告を求めるため',
+    },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa:
+    'Launeyさんは2つ目の本文のEメールの1段落1～2行目で「私たちは予定よりも早く小包を受け取り、到着したその日にDeymantis社製の刃（部品264）を取り付け、翌日にはそれをテストすることができた」と知らせている。さらに同3〜4行目で、The tests with the new cutting blade were successful, and so Monday was our first day at full operational status.「この新しい切断用の刃を使ったテストは成功し、従って月曜日は当製材所のフル稼働初日となった」と、届いた部品を試した結果と製材所の稼動状況を報告している。よって、Launeyさんは最新の状況を伝えるためにHartleyさん宛てにEメールを書いたと分かる。provide「～を提供する」、update「最新情報」。\n（B）explain「～を説明する」、delay「遅延」。\n（D）2つ目の本文の1段落4～5行目で、Launeyさんは報告書を送ると述べており、求めてはいない。request「～を求める」。',
+  metacogFeedbackJa: '',
+};
+
+const post06Q2 = {
+  id: 'post_06_q2',
+  promptEn: 'When was part number 264 tested?',
+  promptJa: '番号264の部品はいつテストされましたか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'On May 2',
+      textJa: '5月2日',
+    },
+    {
+      id: 'b',
+      textEn: 'On May 6',
+      textJa: '5月6日',
+    },
+    {
+      id: 'c',
+      textEn: 'On May 7',
+      textJa: '5月7日',
+    },
+    {
+      id: 'd',
+      textEn: 'On May 11',
+      textJa: '5月11日',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    '2つ目の本文の1段落1~2行目に、We ...... were able to install the Deymantis blade (part 264) on the day it arrived and test it the next day.「私たちは到着したその日にDeymantis社製の刃（部品264）を取り付け、翌日にはそれをテストすることができた」とある。1つ目の本文の1段落右端欄の「実施（事項）」の10行目のDelivered「配達完了」より、番号264の部品の小包配達が完了したのは5月6日なので、テストが行われたのはその翌日の5月7日と分かる。',
+  metacogFeedbackJa: '',
+};
+
+const post06Q3 = {
+  id: 'post_06_q3',
+  promptEn: 'According to the e-mail, what will part number 264 most likely be used for?',
+  promptJa: 'Eメールによると、番号264の部品は何のために使用されると考えられますか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'Breaking concrete',
+      textJa: 'コンクリートを破砕するため',
+    },
+    {
+      id: 'b',
+      textEn: 'Polishing metal',
+      textJa: '金属を研磨するため',
+    },
+    {
+      id: 'c',
+      textEn: 'Shaping glass',
+      textJa: 'ガラスを成形するため',
+    },
+    {
+      id: 'd',
+      textEn: 'Cutting wood',
+      textJa: '木材を切断するため',
+    },
+  ],
+  correctChoiceId: 'd',
+  explanationGeneralJa:
+    '2つ目の本文の最後にある送信者の所属先にMilford Lumber Mill「Milford製材所」とある。また、同1段落1～2行目に、the Deymantis blade（part 264）「Deymantis社製の刃（部品264）」とあることから、番号264の部品とは刃であると分かる。続けて、同2〜3行目でその刃について、We closed the mill to test the blade on various lengths and types of damaged lumber.「私たちは製材所を休業して、さまざまな長さや種類の傷んだ木材でその刃をテストした」と述べ、さらに同3～4行目でThe tests with the new cutting blade were successful「この新しい切断用の刃を使ったテストは成功した」と伝えている。よって、番号264の部品は木材を切るために使用されると考えられる。\n（A） concrete「コンクリート」。\n（B） polish「～を磨く」、metal「金属」。\n（C） shape「〜を成形する」。',
+  metacogFeedbackJa: '',
+};
+
+const post06Passage: Passage = {
+  id: 'post_06',
+  title: 'Package Tracking and Email',
+  direction: 'Questions 1-3 refer to the following tracking information and e-mail.',
+  directionJa: '問題1-3は次の追跡情報とEメールに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'packageTracking' as const,
+      locale: 'en' as const,
+      packageTracking: post06TrackingEn,
+    },
+    {
+      layoutType: 'packageTracking' as const,
+      locale: 'ja' as const,
+      packageTracking: post06TrackingJa,
+    },
+    {
+      layoutType: 'emailForm' as const,
+      locale: 'en' as const,
+      emailForm: post06EmailEn,
+    },
+    {
+      layoutType: 'emailForm' as const,
+      locale: 'ja' as const,
+      emailForm: post06EmailJa,
+    },
+  ],
+  questions: [post06Q1, post06Q2, post06Q3],
+};
+
+// ===== Post-Test 問題7: Advertisement, Invoice, and E-mail (Green Lyre Office Furniture) =====
+
+const post07Q1 = {
+  id: 'post_07_q1',
+  promptEn: 'What is suggested about Hainey Medical Clinic?',
+  promptJa: 'Hainey診療所について何が分かりますか。',
+  choices: [
+    {
+      id: 'A',
+      textEn: 'It is not located in Somerfield.',
+      textJa: '同診療所はサマーフィールド市内に位置していない。',
+    },
+    {
+      id: 'B',
+      textEn: "Its waiting room includes a children's play area.",
+      textJa: '同診療所の待合室には子どもの遊び場がある。',
+    },
+    {
+      id: 'C',
+      textEn: 'It has just enlarged its waiting room.',
+      textJa: '同診療所は待合室を拡張したばかりである。',
+    },
+    {
+      id: 'D',
+      textEn: 'It has recently moved to a new location.',
+      textJa: '同診療所は最近、新しい場所に移った。',
+    },
+  ],
+  correctChoiceId: 'A',
+  explanationGeneralJa:
+    '1つ目の本文の家具店の広告の2段落1行目に、Delivery service is available and free to locations within Somerfield city limits.「配送サービスが利用可能で、サマーフィールド市内の場所なら無料だ」とある。2つ目の本文の請求書は1段落3行目より、同店からHainey診療所に宛てたもの。同2段落右下のDelivery「配送料」の欄に100.00ドルと記載があるので、注文には配送料がかかっている。よってHainey診療所はサマーフィールド市内には位置していないと分かる。be located in～「～に位置している、～にある」。\n（B） waiting room「待合室」、include「～を含む」、play area「遊び場」。\n（C） enlarge「～を拡張する」。',
+  metacogFeedbackJa: '',
+};
+
+const post07Q2 = {
+  id: 'post_07_q2',
+  promptEn: 'Why did Mr. Byrne send the e-mail?',
+  promptJa: 'Byrneさんはなぜ Eメールを送りましたか。',
+  choices: [
+    { id: 'A', textEn: 'To make a purchase', textJa: '購入をするため' },
+    { id: 'B', textEn: 'To answer a question', textJa: '質問に答えるため' },
+    { id: 'C', textEn: 'To schedule an appointment', textJa: '約束の日程を取り決めるため' },
+    { id: 'D', textEn: 'To describe some product features', textJa: '製品の特徴を説明するため' },
+  ],
+  correctChoiceId: 'B',
+  explanationGeneralJa:
+    '3つ目の本文のEメールは、Green Lyreオフィス家具店のByrneさんが、Hainey診療所のKaiさん宛てに送ったもの。Byrneさんは、同1段落1～2行目で、Kaiさんからの留守番電話を受け、折り返し電話したが、診療所は業務を終了していたと述べている。同3〜4行目で、Then you asked whether you could receive a refund.「それからあなたは、払い戻しを受けられるかどうか尋ねた」と述べてから、続く4～5行目で、Unfortunately, your purchase is not refundable, but I would like to accommodate you by offering an exchange.「あいにく、今回の購入は払い戻しが利かないが、交換を提供することによって要望に応じたいと思う」と、Kaiさんの質問に回答しているので、（B）が正解。\n（A） make a purchase「購入する」。\n（D） 3つ目の本文の1段落5～8行目で、Byrneさんは交換する製品に言及しているが、その特徴を説明してはいない。describe「～を説明する」、feature「特徴」。',
+  metacogFeedbackJa: '',
+};
+
+const post07Q3 = {
+  id: 'post_07_q3',
+  promptEn: 'What extra item does the store offer to add to the order?',
+  promptJa: '店は、注文分にどの追加商品を加えると申し出ていますか。',
+  choices: [
+    { id: 'A', textEn: 'MT-5047', textJa: 'MT-5047' },
+    { id: 'B', textEn: 'MT-2956', textJa: 'MT-2956' },
+    { id: 'C', textEn: 'MT-0632', textJa: 'MT-0632' },
+    { id: 'D', textEn: 'MT-4278', textJa: 'MT-4278' },
+  ],
+  correctChoiceId: 'A',
+  explanationGeneralJa:
+    '3つ目の本文の1段落5～6行目で、Green Lyreオフィス家具店のByrneさんは、Kaiさんが注文したソファの代わりにGreen Lyreの二人掛けレザーソファを提供することを申し出てから、続く同6～8行目でif you accept the love seat, I would also let you have an additional Green Lyre Reception Chair, all for the same total price as on the original invoice「もしこの二人掛けソファを了承してくれるなら、全て合わせて元の請求書にあるのと同じ合計金額で追加のGreen Lyreレセプションチェアも1脚付けたい」と述べている。2つ目の本文の請求書の2段落で、Reception Chair「レセプションチェア」のItem Number「商品番号」はMT-5047と記されているので、（A）が正解。extra「追加の、余分の」、add～to…「～を…に追加する」。',
+  metacogFeedbackJa: '',
+};
+
+const post07Passage: Passage = {
+  id: 'post_07',
+  title: 'Advertisement, Invoice, and E-mail - Green Lyre Office Furniture',
+  direction: 'Questions 1-3 refer to the following advertisement, invoice, and e-mail.',
+  directionJa: '問題1-3は次の広告、請求書、Eメールに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    // English advertisement
+    {
+      layoutType: 'ad' as const,
+      locale: 'en' as const,
+      ad: {
+        headline: 'GREEN LYRE OFFICE FURNITURE',
+        subheading: 'DECEMBER SALE',
+        body: [
+          'We are making room for new models and products. Save 40 percent off all in-stock Green Lyre brand furniture, and save 30 percent off all other furniture brands in stock. All sales are final.',
+          'Delivery service is available and free to locations within Somerfield city limits. Pick-up and disposal of old furniture is also offered.',
+          'Start shopping now! Go to www.greenlyreofficefurniture.com or visit our showroom at 174 E. Landover Street.',
+        ],
+      },
+    },
+    // Japanese advertisement
+    {
+      layoutType: 'ad' as const,
+      locale: 'ja' as const,
+      ad: {
+        headline: 'Green Lyre オフィス家具店',
+        subheading: '12月のセール',
+        body: [
+          '当店は現在、新モデルや新製品のためのスペースを準備中です。Green Lyreブランドの家具の全在庫品が40パーセント引き、その他の家具ブランドの全在庫品は30パーセント引きでお買得です。特売は全て最終です。',
+          '配送サービスがご利用可能で、サマーフィールド市内の場所であれば無料です。古い家具の集荷と処分も行っております。',
+          '今すぐ買い物を始めましょう！www.greenlyreofficefurniture.comにアクセスしていただくか、もしくは東ランドオーバー通り174番地の当店ショールームへお越しください。',
+        ],
+      },
+    },
+    // English invoice
+    {
+      layoutType: 'invoice' as const,
+      locale: 'en' as const,
+      invoice: {
+        title: 'Green Lyre Office Furniture Invoice',
+        customerInfo: [
+          { label: 'Purchased by:', value: 'Jasmine Kai, Office Manager' },
+          { label: '', value: 'Hainey Medical Clinic' },
+          { label: 'Phone:', value: '(210) 555-0108' },
+          { label: 'Order number:', value: 'G90123' },
+        ],
+        columns: ['Description', 'Item Number', 'Color', 'Quantity', 'Total Price'],
+        items: [
+          ['Reception Chair', 'MT-5047', 'Gray', '2', '$376.00'],
+          ['Lounge Chair', 'MT-2956', 'Gray', '2', '$1,100.00'],
+          ['Accent Chair', 'MT-0632', 'Black', '1', '$330.00'],
+          ['Leather Sofa', 'MT-4278', 'Gray', '1', '$1,325.00'],
+        ],
+        summary: [
+          { label: 'Subtotal:', value: '$3,131.00' },
+          { label: 'Discount (40%):', value: '- $1,252.40' },
+          { label: 'Delivery:', value: '+ $100.00' },
+          { label: 'Total Charges:', value: '$1,978.60' },
+        ],
+      },
+    },
+    // Japanese invoice
+    {
+      layoutType: 'invoice' as const,
+      locale: 'ja' as const,
+      invoice: {
+        title: 'Green Lyre オフィス家具店請求書',
+        customerInfo: [
+          { label: '購入者：', value: 'Jasmine Kai　事務長' },
+          { label: '', value: 'Hainey診療所' },
+          { label: '電話：', value: '(210) 555-0108' },
+          { label: '注文番号：', value: 'G90123' },
+        ],
+        columns: ['品目', '商品番号', '色', '数', '合計価格'],
+        items: [
+          ['レセプションチェア', 'MT-5047', 'グレー', '2', '376.00ドル'],
+          ['ラウンジチェア', 'MT-2956', 'グレー', '2', '1,100.00ドル'],
+          ['アクセントチェア', 'MT-0632', '黒', '1', '330.00ドル'],
+          ['レザーソファ', 'MT-4278', 'グレー', '1', '1,325.00ドル'],
+        ],
+        summary: [
+          { label: '小計：', value: '3,131.00ドル' },
+          { label: '割引（40パーセント）：', value: '−1,252.40ドル' },
+          { label: '配送料：', value: '+100.00ドル' },
+          { label: '合計請求額：', value: '1,978.60ドル' },
+        ],
+      },
+    },
+    // English email
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'en' as const,
+      emailTable: {
+        headers: [
+          { label: 'To:', value: 'Jasmine Kai <jkai@haineymed.com>' },
+          { label: 'From:', value: 'Colin Byrne <cbyrne@greenlyreofficefurniture.com>' },
+          { label: 'Date:', value: 'December 10' },
+          { label: 'Subject:', value: 'Your recent voicemail' },
+        ],
+        body: [
+          'Dear Ms. Kai:',
+          "I received your voicemail regarding your order number G90123, but your office was closed when I tried to return your call. You mentioned that you realized the sofa you ordered is unlikely to fit in the intended space in your clinic's waiting area. Then you asked whether you could receive a refund. Unfortunately, your purchase is not refundable, but I would like to accommodate you by offering an exchange. I can provide you with a Green Lyre Leather Love Seat in place of the sofa. And if you accept the love seat, I would also let you have an additional Green Lyre Reception Chair, all for the same total price as on the original invoice. Let me know if this will work.",
+          'Thank you for shopping at Green Lyre Office Furniture.',
+          'Sincerely yours,',
+          'Colin Byrne, Sales Manager',
+        ],
+      },
+    },
+    // Japanese email
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'ja' as const,
+      emailTable: {
+        headers: [
+          { label: '宛先：', value: 'Jasmine Kai <jkai@haineymed.com>' },
+          { label: '送信者：', value: 'Colin Byrne <cbyrne@greenlyreofficefurniture.com>' },
+          { label: '日付：', value: '12月10日' },
+          { label: '件名：', value: 'お客さまの先の留守番電話' },
+        ],
+        body: [
+          'Kai様',
+          'ご注文番号G90123に関するあなたの留守番電話を受信いたしましたが、私が折り返しお電話を差し上げようとしたところ、貴診療所は業務を終了しておりました。あなたは、ご注文なさったソファが診療所の待合室内の計画していたスペースに収まりそうにないことが分かったとおっしゃいました。それからあなたは、払い戻しを受けられるかどうかお尋ねでした。あいにく、今回のご購入は払い戻しが利きませんが、交換をご提供することによってご要望に応じたいと存じます。そのソファの代わりに、Green Lyreの二人掛けレザーソファを提供することが可能です。もしこの二人掛けソファをご了承いただけるようでしたら、全て合わせて元の請求書にあるのと同じ合計金額で追加のGreen Lyreレセプションチェアも1脚お付けしたいと思います。こちらでよろしいかどうかご連絡ください。',
+          'Green Lyre オフィス家具店でご購入いただき、ありがとうございます。',
+          '敬具',
+          'Colin Byrne　営業部長',
+        ],
+      },
+    },
+  ],
+  questions: [post07Q1, post07Q2, post07Q3],
+};
+
+// ===== Post-Test 問題8: Email Form + Conference Schedule =====
+
+const post08Email1En = {
+  to: 'Won Ho',
+  from: 'Martha Adesawa',
+  date: 'May 7',
+  subject: "Thursday's conference",
+  greeting: 'Dear Won Ho,',
+  body: [
+    "I've just seen the updated conference schedule for Thursday. I would like your help presenting one of my sessions. I'm scheduled to give both session 2 and session 3 in room 1, but they are at the same time. I can present session 2 by myself, but I need you to present session 3.",
+    "In session 3, I'll be introducing the software that your division developed. Since you were on the development team, you are the perfect person to demonstrate it. I've attached my presentation slides to help you prepare. Please let me know if you have any questions.",
+  ],
+  closing: 'Many thanks,',
+  signature: {
+    name: 'Martha Adesawa',
+    title: 'Marketing Manager',
+  },
+};
+
+const post08Email1Ja = {
+  to: 'Won Ho',
+  from: 'Martha Adesawa',
+  date: '5月7日',
+  subject: '木曜日のカンファレンスについて',
+  greeting: 'Won Hoさん',
+  body: [
+    '木曜日のカンファレンスの最新スケジュールを確認しました。私のセッションの1つを発表するのを手伝ってほしいのです。私はルーム1でセッション2とセッション3の両方を担当することになっていますが、同じ時間帯です。セッション2は私一人で発表できますが、セッション3はあなたに発表してほしいのです。',
+    'セッション3では、あなたの部門が開発したソフトウェアを紹介する予定です。あなたは開発チームにいたので、デモンストレーションをするのに最適な人物です。準備の参考になるよう、私のプレゼンテーションスライドを添付しました。何か質問があればお知らせください。',
+  ],
+  closing: 'よろしくお願いいたします。',
+  signature: {
+    name: 'Martha Adesawa',
+    title: 'マーケティングマネージャー',
+  },
+};
+
+const post08Email2En = {
+  to: 'Martha Adesawa',
+  from: 'Won Ho',
+  date: 'May 7',
+  subject: "RE: Thursday's conference",
+  greeting: 'Dear Martha,',
+  body: [
+    'I would be happy to help. I saw in the presentation that you were planning to discuss the three different pricing levels. Shall I go into more detail about each of them during my demonstration?',
+    'Also, I will be attending a workshop from 3:00 to 4:00. It is about new sales techniques and will be very useful for my work. After the workshop, I could meet you to talk about any feedback from conference attendees.',
+  ],
+  closing: 'Best regards,',
+  signature: {
+    name: 'Won Ho',
+    title: 'Software Developer',
+  },
+};
+
+const post08Email2Ja = {
+  to: 'Martha Adesawa',
+  from: 'Won Ho',
+  date: '5月7日',
+  subject: 'RE: 木曜日のカンファレンスについて',
+  greeting: 'Marthaさん',
+  body: [
+    '喜んでお手伝いします。プレゼンテーションで3つの異なる価格レベルについて説明する予定だったのを見ました。デモンストレーション中にそれぞれについてもっと詳しく説明しましょうか？',
+    'また、私は3:00から4:00までワークショップに参加する予定です。新しい営業テクニックについてで、私の仕事にとても役立ちます。ワークショップの後、カンファレンス参加者からのフィードバックについてお話しするためにお会いできます。',
+  ],
+  closing: 'よろしくお願いいたします。',
+  signature: {
+    name: 'Won Ho',
+    title: 'ソフトウェア開発者',
+  },
+};
+
+const post08ScheduleEn = {
+  title: 'WR Asiana Technology Conference, Thursday, 8 May',
+  subtitle: 'Afternoon schedule, continued',
+  subtitle2: 'Concurrent Business Sessions—2:00 to 3:00 P.M.',
+  columns: ['', 'Room 1', 'Room 2', 'Room 3', 'Room 4'],
+  rows: [
+    {
+      label: 'Session 2',
+      values: [
+        'Adesawa\nProject coordination tools',
+        'Hahn\nVideo conferencing equipment',
+        'Finley\nData security essentials',
+        'Barber\nFiling management',
+      ],
+    },
+    {
+      label: 'Session 3',
+      values: [
+        'Adesawa\nClient database software',
+        'Oh\nOffice furniture design',
+        'Ramos\nTranslation services',
+        'Barber\nPayroll software',
+      ],
+    },
+  ],
+};
+
+const post08ScheduleJa = {
+  title: 'WRアジアテクノロジーカンファレンス、5月8日（木）',
+  subtitle: '午後のスケジュール（続き）',
+  subtitle2: '同時開催ビジネスセッション—午後2:00〜3:00',
+  columns: ['', 'ルーム1', 'ルーム2', 'ルーム3', 'ルーム4'],
+  rows: [
+    {
+      label: 'セッション2',
+      values: [
+        'Adesawa\nプロジェクト調整ツール',
+        'Hahn\nビデオ会議機器',
+        'Finley\nデータセキュリティの基礎',
+        'Barber\nファイル管理',
+      ],
+    },
+    {
+      label: 'セッション3',
+      values: [
+        'Adesawa\nクライアントデータベースソフトウェア',
+        'Oh\nオフィス家具デザイン',
+        'Ramos\n翻訳サービス',
+        'Barber\n給与計算ソフトウェア',
+      ],
+    },
+  ],
+};
+
+const post08Q1 = {
+  id: 'post_08_q1',
+  promptEn: 'What is suggested about Ms. Adesawa?',
+  promptJa: 'Adesawaさんについて何が示唆されていますか。',
+  choices: [
+    { id: 'a', textEn: 'She recently changed departments.', textJa: '彼女は最近部署を異動した。' },
+    {
+      id: 'b',
+      textEn: 'She helped develop some software.',
+      textJa: '彼女はソフトウェア開発を手伝った。',
+    },
+    {
+      id: 'c',
+      textEn: 'She will give two presentations.',
+      textJa: '彼女は2つのプレゼンテーションを行う予定である。',
+    },
+    {
+      id: 'd',
+      textEn: 'She manages a team of salespeople.',
+      textJa: '彼女は営業チームを管理している。',
+    },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    '最初のEメールで、AdesawaさんはWon Hoさんにセッション3の発表を手伝ってほしいと頼んでいます。スケジュール表を見ると、Adesawaさんはルーム1でセッション2とセッション3の両方を担当しています。Won Hoさんがセッション3を担当することになっても、Adesawaさん自身はセッション2を発表すると述べています。',
+  metacogFeedbackJa: '',
+};
+
+const post08Q2 = {
+  id: 'post_08_q2',
+  promptEn: 'What will Mr. Won Ho most likely discuss during his presentation?',
+  promptJa: 'Won Hoさんはプレゼンテーション中に何について話す可能性が最も高いですか。',
+  choices: [
+    { id: 'a', textEn: 'Sales techniques', textJa: '営業テクニック' },
+    { id: 'b', textEn: 'Pricing options', textJa: '価格オプション' },
+    { id: 'c', textEn: 'Office furniture', textJa: 'オフィス家具' },
+    { id: 'd', textEn: 'Translation services', textJa: '翻訳サービス' },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa:
+    '2通目のEメールで、Won Hoさんは「プレゼンテーションで3つの異なる価格レベルについて説明する予定だったのを見ました。デモンストレーション中にそれぞれについてもっと詳しく説明しましょうか？」と述べています。これは価格オプションについて話す予定であることを示しています。',
+  metacogFeedbackJa: '',
+};
+
+const post08Q3 = {
+  id: 'post_08_q3',
+  promptEn: 'What does Mr. Won Ho indicate he will do at 3:00 P.M.?',
+  promptJa: 'Won Hoさんは午後3時に何をする予定だと述べていますか。',
+  choices: [
+    { id: 'a', textEn: 'Lead a workshop', textJa: 'ワークショップを主導する' },
+    { id: 'b', textEn: 'Meet with Ms. Adesawa', textJa: 'Adesawaさんと会う' },
+    { id: 'c', textEn: 'Attend a session', textJa: 'セッションに参加する' },
+    { id: 'd', textEn: 'Give a presentation', textJa: 'プレゼンテーションを行う' },
+  ],
+  correctChoiceId: 'c',
+  explanationGeneralJa:
+    '2通目のEメールで、Won Hoさんは「私は3:00から4:00までワークショップに参加する予定です」と述べています。ワークショップに参加する（attend）ことはセッションに参加することと同義です。',
+  metacogFeedbackJa: '',
+};
+
+const post08Q4 = {
+  id: 'post_08_q4',
+  promptEn: 'What is the subject of Session 3 in Room 1?',
+  promptJa: 'ルーム1のセッション3のテーマは何ですか。',
+  choices: [
+    { id: 'a', textEn: 'Project coordination tools', textJa: 'プロジェクト調整ツール' },
+    { id: 'b', textEn: 'Client database software', textJa: 'クライアントデータベースソフトウェア' },
+    { id: 'c', textEn: 'Data security essentials', textJa: 'データセキュリティの基礎' },
+    { id: 'd', textEn: 'Payroll software', textJa: '給与計算ソフトウェア' },
+  ],
+  correctChoiceId: 'b',
+  explanationGeneralJa:
+    'スケジュール表を見ると、ルーム1のセッション3は「Adesawa - Client database software（クライアントデータベースソフトウェア）」となっています。',
+  metacogFeedbackJa: '',
+};
+
+const post08Passage: Passage = {
+  id: 'post_08',
+  title: 'Conference Schedule and Emails',
+  direction: 'Questions 1-4 refer to the following e-mails and schedule.',
+  directionJa: '問題1-4は次のEメールとスケジュールに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'emailForm' as const,
+      locale: 'en' as const,
+      emailForm: post08Email1En,
+    },
+    {
+      layoutType: 'emailForm' as const,
+      locale: 'ja' as const,
+      emailForm: post08Email1Ja,
+    },
+    {
+      layoutType: 'emailForm' as const,
+      locale: 'en' as const,
+      emailForm: post08Email2En,
+    },
+    {
+      layoutType: 'emailForm' as const,
+      locale: 'ja' as const,
+      emailForm: post08Email2Ja,
+    },
+    {
+      layoutType: 'conferenceSchedule' as const,
+      locale: 'en' as const,
+      conferenceSchedule: post08ScheduleEn,
+    },
+    {
+      layoutType: 'conferenceSchedule' as const,
+      locale: 'ja' as const,
+      conferenceSchedule: post08ScheduleJa,
+    },
+  ],
+  questions: [post08Q1, post08Q2, post08Q3, post08Q4],
+};
+
 const duplicatePassages = (prefix: 'pre' | 'post', count: number): Passage[] => {
   return Array.from({ length: count }, (_, idx) => {
     const num = (idx + 1).toString().padStart(2, '0');
@@ -2134,6 +4769,24 @@ const duplicatePassages = (prefix: 'pre' | 'post', count: number): Passage[] => 
   });
 };
 
-export const mockPrePassages: Passage[] = duplicatePassages('pre', 3);
+export const mockPrePassages: Passage[] = [
+  pre01Passage,
+  pre02Passage,
+  pre03Passage,
+  pre04Passage,
+  pre05Passage,
+  pre06Passage,
+  pre07Passage,
+  pre08Passage,
+];
 
-export const mockPostPassages: Passage[] = duplicatePassages('post', 3);
+export const mockPostPassages: Passage[] = [
+  post01Passage,
+  post02Passage,
+  post03Passage,
+  post04Passage,
+  post05Passage,
+  post06Passage,
+  post07Passage,
+  post08Passage,
+];
