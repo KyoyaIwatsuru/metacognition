@@ -133,7 +133,20 @@ export function AnalogQuestionClient({
             />
           </div>
         }
-        footer={<Button onClick={() => setDialogOpen(true)}>{confirmLabel}</Button>}
+        footer={
+          <Button
+            onClick={() => {
+              logEvent({
+                event: 'confirm_dialog_open',
+                passage_id: passageId,
+                analog_id: analog.id,
+              });
+              setDialogOpen(true);
+            }}
+          >
+            {confirmLabel}
+          </Button>
+        }
       />
       <ConfirmDialog
         title={timedOut ? '時間切れです' : confirmTitle}

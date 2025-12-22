@@ -28,10 +28,14 @@ export default async function PrePassagePage({ params }: PageProps) {
     ? '戻ることはできません。よろしいですか？'
     : 'テストを終了します。戻ることはできません。よろしいですか？';
 
+  // 1問あたり1.5分
+  const timerMs = passage.questions.length * 1.5 * 60 * 1000;
+
   return (
     <PassageQuestionClient
       passage={passage}
       showJapanese={false}
+      timerMs={timerMs}
       confirmTitle={confirmTitle}
       confirmDescription={confirmDescription}
       confirmLabel={confirmLabel}

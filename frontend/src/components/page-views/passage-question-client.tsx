@@ -153,7 +153,16 @@ export function PassageQuestionClient({
             </div>
           </div>
         }
-        footer={<Button onClick={() => setDialogOpen(true)}>{confirmLabel}</Button>}
+        footer={
+          <Button
+            onClick={() => {
+              logEvent({ event: 'confirm_dialog_open', passage_id: passage.id });
+              setDialogOpen(true);
+            }}
+          >
+            {confirmLabel}
+          </Button>
+        }
       />
       <ConfirmDialog
         title={timedOut ? '時間切れです' : confirmTitle}
