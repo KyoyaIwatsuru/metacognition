@@ -126,6 +126,7 @@ export type AdContent = {
   meta?: Record<string, string>;
   bullets?: string[];
   body?: string[];
+  footer?: string; // 最後の行（例: "Schedule a tour..."）
 };
 
 export type LetterContent = {
@@ -180,6 +181,7 @@ export type ArticleContent = {
   headline: string; // 記事見出し（例: "Burger City Bistro to Become BC Bistro"）
   byline?: string; // 著者名（例: "By Lola Jimenez"）
   body: string[]; // 本文段落（[1][2][3][4]などのマーカー含む）
+  singleColumn?: boolean; // 1カラムレイアウト（プレスリリース風）
 };
 
 export type NoticeContent = {
