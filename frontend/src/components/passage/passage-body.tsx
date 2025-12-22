@@ -31,6 +31,8 @@ type PassageBodyProps = {
   direction?: string; // "Questions 181-185 refer to the following advertisement and letter."
   directionJa?: string; // "問題Q1-4は次の広告と手紙に関するものです。"
   locale?: 'en' | 'ja';
+  maxSections?: number; // 表示するセクション数の上限（最初からN個）
+  skipSections?: number; // スキップするセクション数（最初のN個を飛ばす）
 };
 
 /**
@@ -43,113 +45,124 @@ export function PassageBody({
   direction,
   directionJa,
   locale = 'en',
+  maxSections,
+  skipSections = 0,
 }: PassageBodyProps) {
   const displayDirection = locale === 'ja' ? (directionJa ?? direction) : direction;
 
   if (sections && sections.length > 0) {
+    // Filter by locale first
+    let filteredSections = sections.filter((s) => s.locale === locale);
+
+    // Apply skip and max
+    if (skipSections > 0) {
+      filteredSections = filteredSections.slice(skipSections);
+    }
+    if (maxSections !== undefined) {
+      filteredSections = filteredSections.slice(0, maxSections);
+    }
+
     return (
-      <div className="space-y-2">
-        {/* 導入文 */}
-        {displayDirection ? (
+      <div className="space-y-0.5">
+        {/* 導入文（スキップしていない場合のみ表示） */}
+        {skipSections === 0 && displayDirection ? (
           <p className="text-sm font-semibold text-slate-800">{displayDirection}</p>
         ) : null}
-        {sections
-          .filter((s) => s.locale === locale)
-          .map((section, idx) => {
-            if (section.layoutType === 'ad') {
-              return <AdBody key={idx} ad={section.ad} />;
-            }
-            if (section.layoutType === 'letter') {
-              return <LetterBody key={idx} letter={section.letter} />;
-            }
-            if (section.layoutType === 'report') {
-              return <ReportBody key={idx} report={section.report} />;
-            }
-            if (section.layoutType === 'webpage') {
-              return <WebpageBody key={idx} webpage={section.webpage} />;
-            }
-            if (section.layoutType === 'schedule') {
-              return <ScheduleBody key={idx} schedule={section.schedule} />;
-            }
-            if (section.layoutType === 'article') {
-              return <ArticleBody key={idx} article={section.article} />;
-            }
-            if (section.layoutType === 'notice') {
-              return <NoticeBody key={idx} notice={section.notice} />;
-            }
-            if (section.layoutType === 'orderForm') {
-              return <OrderFormBody key={idx} orderForm={section.orderForm} />;
-            }
-            if (section.layoutType === 'textMessageChain') {
-              return <TextMessageChainBody key={idx} textMessageChain={section.textMessageChain} />;
-            }
-            if (section.layoutType === 'onlineChatDiscussion') {
-              return (
-                <OnlineChatDiscussionBody
-                  key={idx}
-                  onlineChatDiscussion={section.onlineChatDiscussion}
-                />
-              );
-            }
-            if (section.layoutType === 'memo') {
-              return <MemoBody key={idx} memo={section.memo} />;
-            }
-            if (section.layoutType === 'chatTablet') {
-              return <ChatTabletBody key={idx} chatTablet={section.chatTablet} />;
-            }
-            if (section.layoutType === 'pressRelease') {
-              return <PressReleaseBody key={idx} pressRelease={section.pressRelease} />;
-            }
-            if (section.layoutType === 'emailForm') {
-              return <EmailFormBody key={idx} emailForm={section.emailForm} />;
-            }
-            if (section.layoutType === 'conferenceSchedule') {
-              return (
-                <ConferenceScheduleBody key={idx} conferenceSchedule={section.conferenceSchedule} />
-              );
-            }
-            if (section.layoutType === 'customerServiceExchange') {
-              return (
-                <CustomerServiceExchangeBody
-                  key={idx}
-                  customerServiceExchange={section.customerServiceExchange}
-                />
-              );
-            }
-            if (section.layoutType === 'customerReviews') {
-              return <CustomerReviewsBody key={idx} customerReviews={section.customerReviews} />;
-            }
-            if (section.layoutType === 'packageTracking') {
-              return <PackageTrackingBody key={idx} packageTracking={section.packageTracking} />;
-            }
-            if (section.layoutType === 'emailTable') {
-              return <EmailTableBody key={idx} emailTable={section.emailTable} />;
-            }
-            if (section.layoutType === 'certificate') {
-              return <CertificateBody key={idx} certificate={section.certificate} />;
-            }
-            if (section.layoutType === 'invoice') {
-              return <InvoiceBody key={idx} invoice={section.invoice} />;
-            }
-            if (section.layoutType === 'adChainBorder') {
-              return <AdChainBorderBody key={idx} adChainBorder={section.adChainBorder} />;
-            }
-            if (section.layoutType === 'newsletterProfile') {
-              return (
-                <NewsletterProfileBody key={idx} newsletterProfile={section.newsletterProfile} />
-              );
-            }
+        {filteredSections.map((section, idx) => {
+          if (section.layoutType === 'ad') {
+            return <AdBody key={idx} ad={section.ad} />;
+          }
+          if (section.layoutType === 'letter') {
+            return <LetterBody key={idx} letter={section.letter} />;
+          }
+          if (section.layoutType === 'report') {
+            return <ReportBody key={idx} report={section.report} />;
+          }
+          if (section.layoutType === 'webpage') {
+            return <WebpageBody key={idx} webpage={section.webpage} />;
+          }
+          if (section.layoutType === 'schedule') {
+            return <ScheduleBody key={idx} schedule={section.schedule} />;
+          }
+          if (section.layoutType === 'article') {
+            return <ArticleBody key={idx} article={section.article} />;
+          }
+          if (section.layoutType === 'notice') {
+            return <NoticeBody key={idx} notice={section.notice} />;
+          }
+          if (section.layoutType === 'orderForm') {
+            return <OrderFormBody key={idx} orderForm={section.orderForm} />;
+          }
+          if (section.layoutType === 'textMessageChain') {
+            return <TextMessageChainBody key={idx} textMessageChain={section.textMessageChain} />;
+          }
+          if (section.layoutType === 'onlineChatDiscussion') {
             return (
-              <div
+              <OnlineChatDiscussionBody
                 key={idx}
-                className="space-y-2 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line"
-              >
-                {section.paragraphs.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
+                onlineChatDiscussion={section.onlineChatDiscussion}
+              />
             );
-          })}
+          }
+          if (section.layoutType === 'memo') {
+            return <MemoBody key={idx} memo={section.memo} />;
+          }
+          if (section.layoutType === 'chatTablet') {
+            return <ChatTabletBody key={idx} chatTablet={section.chatTablet} />;
+          }
+          if (section.layoutType === 'pressRelease') {
+            return <PressReleaseBody key={idx} pressRelease={section.pressRelease} />;
+          }
+          if (section.layoutType === 'emailForm') {
+            return <EmailFormBody key={idx} emailForm={section.emailForm} />;
+          }
+          if (section.layoutType === 'conferenceSchedule') {
+            return (
+              <ConferenceScheduleBody key={idx} conferenceSchedule={section.conferenceSchedule} />
+            );
+          }
+          if (section.layoutType === 'customerServiceExchange') {
+            return (
+              <CustomerServiceExchangeBody
+                key={idx}
+                customerServiceExchange={section.customerServiceExchange}
+              />
+            );
+          }
+          if (section.layoutType === 'customerReviews') {
+            return <CustomerReviewsBody key={idx} customerReviews={section.customerReviews} />;
+          }
+          if (section.layoutType === 'packageTracking') {
+            return <PackageTrackingBody key={idx} packageTracking={section.packageTracking} />;
+          }
+          if (section.layoutType === 'emailTable') {
+            return <EmailTableBody key={idx} emailTable={section.emailTable} />;
+          }
+          if (section.layoutType === 'certificate') {
+            return <CertificateBody key={idx} certificate={section.certificate} />;
+          }
+          if (section.layoutType === 'invoice') {
+            return <InvoiceBody key={idx} invoice={section.invoice} />;
+          }
+          if (section.layoutType === 'adChainBorder') {
+            return <AdChainBorderBody key={idx} adChainBorder={section.adChainBorder} />;
+          }
+          if (section.layoutType === 'newsletterProfile') {
+            return (
+              <NewsletterProfileBody key={idx} newsletterProfile={section.newsletterProfile} />
+            );
+          }
+          return (
+            <div
+              key={idx}
+              className="space-y-2 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line"
+            >
+              {section.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          );
+        })}
       </div>
     );
   }

@@ -12,7 +12,7 @@ type OnlineChatDiscussionBodyProps = {
  */
 export function OnlineChatDiscussionBody({ onlineChatDiscussion }: OnlineChatDiscussionBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.6] text-slate-800">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* Header bar */}
       <div className="h-6 border-b border-black bg-white" />
 
@@ -21,10 +21,10 @@ export function OnlineChatDiscussionBody({ onlineChatDiscussion }: OnlineChatDis
         <div className="flex-1 px-4 py-3 space-y-4">
           {onlineChatDiscussion.messages.map((msg, idx) => (
             <div key={idx}>
-              <p className="font-bold text-sm">
+              <p className="font-bold">
                 {msg.sender} [{msg.time}]
               </p>
-              <p className="text-sm whitespace-pre-line">{msg.text}</p>
+              <p className="leading-[2.4]">{msg.text}</p>
             </div>
           ))}
         </div>

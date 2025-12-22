@@ -15,9 +15,10 @@
         "title": "Reading Practice",
         "width": 1280,
         "height": 800,
-        "resizable": true,
-        "fullscreen": false,
-        "maximized": true
+        "resizable": false,
+        "fullscreen": true,
+        "decorations": false,
+        "alwaysOnTop": true
       }
     ],
     "security": {

@@ -12,7 +12,7 @@ type WebpageBodyProps = {
  */
 export function WebpageBody({ webpage }: WebpageBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* ブラウザ風アドレスバー */}
       <div className="border-b-2 border-black px-2 py-1">
         {/* URL入力欄（ドロップダウン矢印を内包） */}

@@ -12,7 +12,7 @@ type OrderFormBodyProps = {
  */
 export function OrderFormBody({ orderForm }: OrderFormBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* タイトル */}
       <div className="border-b border-black px-3 py-2 text-center">
         <h2 className="text-base font-bold">{orderForm.title}</h2>

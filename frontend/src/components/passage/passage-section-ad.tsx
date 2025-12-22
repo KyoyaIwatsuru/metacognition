@@ -30,6 +30,20 @@ export function AdBody({ ad }: AdBodyProps) {
             ))
           : null}
       </div>
+
+      {/* 箇条書き（Building 1〜4など） */}
+      {ad.bullets && ad.bullets.length > 0 ? (
+        <div className="mt-2 ml-4 space-y-1">
+          {ad.bullets.map((bullet, idx) => (
+            <p key={idx} className="whitespace-pre-line">
+              {bullet}
+            </p>
+          ))}
+        </div>
+      ) : null}
+
+      {/* フッター（最後の行） */}
+      {ad.footer ? <p className="mt-2 whitespace-pre-line text-justify">{ad.footer}</p> : null}
     </div>
   );
 }

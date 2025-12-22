@@ -8,101 +8,62 @@ type CertificateBodyProps = {
 
 export function CertificateBody({ certificate }: CertificateBodyProps) {
   return (
-    <div className="relative border-2 border-black bg-white p-2">
-      {/* Wavy border decoration */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-            repeating-linear-gradient(0deg, transparent, transparent 8px, transparent 8px),
-            repeating-linear-gradient(90deg, transparent, transparent 8px, transparent 8px)
-          `,
-        }}
-      />
+    <div className="border-2 border-black bg-white p-3">
+      {/* Inner border frame */}
+      <div className="border border-black p-4">
+        {/* Main content */}
+        <div className="text-center text-[14px] leading-[2.4] text-slate-800">
+          {/* Organization name */}
+          <p className="text-sm tracking-wide mb-2">{certificate.organization}</p>
 
-      {/* Left wavy border */}
-      <div className="absolute left-1 top-0 bottom-0 w-4 flex flex-col justify-around">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <svg key={i} viewBox="0 0 10 10" className="w-3 h-3 text-black">
-            <path d="M0,5 Q2.5,0 5,5 T10,5" fill="none" stroke="currentColor" strokeWidth="1" />
-          </svg>
-        ))}
-      </div>
+          {/* Certificate title */}
+          <h2 className="text-xl font-bold mb-1">{certificate.title}</h2>
 
-      {/* Right wavy border */}
-      <div className="absolute right-1 top-0 bottom-0 w-4 flex flex-col justify-around">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <svg key={i} viewBox="0 0 10 10" className="w-3 h-3 text-black">
-            <path d="M0,5 Q2.5,0 5,5 T10,5" fill="none" stroke="currentColor" strokeWidth="1" />
-          </svg>
-        ))}
-      </div>
+          {/* Subtitle */}
+          {certificate.subtitle && <p className="text-sm mb-1">{certificate.subtitle}</p>}
 
-      {/* Top wavy border */}
-      <div className="absolute top-1 left-0 right-0 h-4 flex justify-around">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <svg key={i} viewBox="0 0 10 10" className="w-3 h-3 text-black rotate-90">
-            <path d="M0,5 Q2.5,0 5,5 T10,5" fill="none" stroke="currentColor" strokeWidth="1" />
-          </svg>
-        ))}
-      </div>
+          {/* Recipient */}
+          <p className="text-2xl font-serif italic mb-2">{certificate.recipient}</p>
 
-      {/* Bottom wavy border */}
-      <div className="absolute bottom-1 left-0 right-0 h-4 flex justify-around">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <svg key={i} viewBox="0 0 10 10" className="w-3 h-3 text-black rotate-90">
-            <path d="M0,5 Q2.5,0 5,5 T10,5" fill="none" stroke="currentColor" strokeWidth="1" />
-          </svg>
-        ))}
-      </div>
+          {/* Double line */}
+          <div className="border-t-2 border-b border-black my-3 py-0.5" />
 
-      {/* Main content */}
-      <div className="relative mx-6 my-4 text-center text-[14px] leading-[1.6] text-slate-800">
-        {/* Organization name */}
-        <p className="text-sm tracking-wide mb-2">{certificate.organization}</p>
-
-        {/* Certificate title */}
-        <h2 className="text-xl font-bold mb-1">{certificate.title}</h2>
-
-        {/* Subtitle */}
-        {certificate.subtitle && <p className="text-sm mb-1">{certificate.subtitle}</p>}
-
-        {/* Recipient */}
-        <p className="text-2xl font-serif italic mb-2">{certificate.recipient}</p>
-
-        {/* Double line */}
-        <div className="border-t-2 border-b border-black my-3 py-0.5" />
-
-        {/* Body text */}
-        <div className="text-left space-y-2 mb-6">
-          {certificate.body.map((paragraph, idx) => (
-            <p key={idx} className="text-sm">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-
-        {/* Signature area */}
-        <div className="flex justify-between items-end">
-          <div className="text-left">
-            {/* Signature (italic script style) */}
-            <p className="font-serif italic text-lg mb-0 border-b border-black pb-1">
-              {certificate.signature}
-            </p>
-            {/* Signer name and title */}
-            <p className="text-sm mt-1">
-              {certificate.signerName}, {certificate.signerTitle}
-            </p>
+          {/* Body text */}
+          <div className="text-left space-y-2 mb-6">
+            {certificate.body.map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
           </div>
 
-          {/* Seal/Stamp */}
-          <div className="relative w-16 h-16">
-            {/* Outer ring */}
-            <div className="absolute inset-0 rounded-full border-4 border-gray-400 bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400" />
-            {/* Inner ring */}
-            <div className="absolute inset-2 rounded-full border-2 border-gray-500 bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500" />
-            {/* Center */}
-            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600" />
+          {/* Signature area */}
+          <div className="flex justify-between items-end">
+            <div className="text-left">
+              {/* Signature (italic script style) */}
+              <p className="font-serif italic text-lg mb-0 border-b border-black pb-1">
+                {certificate.signature}
+              </p>
+              {/* Signer name and title */}
+              <p className="text-sm mt-1">
+                {certificate.signerName}, {certificate.signerTitle}
+              </p>
+            </div>
+
+            {/* Seal/Stamp - starburst style */}
+            <div className="relative w-20 h-20">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                {/* Starburst outer edge */}
+                <polygon
+                  points="50,0 58,35 95,20 68,45 100,50 68,55 95,80 58,65 50,100 42,65 5,80 32,55 0,50 32,45 5,20 42,35"
+                  fill="#9CA3AF"
+                  stroke="#6B7280"
+                  strokeWidth="1"
+                />
+                {/* Middle ring */}
+                <circle cx="50" cy="50" r="32" fill="#A1A1AA" stroke="#71717A" strokeWidth="1" />
+                {/* Inner circle */}
+                <circle cx="50" cy="50" r="22" fill="#B4B4B4" stroke="#9CA3AF" strokeWidth="1" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>

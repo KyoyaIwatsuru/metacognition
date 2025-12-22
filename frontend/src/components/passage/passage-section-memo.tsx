@@ -8,7 +8,7 @@ type MemoBodyProps = {
 
 export function MemoBody({ memo }: MemoBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.6] text-slate-800 px-6 py-4">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 px-6 py-4">
       {/* Header fields */}
       <div className="space-y-1 mb-4">
         <div className="flex">
@@ -32,7 +32,7 @@ export function MemoBody({ memo }: MemoBodyProps) {
       {/* Body paragraphs */}
       <div className="space-y-4">
         {memo.body.map((paragraph, idx) => (
-          <p key={idx} className="text-sm whitespace-pre-line">
+          <p key={idx} className="whitespace-pre-line">
             {paragraph}
           </p>
         ))}

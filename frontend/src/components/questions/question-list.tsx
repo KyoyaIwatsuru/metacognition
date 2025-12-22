@@ -17,6 +17,7 @@ type QuestionListProps = {
   submitLabel?: string;
   disabled?: boolean;
   showSubmitButton?: boolean;
+  twoColumns?: boolean; // 2カラムで表示
 };
 
 export function QuestionList({
@@ -28,11 +29,14 @@ export function QuestionList({
   submitLabel = '解答を確定する',
   disabled = false,
   showSubmitButton = false,
+  twoColumns = false,
 }: QuestionListProps) {
+  const containerClass = twoColumns ? 'grid grid-cols-2 gap-x-0 gap-y-0' : 'space-y-4';
+
   return (
-    <div className="space-y-4">
+    <div className={containerClass}>
       {questions.map((q, index) => (
-        <div key={q.id} className="space-y-1">
+        <div key={q.id} className={twoColumns ? 'space-y-0.5' : 'space-y-1'}>
           <div className="text-[14px] leading-[2.4]">
             Q{index + 1}. {q.promptEn}
           </div>

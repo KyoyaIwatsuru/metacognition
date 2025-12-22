@@ -8,7 +8,7 @@ type ConferenceScheduleBodyProps = {
 
 export function ConferenceScheduleBody({ conferenceSchedule }: ConferenceScheduleBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.6] text-slate-800 rounded-b-3xl overflow-hidden">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 rounded-b-3xl overflow-hidden">
       {/* Header text */}
       <div className="text-center py-4 px-4 space-y-1">
         <p className="font-bold">{conferenceSchedule.title}</p>

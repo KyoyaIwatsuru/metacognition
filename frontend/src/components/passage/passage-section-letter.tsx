@@ -25,46 +25,50 @@ export function LetterBody({ letter }: LetterBodyProps) {
     if (letter.subject) headerRows.push({ label: 'Subject:', value: letter.subject });
 
     return (
-      <div className="text-[14px] leading-[1.8] text-slate-800">
-        {/* Eメールヘッダー（テーブル形式） */}
-        <table className="w-full border-2 border-black border-b-0 border-collapse bg-white">
-          <tbody>
-            {headerRows.map((row, idx) => (
-              <tr key={idx} className="border-b border-black last:border-b-0">
-                <td className="border-r border-black px-2 py-0.5 font-bold w-20 bg-white">
-                  {row.label}
-                </td>
-                <td className="px-2 py-0.5 bg-white">{row.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 flex">
+        {/* Left content area */}
+        <div className="flex-1">
+          {/* Eメールヘッダー（テーブル形式） */}
+          <table className="w-full border-collapse">
+            <tbody>
+              {headerRows.map((row, idx) => (
+                <tr key={idx} className="border-b border-black">
+                  <td className="border-r border-black px-2 py-0 font-bold w-16">{row.label}</td>
+                  <td className="px-2 py-0">{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-        {/* 本文部分（スクロールバー風装飾付き） */}
-        <div className="border-2 border-black bg-white relative">
-          {/* 右側スクロールバー風 */}
-          <div className="absolute right-0 top-0 bottom-0 w-4 border-l border-black flex flex-col justify-between items-center py-1">
-            <span className="text-xs">▲</span>
-            <span className="text-xs">▼</span>
-          </div>
-
-          {/* 本文コンテンツ */}
-          <div className="pr-5 px-2 py-2 space-y-3">
+          {/* 本文部分 */}
+          <div className="px-2 py-1">
             {/* 挨拶 */}
             {letter.greeting ? <p>{letter.greeting}</p> : null}
 
             {/* 本文 */}
             {letter.body.map((p, idx) => (
-              <p key={idx} className="whitespace-pre-line text-justify">
-                {p}
-              </p>
+              <p key={idx}>{p}</p>
             ))}
 
             {/* 結び */}
             {letter.closing ? <p>{letter.closing}</p> : null}
 
             {/* 署名 */}
-            {letter.senderName ? <p className="whitespace-pre-line">{letter.senderName}</p> : null}
+            {letter.senderName ? <p>{letter.senderName}</p> : null}
+          </div>
+        </div>
+
+        {/* Right scrollbar area */}
+        <div className="w-4 border-l border-black flex flex-col">
+          {/* Up arrow */}
+          <div className="flex items-center justify-center py-2">
+            <div className="w-0 h-0 border-l-4 border-r-4 border-b-[6px] border-transparent border-b-black" />
+          </div>
+          {/* Spacer */}
+          <div className="flex-1" />
+          {/* Down arrow */}
+          <div className="flex items-center justify-center py-2">
+            <div className="w-0 h-0 border-l-4 border-r-4 border-t-[6px] border-transparent border-t-black" />
           </div>
         </div>
       </div>

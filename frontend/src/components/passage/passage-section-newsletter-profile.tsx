@@ -12,7 +12,7 @@ type NewsletterProfileBodyProps = {
  */
 export function NewsletterProfileBody({ newsletterProfile }: NewsletterProfileBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800 p-4">
+    <div className="bg-white text-[14px] leading-[2.4] text-slate-800 p-4">
       {/* メインタイトル */}
       <h2 className="text-base font-bold mb-4">{newsletterProfile.title}</h2>
 

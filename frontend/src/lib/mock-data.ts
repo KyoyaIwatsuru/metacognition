@@ -2145,7 +2145,7 @@ const pre01MessagesEn = [
   {
     sender: 'Tzu-Tsu Yeh',
     time: '10:33 A.M.',
-    text: 'The Employee Agreement was not signed by the director until yesterday,\neven though you filled it out last week. The payment was sent out this\nmorning and you should receive it tomorrow.',
+    text: 'The Employee Agreement was not signed by the director until yesterday \neven though you filled it out last week. The payment was sent out this\nmorning and you should receive it tomorrow.',
   },
   {
     sender: 'Rex Martinez',
@@ -2729,9 +2729,10 @@ const pre05ArticleEn = {
   byline: 'By Erika Eaton',
   body: [
     'JACKSON (January 4)—Known for its large collection of culturally significant artifacts, the Haywood Museum is partnering with several municipalities throughout the Haywood Mountain region to open satellite locations. — [1] —. The first 5,000-square-meter "mini-museum" is set to open this May in Jackson. According to Haywood Museum Director Thaddeus Lopez, three more mini-museums are planned. — [2] —.',
-    "Speaking at Tuesday's groundbreaking ceremony in Jackson, Lopez said the mini-museums are part of the Haywood Museum's broader goal to enhance the public's appreciation of local history. — [3] —. \"Our exhibits and programs seek to honor our region's past in ways that are authentic and interactive,\" Lopez told about 40 onlookers, including Jackson Mayor Max Wu.",
-    "In addition to building mini-museums, the Haywood Museum has recently partnered with Merriweather University to record, analyze, and organize oral histories of longtime members of the Haywood community. — [4] —. To nominate someone to share their story for Ms. Finley's project, please visit www.haywoodmuseum.org.",
+    "Speaking at Tuesday's groundbreaking ceremony in Jackson, Lopez said the mini-museums are part of the Haywood Museum's broader goal to enhance the public's appreciation of local history. — [3] —. \"Our exhibits and programmings seek to honor our ancestors in ways that are authentic and interactive,\" Lopez told about 40 onlookers, including Jackson Mayor Max Wu.",
+    "In addition to building mini-museums, the Haywood Museum has hired Mollie Finley of Merriweather University to record, analyze, and organize oral histories of longtime members of the Haywood community. — [4] —. To nominate someone to share their story for Ms. Finley's project, please visit www.haywoodmuseum.org.",
   ],
+  singleColumn: true,
 };
 
 const pre05ArticleJa = {
@@ -2742,6 +2743,7 @@ const pre05ArticleJa = {
     '火曜日にジャクソンで行われた起工式で演説したLopezは、ミニ博物館は、郷土史に対する一般市民の理解を向上させるという、Haywood博物館のより大きな目標の一環だと述べた。— [3] —。「当館の展示物やプログラム制作は、真正かつ双方向的な方法でわれわれの祖先に敬意を表すことを目指しています」と、LopezはジャクソンのMax Wu市長をはじめとする約40人の見物人に語った。',
     'ミニ博物館の建設に加えて、Haywood博物館は、Haywood地域の長年の住民の口述歴史を録音、分析、整理するために、Merriweather大学のMollie Finleyを雇用した。— [4] —。Finley氏のプロジェクトのために体験を語ってくれる人物を推薦するにはwww.haywoodmuseum.orgにアクセスしてほしい。',
   ],
+  singleColumn: true,
 };
 
 const pre05Q1 = {
@@ -2976,6 +2978,7 @@ const pre07AdEn = {
     'Building 3: River view. Private balconies.',
     'Building 4: Close to a playground. Parking garage under the building.',
   ],
+  footer: 'Schedule a tour of our one- or two-bedroom units at www.moonstone.com/baltimore today!',
 };
 
 const pre07AdJa = {
@@ -2990,6 +2993,8 @@ const pre07AdJa = {
     '3号棟：川の眺め。専用バルコニー。',
     '4号棟：遊戯場に近い。建物の下に駐車場。',
   ],
+  footer:
+    '今すぐ、www.moonstone.com/baltimoreで、寝室1つのお部屋または寝室2つのお部屋の見学をご予約ください！',
 };
 
 const pre07EmailEn = {
@@ -3332,12 +3337,11 @@ const pre08Passage: Passage = {
         showScrollbar: true,
       },
     },
-    // English email 2 (from Grande to Cho) with decorative header
+    // English email 2 (from Grande to Cho)
     {
       layoutType: 'emailTable' as const,
       locale: 'en' as const,
       emailTable: {
-        title: '*E-mail*',
         headers: [
           { label: 'To:', value: 'Youngjoon Cho <yjcho@jaehakmarine.co.kr>' },
           { label: 'From:', value: 'Domenico Grande <d.grande@adeletto.it>' },
@@ -3360,7 +3364,6 @@ const pre08Passage: Passage = {
       layoutType: 'emailTable' as const,
       locale: 'ja' as const,
       emailTable: {
-        title: '*E-mail*',
         headers: [
           { label: '宛先：', value: 'Youngjoon Cho <yjcho@jaehakmarine.co.kr>' },
           { label: '送信者：', value: 'Domenico Grande <d.grande@adeletto.it>' },
@@ -4119,8 +4122,7 @@ const post06TrackingEn = {
   footerRight: [
     { label: 'Weight:', value: '23.5 kilograms' },
     { label: 'Service:', value: 'Ground shipment' },
-    { label: 'Message on package:', value: '' },
-    { label: '', value: 'Shipment of part number 264' },
+    { label: 'Message on package:', value: 'Shipment of part number 264' },
   ],
 };
 
@@ -4147,8 +4149,7 @@ const post06TrackingJa = {
   footerRight: [
     { label: '重量：', value: '23.5キログラム' },
     { label: '送付方法：', value: '陸送' },
-    { label: '小包の伝言欄：', value: '' },
-    { label: '', value: '番号264の部品の発送' },
+    { label: '小包の伝言欄：', value: '番号264の部品の発送' },
   ],
 };
 
@@ -4515,70 +4516,70 @@ const post07Passage: Passage = {
 // ===== Post-Test 問題8: Email Form + Conference Schedule =====
 
 const post08Email1En = {
-  to: 'Won Ho',
-  from: 'Martha Adesawa',
-  date: 'May 7',
-  subject: "Thursday's conference",
+  to: 'Won Ho Kang',
+  from: 'Ayaz Naseem',
+  date: '2 February',
+  subject: 'Introduction to Korean market',
   greeting: 'Dear Won Ho,',
   body: [
-    "I've just seen the updated conference schedule for Thursday. I would like your help presenting one of my sessions. I'm scheduled to give both session 2 and session 3 in room 1, but they are at the same time. I can present session 2 by myself, but I need you to present session 3.",
-    "In session 3, I'll be introducing the software that your division developed. Since you were on the development team, you are the perfect person to demonstrate it. I've attached my presentation slides to help you prepare. Please let me know if you have any questions.",
+    'I recently joined Hample Asset Managers in Sydney as an emerging business analyst with a particular focus on software technology companies. I would like to research some of the new related small businesses in Korea and have a couple of questions for you. In your opinion, what brokerage firm runs the best technology conference there? And are there any software startups that you know of that I should focus on?',
+    'I look forward to hearing from you.',
   ],
   closing: 'Many thanks,',
   signature: {
-    name: 'Martha Adesawa',
-    title: 'Marketing Manager',
+    name: 'Ayaz Naseem',
+    title: 'Analyst, Hample Asset Managers',
   },
 };
 
 const post08Email1Ja = {
-  to: 'Won Ho',
-  from: 'Martha Adesawa',
-  date: '5月7日',
-  subject: '木曜日のカンファレンスについて',
+  to: 'Won Ho Kang',
+  from: 'Ayaz Naseem',
+  date: '2月2日',
+  subject: '韓国市場へのご紹介',
   greeting: 'Won Hoさん',
   body: [
-    '木曜日のカンファレンスの最新スケジュールを確認しました。私のセッションの1つを発表するのを手伝ってほしいのです。私はルーム1でセッション2とセッション3の両方を担当することになっていますが、同じ時間帯です。セッション2は私一人で発表できますが、セッション3はあなたに発表してほしいのです。',
-    'セッション3では、あなたの部門が開発したソフトウェアを紹介する予定です。あなたは開発チームにいたので、デモンストレーションをするのに最適な人物です。準備の参考になるよう、私のプレゼンテーションスライドを添付しました。何か質問があればお知らせください。',
+    '私は、ソフトウエアテクノロジー企業に特に重点を置く新興ビジネスのアナリストとして、シドニーのHample資産管理会社に最近入社いたしました。韓国の関連する新規中小企業のいくつかを調査したいと思っており、あなたに2点お聞きしたいことがあります。あなたのお考えでは、韓国でどの仲介業者が最良のテクノロジー商談会を運営していますか。また、ご存じのソフトウエア新興企業で、私が重点を置くべき企業はありますか。',
+    'ご連絡をお待ちしております。',
   ],
   closing: 'よろしくお願いいたします。',
   signature: {
-    name: 'Martha Adesawa',
-    title: 'マーケティングマネージャー',
+    name: 'Ayaz Naseem',
+    title: 'アナリスト、Hample資産管理会社',
   },
 };
 
 const post08Email2En = {
-  to: 'Martha Adesawa',
-  from: 'Won Ho',
-  date: 'May 7',
-  subject: "RE: Thursday's conference",
-  greeting: 'Dear Martha,',
+  to: 'Ayaz Naseem',
+  from: 'Won Ho Kang',
+  date: '3 February',
+  subject: 'Re: Introduction to Korean market',
+  greeting: 'Hi, Ayaz,',
   body: [
-    'I would be happy to help. I saw in the presentation that you were planning to discuss the three different pricing levels. Shall I go into more detail about each of them during my demonstration?',
-    'Also, I will be attending a workshop from 3:00 to 4:00. It is about new sales techniques and will be very useful for my work. After the workshop, I could meet you to talk about any feedback from conference attendees.',
+    "It is a pleasure to make your acquaintance. My work is also focused on software technology. To respond to your questions, WR Asiana's conference is definitely the best and is scheduled to take place in Seoul next May. I will be attending the conference with a few colleagues, and I highly recommend that you join us. If you would like, I could forward contact information to you for the salesperson that covers your sector, and you can make your reservations through her.",
+    'It would be great to meet you in person if you are able to come. Also, feel free to reach out if you need help finding your way around the city.',
   ],
-  closing: 'Best regards,',
+  closing: 'Best,',
   signature: {
-    name: 'Won Ho',
-    title: 'Software Developer',
+    name: 'Won Ho Kang',
+    title: 'Senior Analyst, Hample Asset Managers',
   },
 };
 
 const post08Email2Ja = {
-  to: 'Martha Adesawa',
-  from: 'Won Ho',
-  date: '5月7日',
-  subject: 'RE: 木曜日のカンファレンスについて',
-  greeting: 'Marthaさん',
+  to: 'Ayaz Naseem',
+  from: 'Won Ho Kang',
+  date: '2月3日',
+  subject: 'Re: 韓国市場へのご紹介',
+  greeting: 'Ayazさん',
   body: [
-    '喜んでお手伝いします。プレゼンテーションで3つの異なる価格レベルについて説明する予定だったのを見ました。デモンストレーション中にそれぞれについてもっと詳しく説明しましょうか？',
-    'また、私は3:00から4:00までワークショップに参加する予定です。新しい営業テクニックについてで、私の仕事にとても役立ちます。ワークショップの後、カンファレンス参加者からのフィードバックについてお話しするためにお会いできます。',
+    'あなたとお知り合いになれてうれしく思います。私の仕事もソフトウエアテクノロジーに重点を置いています。ご質問にお答えしますと、WR Asiana社の協議会が間違いなく最良で、この5月にソウルで開催される予定です。私は数名の同僚とその協議会に出席することにしており、あなたも参加されることをぜひお勧めします。もしよろしければ、私たちの分野を担当する営業員の方の連絡先をあなたにお送りしますので、彼女を通してご自身の予約をすることが可能です。',
+    'あなたがおいでになるなら、直接お会いできると大変うれしく思います。また、市内を回るのに手助けが必要でしたらお気兼ねなくご連絡ください。',
   ],
-  closing: 'よろしくお願いいたします。',
+  closing: '敬具',
   signature: {
-    name: 'Won Ho',
-    title: 'ソフトウェア開発者',
+    name: 'Won Ho Kang',
+    title: '上級アナリスト、Hample資産管理会社',
   },
 };
 
@@ -4586,137 +4587,149 @@ const post08ScheduleEn = {
   title: 'WR Asiana Technology Conference, Thursday, 8 May',
   subtitle: 'Afternoon schedule, continued',
   subtitle2: 'Concurrent Business Sessions—2:00 to 3:00 P.M.',
-  columns: ['', 'Room 1', 'Room 2', 'Room 3', 'Room 4'],
+  columns: ['', '1', '2', '3', '4'],
   rows: [
     {
-      label: 'Session 2',
-      values: [
-        'Adesawa\nProject coordination tools',
-        'Hahn\nVideo conferencing equipment',
-        'Finley\nData security essentials',
-        'Barber\nFiling management',
-      ],
+      label: 'Sector',
+      values: ['Internet', 'Software', 'Hardware', 'Mobile Phones'],
     },
     {
-      label: 'Session 3',
-      values: [
-        'Adesawa\nClient database software',
-        'Oh\nOffice furniture design',
-        'Ramos\nTranslation services',
-        'Barber\nPayroll software',
-      ],
+      label: 'Company',
+      values: ['Wingbae Tech', 'Kedia', 'Namhaejin Max', 'Vindoh'],
+    },
+    {
+      label: 'Room',
+      values: ['Petunia Room', 'Rose Hall', 'Lily Suite', 'Tulip Salon'],
     },
   ],
 };
 
 const post08ScheduleJa = {
-  title: 'WRアジアテクノロジーカンファレンス、5月8日（木）',
-  subtitle: '午後のスケジュール（続き）',
-  subtitle2: '同時開催ビジネスセッション—午後2:00〜3:00',
-  columns: ['', 'ルーム1', 'ルーム2', 'ルーム3', 'ルーム4'],
+  title: 'WR Asiana社テクノロジー協議会　5月8日木曜日',
+  subtitle: '午後の予定表、続き',
+  subtitle2: '同時進行となるビジネスセッション—午後2時から3時まで',
+  columns: ['', '1', '2', '3', '4'],
   rows: [
     {
-      label: 'セッション2',
-      values: [
-        'Adesawa\nプロジェクト調整ツール',
-        'Hahn\nビデオ会議機器',
-        'Finley\nデータセキュリティの基礎',
-        'Barber\nファイル管理',
-      ],
+      label: '分野',
+      values: ['インターネット', 'ソフトウェア', 'ハードウェア', '携帯電話'],
     },
     {
-      label: 'セッション3',
-      values: [
-        'Adesawa\nクライアントデータベースソフトウェア',
-        'Oh\nオフィス家具デザイン',
-        'Ramos\n翻訳サービス',
-        'Barber\n給与計算ソフトウェア',
-      ],
+      label: '企業',
+      values: ['Wingbae Tech社', 'Kedia社', 'Namhaejin Max社', 'Vindoh社'],
+    },
+    {
+      label: '部屋',
+      values: ['ペチュニア・ルーム', 'バラ・ホール', 'ユリ・スイート', 'チューリップ・サロン'],
     },
   ],
 };
 
 const post08Q1 = {
   id: 'post_08_q1',
-  promptEn: 'What is suggested about Ms. Adesawa?',
-  promptJa: 'Adesawaさんについて何が示唆されていますか。',
+  promptEn: 'Why did Mr. Naseem write the first e-mail?',
+  promptJa: 'Naseemさんはなぜ1通目のEメールを書いたのですか。',
   choices: [
-    { id: 'a', textEn: 'She recently changed departments.', textJa: '彼女は最近部署を異動した。' },
+    { id: 'a', textEn: 'To ask for directions to a meeting', textJa: '会議への行き方を尋ねるため' },
     {
       id: 'b',
-      textEn: 'She helped develop some software.',
-      textJa: '彼女はソフトウェア開発を手伝った。',
+      textEn: 'To request information on companies',
+      textJa: '企業に関する情報を求めるため',
     },
     {
       id: 'c',
-      textEn: 'She will give two presentations.',
-      textJa: '彼女は2つのプレゼンテーションを行う予定である。',
+      textEn: 'To offer investment advice',
+      textJa: '投資の助言を与えるため',
     },
     {
       id: 'd',
-      textEn: 'She manages a team of salespeople.',
-      textJa: '彼女は営業チームを管理している。',
+      textEn: "To learn more about Mr. Kang's job",
+      textJa: 'Kangさんの仕事についてもっと知るため',
     },
   ],
-  correctChoiceId: 'c',
+  correctChoiceId: 'b',
   explanationGeneralJa:
-    '最初のEメールで、AdesawaさんはWon Hoさんにセッション3の発表を手伝ってほしいと頼んでいます。スケジュール表を見ると、Adesawaさんはルーム1でセッション2とセッション3の両方を担当しています。Won Hoさんがセッション3を担当することになっても、Adesawaさん自身はセッション2を発表すると述べています。',
+    '1通目のEメールの1段落2〜3行目で、NaseemさんはKangさんに宛てて「韓国の関連する新規中小企業のいくつかを調査したいと思っており、あなたに2点お聞きしたい」と述べています。質問は「韓国でどの仲介業者が最良のテクノロジー協議会を運営しているか」と「ご存じのソフトウエア新興企業で、私が重点を置くべき企業はあるか」という、企業に関する2つの情報を求めるものです。よって、（B）が正解。',
   metacogFeedbackJa: '',
 };
 
 const post08Q2 = {
   id: 'post_08_q2',
-  promptEn: 'What will Mr. Won Ho most likely discuss during his presentation?',
-  promptJa: 'Won Hoさんはプレゼンテーション中に何について話す可能性が最も高いですか。',
+  promptEn: 'According to Mr. Kang, how should Mr. Naseem arrange his attendance at a conference?',
+  promptJa: 'Kangさんによると、Naseemさんは自身の協議会への出席をどのように手配すべきですか。',
   choices: [
-    { id: 'a', textEn: 'Sales techniques', textJa: '営業テクニック' },
-    { id: 'b', textEn: 'Pricing options', textJa: '価格オプション' },
-    { id: 'c', textEn: 'Office furniture', textJa: 'オフィス家具' },
-    { id: 'd', textEn: 'Translation services', textJa: '翻訳サービス' },
+    {
+      id: 'a',
+      textEn: 'By calling a customer service department',
+      textJa: '顧客サービス部門に電話することによって',
+    },
+    {
+      id: 'b',
+      textEn: 'By speaking with a travel agent',
+      textJa: '旅行業者と話をすることによって',
+    },
+    { id: 'c', textEn: 'By contacting a salesperson', textJa: '営業員に連絡することによって' },
+    {
+      id: 'd',
+      textEn: "By visiting WR Asiana's Web site",
+      textJa: 'WR Asiana社のウェブサイトにアクセスすることによって',
+    },
   ],
-  correctChoiceId: 'b',
+  correctChoiceId: 'c',
   explanationGeneralJa:
-    '2通目のEメールで、Won Hoさんは「プレゼンテーションで3つの異なる価格レベルについて説明する予定だったのを見ました。デモンストレーション中にそれぞれについてもっと詳しく説明しましょうか？」と述べています。これは価格オプションについて話す予定であることを示しています。',
+    '2通目のEメールでKangさんは、NaseemさんにWR Asiana社の協議会への参加を勧め、「もしよろしければ、私たちの分野を担当する営業員の方の連絡先をあなたにお送りしますので、彼女を通してご自身の予約をすることが可能です」と述べています。つまり、WR Asiana社の営業員をNaseemさんに紹介するので、自身で直接その営業員に連絡して協議会への出席予約をするよう説明しています。よって、（C）が正解。',
   metacogFeedbackJa: '',
 };
 
 const post08Q3 = {
   id: 'post_08_q3',
-  promptEn: 'What does Mr. Won Ho indicate he will do at 3:00 P.M.?',
-  promptJa: 'Won Hoさんは午後3時に何をする予定だと述べていますか。',
+  promptEn: 'What is suggested about Mr. Kang?',
+  promptJa: 'Kangさんについて何が分かりますか。',
   choices: [
-    { id: 'a', textEn: 'Lead a workshop', textJa: 'ワークショップを主導する' },
-    { id: 'b', textEn: 'Meet with Ms. Adesawa', textJa: 'Adesawaさんと会う' },
-    { id: 'c', textEn: 'Attend a session', textJa: 'セッションに参加する' },
-    { id: 'd', textEn: 'Give a presentation', textJa: 'プレゼンテーションを行う' },
+    {
+      id: 'a',
+      textEn: 'He travels regularly to Sydney.',
+      textJa: '彼は定期的にシドニーへ旅行する。',
+    },
+    {
+      id: 'b',
+      textEn: 'He does not like attending professional conferences.',
+      textJa: '彼は専門的な協議会に出席することを好まない。',
+    },
+    { id: 'c', textEn: 'He lives outside of Seoul.', textJa: '彼はソウルの外に住んでいる。' },
+    {
+      id: 'd',
+      textEn: "He forgot to answer all of Mr. Naseem's questions.",
+      textJa: '彼はNaseemさんの質問の全てに答えるのを忘れた。',
+    },
   ],
-  correctChoiceId: 'c',
+  correctChoiceId: 'd',
   explanationGeneralJa:
-    '2通目のEメールで、Won Hoさんは「私は3:00から4:00までワークショップに参加する予定です」と述べています。ワークショップに参加する（attend）ことはセッションに参加することと同義です。',
+    'Naseemさんは、1通目のEメールで「韓国でどの仲介業者が最良のテクノロジー協議会を運営しているか」と「ソフトウエア新興企業で、私が重点を置くべき企業はあるか」という2つの質問をしています。それに対しKangさんは、2通目のEメールで1つ目の質問に「WR Asiana社の協議会が間違いなく最良で、この5月にソウルで開催される予定だ」と答えていますが、2つ目の質問である重点を置くべきソフトウエア新興企業については答えていません。よって、（D）が正解。',
   metacogFeedbackJa: '',
 };
 
 const post08Q4 = {
   id: 'post_08_q4',
-  promptEn: 'What is the subject of Session 3 in Room 1?',
-  promptJa: 'ルーム1のセッション3のテーマは何ですか。',
+  promptEn: 'What session will Mr. Kang most likely attend at 2 P.M. on May 8?',
+  promptJa: 'Kangさんは5月8日午後2時に、どのセッションに出席すると考えられますか。',
   choices: [
-    { id: 'a', textEn: 'Project coordination tools', textJa: 'プロジェクト調整ツール' },
-    { id: 'b', textEn: 'Client database software', textJa: 'クライアントデータベースソフトウェア' },
-    { id: 'c', textEn: 'Data security essentials', textJa: 'データセキュリティの基礎' },
-    { id: 'd', textEn: 'Payroll software', textJa: '給与計算ソフトウェア' },
+    { id: 'a', textEn: "Wingbae Tech's session", textJa: 'Wingbae Tech社のセッション' },
+    { id: 'b', textEn: "Kedia's session", textJa: 'Kedia社のセッション' },
+    { id: 'c', textEn: "Namhaejin Max's session", textJa: 'Namhaejin Max社のセッション' },
+    { id: 'd', textEn: "Vindoh's session", textJa: 'Vindoh社のセッション' },
   ],
   correctChoiceId: 'b',
   explanationGeneralJa:
-    'スケジュール表を見ると、ルーム1のセッション3は「Adesawa - Client database software（クライアントデータベースソフトウェア）」となっています。',
+    '予定表は5月8日に開かれるWR Asiana社のテクノロジー協議会の午後2時から3時の間に同時進行するセッションを示しています。Kangさんは2通目のEメールで「私の仕事もソフトウエアテクノロジーに重点を置いている」と述べています。予定表のソフトウェアの列を見ると、すぐ下の企業名にKediaとあるので、Kangさんは自身が重点を置く分野の（B）「Kedia社のセッション」に出席すると考えられます。',
   metacogFeedbackJa: '',
 };
 
 const post08Passage: Passage = {
   id: 'post_08',
-  title: 'Conference Schedule and Emails',
+  title: 'E-mails and Schedule - Korean Market',
   direction: 'Questions 1-4 refer to the following e-mails and schedule.',
-  directionJa: '問題1-4は次のEメールとスケジュールに関するものです。',
+  directionJa: '問題1-4は次の2通のEメールと予定表に関するものです。',
   paragraphsEn: [],
   paragraphsJa: [],
   sections: [

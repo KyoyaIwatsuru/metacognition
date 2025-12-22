@@ -15,7 +15,7 @@ import { logEvent } from '@/lib/logger';
 import { resetLogPath } from '@/lib/tauri-log-bridge';
 import { toast } from 'sonner';
 
-const participants = ['Pre001', 'Pre002', 'Pre003', 'Pre004'];
+const participants = Array.from({ length: 20 }, (_, i) => `P${String(i + 1).padStart(3, '0')}`);
 
 function HomeHeader() {
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
@@ -65,12 +65,13 @@ export default function HomePage() {
     checkEyeTrackerStatus();
   }, []);
 
-  const validate = () => {
+  const validate = (phase: 'pre' | 'training' | 'post') => {
     if (!participantId) {
       toast.error('参加者IDを選択してください');
       return false;
     }
-    if (!group) {
+    // グループはtrainingの時のみ必須
+    if (phase === 'training' && !group) {
       toast.error('グループを選択してください');
       return false;
     }
@@ -82,7 +83,7 @@ export default function HomePage() {
   };
 
   const handleStart = async (phase: 'pre' | 'training' | 'post') => {
-    if (!validate()) return;
+    if (!validate(phase)) return;
     setPhase(phase);
     const res = await startRecording();
     if (!res.ok) {
@@ -106,7 +107,9 @@ export default function HomePage() {
         <header className="space-y-1">
           <h1 className="text-3xl font-semibold">Reading Practice</h1>
           <p className="text-sm text-zinc-600">
-            参加者IDとグループを選択し、Eye trackerを接続してからフェーズを開始してください。
+            参加者IDを選択し、Eye trackerを接続してからフェーズを開始してください。
+            <br />
+            <span className="text-xs text-zinc-500">※グループの選択はPractice時のみ必須です</span>
           </p>
         </header>
 

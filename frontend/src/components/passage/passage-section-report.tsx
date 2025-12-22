@@ -12,7 +12,7 @@ type ReportBodyProps = {
  */
 export function ReportBody({ report }: ReportBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* ヘッダー（組織名） */}
       <div className="px-3 py-2 text-center">
         <p className="text-lg font-bold tracking-wide">{report.header}</p>

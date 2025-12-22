@@ -38,7 +38,7 @@ export function CustomerReviewsBody({ customerReviews }: CustomerReviewsBodyProp
         </div>
 
         {/* Reviews */}
-        <div className="text-[14px] leading-[1.6] text-slate-800">
+        <div className="text-[14px] leading-[2.4] text-slate-800">
           {customerReviews.reviews.map((review, idx) => (
             <div key={idx}>
               {/* Review content with padding */}
@@ -47,7 +47,7 @@ export function CustomerReviewsBody({ customerReviews }: CustomerReviewsBodyProp
                   <span className="font-bold">{review.name}</span>
                   <StarRating rating={review.rating} />
                 </p>
-                <p className="text-sm whitespace-pre-line">{review.text}</p>
+                <p className="whitespace-pre-line">{review.text}</p>
               </div>
               {/* Dashed separator extending full width (not after last review) */}
               {idx < customerReviews.reviews.length - 1 && (

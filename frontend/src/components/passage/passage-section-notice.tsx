@@ -29,7 +29,7 @@ export function NoticeBody({ notice }: NoticeBodyProps) {
   };
 
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800 p-4">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 p-4">
       {/* タイトル */}
       <h2 className="text-lg font-bold text-center mb-3">{notice.title}</h2>
 

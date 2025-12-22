@@ -12,7 +12,7 @@ type ScheduleBodyProps = {
  */
 export function ScheduleBody({ schedule }: ScheduleBodyProps) {
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800">
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* ヘッダー部分（会社名 + サブヘッダー） */}
       <div className="border-b border-black px-3 py-2 text-center">
         <p className="text-base font-bold">{schedule.header}</p>

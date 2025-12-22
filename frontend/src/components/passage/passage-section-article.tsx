@@ -9,21 +9,43 @@ type ArticleBodyProps = {
 /**
  * Article/News format matching TOEIC style.
  * Includes headline, byline (author), and body paragraphs with [1][2][3][4] markers.
- * Uses 2-column newspaper-style layout.
+ * Uses 2-column newspaper-style layout by default, or 1-column press-release style.
  */
 export function ArticleBody({ article }: ArticleBodyProps) {
-  // 本文を2つに分割（左カラムと右カラム）
+  // 1カラムレイアウト（プレスリリース風）
+  if (article.singleColumn) {
+    return (
+      <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 p-4">
+        {/* タイトル */}
+        <h2 className="text-lg font-bold text-center mb-1">{article.headline}</h2>
+        {/* 著者（イタリック・中央揃え・下線付き） */}
+        {article.byline ? (
+          <p className="text-sm italic text-center border-b border-black pb-2 mb-3">
+            {article.byline}
+          </p>
+        ) : null}
+        {/* 本文 */}
+        {article.body.map((p, idx) => (
+          <p key={idx} className="whitespace-pre-line text-justify mb-3">
+            {p}
+          </p>
+        ))}
+      </div>
+    );
+  }
+
+  // 2カラムレイアウト（新聞風）
   const midPoint = Math.ceil(article.body.length / 2);
   const leftBody = article.body.slice(0, midPoint);
   const rightBody = article.body.slice(midPoint);
 
   return (
-    <div className="border-2 border-black bg-white text-[14px] leading-[1.8] text-slate-800 p-3">
-      {/* 2カラムレイアウト */}
-      <div className="flex gap-6">
-        {/* 左カラム：タイトル + 著者名 + 本文 */}
+    <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 p-3">
+      {/* 2カラムレイアウト（上端揃え） */}
+      <div className="flex gap-6 items-start">
+        {/* 左カラム：タイトル + 著者 + 本文 */}
         <div className="flex-1">
-          <h2 className="text-base font-bold mb-1">{article.headline}</h2>
+          <h2 className="text-base font-bold mb-1 text-center">{article.headline}</h2>
           {article.byline ? <p className="text-sm mb-2">{article.byline}</p> : null}
           {leftBody.map((p, idx) => (
             <p key={idx} className="whitespace-pre-line text-justify mb-3">
@@ -31,18 +53,8 @@ export function ArticleBody({ article }: ArticleBodyProps) {
             </p>
           ))}
         </div>
-
-        {/* 右カラム：タイトル＋著者分のスペーサー + 本文 */}
+        {/* 右カラム：本文のみ（タイトルと同じ高さから開始） */}
         <div className="flex-1">
-          {/* タイトルと著者と同じ高さの透明スペーサー（個別にinvisible） */}
-          <h2 className="text-base font-bold mb-1 invisible" aria-hidden="true">
-            {article.headline}
-          </h2>
-          {article.byline ? (
-            <p className="text-sm mb-2 invisible" aria-hidden="true">
-              {article.byline}
-            </p>
-          ) : null}
           {rightBody.map((p, idx) => (
             <p key={idx} className="whitespace-pre-line text-justify mb-3">
               {p}
