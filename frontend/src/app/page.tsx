@@ -93,7 +93,6 @@ export default function HomePage() {
       toast.error(`recording/start に失敗しました: ${res.error ?? '不明なエラー'}`);
       return;
     }
-    logEvent({ event: 'eyetracker_recording_start' });
     logEvent({ event: 'phase_start', phase });
     if (phase === 'pre') router.push('/pre/intro');
     else if (phase === 'training') router.push('/training/intro');

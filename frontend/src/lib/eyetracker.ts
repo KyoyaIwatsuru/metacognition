@@ -120,7 +120,6 @@ export async function startRecording() {
 export async function stopRecording() {
   const res = await get('/recording/stop');
   if (res.ok) {
-    logEvent({ event: 'eyetracker_recording_stop' });
     return { ok: true };
   }
   return { ok: false, error: res.error };

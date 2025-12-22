@@ -15,6 +15,10 @@ export default function PostCompletePage() {
 
   useEffect(() => {
     captureScreen();
+    logEvent({ event: 'phase_complete_enter', phase: 'post' });
+    return () => {
+      logEvent({ event: 'phase_complete_exit', phase: 'post' });
+    };
   }, []);
 
   const handleFinish = async () => {

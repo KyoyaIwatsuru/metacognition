@@ -15,6 +15,10 @@ export default function PreCompletePage() {
 
   useEffect(() => {
     captureScreen();
+    logEvent({ event: 'phase_complete_enter', phase: 'pre' });
+    return () => {
+      logEvent({ event: 'phase_complete_exit', phase: 'pre' });
+    };
   }, []);
 
   const handleFinish = async () => {
