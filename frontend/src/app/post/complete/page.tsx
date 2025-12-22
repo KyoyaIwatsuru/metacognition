@@ -16,9 +16,6 @@ export default function PostCompletePage() {
   useEffect(() => {
     captureScreen();
     logEvent({ event: 'phase_complete_enter', phase: 'post' });
-    return () => {
-      logEvent({ event: 'phase_complete_exit', phase: 'post' });
-    };
   }, []);
 
   const handleFinish = async () => {
@@ -27,6 +24,7 @@ export default function PostCompletePage() {
       toast.error('recording/stop に失敗しました');
       return;
     }
+    logEvent({ event: 'phase_complete_exit', phase: 'post' });
     logEvent({ event: 'phase_end', phase: 'post' });
     setPhase(undefined);
     router.push('/');

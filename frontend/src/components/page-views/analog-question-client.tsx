@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
 import { PassageBody } from '@/components/passage/passage-body';
@@ -46,10 +46,12 @@ export function AnalogQuestionClient({
     useState<Record<string, string | undefined>>(initialSelections);
   const [timedOut, setTimedOut] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const startTimeRef = useRef<number>(0);
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
 
   useEffect(() => {
+    startTimeRef.current = Date.now();
     captureScreen();
     logEvent({ event: 'analog_question_open', passage_id: passageId, analog_id: analog.id });
   }, [analog.id, passageId]);
@@ -78,6 +80,8 @@ export function AnalogQuestionClient({
       };
     });
     const correctCount = results.filter((r) => r.is_correct === true).length;
+    const elapsedMs = Date.now() - startTimeRef.current;
+    const remainingMs = Math.max(0, timerMs - elapsedMs);
     logEvent({
       event: 'analog_answer_submit',
       passage_id: passageId,
@@ -87,12 +91,22 @@ export function AnalogQuestionClient({
       correct_count: correctCount,
       total_count: analog.questions.length,
       unanswered,
+      remaining_time_ms: remainingMs,
     });
     setAnalogResult(analog.id, selections);
     if (confirmHref) {
       router.push(confirmHref);
     }
-  }, [selections, passageId, analog.id, analog.questions, confirmHref, router, setAnalogResult]);
+  }, [
+    selections,
+    passageId,
+    analog.id,
+    analog.questions,
+    confirmHref,
+    router,
+    setAnalogResult,
+    timerMs,
+  ]);
 
   const handleTimeout = () => {
     if (timedOut) return;

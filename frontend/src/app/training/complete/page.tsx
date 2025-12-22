@@ -15,6 +15,7 @@ export default function TrainingCompletePage() {
 
   useEffect(() => {
     captureScreen();
+    logEvent({ event: 'phase_complete_enter', phase: 'training' });
   }, []);
 
   const handleFinish = async () => {
@@ -23,6 +24,7 @@ export default function TrainingCompletePage() {
       toast.error('recording/stop に失敗しました');
       return;
     }
+    logEvent({ event: 'phase_complete_exit', phase: 'training' });
     logEvent({ event: 'phase_end', phase: 'training' });
     setPhase(undefined);
     router.push('/');
