@@ -27,10 +27,10 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
   const group = useAppStore((s) => s.group);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
 
-  // 類題がある場合は類題1へ、ない場合はreflection2へ
+  // 類題がある場合はanalog-introへ、ない場合はreflection2へ
   const nextHref = useMemo(() => {
     if (passage.analogs && passage.analogs.length > 0) {
-      return `/training/${passage.id}/analog/${passage.analogs[0].id}`;
+      return `/training/${passage.id}/analog-intro`;
     }
     return `/training/${passage.id}/reflection2`;
   }, [passage.id, passage.analogs]);

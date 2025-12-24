@@ -24,18 +24,18 @@ type AnalogQuestionClientProps = {
   confirmHref?: string;
 };
 
-const DEFAULT_TIME_MS = 6 * 60 * 1000;
-
 export function AnalogQuestionClient({
   passageId,
   analog,
-  timerMs = DEFAULT_TIME_MS,
+  timerMs: timerMsProp,
   confirmTitle,
   confirmDescription,
   confirmLabel,
   submitLabel,
   confirmHref,
 }: AnalogQuestionClientProps) {
+  // (1.5×設問数 + 0.5×本文数) + 0.5分 (本文数は1)
+  const timerMs = timerMsProp ?? (analog.questions.length * 1.5 + 1) * 60 * 1000;
   const router = useRouter();
   const setAnalogResult = useAppStore((s) => s.setAnalogResult);
   const initialSelections = useMemo(

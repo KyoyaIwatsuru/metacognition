@@ -28,8 +28,8 @@ export default async function PostPassagePage({ params }: PageProps) {
     ? '戻ることはできません。よろしいですか？'
     : 'テストを終了します。戻ることはできません。よろしいですか？';
 
-  // 1問あたり1.5分
-  const timerMs = passage.questions.length * 1.5 * 60 * 1000;
+  // (1.5×設問数 + 0.5×本文数) + 0.5分 (本文数は1)
+  const timerMs = (passage.questions.length * 1.5 + 1) * 60 * 1000;
 
   return (
     <PassageQuestionClient

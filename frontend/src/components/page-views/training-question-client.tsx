@@ -11,6 +11,9 @@ type TrainingQuestionClientProps = {
 export function TrainingQuestionClient({ passage }: TrainingQuestionClientProps) {
   const setTrainingResult = useAppStore((s) => s.setTrainingResult);
 
+  // (1.5×設問数 + 0.5×本文数) + 0.5分 (本文数は1)
+  const timerMs = (passage.questions.length * 1.5 + 1) * 60 * 1000;
+
   const handleSubmit = (answers: Record<string, string | undefined>) => {
     const allCorrect = passage.questions.every(
       (q) => answers[q.id] && answers[q.id] === q.correctChoiceId
@@ -22,6 +25,7 @@ export function TrainingQuestionClient({ passage }: TrainingQuestionClientProps)
     <PassageQuestionClient
       passage={passage}
       showJapanese={false}
+      timerMs={timerMs}
       confirmTitle="解答を確定します"
       confirmDescription="次に進むと戻れません。よろしいですか？"
       confirmLabel="解答する"
