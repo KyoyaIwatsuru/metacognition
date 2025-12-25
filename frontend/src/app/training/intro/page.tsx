@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { logEvent } from '@/lib/logger';
+import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 
 export default function TrainingIntroPage() {
@@ -11,6 +12,7 @@ export default function TrainingIntroPage() {
   const group = useAppStore((s) => s.group);
 
   useEffect(() => {
+    captureScreen();
     logEvent({ event: 'phase_intro_enter', phase: 'training' });
     return () => {
       logEvent({ event: 'phase_intro_exit', phase: 'training' });

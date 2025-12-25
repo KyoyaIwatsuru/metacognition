@@ -12,7 +12,7 @@ type TextMessageChainBodyProps = {
  */
 export function TextMessageChainBody({ textMessageChain }: TextMessageChainBodyProps) {
   return (
-    <div className="border-2 border-black rounded-3xl bg-white text-[14px] leading-[2.4] text-slate-800 p-1 max-w-lg mx-auto">
+    <div className="border-2 border-black rounded-3xl bg-white text-[14px] leading-[2.4] text-slate-800 p-1 max-w-xl mx-auto">
       {/* 上部のドット装飾 */}
       <div className="flex justify-end items-center px-4 py-2">
         <div className="flex gap-1">

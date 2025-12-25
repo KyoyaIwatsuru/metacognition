@@ -18,14 +18,14 @@ export function OnlineChatDiscussionBody({ onlineChatDiscussion }: OnlineChatDis
 
       {/* Message area + scrollbar decoration */}
       <div className="flex">
-        <div className="flex-1 px-4 py-3 space-y-4">
+        <div className="flex-1 px-4 py-3 space-y-3">
           {onlineChatDiscussion.messages.map((msg, idx) => (
-            <div key={idx}>
-              <p className="font-bold">
+            <p key={idx}>
+              <span className="font-bold">
                 {msg.sender} [{msg.time}]
-              </p>
-              <p className="leading-[2.4]">{msg.text}</p>
-            </div>
+              </span>{' '}
+              {msg.text}
+            </p>
           ))}
         </div>
         {/* Right scrollbar decoration */}
