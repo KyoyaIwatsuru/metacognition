@@ -1,4 +1,4 @@
-﻿import type { Passage } from '@/lib/types';
+﻿import type { Passage, Question } from '@/lib/types';
 
 // 広告の本文（3段落）
 const adBodyEn = [
@@ -42,7 +42,7 @@ Antonio Varela`;
 // 広告の本文（日本語・3段落）
 const adBodyJa = [
   'Keller衣装社からスーツを借りるのが、これまでにないほど簡単になりました。現在、男性用フォーマルウエアがXSからXXLまでの幅広いサイズ展開となり、全てオンラインでお借りいただけます。',
-  '結婚式、準正装のイベント、あるいはその他の特別な行事のいずれにご出席であれ、当社はあなたにぴったりのスーツをご用意しております。当社ウェブサイトのwww.Kelleratire.comにアクセスして、幅広いスタイル、色、そして生地をご覧ください。当社のスタイリング専門家の一人がいつでもあなたが選んだ品についてチャットでお話しし、当社の極めて精密なオンラインの採寸ウィザードの使い方を一つ一つ丁寧にご説明します。あなたがご自身にぴったり合う素晴らしいスーツを見つけられるよう、私たちがお手伝いをいたします。',
+  '結婚式、準正装のイベント、あるいはその他の特別な行事のいずれにご出席であれ、当社はあなたにぴったりのスーツをご用意しております。当社ウェブサイトのwww.kelleratire.comにアクセスして、幅広いスタイル、色、そして生地をご覧ください。当社のスタイリング専門家の一人がいつでもあなたが選んだ品についてチャットでお話しし、当社の極めて精密なオンラインの採寸ウィザードの使い方を一つ一つ丁寧にご説明します。あなたがご自身にぴったり合う素晴らしいスーツを見つけられるよう、私たちがお手伝いをいたします。',
   '当社の標準配送サービスは、ご注文品を3～5日でお手元にお届けします。より早いサービスとして、追加料金50ドルで翌日配送をご提供しております。',
 ];
 
@@ -204,21 +204,13 @@ const basePassage: Passage = {
         greeting: 'Ford 様',
         body: letterBodyJa,
         closing: '敬具',
-        signature: 'Antonio Varela',
+        signature: 'Antonio Varela（署名）',
         senderName: 'Antonio Varela',
       },
     },
   ],
   questions: [question1, question2],
 };
-
-// Pre/Post 用: 同じ設問を使い回して 4 問に水増し
-const prePostQuestions = [
-  question1,
-  question2,
-  { ...question1, id: 'q3' },
-  { ...question2, id: 'q4' },
-];
 
 // ===== A群 類題1: Marsantis Shipping (メール + スケジュール表) =====
 
@@ -272,27 +264,27 @@ const tr01An1Q1 = {
   promptJa: 'Aznar さんはなぜEメールを書いたと考えられますか。',
   choices: [
     {
-      id: 'tr_01_an1_q1_a',
+      id: 'a',
       textEn: 'To explain a delay',
       textJa: '遅延を説明するため',
     },
     {
-      id: 'tr_01_an1_q1_b',
+      id: 'b',
       textEn: 'To request a shipment',
       textJa: '出荷を依頼するため',
     },
     {
-      id: 'tr_01_an1_q1_c',
+      id: 'c',
       textEn: 'To offer a discount',
       textJa: '割引を提供するため',
     },
     {
-      id: 'tr_01_an1_q1_d',
+      id: 'd',
       textEn: 'To clarify a policy',
       textJa: '方針を明確にするため',
     },
   ],
-  correctChoiceId: 'tr_01_an1_q1_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `1つ目の本文のEメールの一番下の送信者氏名の肩書から、Aznarさんは営業業務を担当していると分かる。AznarさんはLeeさんに宛てて、同1段落の2～3行目で、Leeさんが注文したトラックについて、Apparently the earliest we can get the TC73 trucks to you is 8 May, which puts us three days behind our estimated delivery date.「どうやら、TC73 トラックを届けることができる最短日程は5月8日で、当社が見積もった納期より3日遅れるということになる」とトラックの納期の遅延について伝えている。以降でその理由や謝罪を述べていることからも、（A）が正解。delay「遅延」。（B） shipment「出荷、配送」。（D） clarify「〜を明確にする」。`,
   metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
 この設問は「なぜEメールを書いたか」という目的を問うものです。メールの目的は冒頭部分で明示されることが多いです。`,
@@ -304,27 +296,27 @@ const tr01An1Q2 = {
   promptJa: 'TC73 トラックの輸送目的地はどこですか。',
   choices: [
     {
-      id: 'tr_01_an1_q2_a',
+      id: 'a',
       textEn: 'Canada',
       textJa: 'カナダ',
     },
     {
-      id: 'tr_01_an1_q2_b',
+      id: 'b',
       textEn: 'Mexico',
       textJa: 'メキシコ',
     },
     {
-      id: 'tr_01_an1_q2_c',
+      id: 'c',
       textEn: 'United States',
       textJa: 'アメリカ',
     },
     {
-      id: 'tr_01_an1_q2_d',
+      id: 'd',
       textEn: 'Japan',
       textJa: '日本',
     },
   ],
-  correctChoiceId: 'tr_01_an1_q2_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `1つ目の本文の1段落1～2行目で、Leeさんが注文したトラックについて、Aznarさんは海運会社のMarsantis社と連絡を取っていたとあり、続く同2~3行目で、TC73トラックが輸送先である注文主のLeeさんの元に到着可能な日程は最短で5月8日と伝えている。2つ目の本文のMarsantis海運社の船便のスケジュール表を見ると、同4段落のYoshimo号という船が5月8日にアメリカのサンディエゴに寄港する予定だと分かるので、（C）が正解。destination「目的地」。`,
   metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
 この設問は具体的な情報を問うものです。複数の文書から情報を照合して答えを導き出す必要があります。`,
@@ -336,27 +328,27 @@ const tr01An1Q3 = {
   promptJa: 'スケジュール表によると、どの船がカナダから日本へ直行しますか。',
   choices: [
     {
-      id: 'tr_01_an1_q3_a',
+      id: 'a',
       textEn: 'The Olympia',
       textJa: 'Olympia 号',
     },
     {
-      id: 'tr_01_an1_q3_b',
+      id: 'b',
       textEn: 'The Pegasus',
       textJa: 'Pegasus 号',
     },
     {
-      id: 'tr_01_an1_q3_c',
+      id: 'c',
       textEn: 'The Karenga IV',
       textJa: 'Karenga IV 号',
     },
     {
-      id: 'tr_01_an1_q3_d',
+      id: 'd',
       textEn: 'The Yoshimo',
       textJa: 'Yoshimo 号',
     },
   ],
-  correctChoiceId: 'tr_01_an1_q3_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `2つ目の本文のスケジュール表で、カナダのハリファクスと日本の豊橋の間にある欄を見ると、同2段落より Pegasus号はベラクルスの欄には日付の記載がなく、サンディエゴの欄にはcancelled「中止」とある。よって同号は、ベラクルスにもサンディエゴにも寄港せず、カナダから日本に直行すると分かるので（B）が正解。directly「直接、真っすぐに」。（A）（C）（D）いずれもメキシコのベラクルスに寄港するので直行ではない。`,
   metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
 この設問はスケジュール表から具体的な情報を読み取る問題です。各船の寄港地を確認し、直行便を特定する必要があります。`,
@@ -446,31 +438,31 @@ const tr01Analog2Q1 = {
   promptJa: 'Andrewsさんはイベントが何時に始まることを勧めていますか。',
   choices: [
     {
-      id: 'tr_01_an2_q1_a',
+      id: 'a',
       textEn: 'At 4:00 P.M.',
       textJa: '午後4時',
     },
     {
-      id: 'tr_01_an2_q1_b',
+      id: 'b',
       textEn: 'At 5:00 P.M.',
       textJa: '午後5時',
     },
     {
-      id: 'tr_01_an2_q1_c',
+      id: 'c',
       textEn: 'At 6:00 P.M.',
       textJa: '午後6時',
     },
     {
-      id: 'tr_01_an2_q1_d',
+      id: 'd',
       textEn: 'At 7:00 P.M.',
       textJa: '午後7時',
     },
   ],
-  correctChoiceId: 'tr_01_an2_q1_a',
-  explanationGeneralJa: `Andrewsさんとは、2つ目の本文のEメールの送信者で、Greencoveケータリング社のオーナー。Eメールは予約申し込みを受けてHesperさんに宛てたもので、同1段落2〜3行目で、イベントを「1時間早く」開始することを提案している。従って、AndrewsさんはHesperさんが1つ目本文の注文書に記入しているイベント開始時刻の1時間前倒しを勧めていると分かる。注文書より、イベントの予定開始時刻は「午後5時」とあるので、その1時間前の（A）が正解。
-（B）注文書より、イベントの予定開始時刻。
-（C）注文書より、イベントの予定終了時刻の1時間前。
-（D）注文書より、イベントの予定終了時刻。`,
+  correctChoiceId: 'a',
+  explanationGeneralJa: `Andrewsさんとは、2つ目の本文のEメールの送信者で、Greencoveケータリング社のオーナー。Eメールは予約申し込みを受けてHesperさんに宛てたもので、同1段落2〜3行目で、イベントを「1時間早く」開始することを提案している。従って、AndrewsさんはHesperさんが1つ目本文の注文書の2段落に記入しているイベント開始時刻の1時間前倒しを勧めていると分かる。同2段落より、イベントの予定開始時刻は「午後5時」とあるので、その1時間前の（A）が正解。
+（B）1つ目の本文の2段落より、イベントの予定開始時刻。
+（C）1つ目の本文の2段落より、イベントの予定終了時刻の1時間前。
+（D）1つ目の本文の2段落より、イベントの予定終了時刻。`,
   metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
 この設問は複数の文書から情報を照合する問題です。注文書の時刻とEメールでの提案を組み合わせて正解を導きます。`,
 };
@@ -481,31 +473,31 @@ const tr01Analog2Q2 = {
   promptJa: 'AndrewsさんはなぜHesperさんに電話するように求めていますか。',
   choices: [
     {
-      id: 'tr_01_an2_q2_a',
+      id: 'a',
       textEn: 'To decide on catering options',
       textJa: 'ケータリング料理の選択を決定するため',
     },
     {
-      id: 'tr_01_an2_q2_b',
+      id: 'b',
       textEn: 'To confirm some credit card information',
       textJa: 'クレジットカード情報を確認するため',
     },
     {
-      id: 'tr_01_an2_q2_c',
+      id: 'c',
       textEn: 'To approve a cost estimate',
       textJa: '費用見積もりを承認するため',
     },
     {
-      id: 'tr_01_an2_q2_d',
+      id: 'd',
       textEn: 'To clarify the number of servers',
       textJa: '給仕人の数を明らかにするため',
     },
   ],
-  correctChoiceId: 'tr_01_an2_q2_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `AndrewsさんはHesperさんに対し、2つ目の本文のEメールの2段落4～5行目で、「お電話をください、そうすればこれらを決定するのを当社が手伝えるので」と書いている。「これらを決定する」とは、同1～4行目にある食べ物の選択を決めることだと判断できる。よって、（A）が正解。decide on～「～を決める」。
 （B）クレジットカード情報は話題に上っていない。
 （C）2つ目本文の3段落1～2行目に、いったん最終的な選択を確認したら見積もりを送ると書かれているだけ。approve「～を承認する」。
-（D）注文書の「スタッフが必要」の項目の「はい」にチェックがあるが、server「給仕人」の数の確認は求めていない。clarify「〜を明らかにする」。`,
+（D）1つ目の本文の注文書の7段落の「スタッフが必要」の項目の「はい」にチェックがあるが、server「給仕人」の数の確認は求めていない。clarify「〜を明らかにする」。`,
   metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
 この設問は「なぜ電話を求めているか」という理由を問うものです。Eメールの文脈から電話の目的を正しく読み取る必要があります。`,
 };
@@ -628,12 +620,12 @@ const tr01Analog3AdBodyEn = [
 const tr01Analog3AdBodyJa = [
   '当店は、来年度モデル用のスペースを確保するため、在庫品を一掃します！',
   'えり抜きの冷蔵庫、食器洗い機、洗濯機、乾燥機が25パーセント引きです。当社のルイビル、レキシントン、オーエンズボロの店舗、またはコヴィントンの最新店舗にお越しください。',
-  '少額の頭金の支払いとその後の月割り払いが適格とされたお客さまは、店舗信用払いをご利用いただけます。6か月以内に全部をお支払いいただいた購入品は、無利子です。',
-  '配達は無料です。そして低額でお客さまの新しい家電製品の設置と古い製品の撤去を承ります！',
+  '少額の頭金の支払いとその後の月賦払いが適格とされたお客さまは、店舗信用払いをご利用いただけます。6か月以内に全額をお支払いいただいたお買い物は、無利子です。',
+  '配達は無料です、そして低料金でお客さまの新しい家電製品の設置と古い製品の撤去を承ります！',
 ];
 
 const tr01Analog3EmailBodyEn = [
-  "With my old washer nearing the end of its usefulness, I visited your new store yesterday hoping to buy a new washer during the discount sale. Unfortunately, you had only two models available during my visit, and neither was suitable. After hearing my predicament, one of your sales representatives, Ms. Ayana Dawson, offered to help and directed me to a catalog of next year's models. She also showed me a video describing Expertize's heavy-duty, large-capacity washer. This machine perfectly meets my needs! Regrettably, it won't arrive until mid-November. Rather than push for an immediate sale or let me leave the store disappointed, Ms. Dawson reminded me that since my current washer isn't broken, I could probably use it until the Expertize washer becomes available. Additionally, she told me about Appliance Grove's store credit program, for which I applied and was instantly approved.",
+  "With my old washer nearing the end of its usefulness, I visited your new store yesterday hoping to buy one of your discounted machines. Unfortunately, only two models were available during my visit, and neither was suitable. After hearing my predicament, one of your sales representatives, Ms. Ayana Dawson, offered to help and directed me to a catalog of next year's models. She also showed me a video describing Expertize's heavy-duty, large-capacity washer. This machine perfectly meets my needs! Regrettably, it won't arrive until mid-November. Rather than push for an immediate sale or let me leave the store disappointed, Ms. Dawson reminded me that since my current washer isn't broken, I could probably use it until the Expertize washer becomes available. Additionally, she told me about Appliance Grove's store credit program, for which I applied and was instantly approved.",
   "I couldn't be happier with the service and personal attention I received in your store.",
 ];
 
@@ -648,27 +640,27 @@ const tr01Analog3Q1 = {
   promptJa: 'LiさんはなぜEメールを送りましたか。',
   choices: [
     {
-      id: 'tr_01_an3_q1_a',
+      id: 'a',
       textEn: 'To complain about an item he purchased',
       textJa: '購入した商品について苦情を言うため',
     },
     {
-      id: 'tr_01_an3_q1_b',
+      id: 'b',
       textEn: 'To praise an employee',
       textJa: 'ある従業員を称賛するため',
     },
     {
-      id: 'tr_01_an3_q1_c',
+      id: 'c',
       textEn: 'To inquire about a lost credit card',
       textJa: '紛失したクレジットカードについて問い合わせるため',
     },
     {
-      id: 'tr_01_an3_q1_d',
+      id: 'd',
       textEn: 'To give feedback about an advertising campaign',
       textJa: '広告キャンペーンについて感想を伝えるため',
     },
   ],
-  correctChoiceId: 'tr_01_an3_q1_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `2つ目の本文のEメールを確認する。Liさんとは、Eメールの送信者。件名にあるAyana Dawsonという人物は、1段落3〜5行目より、Grove 家電店の販売員で、Liさんの買い物の手助けをしたことが分かる。同3〜11行目で、Dawsonさんが、次年度モデルのカタログや説明動画、また店舗用払い制度を案内してくれたことを述べている。同7〜9行目では店頭在庫商品の購入を迫る代わりに、新製品入手まで今の洗濯機が使えると気付かせてくれたと書いている。そして2段落1行目で、「貴店で受けたサービスと顧客に合わせた配慮に、これ以上ないほど満足している」と締めくくっている。以上のことから、LiさんはGrove家電店の従業員のDawsonさんをめるためにEメールを送った考えられるので、（B）が正解。praise「～をめる、～を称賛する」。
 （A）2つ目の本文の1段落6～7行目で、購入したい製品が11月中旬まで届かないことを述べているが、苦情を言っているわけではない。
 （C）2つ目の本文の1段落9～11行目で言及しているcreditは、店舗信用払い制度のことで、クレジットカードを紛失したという記述はない。inquire about～「～について問い合わせる」。
@@ -683,28 +675,28 @@ const tr01Analog3Q2 = {
   promptJa: 'LiさんはどこでDawsonさんに会いましたか。',
   choices: [
     {
-      id: 'tr_01_an3_q2_a',
+      id: 'a',
       textEn: 'In Louisville',
       textJa: 'ルイビル',
     },
     {
-      id: 'tr_01_an3_q2_b',
+      id: 'b',
       textEn: 'In Lexington',
       textJa: 'レキシントン',
     },
     {
-      id: 'tr_01_an3_q2_c',
+      id: 'c',
       textEn: 'In Owensboro',
       textJa: 'オーエンズボロ',
     },
     {
-      id: 'tr_01_an3_q2_d',
+      id: 'd',
       textEn: 'In Covington',
       textJa: 'コヴィントン',
     },
   ],
-  correctChoiceId: 'tr_01_an3_q2_d',
-  explanationGeneralJa: `Liさんは2つ目の本文のEメールの1段落3～5行目で、Grove家電店の販売員のDawsonさんが買い物の手助けをしてくれたことを書いている。同1～2行目で「値引きされた洗濯機の一台を買おうと思い、『昨日新しい店舗を訪れた」と述べているので、Liさんは「新しい店舗」でDawsonさんに接客してもらったと分かる。店舗については、1つ目の本文の広告の2段落2行目に、our latest location in Covington「当社のコヴィントンの最新店舗」と記載がある。よって、（D）が正解。
+  correctChoiceId: 'd',
+  explanationGeneralJa: `Liさんは2つ目の本文のEメールの1段落3～5行目で、Grove家電店の販売員のDawsonさんが買い物の手助けをしてくれたことを書いている。同1～2行目で「値引きされた洗濯機の一台を買おうと思い、昨日新しい店舗を訪れた」と述べているので、Liさんは「新しい店舗」でDawsonさんに接客してもらったと分かる。店舗については、1つ目の本文の広告の2段落2行目に、our latest location in Covington「当社のコヴィントンの最新店舗」と記載がある。よって、（D）が正解。
 （A）（B）（C）1つ目の本文の2段落2行目より、いずれもGrove家電店の店舗がある場所だが、新店舗だとの記述はない。`,
   metacogFeedbackJa: `【B1グループ用メタ認知フィードバック - 要追加】
 この設問は具体的な場所を問うものです。広告とEメールの情報を照合して、新店舗の場所を特定する必要があります。`,
@@ -716,27 +708,27 @@ const tr01Analog3Q3 = {
   promptJa: 'Liさんについて正しいと考えられることは何ですか。',
   choices: [
     {
-      id: 'tr_01_an3_q3_a',
+      id: 'a',
       textEn: 'He will contact Mr. McDonald again next month.',
       textJa: '来月再びMcDonaldさんに連絡するつもりである。',
     },
     {
-      id: 'tr_01_an3_q3_b',
+      id: 'b',
       textEn: 'He made a down payment on the Expertize washer.',
       textJa: 'Expertize社の洗濯機の頭金を支払った。',
     },
     {
-      id: 'tr_01_an3_q3_c',
+      id: 'c',
       textEn: 'He will try to sell his current washer.',
       textJa: '現在の洗濯機の売却を試みるつもりである。',
     },
     {
-      id: 'tr_01_an3_q3_d',
+      id: 'd',
       textEn: 'He will view a video about Expertize appliances at home.',
       textJa: '家でExpertize社の家電製品に関する動画を見るつもりである。',
     },
   ],
-  correctChoiceId: 'tr_01_an3_q3_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `2つ目の本文のEメールの送信者であるLiさんは、1段落5～7行目で、Expertize社の洗濯機は自分のニーズにぴったり合う製品であるが、11月中旬まで届かない、と述べている。また同9～11行目に、Grove家電店の店舗信用払い制度をDawsonさんに教えてもらい、申請して即時承認されたとある。
 この制度については、1つ目の本文の広告の3段落1～2行目に、「少額の頭金支払いとその後の月賦払いが適格とされた客が利用できる」と書いてあるので、この制度の利用を承認されたLiさんはこの制度を使ってExpertize社の洗濯機を購入し、11月中旬に自宅に製品が届くのを待っているところだと考えられる。よって、LiさんはExpertize社の洗濯機購入にあたり、頭金を支払ったと判断できるため、（B）が正解。
 （A）2つ目の本文のヘッダー部分より、McDonaldさんとはEメールの受信者で、Grove 家電店の責任者などと考えられるが、Liさんが来月再びMcDonaldさんに連絡を取ることを示すような記載はない。
@@ -780,7 +772,7 @@ const tr01Analog3 = {
       layoutType: 'ad' as const,
       locale: 'ja' as const,
       ad: {
-        headline: 'GROVE家電店、年に一度の割引セール　10月1日〜31日',
+        headline: 'GROVE家電店、年に一度の割引セール - 10月1日〜31日',
         body: tr01Analog3AdBodyJa,
       },
     },
@@ -808,12 +800,12 @@ const analogs = [tr01Analog1, tr01Analog2, tr01Analog3];
 // ===== tr_02: B群用 Resource Assessment Report =====
 
 const reportBodyEn = [
-  `Summary of main findings of the assessment team: — [1] —. We examined the availability of high-quality gravel in and around the two main quarry pits at Bhule Gravel Quarry. First, we took samples from several different locations around the North Quarry pit. After analyzing the samples, we determined that there is very little mineable gravel left in or around the North Quarry pit. — [2] —. Therefore, we recommend ending this operation within the next year. In addition, it is not cost-effective to mine the gravel at the North Quarry pit even though it is closer to the processing plant than the South Quarry pit is.`,
-  `In contrast, there are extensive amounts of gravel still to be mined in the South Quarry pit. The samples were retrieved by drilling intact into the gravel deposits extending from 800 meters south of the pit to a depth of 15 meters. If gravel continues to be mined at the current rate, the estimated amount of gravel in the South Quarry pit can be mined and sustained for another three years. — [3] —. The cost of the operation will gradually increase because it will be necessary to dig deeper. Nevertheless, we believe the operation will remain profitable. — [4] —.`,
+  `— [1] —. We examined the availability of high-quality gravel in and around the two main quarry pits at Bhule Gravel Quarry. First, we took samples from several different locations around the North Quarry pit. After analyzing the samples, we determined that there is very little mineable gravel left in or around the North Quarry pit. — [2] —. Therefore, we recommend ending this operation within the next year. In addition, it is not cost-effective to mine the gravel at the North Quarry pit even though it is closer to the processing plant than the South Quarry pit is.`,
+  `In contrast, there are extensive amounts of gravel still to be mined in the South Quarry pit. The samples we retrieved by drilling indicate that the mineable gravel deposits extend 800 metres south of the pit to a depth of 15 metres. If gravel continues to be mined at the current rate, we estimate that the mining operation at the South Quarry pit can be sustained for another three years. — [3] —. The cost of the operation will gradually increase because it will be necessary to dig deeper. Nevertheless, we believe the operation will remain profitable. — [4] —.`,
 ];
 
 const reportBodyJa = [
-  `評価チームの主な調査結果の概要：当チームは、ブーレ砂利採取場にある2つの主要な採掘の内部とその周辺における良質な砂利の安定供給性を調査した。まず、北採掘抗周辺の幾つか異なる地点からサンプルを採取した。サンプルの分析後、北採掘抗の内部とその周辺には採掘できる砂利がごくわずかしか残っていないと判定した。*残っている砂利は低品質である。従って、来年中にこの操業を終えることを勧める。さらに、南採掘抗からよりも処理工場に近いとしても、北採掘抗で砂利を採掘することは費用効果が低い。`,
+  `当チームは、ブーレ砂利採取場にある2つの主要な採掘抗の内部とその周辺における良質な砂利の安定供給性を調査した。まず、北採掘抗周辺の幾つか異なる地点からサンプルを採取した。サンプルの分析後、北採掘抗の内部とその周辺には採掘できる砂利がごくわずかしか残っていないと判定した。*残っている砂利は低品質である。従って、来年中にこの操業を終えることを勧める。さらに、南採掘抗からよりも処理工場に近いとしても、北採掘抗で砂利を採掘することは費用効果が低い。`,
   `対照的に、南採掘抗にはまだ採掘されていない大量の砂利がある。掘削で取り出したサンプルは、採掘できる砂利堆積物が採掘抗の南800メートル、深さ15メートルまで広がっていることを示している。砂利の採掘を現在のペースで続ければ、南採掘抗での採掘事業はあと3年間維持できると推定する。より深く掘る必要が生じるため、操業コストは徐々に上昇するだろう。それでもなお、この事業は利益を上げ続けると考える。`,
 ];
 
@@ -823,23 +815,23 @@ const tr02Question1 = {
   promptJa: '報告書は南採掘坑について何を示唆していますか。',
   choices: [
     {
-      id: 'tr02_q1_a',
+      id: 'a',
       textEn: 'It will be profitable for several more years.',
       textJa: 'あと数年間は採算を上げられるだろう。',
     },
-    { id: 'tr02_q1_b', textEn: 'It should be mined faster.', textJa: 'より速く採掘すべきである。' },
+    { id: 'b', textEn: 'It should be mined faster.', textJa: 'より速く採掘すべきである。' },
     {
-      id: 'tr02_q1_c',
+      id: 'c',
       textEn: 'It should be tested further.',
       textJa: 'さらに検証するべきである。',
     },
     {
-      id: 'tr02_q1_d',
+      id: 'd',
       textEn: 'It could pose a risk to a processing plant nearby.',
       textJa: '近くの処理工場に危険をもたらすかもしれない。',
     },
   ],
-  correctChoiceId: 'tr02_q1_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `「評価チームの主な調査結果の概要」の2段落では北採掘抗について、3段落では南採掘抗について報告されている。3段落3〜7行目で、南採掘抗であと3年間は採掘事業を維持でき、操業コストが上昇しても、利益を上げ続けるだろうと述べている。よって、for another three yearsをfor several more years「あと数年間」と表している（A）が正解。
 （B）3段落3～5行目に、現在のペースで採掘を続ければあと3年間は事業を維持できるとあり、同5～6行目に、より深く掘る必要が生じると書かれているが、より速く採掘するべきだという記述はない。
 （C）（D） さらなる検証や処理工場に及ぼす危険については言及されていない。
@@ -861,24 +853,24 @@ const tr02Question2 = {
   promptEn: 'Who most likely are Ms. Botha and Mr. Mosala?',
   promptJa: 'Botha さんと Mosala さんは誰だと考えられますか。',
   choices: [
-    { id: 'tr02_q2_a', textEn: 'Quarry construction workers', textJa: '採掘場の建設作業員' },
+    { id: 'a', textEn: 'Quarry construction workers', textJa: '採掘場の建設作業員' },
     {
-      id: 'tr02_q2_b',
+      id: 'b',
       textEn: 'Miners at Bhule Gravel Quarry',
       textJa: 'ブーレ砂利採取場の採掘労働者',
     },
     {
-      id: 'tr02_q2_c',
+      id: 'c',
       textEn: 'Owners of Springbok Concrete Suppliers LLC',
       textJa: 'Springbok コンクリート供給合同会社のオーナー',
     },
     {
-      id: 'tr02_q2_d',
+      id: 'd',
       textEn: 'Employees of Kimberley Consulting Geoengineers',
       textJa: 'Kimberley コンサルティング地質工学社の従業員',
     },
   ],
-  correctChoiceId: 'tr02_q2_d',
+  correctChoiceId: 'd',
   explanationGeneralJa: `BothaさんとMosalaさんの名前は4段落にあり、評価表を作成した人物。ヘッダー部分より、この報告書はKimberleyコンサルティング地球工学社によるものと分かる。よって、Bothaさんと Mosalaさんは同社の従業員だと考えられるので、（D）が正解。
 （A）（B）評価表の作成者としてこの2人の名前が記載されており、現場で働く建設作業員やminer「採掘労働者」とは考えられない。
 （C） Springbokコンクリート供給合同会社の社名は1段落の「依頼者」欄にあるので、この2人が同社のオーナーだとは考えられない。`,
@@ -900,22 +892,76 @@ const tr02Question3 = {
   promptJa:
     '［1］、［2］、［3］、［4］と記された箇所のうち、次の文が入るのに最もふさわしいのはどこですか。\n「残っている砂利は低品質である」',
   choices: [
-    { id: 'tr02_q3_a', textEn: '[1]', textJa: '[1]' },
-    { id: 'tr02_q3_b', textEn: '[2]', textJa: '[2]' },
-    { id: 'tr02_q3_c', textEn: '[3]', textJa: '[3]' },
-    { id: 'tr02_q3_d', textEn: '[4]', textJa: '[4]' },
+    { id: 'a', textEn: '[1]', textJa: '[1]' },
+    { id: 'b', textEn: '[2]', textJa: '[2]' },
+    { id: 'c', textEn: '[3]', textJa: '[3]' },
+    { id: 'd', textEn: '[4]', textJa: '[4]' },
   ],
-  correctChoiceId: 'tr02_q3_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `挿入文では、残っている砂利の質が述べられているので、砂利の採掘に関する記述に注目する。2段落4～5行目で、採取したサンプルを分析した結果、北採掘抗の内部とその周辺には採掘できる砂利がごくわずかしか残っていないことが分かった、と述べられている。この直後の（B）［2］に挿入文を入れると、採掘できる砂利がごくわずかしか残っていない上、その残りの砂利も低品質である、ともう一つマイナス点を挙げることになり、流れとして適切。また、結果を導く際に使われるtherefore「従って」から始まる直後の文の、来年には操業を終えることを勧めるという否定的な内容とも自然につながる。be of low quality「低品質である」。`,
   metacogFeedbackJa: `この設問タイプで最重要な読み方の結論は、挿入文が「何を受けて（指示語・同義語）」「次に何へつなぐ（因果・対比）」役割かを先に決めて、前後の論理の継ぎ目が最も自然な位置を選ぶことです。見分け方は、設問が「どこに入るか」を聞き、本文中に複数の挿入ポイントが示されているときで、内容一致ではなく接続の自然さが勝負になります。今回は「残っている」という表現が、直前で「残量が少ない」と述べた対象を受ける位置に置くのが鍵です。
+  
+  ①挿入文の中の"フック語"を拾う（例：the remaining / this / such / therefore など）→「何かを受けている文」か「結論を導く文」かを判定する。
+  ②各候補位置の直前1〜2文だけを読み、挿入文の名詞が指す対象が一意に定まるか確認する（「何が残っているのか」が曖昧になる場所は落とす）。
+  ③挿入文を入れた後の1文も必ず読む→評価・推奨・結論（recommend / should / therefore など）に向かう"マイナス材料の追加"として自然に積み上がるかを見る。
+  ④ひっかけは「同じ単語がある場所に入れたくなる」パターンなので、単語一致よりも、情報の並びが「量→質→結論」「事実→評価→提案」になっているかで切り捨てる。
+  
+  「挿入文は内容が合う場所ではなく、前の文を受けて次の文へ橋渡しできる場所に置く。」
+  「指示語や"残っている"のような表現が、直前の名詞をきれいに指せるかを最優先で確認する。」`,
+};
 
-①挿入文の中の"フック語"を拾う（例：the remaining / this / such / therefore など）→「何かを受けている文」か「結論を導く文」かを判定する。
-②各候補位置の直前1〜2文だけを読み、挿入文の名詞が指す対象が一意に定まるか確認する（「何が残っているのか」が曖昧になる場所は落とす）。
-③挿入文を入れた後の1文も必ず読む→評価・推奨・結論（recommend / should / therefore など）に向かう"マイナス材料の追加"として自然に積み上がるかを見る。
-④ひっかけは「同じ単語がある場所に入れたくなる」パターンなので、単語一致よりも、情報の並びが「量→質→結論」「事実→評価→提案」になっているかで切り捨てる。
-
-「挿入文は内容が合う場所ではなく、前の文を受けて次の文へ橋渡しできる場所に置く。」
-「指示語や"残っている"のような表現が、直前の名詞をきれいに指せるかを最優先で確認する。」`,
+const tr02Passage: Passage = {
+  id: 'tr_02',
+  title: 'Kimberley Consulting Geoengineers Resource Assessment',
+  direction: 'Questions 1-3 refer to the following report.',
+  directionJa: '問題1-3は次の報告書に関するものです。',
+  paragraphsEn: reportBodyEn,
+  paragraphsJa: reportBodyJa,
+  sections: [
+    {
+      layoutType: 'report',
+      locale: 'en',
+      report: {
+        header: 'KIMBERLEY CONSULTING GEOENGINEERS',
+        title: 'Resource Assessment',
+        meta: [
+          { label: 'Client', value: 'Springbok Concrete Suppliers LLC' },
+          { label: 'Property examined', value: 'Bhule Gravel Quarry' },
+          {
+            label: 'Purpose',
+            value:
+              'To determine how long Springbok Concrete Suppliers LLC can continue mining the Bhule Gravel Quarry pits for gravel',
+          },
+          { label: 'Dates', value: '15–19 July' },
+        ],
+        bodyTitle: 'Summary of main findings of the assessment team:',
+        body: reportBodyEn,
+        footer: 'Assessment prepared by: Gertruida Botha and Moeketsi Mosala',
+      },
+    },
+    {
+      layoutType: 'report',
+      locale: 'ja',
+      report: {
+        header: 'Kimberley コンサルティング地球工学社',
+        title: '資源評価',
+        meta: [
+          { label: '依頼者', value: 'Springbok コンクリート供給合同会社' },
+          { label: '調査対象', value: 'ブーレ砂利採取場' },
+          {
+            label: '目的',
+            value:
+              'Springbok コンクリート供給合同会社がブーレ砂利採取場から砂利を採掘できる期間の判定',
+          },
+          { label: '日付', value: '7月15日〜19日' },
+        ],
+        bodyTitle: '評価チームの主な調査結果の概要：',
+        body: reportBodyJa,
+        footer: '評価書作成者：Gertruida Botha および Moeketsi Mosala',
+      },
+    },
+  ],
+  questions: [tr02Question1, tr02Question2, tr02Question3],
 };
 
 // ===== tr_02 類題1: LKJ Sportswear (Webpage) =====
@@ -926,8 +972,8 @@ const tr02An1BodyEn = [
 ];
 
 const tr02An1BodyJa = [
-  `Matheus Moriは、カナダのトロントにあるローウェル大学で傑出したビジネス専攻の学生でした。卒業後、彼は地域の事業組合から資金提供を受けて旅行関連のソフトウエア事業を立ち上げました。— [1] —。4年後に、彼は自分がただお金を稼ぐだけではないことをしたいと気付きました。彼は自分の関心事と夢を追求したかったのです。そこで彼は事業を売却して、旅とサイクリングの時期に入りました。`,
-  `— [2] —。ブラジルでのスポーツ協議会に参加している間、Mori氏はGustavo Santanaによるプレゼンテーションに出席しました。その人物は少し前に特注の競技用ウエアを作るための3Dボディー・スキャニングソフトを開発していました。プレゼンテーションの後、Mori氏はSantana氏に自己紹介して、2人は踏み込んだ会話を始めました。— [3] —。その後数カ月間、2人の間ではさらにやりとりが続き、最終的に彼らはLKJスポーツウエア社を設立するに至りました。Mori氏の旅は、サイクリング用衣料を改良するための重要なアイデアを自ら考案するのに役立ちましたが、それを彼はSantana氏と共同でSantana氏開発のソフトウェアを使用することで実現できました。— [4] —。今日、創業25年を経て、LKJスポーツウエア社はブラジルと南米全域におけるスポーツ衣料のトップ企業であり続ける一方、同社の製品、とりわけサイクリングとテニスの製品ラインの売り上げはヨーロッパで成長し続けています。`,
+  `Matheus Moriは、カナダのトロントにあるローウェル大学で傑出したビジネス専攻の学生でした。卒業後、彼は地域の事業組合から資金提供を受けて旅行関連のソフトウエア事業を立ち上げました。4年後に、彼は自分がただお金を稼ぐだけではないことをしたいと気付きました。彼は自分の関心事と夢を追求したかったのです。そこで彼は事業を売却して、旅とサイクリングの時期に入りました。`,
+  `ブラジルでのスポーツ協議会に参加している間、Mori氏はGustavo Santanaによるプレゼンテーションに出席しました。その人物は少し前に特注の競技用ウエアを作るための3Dボディー・スキャニングソフトを開発していました。プレゼンテーションの後、Mori氏はSantana氏に自己紹介して、2人は踏み込んだ会話を始めました。*彼らは、自分たちが高性能スポーツウエアへの関心を共に持っていることを知りました。その後数カ月間、2人の間ではさらにやりとりが続き、最終的に彼らはLKJスポーツウエア社を設立するに至りました。Mori氏の旅は、サイクリング用衣料を改良するための重要なアイデアを自ら考案するのに役立ちましたが、それを彼はSantana氏と共同でSantana氏開発のソフトウェアを使用することで実現できました。今日、創業25年を経て、LKJスポーツウエア社はブラジルと南米全域におけるスポーツ衣料のトップ企業であり続ける一方、同社の製品、とりわけサイクリングとテニスの製品ラインの売り上げはヨーロッパで成長し続けています。`,
 ];
 
 const tr02An1Q1 = {
@@ -936,27 +982,27 @@ const tr02An1Q1 = {
   promptJa: 'LKJ スポーツウェア社について何が示されていますか。',
   choices: [
     {
-      id: 'tr02_an1_q1_a',
+      id: 'a',
       textEn: 'It sells its products in multiple countries.',
       textJa: '同社は複数の国で製品を販売している。',
     },
     {
-      id: 'tr02_an1_q1_b',
+      id: 'b',
       textEn: 'It now makes only cycling apparel.',
       textJa: '同社は現在、サイクリング用衣料のみを製造している。',
     },
     {
-      id: 'tr02_an1_q1_c',
+      id: 'c',
       textEn: 'Its products are often sold at a discount.',
       textJa: '同社の製品は頻繁に、割引価格で販売されている。',
     },
     {
-      id: 'tr02_an1_q1_d',
+      id: 'd',
       textEn: 'Its founders are both from Canada.',
       textJa: '同社の創業者は両者ともカナダ出身である。',
     },
   ],
-  correctChoiceId: 'tr02_an1_q1_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `LKJスポーツウエア社の現在の状況について、2段落の8〜10行目に、LKJ Sportswear continues to be a leader in sports apparel in Brazil and throughout South America「LKJスポーツウエア社はブラジルと南米全域におけるスポーツ衣料のトップ企業であり続ける」とあり、さらにsales of its products ..... continue to grow in Europe「同社の製品の売り上げはヨーロッパで成長し続けている」と述べられているので、LKJスポーツウエア社が南米やヨーロッパの複数の国で製品を販売していることが分かる。よって、（A）が正解。multiple「複数の」。
 （C） at a discount「割引価格で」。
 （D）1段落目の1行目にMoriさんがカナダの大学を卒業したとあるが、創業者の出身地についての言及はない。`,
@@ -979,12 +1025,12 @@ const tr02An1Q2 = {
   promptJa:
     '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「彼らは、自分たちが高性能スポーツウエアへの関心を共に持っていることを知りました」',
   choices: [
-    { id: 'tr02_an1_q2_a', textEn: '[1]', textJa: '［1］' },
-    { id: 'tr02_an1_q2_b', textEn: '[2]', textJa: '［2］' },
-    { id: 'tr02_an1_q2_c', textEn: '[3]', textJa: '［3］' },
-    { id: 'tr02_an1_q2_d', textEn: '[4]', textJa: '［4］' },
+    { id: 'a', textEn: '[1]', textJa: '［1］' },
+    { id: 'b', textEn: '[2]', textJa: '［2］' },
+    { id: 'c', textEn: '[3]', textJa: '［3］' },
+    { id: 'd', textEn: '[4]', textJa: '［4］' },
   ],
-  correctChoiceId: 'tr02_an1_q2_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `挿入文は複数の人物を示す theyがあるので、複数の人物に関する記述の後ろに入ると考えられる。1段落目の1〜5行目で、MoriさんとSantanaさんが出会ってから会社を立ち上げるまでの経緯が述べられている。同4行目のthe two got into an in-depth conversation「2人は踏み込んだ会話を始めた」の直後の（C）［3］に挿入文を入れると、挿入文中のtheyがMoriさんとSantanaさんを指すことになる。踏み込んだ会話で共通の関心事があると分かった結果、2人のやりとりが続き、最終的にLKJスポーツウエア社を設立するに至った、と会社設立の経緯を説明する流れとなり、適切。discover that〜「〜ということを知る」、share「～を共に持つ」。`,
   metacogFeedbackJa: `挿入文問題で最重要なのは、代名詞・指示語と因果（その結果どうなったか）を手がかりに、文と文の「つながりが一番自然になる場所」を探すことです。設問文に「どこに入るか」とあり、挿入文に they のような受け手不明の語があるときは、直前直後で「誰が」「何をした」が過不足なく回収できる位置が正解になりやすいです。今回は「会話→共通点の発見→その後のやりとり」という流れが最も滑らかになる場所を選びます。
 
@@ -996,7 +1042,6 @@ const tr02An1Q2 = {
 「挿入文は"単語の一致"ではなく"文脈の役割"で置く。代名詞の回収と、出来事の因果の階段が一段ずつつながる場所だけを選ぶ。」`,
 };
 
-// ===== tr_02 類題1: LKJ Sportswear (Webpage) =====
 const tr02Analog1 = {
   id: 'tr_02_an1',
   title: 'LKJ Sportswear Company Founders',
@@ -1040,10 +1085,10 @@ const tr02Analog2BodyEn = [
 ];
 
 const tr02Analog2BodyJa = [
-  `Burger Cityビストロは、間もなく同社がBCビストロという名で知られるようになると発表した。広告、包装、看板、そしてソーシャルメディアのアカウントの全てが新しい名称に合わせて更新されているところだ。—［1］—。`,
-  `「組織は長年にわたり、ハンバーガーに加えて、サラダ、ラップサンドイッチ、グリルチキンのような健康に良いものを目玉としてメニューを拡大してきました」とHoward Shuman社長は述べた。「われわれは、お客さまがうちの店を誰もがおいしい選択肢を見つけられる場所だと思ってくださることを望んでいます」。—［2］—。`,
-  `Burger Cityビストロは従来、若い成人や10代の若者に受けてきた。しかし、25歳～49歳の女性は現在、同社の年間売り上げの23パーセントしか占めていない。—［3］—。同社は最近、その市場区分にアピールする一助となるよう、著名人のIsobel Wuを広報役に採用したと発表した。Wuさんは、テレビ番組「スター・ダンサーズ」に出演中で、BCビストロを健康的なライフスタイルの一環として紹介するテレビ広告と印刷広告に登場することになる。`,
-  `「当社のメニューが、何年も前のものから方向転換したことをまだ知らない潜在顧客に届く新たな発言力を、Wuさんは当社にもたらすでしょう」とShuman氏は述べた。—［4］—。`,
+  `Burger Cityビストロは、間もなく同社がBCビストロという名で知られるようになると発表した。広告、包装、看板、そしてソーシャルメディアのアカウントの全てが新しい名称に合わせて更新されているところだ。`,
+  `「当組織は長年にわたり、ハンバーガーに加えて、サラダ、ラップサンドイッチ、グリルチキンのような健康に良いものを目玉としてメニューを拡大してきました」とHoward Shuman社長は述べた。「われわれは、お客さまがうちの店を誰もがおいしい選択肢を見つけられる場所だと思ってくださることを望んでいます」。`,
+  `Burger Cityビストロは従来、若い成人や10代の若者に受けてきた。しかし、25歳～49歳の女性は現在、同社の年間売り上げの23パーセントしか占めていない。同社は最近、その市場区分にアピールする一助となるよう、著名人のIsobel Wuを広報役に採用したと発表した。Wuさんは、テレビ番組「スター・ダンサーズ」に出演中で、BCビストロを健康的なライフスタイルの一環として紹介するテレビ広告と印刷広告に登場することになる。`,
+  `「当社のメニューが、何年も前のものから方向転換したことをまだ知らない潜在顧客に届く新たな発言力を、Wuさんは当社にもたらすでしょう」とShuman氏は述べた。*Wuさんを起用する広告は、社名が切り替わるとすぐ始められるように用意ができている。`,
 ];
 
 const tr02Analog2Q1 = {
@@ -1052,27 +1097,27 @@ const tr02Analog2Q1 = {
   promptJa: '記事によると、会社はなぜその名称を変更するのですか。',
   choices: [
     {
-      id: 'tr_02_an2_q1_a',
+      id: 'a',
       textEn: 'To make the name easier to remember',
       textJa: '名称をより覚えやすくするため',
     },
     {
-      id: 'tr_02_an2_q1_b',
+      id: 'b',
       textEn: "To better reflect the company's current image",
       textJa: '会社の現在のイメージをより適切に表すため',
     },
     {
-      id: 'tr_02_an2_q1_c',
+      id: 'c',
       textEn: 'Because it has been sold to another company',
       textJa: '同社は別会社に売却されたから',
     },
     {
-      id: 'tr_02_an2_q1_d',
+      id: 'd',
       textEn: 'Because it is no longer selling burgers',
       textJa: '同社は、もはやハンバーガーを販売していないから',
     },
   ],
-  correctChoiceId: 'tr_02_an2_q1_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `1段落より、Burger Cityビストロという会社が名称変更をすると分かる。2段落1～4行目に、「当組織は長年にわたり、ハンバーガーに加えて、健康に良いものを目玉としてメニューを拡大してきた」という同社社長の発言がある。さらに同5〜7行目に、We want our guests to think of us as a place where everyone can find tasty options.「われわれは、お客さまが当店を誰もがおいしい選択肢を見つけられる場所だと思ってくれることを望む」と同社長の話が続いている。よって社名の変更は、ハンバーガーだけでなく健康的なメニューを取りそろえるようになった同社の現在のイメージを、より適切に表すためと分かる。reflect「〜を表す、～を反映する」、current「現在の」、image「イメージ、印象」。
 （D） no longer「もはや～ない」。`,
   metacogFeedbackJa: `理由を問う設問では、社名変更・方針転換などの「出来事」そのものより、直後に置かれやすい"会社側の狙い（こう思ってほしい／こう見られたい）"の発言を根拠に読むのが最重要です。見分け方は、設問が why / reason / purpose を聞いていて、選択肢が「～するため」「～だから」と目的・理由の形になっているときです。本文では、名称変更の告知のあとに続く経営側コメントがそのまま答えの型になります。
@@ -1092,27 +1137,27 @@ const tr02Analog2Q2 = {
   promptJa: '記事によると、会社はWuさんを採用することによって何を成し遂げたいと思っていますか。',
   choices: [
     {
-      id: 'tr_02_an2_q2_a',
+      id: 'a',
       textEn: 'More women will visit BC Bistro locations.',
       textJa: 'より多くの女性がBCビストロの店舗を訪れる。',
     },
     {
-      id: 'tr_02_an2_q2_b',
+      id: 'b',
       textEn: 'More teenagers will become interested in BC Bistro.',
       textJa: 'より多くの10代の若者がBCビストロに興味を持つようになる。',
     },
     {
-      id: 'tr_02_an2_q2_c',
+      id: 'c',
       textEn: 'There will be a larger audience for Star Dancers.',
       textJa: '「スター・ダンサーズ」の視聴者がより多くなる。',
     },
     {
-      id: 'tr_02_an2_q2_d',
-      textEn: 'More dance classes will be held at all locations.',
+      id: 'd',
+      textEn: 'Free dance classes will be held at all locations.',
       textJa: '無料のダンス講座が全店舗で開催される。',
     },
   ],
-  correctChoiceId: 'tr_02_an2_q2_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `3段落5〜8行目に、The company recently announced that it had hired celebrity Isobel Wu as a spokesperson to help appeal to that market segment. 「同社は最近、その市場区分にアピールする一助となるよう、著名人のIsobel Wuを広報役に採用したと発表した」とある。ここでのthat market segment「その市場区分」とは、直前の文にある、同社の年間売り上げの23パーセントしか占めていない「25歳～49歳の女性」を指している。つまり、会社はWuさんを起用することによって、現在の主要顧客層ではない年代の女性にアピールし、より多くの女性顧客を取り込む狙いがあると分かる。
 よって（A）が正解。accomplish「～を成し遂げる」。location「店舗」。
 （C） audience「視聴者、観客」。`,
@@ -1134,12 +1179,12 @@ const tr02Analog2Q3 = {
   promptJa:
     '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「Wuさんを起用する広告は、社名が切り替わるとすぐ始められるように用意ができている」',
   choices: [
-    { id: 'tr_02_an2_q3_a', textEn: '[1]', textJa: '［1］' },
-    { id: 'tr_02_an2_q3_b', textEn: '[2]', textJa: '［2］' },
-    { id: 'tr_02_an2_q3_c', textEn: '[3]', textJa: '［3］' },
-    { id: 'tr_02_an2_q3_d', textEn: '[4]', textJa: '［4］' },
+    { id: 'a', textEn: '[1]', textJa: '［1］' },
+    { id: 'b', textEn: '[2]', textJa: '［2］' },
+    { id: 'c', textEn: '[3]', textJa: '［3］' },
+    { id: 'd', textEn: '[4]', textJa: '［4］' },
   ],
-  correctChoiceId: 'tr_02_an2_q3_d',
+  correctChoiceId: 'd',
   explanationGeneralJa: `挿入文は、Wuさんを起用した広告について述べているもの。Wuさんについて初めて言及しているのは3段落6行目なので、挿入文はこれ以降に入ると考えられる。4段落1〜4行目で、Wuさんを起用する広告について、「当社のメニューが、何年も前のものから方向転換したことをまだ知らない潜在顧客に届く新たな発言力を、Wuさんは当社にもたらすだろう」とその期待が述べられている。この直後の（D）［4］に、Wuさんを起用した広告が始まるタイミングを知らせる挿入文を入れると、Wuさん起用の広告に関する一連の流れとなり適切。
 be set to do「〜する用意ができている」。`,
   metacogFeedbackJa: `挿入文問題で最重要なのは、挿入文の「話題（誰・何）」と「機能（追加情報・理由・具体化・時系列）」を先に特定し、その直前直後で同じ話題が自然につながる場所だけを探すことです。見分け方は、設問が「どこに入るか」を聞き、本文中に空所マークが複数あるタイプだと分かったときです。今回は「広告の開始時期」という時系列の補足なので、広告の話が出た直後に置ける場所が狙い目です。
@@ -1194,11 +1239,11 @@ const tr02Analog3BodyEn = [
 ];
 
 const tr02Analog3BodyJa = [
-  `Crofton電力社は、お客さまへの献身に対して一貫して高い評価を頂いております。サービス担当者は、電力に関するご用件に迅速に対処すべく常時応対可能です。お客様満足度は、幾つかの要となる保証によって裏打ちされています。—［1］—。お客さまへのお約束については、以下に概要を記しております。`,
-  `請求書の作成・送付：お客さまからのお問い合わせは、請求書担当部門宛てに604-555-0101までお寄せいただくか、Crofton電力社お客さま用ポータルサイトを通じてオンラインで行ってください。—［2］—。お客さまのご質問にさらなる調査が必要な場合は、回答に最長3営業日の余裕を見てください。万一、回答が3日よりも遅れた場合は、お客さまのアカウントに当社に対して25ドルの貸しがあることが記録されます。`,
+  `Crofton電力社は、お客さまへの献身に対して一貫して高い評価を頂いております。サービス担当者は、電力に関するご用件に迅速に対処すべく常時応対可能です。お客様満足度は、幾つかの要となる保証によって裏打ちされています。お客さまへのお約束については、以下に概要を記しております。`,
+  `請求書の作成・送付：お客さまからのお問い合わせは、請求書担当部門宛てに604-555-0101までお寄せいただくか、Crofton電力社お客さま用ポータルサイトを通じてオンラインで行ってください。*お客様は通常、オンラインでのご依頼を送信後、2時間以内に回答を受け取ります。お客さまのご質問にさらなる調査が必要な場合は、回答に最長3営業日の余裕を見てください。万一、回答が3日よりも遅れた場合は、お客さまのアカウントに当社に対して25ドルの貸しがあることが記録されます。`,
   `予約：Crofton電力社はお客さまとのお約束の時間を全て守ることを目指しています。Crofton社の点検修理技術者は2時間の時間枠内に到着するように予定しています。この時間枠が順守されなかった際にはどのような場合も、お客さまのアカウントに当社に対して40ドルの貸しがあることが記録されます。`,
-  `計画停電：建設工事や保守作業のためにCrofton電力社が一時的に電力供給を停止する必要がある場合、影響を受ける可能性のあるお客さまは、遅くとも48時間前には通知されます。—［3］—。供給中断の通知が提供されないまま、停電が発生するというめったにないケースでは、お客さまのアカウントに当社に対して80ドルの貸しがあることが記録されます。`,
-  `Crofton電力社が目指すのは、公正で透明性のあるサービスを提供することです。—［4］—。お客さまのエネルギー需要をCrofton電力社にお任せくださいまして、ありがとうございます。`,
+  `計画停電：建設工事や保守作業のためにCrofton電力社が一時的に電力供給を停止する必要がある場合、影響を受ける可能性のあるお客さまは、遅くとも48時間前には通知されます。供給中断の通知が提供されないまま、停電が発生するというめったにないケースでは、お客さまのアカウントに当社に対して80ドルの貸しがあることが記録されます。`,
+  `Crofton電力社が目指すのは、公正で透明性のあるサービスを提供することです。お客さまのエネルギー需要をCrofton電力社にお任せくださいまして、ありがとうございます。`,
 ];
 
 const tr02Analog3Q1 = {
@@ -1207,27 +1252,27 @@ const tr02Analog3Q1 = {
   promptJa: '案内文では何が分かりますか。',
   choices: [
     {
-      id: 'tr_02_an3_q1_a',
+      id: 'a',
       textEn: 'Equipment has been recently upgraded.',
       textJa: '設備の性能が最近高められた。',
     },
     {
-      id: 'tr_02_an3_q1_b',
+      id: 'b',
       textEn: 'Delayed bill payments may result in a late fee.',
       textJa: '料金支払いが遅れると、延滞料が発生することがある。',
     },
     {
-      id: 'tr_02_an3_q1_c',
+      id: 'c',
       textEn: 'Quality service is a priority.',
       textJa: '質の高いサービスが優先事項である。',
     },
     {
-      id: 'tr_02_an3_q1_d',
+      id: 'd',
       textEn: 'A service area has expanded.',
       textJa: 'サービス提供エリアが拡大した。',
     },
   ],
-  correctChoiceId: 'tr_02_an3_q1_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `Crofton電力社の案内の1段落1行目で、同社は顧客への献身的なサービスに対し一貫して高評価を受けていると述べられており、続く同1〜2行目にService representatives are available at all times to promptly address power concerns.「サービス担当者は、電力に関する用件に迅速に対処すべく常時応対可能だ」とある。さらに、2段落～4段落ではサービスに関する顧客への約束の概要が記載され、5段落1行目で「Crofton電力社が目指すのは、公正で透明性のあるサービスを提供することだ」と述べられている。これらのことから、同社は顧客サービスに力を入れていると判断できるので、（C）が正解。quality「質の高い」、priority「優先事項」。
 （A） equipment「設備、機材」、upgrade「～の性能を高める」。
 （B） result in～「〜という結果になる」、late fee「延滞料」。
@@ -1250,12 +1295,12 @@ const tr02Analog3Q2 = {
   promptJa:
     '［1］、［2］、［3］、［4］と記載された箇所のうち、次の文が入るのに最もふさわしいのはどれですか。\n「お客さまは通常、オンラインでのご依頼を送信後、2時間以内に回答を受け取ります」',
   choices: [
-    { id: 'tr_02_an3_q2_a', textEn: '[1]', textJa: '［1］' },
-    { id: 'tr_02_an3_q2_b', textEn: '[2]', textJa: '［2］' },
-    { id: 'tr_02_an3_q2_c', textEn: '[3]', textJa: '［3］' },
-    { id: 'tr_02_an3_q2_d', textEn: '[4]', textJa: '［4］' },
+    { id: 'a', textEn: '[1]', textJa: '［1］' },
+    { id: 'b', textEn: '[2]', textJa: '［2］' },
+    { id: 'c', textEn: '[3]', textJa: '［3］' },
+    { id: 'd', textEn: '[4]', textJa: '［4］' },
   ],
-  correctChoiceId: 'tr_02_an3_q2_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `挿入文は顧客に対し、オンラインで問い合わせた場合について案内するもの。2段落1～2行目で、「お客さまからの問い合わせは、請求書担当部門宛てに604-555-0101までお寄せいただくか、Crofton電力社お客さま用ポータルサイトを通じてオンラインで行ってください」と、顧客が問い合わせる際の方法を案内している。この後ろの（B）［2］に挿入文を入れると、顧客がオンラインで問い合わせを行った後に回答を受け取るまでの所要時間を示すことになり、流れとして適切。
 typically「通例、一般的には」。`,
   metacogFeedbackJa: `挿入文問題は、文の「話題（何について）」と「つながり方（前後の因果・具体化）」が最も自然になる位置を、キーワード一致ではなく情報の役割で決めるのが最重要です。見分け方は、設問が「どこに入るのが最適か」と聞き、本文中に複数の挿入候補位置が示されているときです。今回は「オンラインで依頼した後の返答時間」という"手段→所要時間"の説明が、問い合わせ方法の直後に来るのが自然だと判断します。
@@ -1298,60 +1343,6 @@ const tr02Analog3 = {
 
 // tr_02用類題（3つとも別内容）
 const tr02Analogs = [tr02Analog1, tr02Analog2, tr02Analog3];
-
-const tr02Passage: Passage = {
-  id: 'tr_02',
-  title: 'Kimberley Consulting Geoengineers Resource Assessment',
-  direction: 'Questions 1-3 refer to the following report.',
-  directionJa: '問題1-3は次の報告書に関するものです。',
-  paragraphsEn: reportBodyEn,
-  paragraphsJa: reportBodyJa,
-  sections: [
-    {
-      layoutType: 'report',
-      locale: 'en',
-      report: {
-        header: 'KIMBERLEY CONSULTING GEOENGINEERS',
-        title: 'Resource Assessment',
-        meta: [
-          { label: 'Client', value: 'Springbok Concrete Suppliers LLC' },
-          { label: 'Property examined', value: 'Bhule Gravel Quarry' },
-          {
-            label: 'Purpose',
-            value:
-              'To determine how long Springbok Concrete Suppliers LLC can continue mining the Bhule Gravel Quarry pits for gravel',
-          },
-          { label: 'Dates', value: '15–19 July' },
-        ],
-        bodyTitle: 'Summary of main findings of the assessment team:',
-        body: reportBodyEn,
-        footer: 'Assessment prepared by: Gertruida Botha and Moeketsi Mosala',
-      },
-    },
-    {
-      layoutType: 'report',
-      locale: 'ja',
-      report: {
-        header: 'Kimberley コンサルティング地質工学社',
-        title: '資源評価',
-        meta: [
-          { label: '依頼者', value: 'Springbok コンクリート供給合同会社' },
-          { label: '調査対象', value: 'ブーレ砂利採取場' },
-          {
-            label: '目的',
-            value:
-              'Springbok コンクリート供給合同会社がブーレ砂利採取場から砂利を採掘できる期間の判定',
-          },
-          { label: '日付', value: '7月15日〜19日' },
-        ],
-        bodyTitle: '評価チームの主な調査結果の概要：',
-        body: reportBodyJa,
-        footer: '評価書作成者：Gertruida Botha および Moeketsi Mosala',
-      },
-    },
-  ],
-  questions: [tr02Question1, tr02Question2, tr02Question3],
-};
 
 // ===== tr_03: A3/B3群用 Text Message Chain =====
 
@@ -1417,27 +1408,27 @@ const tr03Question1 = {
   promptJa: 'Leffleyさんについて何が示されていますか。',
   choices: [
     {
-      id: 'tr03_q1_a',
+      id: 'a',
       textEn: 'She will attend a meeting at the corporate office.',
       textJa: '本社で会議に出席する予定である。',
     },
     {
-      id: 'tr03_q1_b',
+      id: 'b',
       textEn: 'She will begin a new job soon.',
       textJa: '間もなく新しい仕事を始める予定である。',
     },
     {
-      id: 'tr03_q1_c',
+      id: 'c',
       textEn: 'She is an experienced server.',
       textJa: '経験豊富な給仕人である。',
     },
     {
-      id: 'tr03_q1_d',
+      id: 'd',
       textEn: 'She rescheduled an interview.',
       textJa: '面接の予定を変更した。',
     },
   ],
-  correctChoiceId: 'tr03_q1_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `Leffleyさんについては、Claasenさんが2段落で、今週国外にいるという予定を面接で言っていたと伝えている。これは1段落の、新しい給仕人向けの研修会に「12人の新規雇用者のうち11人はここに来るが、1人は予定が重なって来られない」というTsukaseさんの発言に対して述べたものである。予定が重複して研修会に参加できない新しい給仕人がLeffleyさんだと判断できるので、（B）が正解。
 （A）1段落で、本社から指導係が来ると述べているだけ。
 （C）2段落で、Leffleyさんは経験が不足していると述べられている。
@@ -1454,31 +1445,29 @@ const tr03Question2 = {
     '午前9時35分に"Then, the trainer should come back next week"という発言で、Tsukaseさんは何を意図していると考えられますか。',
   choices: [
     {
-      id: 'tr03_q2_a',
+      id: 'a',
       textEn: 'He has learned that the trainer is currently unavailable.',
       textJa: '指導係は現在都合がつかないことを知った。',
     },
     {
-      id: 'tr03_q2_b',
+      id: 'b',
       textEn: "He wants to accommodate Ms. Leffley's schedule.",
       textJa: 'Leffleyさんの予定に合わせたい。',
     },
     {
-      id: 'tr03_q2_c',
+      id: 'c',
       textEn: 'He thinks some materials are not ready for use.',
       textJa: 'まだ使う用意ができていない資料があると思っている。',
     },
     {
-      id: 'tr03_q2_d',
+      id: 'd',
       textEn: 'He will be on vacation later this week.',
       textJa: '今週中に休暇に入る予定である。',
     },
   ],
-  correctChoiceId: 'tr03_q2_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `Tsukaseさんが1段落で、新規雇用者の1人が明日の研修会に出席できないと述べたのに対し、Claasenさんは2段落で、それを肯定した後、Fiona Leffleyは今週国外にいる予定だと述べている。それに対して、Tsukaseさんは3段落の下線部で、「では、指導係は来週また来た方がいいですね」と発言している。これは、明日の研修会に出席できないLeffleyさんの予定に合わせたいと考えているものと判断できる。よって、（B）が正解。accommodate「～（状況・条件）に合わせる」。
-（A）1段落で、指導係は明日の研修会に来る予定だと言っている。currently「現在、目下」、unavailable「都合がつかない」。
-（C）資料については言及されていない。
-（D）Tsukaseさんの休暇については言及されていない。`,
+（A）1段落で、指導係は明日の研修会に来る予定だと言っている。currently「現在、目下」、unavailable「都合がつかない」。`,
   metacogFeedbackJa: `【B3グループ用メタ認知フィードバック - 要追加】
 この設問は発言の意図を問うものです。前後の文脈から、なぜその発言をしたのかを推測する必要があります。会話の流れを追って、各発言者の意図を把握しましょう。`,
 };
@@ -1575,27 +1564,27 @@ const tr03An1Q1 = {
     '午前11時14分に、"There\'s been an update"という発言で、Hewittさんは何を意図していると考えられますか。',
   choices: [
     {
-      id: 'tr_03_an1_q1_a',
+      id: 'a',
       textEn: 'A deadline has changed.',
       textJa: '最終期限が変更になった。',
     },
     {
-      id: 'tr_03_an1_q1_b',
+      id: 'b',
       textEn: 'A link has been replaced.',
       textJa: 'リンクが差し替えられた。',
     },
     {
-      id: 'tr_03_an1_q1_c',
+      id: 'c',
       textEn: 'A price has increased.',
       textJa: '価格が上昇した。',
     },
     {
-      id: 'tr_03_an1_q1_d',
+      id: 'd',
       textEn: 'A report can no longer be revised.',
       textJa: '報告書はもはや修正できない。',
     },
   ],
-  correctChoiceId: 'tr_03_an1_q1_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `Hewittさんが1段落で、報告書の提出について尋ねたのに対し、Longoriaさんは2段落で、まだ書いているところだと述べ、期限は明日中であることを確認している。それに対して、Hewittさんは3段落の下線部で、「更新があった」と発言した後、請負業者の要望で報告書の提出が早まり、期日変更を知らせるEメールが届いたと述べている。よって、Hewittさんの下線部の発言は、提出の最終期限の変更を伝えていると判断できるので、（A）が正解。deadline「最終期限」。
 （B）1段落で、安全なリンクを受け取ったとあるのみ。replace「〜を取り替える」。
 （C）4段落で、Longoriaさんが費用の見積もりについて言及しているのみ。
@@ -1610,27 +1599,27 @@ const tr03An1Q2 = {
   promptJa: 'Woodさんは誰だと考えられますか。',
   choices: [
     {
-      id: 'tr_03_an1_q2_a',
+      id: 'a',
       textEn: 'A construction worker',
       textJa: '建設作業員',
     },
     {
-      id: 'tr_03_an1_q2_b',
+      id: 'b',
       textEn: 'A tenant at Wiley Tower',
       textJa: 'Wileyタワーの賃借人',
     },
     {
-      id: 'tr_03_an1_q2_c',
+      id: 'c',
       textEn: "Ms. Hewitt's manager",
       textJa: 'Hewittさんの上司',
     },
     {
-      id: 'tr_03_an1_q2_d',
+      id: 'd',
       textEn: 'A technical support staff member',
       textJa: '技術サポートのスタッフ',
     },
   ],
-  correctChoiceId: 'tr_03_an1_q2_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `Woodさんについては、Longoriaさんが4段落で、WoodさんからのEメールは見ていなかったと発言している。そのEメールは、Hewittさんが3段落で、「先週、私の上司が期日の変更についてEメールを送ってきた」と述べているものを指している。よって、WoodさんとはHewittさんの上司だと考えられるので、（C）が正解。
 （A）建設に関する話題から連想され得る点に注意。
 （B）tenant「賃借人」。
@@ -1645,27 +1634,27 @@ const tr03An1Q3 = {
   promptJa: 'Longoriaさんは何を心配していますか。',
   choices: [
     {
-      id: 'tr_03_an1_q3_a',
+      id: 'a',
       textEn: 'She is unable to attend a meeting.',
       textJa: '会議に出席できない。',
     },
     {
-      id: 'tr_03_an1_q3_b',
+      id: 'b',
       textEn: 'She deleted an e-mail by mistake.',
       textJa: '誤ってEメールを削除した。',
     },
     {
-      id: 'tr_03_an1_q3_c',
+      id: 'c',
       textEn: 'She has not finished some estimates.',
       textJa: '見積もりを仕上げていない。',
     },
     {
-      id: 'tr_03_an1_q3_d',
+      id: 'd',
       textEn: 'She is unsure about the materials she chose.',
       textJa: '自分が選んだ資材について確信がない。',
     },
   ],
-  correctChoiceId: 'tr_03_an1_q3_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `Longoriaさんは4段落で、提出期限の前倒しを知らせるEメールは見ていなかったと述べ、まだ建設資材の費用の見積もりをまとめる必要があるため報告書は提出できない旨の発言をしている。この内容を、has not finished「～を仕上げていない」を用いて表した（C）が正解。be concerned about〜「～について心配している」。
 （A）4段落で、会議があると発言しているのみ。be unable to do「〜することができない」。
 （B）4段落で、Eメールを見ていないと発言しているが、削除したとは述べていない。delete「～を削除する」、by mistake「誤って」。
@@ -1749,7 +1738,7 @@ const tr03An2MessagesJa = [
   {
     sender: 'Charlene Tillman',
     time: '午後9時13分',
-    text: 'ちょうど図書館の戸締まりをしたところです。何かご用ですか。',
+    text: 'ちょうど戸締まりをしたところです。何かご用ですか。',
   },
   {
     sender: 'Minyuan Deng',
@@ -1786,27 +1775,27 @@ const tr03An2Q1 = {
     '午後9時17分に、"I\'ll see to it"という発言で、Tillmanさんは何を意図していると考えられますか。',
   choices: [
     {
-      id: 'tr_03_an2_q1_a',
+      id: 'a',
       textEn: 'She will check that the library doors are locked.',
       textJa: '図書館のドアが施錠されていることを確認するつもりである。',
     },
     {
-      id: 'tr_03_an2_q1_b',
+      id: 'b',
       textEn: "She will post a holiday greeting on the library's Web site.",
       textJa: '図書館のウェブサイトに祝日のあいさつを掲載するつもりである。',
     },
     {
-      id: 'tr_03_an2_q1_c',
+      id: 'c',
       textEn: 'She will change a voicemail message.',
       textJa: '留守番電話のメッセージを変更するつもりである。',
     },
     {
-      id: 'tr_03_an2_q1_d',
+      id: 'd',
       textEn: 'She will send Ms. Deng a reminder e-mail.',
       textJa: 'Dengさんに再確認のEメールを送るつもりである。',
     },
   ],
-  correctChoiceId: 'tr_03_an2_q1_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `2段落で、ちょうど図書館の戸締まりをしたと述べたTillmanさんに、Dengさんは3段落で、祝日の前日なので留守番電話のメッセージを変更する必要があることを伝えるのを忘れていた、と述べている。Dengさんが5段落で、早めに念を押さなかったことを謝ると、Tillmanさんは6段落で、大丈夫だと言った後、下線部の発言で、"I'll see to it"「私がやっておく」と応答している。下線部のitは3段落の留守番電話のメッセージを変更することを指すので、（C）が正解。
 （A）Tillmanさんは2段落で、戸締まりをしたと述べているが、その後、ドアの施錠確認は話題にされていない。
 （B）ウェブサイトのgreeting「あいさつ」については述べられていない。
@@ -1821,27 +1810,27 @@ const tr03An2Q2 = {
   promptJa: 'Dengさんについて何が分かりますか。',
   choices: [
     {
-      id: 'tr_03_an2_q2_a',
+      id: 'a',
       textEn: 'She usually starts work in the library in the afternoon.',
       textJa: '普段、午後に図書館で仕事を始める。',
     },
     {
-      id: 'tr_03_an2_q2_b',
+      id: 'b',
       textEn: 'She is responsible for opening the library in the morning.',
       textJa: '朝、図書館を開館するのを担当している。',
     },
     {
-      id: 'tr_03_an2_q2_c',
+      id: 'c',
       textEn: 'She forgot that the library will be closed tomorrow.',
       textJa: '図書館が明日休館であることを忘れていた。',
     },
     {
-      id: 'tr_03_an2_q2_d',
+      id: 'd',
       textEn: 'She recently did Ms. Tillman a favor.',
       textJa: '最近Tillmanさんのお願いを聞いた。',
     },
   ],
-  correctChoiceId: 'tr_03_an2_q2_a',
+  correctChoiceId: 'a',
   explanationGeneralJa: `Dengさんは7段落で、「今日は、私のいつもの午後4時からのシフトを引き受けてくれてありがとう」とお礼を言っている。よって、Dengさんは普段、午後に図書館での仕事を始めていると分かるので、（A）が正解。
 （B）4段落に、図書館は（午前）8時に開館するとあるが、7段落より、Dengさんのシフト開始は午後4時なので、開館はDengさんの担当業務とは考えられない。be responsible for～「～に対して責任がある」。
 （C）3段落で、Dengさんは明日が祝日のため留守番電話のメッセージを変更する必要性に言及しており、明日は開館時刻が通常と異なることが分かるが、休館かどうかは不明。
@@ -2010,27 +1999,27 @@ const tr03An3Q1 = {
   promptJa: '明日何が起こると考えられますか。',
   choices: [
     {
-      id: 'tr_03_an3_q1_a',
+      id: 'a',
       textEn: 'Vacation requests will be reviewed.',
       textJa: '休暇申請が審査される。',
     },
     {
-      id: 'tr_03_an3_q1_b',
+      id: 'b',
       textEn: 'A training program will begin.',
       textJa: '研修プログラムが始まる。',
     },
     {
-      id: 'tr_03_an3_q1_c',
+      id: 'c',
       textEn: 'A shipment of unfolded pizza boxes will arrive.',
       textJa: '折られていないピザの箱の発送品が届く。',
     },
     {
-      id: 'tr_03_an3_q1_d',
+      id: 'd',
       textEn: 'Some servers will learn how to make pizza sauce.',
       textJa: '何人かの給仕人がピザソースの作り方を学ぶ。',
     },
   ],
-  correctChoiceId: 'tr_03_an3_q1_b',
+  correctChoiceId: 'b',
   explanationGeneralJa: `Aiyarさんは3段落で、新規採用者のJames Hesneyが明日から働けると述べ、8段落でJack Plebaniさんに、明日Jamesの研修を始めてもらえるかと頼んでいる。これに対してPlebaniさんは9段落で快諾しており、明日、新規採用者の研修が始まると分かるので、（B）が正解。
 （A）10段落より、Marcia Berkさんが金曜日に休暇取得予定だと分かるが、休暇申請の審査への言及はない。request「申請」、review「～を審査する」。
 （C）6段落で、配達の合間の仕事としてピザの箱を折ることに言及しているのみ。shipment「発送品」、unfolded「折られていない」。
@@ -2047,27 +2036,27 @@ const tr03An3Q2 = {
     '午前11時39分に、"I\'ve got a planned day off"という発言で、Berkさんは何を意図していると考えられますか。',
   choices: [
     {
-      id: 'tr_03_an3_q2_a',
+      id: 'a',
       textEn: 'She forgot to tell Ms. Aiyar about her schedule.',
       textJa: 'Aiyarさんに自分の予定を伝えるのを忘れた。',
     },
     {
-      id: 'tr_03_an3_q2_b',
+      id: 'b',
       textEn: 'She has not taken a vacation day in a long time.',
       textJa: '長い間休暇を取っていない。',
     },
     {
-      id: 'tr_03_an3_q2_c',
+      id: 'c',
       textEn: 'She cannot train anyone on Friday.',
       textJa: '金曜日は誰にも研修をすることができない。',
     },
     {
-      id: 'tr_03_an3_q2_d',
+      id: 'd',
       textEn: 'She will find someone else to make dough on Friday.',
       textJa: '金曜日に生地を作る他の人を探す。',
     },
   ],
-  correctChoiceId: 'tr_03_an3_q2_c',
+  correctChoiceId: 'c',
   explanationGeneralJa: `Ms. BerkはMarcia Berkさんのこと。Aiyarさんは8段落でBerkさんに、金曜日に新規採用者のLukeの研修を始めてもらえるかと頼んでいるが、Berkさんは10段落の下線部の発言で、「私は一日休暇を取ることになっている」と応答している。それを受けたAiyarさんが11段落で、そのことを失念していたと述べると、同僚のPlebaniさんが12段落で、研修を代行することを申し出ている。以上から、Berkさんは下線部の発言で、金曜日は終日休暇中のため、自分は研修が行えないということを伝えていると判断できる。よって、（C）が正解。
 （A）Aiyarさんの11段落の「忘れていた」という発言から、Berkさんは事前に休暇予定をAiyarさんに伝えていたと考えられる。
 （B）Berkさんが長い間休暇を取っていないことを示す言及はない。
@@ -2729,7 +2718,7 @@ const pre05ArticleEn = {
   byline: 'By Erika Eaton',
   body: [
     'JACKSON (January 4)—Known for its large collection of culturally significant artifacts, the Haywood Museum is partnering with several municipalities throughout the Haywood Mountain region to open satellite locations. — [1] —. The first 5,000-square-meter "mini-museum" is set to open this May in Jackson. According to Haywood Museum Director Thaddeus Lopez, three more mini-museums are planned. — [2] —.',
-    "Speaking at Tuesday's groundbreaking ceremony in Jackson, Lopez said the mini-museums are part of the Haywood Museum's broader goal to enhance the public's appreciation of local history. — [3] —. \"Our exhibits and programmings seek to honor our ancestors in ways that are authentic and interactive,\" Lopez told about 40 onlookers, including Jackson Mayor Max Wu.",
+    "Speaking at Tuesday's groundbreaking ceremony in Jackson, Lopez said the mini-museums are part of the Haywood Museum's broader goal to enhance the public's appreciation of local history. — [3] —. \"Our exhibits and programming seek to honor our ancestors in ways that are authentic and interactive,\" Lopez told about 40 onlookers, including Jackson Mayor Max Wu.",
     "In addition to building mini-museums, the Haywood Museum has hired Mollie Finley of Merriweather University to record, analyze, and organize oral histories of longtime members of the Haywood community. — [4] —. To nominate someone to share their story for Ms. Finley's project, please visit www.haywoodmuseum.org.",
   ],
   singleColumn: true,
@@ -2793,24 +2782,24 @@ const pre06Q1 = {
   promptEn: 'What is the purpose of the e-mail?',
   promptJa: 'Eメールの目的は何ですか。',
   choices: [
-    { id: 'A', textEn: 'To announce a business acquisition', textJa: '事業の買収を発表すること' },
+    { id: 'a', textEn: 'To announce a business acquisition', textJa: '事業の買収を発表すること' },
     {
-      id: 'B',
+      id: 'b',
       textEn: 'To inform employees of a charitable giving option',
       textJa: '従業員に慈善事業への寄付の一つの選択肢を知らせること',
     },
     {
-      id: 'C',
+      id: 'c',
       textEn: "To recognize an employee's community service",
       textJa: '従業員の地域社会への奉仕活動を評価すること',
     },
     {
-      id: 'D',
+      id: 'd',
       textEn: 'To encourage organizations to conserve resources',
       textJa: '団体に資源を保護するよう奨励すること',
     },
   ],
-  correctChoiceId: 'B',
+  correctChoiceId: 'b',
   explanationGeneralJa:
     '1つ目の本文のEメールは、Vernment社の寄付月間委員会が全従業員宛てに送信したもの。同1段落1～2行目で、I would like to draw your attention to one more charity to consider.「検討すべきもう一つの慈善団体に皆さんの注目を集めたいと思う」と述べ、同2段落では、森林再生活動に尽力しているArborlee Internationalという団体について詳しく紹介している。よって、寄付先の選択肢として同団体をVernment社の従業員に知らせることがEメールの目的だと考えられるので、（B）が正解。inform〜of…「～に・・・を知らせる」、charitable giving「慈善事業への寄付」、option「選択肢」。\n（A） announce「～を発表する」、acquisition「買収、取得」。\n（C） recognize「〜を評価する、～を認める」、community service「地域社会への奉仕活動」。\n（D） encourage～to do「〜に・するよう奨励する」、conserve「～を保護する」、resource「資源」',
   metacogFeedbackJa: '',
@@ -2821,12 +2810,12 @@ const pre06Q2 = {
   promptEn: 'According to the e-mail, who will plant trees?',
   promptJa: 'Eメールによると、誰が木を植えますか。',
   choices: [
-    { id: 'A', textEn: 'People living in deforested areas', textJa: '森林伐採地域に暮らす人々' },
-    { id: 'B', textEn: 'Representatives from government agencies', textJa: '政府機関の代表者' },
-    { id: 'C', textEn: 'The Month of Giving committee', textJa: '寄付月間委員会' },
-    { id: 'D', textEn: 'Volunteers from Vernment, Inc.', textJa: 'Vernment社のボランティア' },
+    { id: 'a', textEn: 'People living in deforested areas', textJa: '森林伐採地域に暮らす人々' },
+    { id: 'b', textEn: 'Representatives from government agencies', textJa: '政府機関の代表者' },
+    { id: 'c', textEn: 'The Month of Giving committee', textJa: '寄付月間委員会' },
+    { id: 'd', textEn: 'Volunteers from Vernment, Inc.', textJa: 'Vernment社のボランティア' },
   ],
-  correctChoiceId: 'A',
+  correctChoiceId: 'a',
   explanationGeneralJa:
     '1つ目の本文の2段落1～2行目に、Arborlee Internationalという団体が森林再生が必要な場所で若木を根付かせるために世界各地の地域社会と共に尽力していることに言及があり、同3〜4行目に、Local citizens are hired and taught the skills required to plant the trees and to care for them「地元住民が雇用され、木を植えてそれらを手入れするのに必要な技術を教わっている」とある。よって、木を植えるのは、森林再生が必要な地域に暮らす地元住民と分かるので、（A）が正解。deforest「〜の森林を伐採する」。\n（B） representative「代表者」、government「政府」、agency「機関」。',
   metacogFeedbackJa: '',
@@ -2838,15 +2827,15 @@ const pre06Q3 = {
   promptJa: '木を植える目的は何ですか。',
   choices: [
     {
-      id: 'A',
+      id: 'a',
       textEn: 'To provide inexpensive building materials',
       textJa: '安価な建築資材を提供すること',
     },
-    { id: 'B', textEn: 'To increase incomes in an area', textJa: '地域の収入を増やすこと' },
-    { id: 'C', textEn: 'To improve the environment', textJa: '環境を改善すること' },
-    { id: 'D', textEn: 'To beautify a city', textJa: '都市を美化すること' },
+    { id: 'b', textEn: 'To increase incomes in an area', textJa: '地域の収入を増やすこと' },
+    { id: 'c', textEn: 'To improve the environment', textJa: '環境を改善すること' },
+    { id: 'd', textEn: 'To beautify a city', textJa: '都市を美化すること' },
   ],
-  correctChoiceId: 'C',
+  correctChoiceId: 'c',
   explanationGeneralJa:
     '1つ目の本文の2段落1～2行目に、Arborlee Internationalは森林再生が必要な場所で植林のために各地の地域社会と連携しているとあり、同4～6行目にはArborlee wants the trees to grow strong and provide shade, oxygen, and soil stabilization for previously barren areas.「Arborleeは木が丈夫に成長し、それらが以前は不毛だった地帯に木陰、酸素、土壌の安定化をもたらすことを望んでいる」とある。よって、植林の目的は森林伐採地域の環境を改善することと分かる。\n（A） inexpensive「安価な」、material「材料」。\n（B） income「収入」。\n（D） beautify「〜を美化する」。',
   metacogFeedbackJa: '',
@@ -2858,27 +2847,27 @@ const pre06Q4 = {
   promptJa: 'Vernment社からの寄付金は、何のために使われたと考えられますか。',
   choices: [
     {
-      id: 'A',
+      id: 'a',
       textEn: 'Planting thousands of new trees',
       textJa: '何千本もの新しい木を植えること',
     },
     {
-      id: 'B',
+      id: 'b',
       textEn: 'Making improvements to the landscaping on a corporate campus',
       textJa: '会社の敷地内の景観を改善すること',
     },
     {
-      id: 'C',
+      id: 'c',
       textEn: 'Saving native trees from being harvested',
       textJa: '自生木が伐採されるのを防ぐこと',
     },
     {
-      id: 'D',
+      id: 'd',
       textEn: 'Printing materials that outline the mission of Arborlee International',
       textJa: 'Arborlee Internationalの使命を概説する資料を印刷すること',
     },
   ],
-  correctChoiceId: 'A',
+  correctChoiceId: 'a',
   explanationGeneralJa:
     '1つ目の本文の2段落6行目より、Arborlee Internationalへの寄付金は全て植林に使われると分かり、同6～7行目に「例えば1,000ドルの寄贈なら、1,000本の植林の資金となる」とある。同団体からVernment社へ贈られた2つ目の本文の感謝状を見ると、1段落1行目より同社の寄付額は7,260ドルと分かる。さらに同4～5行目には、the Rio Alto Forest Reserve in Bolivia, a project completed with the help of your funds「貴社の資金協力によって完成したプロジェクトである、ボリビアのRio Alto保護林」とあることから、Vernment社からの寄付金は保護林に7,260本の木を植えることに充てられたと考えられる。\n（B） improvement「改良」、landscaping「景観設計」、corporate「会社の」、campus「敷地」。\n（C） save～from doing「〜が・しないで済むようにする」、harvest「～を伐採する、～を収穫する」。\n（D） outline「〜を概説する」。',
   metacogFeedbackJa: '',
@@ -4321,27 +4310,27 @@ const post07Q1 = {
   promptJa: 'Hainey診療所について何が分かりますか。',
   choices: [
     {
-      id: 'A',
+      id: 'a',
       textEn: 'It is not located in Somerfield.',
       textJa: '同診療所はサマーフィールド市内に位置していない。',
     },
     {
-      id: 'B',
+      id: 'b',
       textEn: "Its waiting room includes a children's play area.",
       textJa: '同診療所の待合室には子どもの遊び場がある。',
     },
     {
-      id: 'C',
+      id: 'c',
       textEn: 'It has just enlarged its waiting room.',
       textJa: '同診療所は待合室を拡張したばかりである。',
     },
     {
-      id: 'D',
+      id: 'd',
       textEn: 'It has recently moved to a new location.',
       textJa: '同診療所は最近、新しい場所に移った。',
     },
   ],
-  correctChoiceId: 'A',
+  correctChoiceId: 'a',
   explanationGeneralJa:
     '1つ目の本文の家具店の広告の2段落1行目に、Delivery service is available and free to locations within Somerfield city limits.「配送サービスが利用可能で、サマーフィールド市内の場所なら無料だ」とある。2つ目の本文の請求書は1段落3行目より、同店からHainey診療所に宛てたもの。同2段落右下のDelivery「配送料」の欄に100.00ドルと記載があるので、注文には配送料がかかっている。よってHainey診療所はサマーフィールド市内には位置していないと分かる。be located in～「～に位置している、～にある」。\n（B） waiting room「待合室」、include「～を含む」、play area「遊び場」。\n（C） enlarge「～を拡張する」。',
   metacogFeedbackJa: '',
@@ -4352,12 +4341,12 @@ const post07Q2 = {
   promptEn: 'Why did Mr. Byrne send the e-mail?',
   promptJa: 'Byrneさんはなぜ Eメールを送りましたか。',
   choices: [
-    { id: 'A', textEn: 'To make a purchase', textJa: '購入をするため' },
-    { id: 'B', textEn: 'To answer a question', textJa: '質問に答えるため' },
-    { id: 'C', textEn: 'To schedule an appointment', textJa: '約束の日程を取り決めるため' },
-    { id: 'D', textEn: 'To describe some product features', textJa: '製品の特徴を説明するため' },
+    { id: 'a', textEn: 'To make a purchase', textJa: '購入をするため' },
+    { id: 'b', textEn: 'To answer a question', textJa: '質問に答えるため' },
+    { id: 'c', textEn: 'To schedule an appointment', textJa: '約束の日程を取り決めるため' },
+    { id: 'd', textEn: 'To describe some product features', textJa: '製品の特徴を説明するため' },
   ],
-  correctChoiceId: 'B',
+  correctChoiceId: 'b',
   explanationGeneralJa:
     '3つ目の本文のEメールは、Green Lyreオフィス家具店のByrneさんが、Hainey診療所のKaiさん宛てに送ったもの。Byrneさんは、同1段落1～2行目で、Kaiさんからの留守番電話を受け、折り返し電話したが、診療所は業務を終了していたと述べている。同3〜4行目で、Then you asked whether you could receive a refund.「それからあなたは、払い戻しを受けられるかどうか尋ねた」と述べてから、続く4～5行目で、Unfortunately, your purchase is not refundable, but I would like to accommodate you by offering an exchange.「あいにく、今回の購入は払い戻しが利かないが、交換を提供することによって要望に応じたいと思う」と、Kaiさんの質問に回答しているので、（B）が正解。\n（A） make a purchase「購入する」。\n（D） 3つ目の本文の1段落5～8行目で、Byrneさんは交換する製品に言及しているが、その特徴を説明してはいない。describe「～を説明する」、feature「特徴」。',
   metacogFeedbackJa: '',
@@ -4368,12 +4357,12 @@ const post07Q3 = {
   promptEn: 'What extra item does the store offer to add to the order?',
   promptJa: '店は、注文分にどの追加商品を加えると申し出ていますか。',
   choices: [
-    { id: 'A', textEn: 'MT-5047', textJa: 'MT-5047' },
-    { id: 'B', textEn: 'MT-2956', textJa: 'MT-2956' },
-    { id: 'C', textEn: 'MT-0632', textJa: 'MT-0632' },
-    { id: 'D', textEn: 'MT-4278', textJa: 'MT-4278' },
+    { id: 'a', textEn: 'MT-5047', textJa: 'MT-5047' },
+    { id: 'b', textEn: 'MT-2956', textJa: 'MT-2956' },
+    { id: 'c', textEn: 'MT-0632', textJa: 'MT-0632' },
+    { id: 'd', textEn: 'MT-4278', textJa: 'MT-4278' },
   ],
-  correctChoiceId: 'A',
+  correctChoiceId: 'a',
   explanationGeneralJa:
     '3つ目の本文の1段落5～6行目で、Green Lyreオフィス家具店のByrneさんは、Kaiさんが注文したソファの代わりにGreen Lyreの二人掛けレザーソファを提供することを申し出てから、続く同6～8行目でif you accept the love seat, I would also let you have an additional Green Lyre Reception Chair, all for the same total price as on the original invoice「もしこの二人掛けソファを了承してくれるなら、全て合わせて元の請求書にあるのと同じ合計金額で追加のGreen Lyreレセプションチェアも1脚付けたい」と述べている。2つ目の本文の請求書の2段落で、Reception Chair「レセプションチェア」のItem Number「商品番号」はMT-5047と記されているので、（A）が正解。extra「追加の、余分の」、add～to…「～を…に追加する」。',
   metacogFeedbackJa: '',
@@ -4767,21 +4756,6 @@ const post08Passage: Passage = {
   questions: [post08Q1, post08Q2, post08Q3, post08Q4],
 };
 
-const duplicatePassages = (prefix: 'pre' | 'post', count: number): Passage[] => {
-  return Array.from({ length: count }, (_, idx) => {
-    const num = (idx + 1).toString().padStart(2, '0');
-    return {
-      id: `${prefix}_${num}`,
-      title: basePassage.title,
-      direction: basePassage.direction,
-      directionJa: basePassage.directionJa,
-      paragraphsEn: basePassage.paragraphsEn,
-      sections: basePassage.sections,
-      questions: prePostQuestions,
-    };
-  });
-};
-
 export const mockPrePassages: Passage[] = [
   pre01Passage,
   pre02Passage,
@@ -4803,3 +4777,86 @@ export const mockPostPassages: Passage[] = [
   post07Passage,
   post08Passage,
 ];
+
+// ===== Tutorial (例) 用ダミー問題 =====
+
+const tutorialQ1: Question = {
+  id: 'tutorial_q1',
+  promptEn: 'What is the main purpose of this e-mail?',
+  promptJa: 'このEメールの主な目的は何ですか。',
+  choices: [
+    {
+      id: 'a',
+      textEn: 'To announce a company event',
+      textJa: '会社のイベントを告知するため',
+    },
+    {
+      id: 'b',
+      textEn: 'To request a meeting',
+      textJa: '会議を依頼するため',
+    },
+    {
+      id: 'c',
+      textEn: 'To confirm a reservation',
+      textJa: '予約を確認するため',
+    },
+    {
+      id: 'd',
+      textEn: 'To introduce a new employee',
+      textJa: '新しい従業員を紹介するため',
+    },
+  ],
+  correctChoiceId: 'a',
+  explanationGeneralJa:
+    'これは操作練習用のサンプル問題です。本番の問題では、このように解説が表示されます。Eメールの1段落目に「来月開催予定のイベントについてお知らせします」とあることから、（A）が正解です。',
+};
+
+export const tutorialPassage: Passage = {
+  id: 'tutorial',
+  title: 'Sample E-mail',
+  direction: 'Question 1 refers to the following e-mail.',
+  directionJa: '問題1は次のEメールに関するものです。',
+  paragraphsEn: [],
+  paragraphsJa: [],
+  sections: [
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'en' as const,
+      emailTable: {
+        headers: [
+          { label: 'To:', value: 'All Staff' },
+          { label: 'From:', value: 'John Smith' },
+          { label: 'Date:', value: 'January 15' },
+          { label: 'Subject:', value: 'Upcoming Event' },
+        ],
+        body: [
+          'Dear colleagues,',
+          'I am writing to inform you about an event scheduled for next month. The annual company gathering will be held on February 20 at the main conference hall.',
+          'Please mark your calendars and confirm your attendance by January 25.',
+          'Best regards,',
+          'John Smith',
+        ],
+      },
+    },
+    {
+      layoutType: 'emailTable' as const,
+      locale: 'ja' as const,
+      emailTable: {
+        headers: [
+          { label: '宛先：', value: '全スタッフ' },
+          { label: '送信者：', value: 'John Smith' },
+          { label: '日付：', value: '1月15日' },
+          { label: '件名：', value: '今後のイベント' },
+        ],
+        body: [
+          '同僚の皆様',
+          '来月開催予定のイベントについてお知らせします。年次全社集会は2月20日にメイン会議室で開催されます。',
+          'カレンダーに印をつけ、1月25日までに出席確認をお願いいたします。',
+          'よろしくお願いいたします。',
+          'John Smith',
+        ],
+      },
+    },
+  ],
+  questions: [tutorialQ1],
+};

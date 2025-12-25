@@ -14,10 +14,11 @@ type NoticeBodyProps = {
 export function NoticeBody({ notice }: NoticeBodyProps) {
   // 段落の先頭にある "Header:" パターンを太字にする
   const renderParagraph = (text: string) => {
-    // "Header: content" パターンを検出
-    const match = text.match(/^([A-Za-z\s]+):\s*/);
+    // "Header: content" パターンを検出（英語: ":" / 日本語: "："）
+    const match = text.match(/^([A-Za-z\s]+):\s*/) || text.match(/^([^：]+)：\s*/);
     if (match) {
-      const header = match[1] + ':';
+      const colonChar = text.includes('：') ? '：' : ':';
+      const header = match[1] + colonChar;
       const rest = text.slice(match[0].length);
       return (
         <>

@@ -25,7 +25,8 @@ export default function TrainingIntroPage() {
       <h1 className="text-2xl font-semibold">Practice を開始します</h1>
       <div className="space-y-2 text-sm text-zinc-600">
         <p>Practiceでは、英語の長文読解の練習を行います。</p>
-        <p>問題を解いた後に解説が表示されます。画面の指示に従って進めてください。</p>
+        <p>問題を解いた後に、問題に対する振り返りと解説があります。</p>
+        <p>問題には制限時間がありますが、解説は時間を気にせず読んで学習してください。</p>
       </div>
       <Button onClick={() => router.push(`/training/${passageId}`)}>Practice を開始</Button>
     </main>

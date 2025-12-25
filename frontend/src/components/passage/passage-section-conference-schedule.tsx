@@ -12,8 +12,10 @@ export function ConferenceScheduleBody({ conferenceSchedule }: ConferenceSchedul
       {/* Header text */}
       <div className="text-center py-4 px-4 space-y-1">
         <p className="font-bold">{conferenceSchedule.title}</p>
-        {conferenceSchedule.subtitle && <p>{conferenceSchedule.subtitle}</p>}
-        {conferenceSchedule.subtitle2 && <p>{conferenceSchedule.subtitle2}</p>}
+        {conferenceSchedule.subtitle && <p className="font-bold">{conferenceSchedule.subtitle}</p>}
+        {conferenceSchedule.subtitle2 && (
+          <p className="font-bold">{conferenceSchedule.subtitle2}</p>
+        )}
       </div>
 
       {/* Table */}

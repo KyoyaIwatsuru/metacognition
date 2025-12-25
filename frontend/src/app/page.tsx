@@ -199,16 +199,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-3">
-          <Button variant="default" onClick={() => handleStart('pre')}>
-            Pre-test を開始
-          </Button>
-          <Button variant="default" onClick={() => handleStart('training')}>
-            Practice を開始
-          </Button>
-          <Button variant="default" onClick={() => handleStart('post')}>
-            Post-test を開始
-          </Button>
+        <section className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            <Button variant="default" onClick={() => handleStart('pre')}>
+              Pre-test を開始
+            </Button>
+            <Button variant="default" onClick={() => handleStart('training')}>
+              Practice を開始
+            </Button>
+            <Button variant="default" onClick={() => handleStart('post')}>
+              Post-test を開始
+            </Button>
+          </div>
+          <div>
+            <Button variant="outline" onClick={() => router.push('/tutorial')}>
+              操作説明を見る
+            </Button>
+          </div>
         </section>
       </main>
     </div>

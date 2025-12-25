@@ -31,10 +31,15 @@ export function QuestionList({
   showSubmitButton = false,
   twoColumns = false,
 }: QuestionListProps) {
-  const containerClass = twoColumns ? 'grid grid-cols-2 gap-x-0 gap-y-0' : 'space-y-4';
+  // 2カラム時は縦方向に流れるレイアウト（1,3 / 2,4 の順）
+  const rowCount = Math.ceil(questions.length / 2);
+  const containerClass = twoColumns
+    ? `grid grid-cols-2 grid-flow-col gap-x-4 gap-y-0`
+    : 'space-y-4';
+  const containerStyle = twoColumns ? { gridTemplateRows: `repeat(${rowCount}, auto)` } : undefined;
 
   return (
-    <div className={containerClass}>
+    <div className={containerClass} style={containerStyle}>
       {questions.map((q, index) => (
         <div key={q.id} className={twoColumns ? 'space-y-0.5' : 'space-y-1'}>
           <div className="text-[14px] leading-[2.4]">

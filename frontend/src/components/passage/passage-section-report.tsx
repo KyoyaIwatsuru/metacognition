@@ -37,13 +37,13 @@ export function ReportBody({ report }: ReportBodyProps) {
         {/* 区切り線（メタ情報の下） */}
         <hr className="-mx-3 border-t border-black" />
 
-        {/* 本文見出し（太字） */}
-        {report.bodyTitle ? <p className="font-bold">{report.bodyTitle}</p> : null}
-
         {/* 本文 */}
         <div className="space-y-3 text-justify">
           {report.body.map((p, idx) => (
             <p key={idx} className="whitespace-pre-line">
+              {idx === 0 && report.bodyTitle ? (
+                <span className="font-bold">{report.bodyTitle} </span>
+              ) : null}
               {p}
             </p>
           ))}
