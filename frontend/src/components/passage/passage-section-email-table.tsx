@@ -19,7 +19,10 @@ export function EmailTableBody({ emailTable }: EmailTableBodyProps) {
             {/* Striped decorative bar */}
             <div className="h-0.5 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300" />
             {/* Title */}
-            <div className="text-center py-0.5 font-bold text-xs border-b border-black">
+            <div
+              className="text-center py-0.5 font-bold text-xs border-b border-black"
+              data-passage-title="true"
+            >
               {emailTable.title}
             </div>
           </>
@@ -28,19 +31,36 @@ export function EmailTableBody({ emailTable }: EmailTableBodyProps) {
         {/* Header table */}
         <table className="w-full border-collapse text-[14px] leading-[2.4]">
           <tbody>
-            {emailTable.headers.map((header, idx) => (
-              <tr key={idx} className="border-b border-black">
-                <td className="border-r border-black px-2 py-0 font-bold w-20">{header.label}</td>
-                <td className="px-2 py-0">{header.value}</td>
-              </tr>
-            ))}
+            {emailTable.headers.map((header, idx) => {
+              // Determine metadata type from label
+              const label = header.label.toLowerCase();
+              let metadataType = 'other';
+              if (label.includes('to') || label.includes('宛先')) metadataType = 'recipient';
+              else if (label.includes('from') || label.includes('送信')) metadataType = 'sender';
+              else if (label.includes('date') || label.includes('日付')) metadataType = 'date';
+              else if (label.includes('subject') || label.includes('件名'))
+                metadataType = 'subject';
+
+              return (
+                <tr key={idx} className="border-b border-black">
+                  <td className="border-r border-black px-2 py-0 font-bold w-20">
+                    <span data-passage-metadata={metadataType}>{header.label}</span>
+                  </td>
+                  <td className="px-2 py-0">
+                    <span data-passage-metadata={metadataType}>{header.value}</span>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
 
         {/* Body paragraphs */}
         <div className="px-2 py-0.5 text-[14px] leading-[2.4] text-slate-800">
           {emailTable.body.map((paragraph, idx) => (
-            <p key={idx}>{paragraph}</p>
+            <p key={idx} data-passage-paragraph>
+              {paragraph}
+            </p>
           ))}
         </div>
       </div>

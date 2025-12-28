@@ -39,6 +39,88 @@ type PassageBodyProps = {
  * Render passage sections with layout-aware components.
  * Fallback to simple paragraph list when no sections provided.
  */
+// Helper function to render a section based on its layoutType
+function renderSectionContent(section: PassageSection) {
+  if (section.layoutType === 'ad') {
+    return <AdBody ad={section.ad} />;
+  }
+  if (section.layoutType === 'letter') {
+    return <LetterBody letter={section.letter} />;
+  }
+  if (section.layoutType === 'report') {
+    return <ReportBody report={section.report} />;
+  }
+  if (section.layoutType === 'webpage') {
+    return <WebpageBody webpage={section.webpage} />;
+  }
+  if (section.layoutType === 'schedule') {
+    return <ScheduleBody schedule={section.schedule} />;
+  }
+  if (section.layoutType === 'article') {
+    return <ArticleBody article={section.article} />;
+  }
+  if (section.layoutType === 'notice') {
+    return <NoticeBody notice={section.notice} />;
+  }
+  if (section.layoutType === 'orderForm') {
+    return <OrderFormBody orderForm={section.orderForm} />;
+  }
+  if (section.layoutType === 'textMessageChain') {
+    return <TextMessageChainBody textMessageChain={section.textMessageChain} />;
+  }
+  if (section.layoutType === 'onlineChatDiscussion') {
+    return <OnlineChatDiscussionBody onlineChatDiscussion={section.onlineChatDiscussion} />;
+  }
+  if (section.layoutType === 'memo') {
+    return <MemoBody memo={section.memo} />;
+  }
+  if (section.layoutType === 'chatTablet') {
+    return <ChatTabletBody chatTablet={section.chatTablet} />;
+  }
+  if (section.layoutType === 'pressRelease') {
+    return <PressReleaseBody pressRelease={section.pressRelease} />;
+  }
+  if (section.layoutType === 'emailForm') {
+    return <EmailFormBody emailForm={section.emailForm} />;
+  }
+  if (section.layoutType === 'conferenceSchedule') {
+    return <ConferenceScheduleBody conferenceSchedule={section.conferenceSchedule} />;
+  }
+  if (section.layoutType === 'customerServiceExchange') {
+    return (
+      <CustomerServiceExchangeBody customerServiceExchange={section.customerServiceExchange} />
+    );
+  }
+  if (section.layoutType === 'customerReviews') {
+    return <CustomerReviewsBody customerReviews={section.customerReviews} />;
+  }
+  if (section.layoutType === 'packageTracking') {
+    return <PackageTrackingBody packageTracking={section.packageTracking} />;
+  }
+  if (section.layoutType === 'emailTable') {
+    return <EmailTableBody emailTable={section.emailTable} />;
+  }
+  if (section.layoutType === 'certificate') {
+    return <CertificateBody certificate={section.certificate} />;
+  }
+  if (section.layoutType === 'invoice') {
+    return <InvoiceBody invoice={section.invoice} />;
+  }
+  if (section.layoutType === 'adChainBorder') {
+    return <AdChainBorderBody adChainBorder={section.adChainBorder} />;
+  }
+  if (section.layoutType === 'newsletterProfile') {
+    return <NewsletterProfileBody newsletterProfile={section.newsletterProfile} />;
+  }
+  return (
+    <div className="space-y-2 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line">
+      {section.paragraphs.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </div>
+  );
+}
+
 export function PassageBody({
   sections,
   paragraphsEn,
@@ -48,118 +130,85 @@ export function PassageBody({
   maxSections,
   skipSections = 0,
 }: PassageBodyProps) {
-  const displayDirection = locale === 'ja' ? (directionJa ?? direction) : direction;
-
   if (sections && sections.length > 0) {
-    // Filter by locale first
-    let filteredSections = sections.filter((s) => s.locale === locale);
+    // Get sections for both locales
+    let enSections = sections.filter((s) => s.locale === 'en');
+    let jaSections = sections.filter((s) => s.locale === 'ja');
 
     // Apply skip and max
     if (skipSections > 0) {
-      filteredSections = filteredSections.slice(skipSections);
+      enSections = enSections.slice(skipSections);
+      jaSections = jaSections.slice(skipSections);
     }
     if (maxSections !== undefined) {
-      filteredSections = filteredSections.slice(0, maxSections);
+      enSections = enSections.slice(0, maxSections);
+      jaSections = jaSections.slice(0, maxSections);
     }
 
+    // Use visible sections based on locale, hidden sections for coordinate collection
+    const visibleSections = locale === 'en' ? enSections : jaSections;
+    const hiddenSections = locale === 'en' ? jaSections : enSections;
+    const hiddenLocale = locale === 'en' ? 'ja' : 'en';
+
     return (
-      <div className="space-y-0.5">
+      <div className="space-y-0.5" style={{ position: 'relative' }}>
         {/* 導入文（スキップしていない場合のみ表示） */}
-        {skipSections === 0 && displayDirection ? (
-          <p className="text-sm font-semibold text-slate-800">{displayDirection}</p>
+        {skipSections === 0 ? (
+          <div style={{ position: 'relative' }}>
+            {/* Visible direction */}
+            {(locale === 'en' ? direction : (directionJa ?? direction)) ? (
+              <p
+                className="text-sm font-semibold text-slate-800"
+                data-passage-instruction="true"
+                data-passage-instruction-locale={locale}
+              >
+                {locale === 'en' ? direction : (directionJa ?? direction)}
+              </p>
+            ) : null}
+            {/* Hidden direction for coordinate collection */}
+            {(hiddenLocale === 'en' ? direction : (directionJa ?? direction)) ? (
+              <p
+                className="text-sm font-semibold text-slate-800"
+                style={{
+                  visibility: 'hidden',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                }}
+                data-passage-instruction-hidden="true"
+                data-passage-instruction-locale={hiddenLocale}
+              >
+                {hiddenLocale === 'en' ? direction : (directionJa ?? direction)}
+              </p>
+            ) : null}
+          </div>
         ) : null}
-        {filteredSections.map((section, idx) => {
-          if (section.layoutType === 'ad') {
-            return <AdBody key={idx} ad={section.ad} />;
-          }
-          if (section.layoutType === 'letter') {
-            return <LetterBody key={idx} letter={section.letter} />;
-          }
-          if (section.layoutType === 'report') {
-            return <ReportBody key={idx} report={section.report} />;
-          }
-          if (section.layoutType === 'webpage') {
-            return <WebpageBody key={idx} webpage={section.webpage} />;
-          }
-          if (section.layoutType === 'schedule') {
-            return <ScheduleBody key={idx} schedule={section.schedule} />;
-          }
-          if (section.layoutType === 'article') {
-            return <ArticleBody key={idx} article={section.article} />;
-          }
-          if (section.layoutType === 'notice') {
-            return <NoticeBody key={idx} notice={section.notice} />;
-          }
-          if (section.layoutType === 'orderForm') {
-            return <OrderFormBody key={idx} orderForm={section.orderForm} />;
-          }
-          if (section.layoutType === 'textMessageChain') {
-            return <TextMessageChainBody key={idx} textMessageChain={section.textMessageChain} />;
-          }
-          if (section.layoutType === 'onlineChatDiscussion') {
-            return (
-              <OnlineChatDiscussionBody
-                key={idx}
-                onlineChatDiscussion={section.onlineChatDiscussion}
-              />
-            );
-          }
-          if (section.layoutType === 'memo') {
-            return <MemoBody key={idx} memo={section.memo} />;
-          }
-          if (section.layoutType === 'chatTablet') {
-            return <ChatTabletBody key={idx} chatTablet={section.chatTablet} />;
-          }
-          if (section.layoutType === 'pressRelease') {
-            return <PressReleaseBody key={idx} pressRelease={section.pressRelease} />;
-          }
-          if (section.layoutType === 'emailForm') {
-            return <EmailFormBody key={idx} emailForm={section.emailForm} />;
-          }
-          if (section.layoutType === 'conferenceSchedule') {
-            return (
-              <ConferenceScheduleBody key={idx} conferenceSchedule={section.conferenceSchedule} />
-            );
-          }
-          if (section.layoutType === 'customerServiceExchange') {
-            return (
-              <CustomerServiceExchangeBody
-                key={idx}
-                customerServiceExchange={section.customerServiceExchange}
-              />
-            );
-          }
-          if (section.layoutType === 'customerReviews') {
-            return <CustomerReviewsBody key={idx} customerReviews={section.customerReviews} />;
-          }
-          if (section.layoutType === 'packageTracking') {
-            return <PackageTrackingBody key={idx} packageTracking={section.packageTracking} />;
-          }
-          if (section.layoutType === 'emailTable') {
-            return <EmailTableBody key={idx} emailTable={section.emailTable} />;
-          }
-          if (section.layoutType === 'certificate') {
-            return <CertificateBody key={idx} certificate={section.certificate} />;
-          }
-          if (section.layoutType === 'invoice') {
-            return <InvoiceBody key={idx} invoice={section.invoice} />;
-          }
-          if (section.layoutType === 'adChainBorder') {
-            return <AdChainBorderBody key={idx} adChainBorder={section.adChainBorder} />;
-          }
-          if (section.layoutType === 'newsletterProfile') {
-            return (
-              <NewsletterProfileBody key={idx} newsletterProfile={section.newsletterProfile} />
-            );
-          }
+
+        {/* Sections - render EN/JA pairs together for same coordinates */}
+        {visibleSections.map((visibleSection, idx) => {
+          const sectionIndex = skipSections + idx;
+          const hiddenSection = hiddenSections[idx];
           return (
-            <div
-              key={idx}
-              className="space-y-2 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line"
-            >
-              {section.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+            <div key={idx} style={{ position: 'relative' }}>
+              {/* Visible section */}
+              <div data-passage-section={sectionIndex} data-passage-section-locale={locale}>
+                {renderSectionContent(visibleSection)}
+              </div>
+              {/* Hidden section for coordinate collection (same position) */}
+              {hiddenSection ? (
+                <div
+                  style={{
+                    visibility: 'hidden',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                  }}
+                  data-passage-section-hidden={sectionIndex}
+                  data-passage-section-locale={hiddenLocale}
+                >
+                  {renderSectionContent(hiddenSection)}
+                </div>
+              ) : null}
             </div>
           );
         })}

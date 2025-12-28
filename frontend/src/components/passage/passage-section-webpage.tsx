@@ -17,7 +17,9 @@ export function WebpageBody({ webpage }: WebpageBodyProps) {
       <div className="border-b-2 border-black px-2 py-1">
         {/* URL入力欄（ドロップダウン矢印を内包） */}
         <div className="border border-black bg-white text-sm flex items-center">
-          <span className="flex-1 px-2 py-0.5">{webpage.url}</span>
+          <span className="flex-1 px-2 py-0.5" data-passage-metadata="url">
+            {webpage.url}
+          </span>
           <span className="border-l border-black px-2 py-0.5">▼</span>
         </div>
       </div>
@@ -33,12 +35,14 @@ export function WebpageBody({ webpage }: WebpageBodyProps) {
         {/* メインコンテンツ */}
         <div className="pr-6 px-3 py-3 space-y-3">
           {/* ページタイトル */}
-          <p className="font-bold text-base">{webpage.title}</p>
+          <p className="font-bold text-base" data-passage-title="true">
+            {webpage.title}
+          </p>
 
           {/* 本文 */}
           <div className="space-y-3 text-justify">
             {webpage.body.map((p, idx) => (
-              <p key={idx} className="whitespace-pre-line indent-0">
+              <p key={idx} className="whitespace-pre-line indent-0" data-passage-paragraph>
                 {p}
               </p>
             ))}

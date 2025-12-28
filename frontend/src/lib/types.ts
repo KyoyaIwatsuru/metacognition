@@ -1,4 +1,6 @@
 ﻿export type Phase = 'pre' | 'training' | 'post';
+export type GroupLetter = 'A' | 'B';
+export type TrainingSet = '1' | '2' | '3';
 export type Group = 'A1' | 'A2' | 'A3' | 'B1' | 'B2' | 'B3';
 export type EyeTrackerStatus = 'disconnected' | 'connected' | 'loading';
 
@@ -44,6 +46,8 @@ export type Passage = {
 export type LogEvent = {
   timestamp: string;
   participantId?: string;
+  groupLetter?: GroupLetter;
+  trainingSet?: TrainingSet;
   group?: Group;
   phase?: Phase;
   event: string;

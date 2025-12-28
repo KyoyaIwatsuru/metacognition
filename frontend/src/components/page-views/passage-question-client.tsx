@@ -11,6 +11,13 @@ import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
 import { PassageBody } from '@/components/passage/passage-body';
 import type { Passage } from '@/lib/types';
+import { useAppStore } from '@/lib/store';
+import {
+  collectTextCoordinates,
+  getElementBBox,
+  saveCoordinates,
+  extractPassageCoordinates,
+} from '@/lib/coordinate-collector';
 
 type PassageQuestionClientProps = {
   passage: Passage;
@@ -38,6 +45,8 @@ export function PassageQuestionClient({
   onSubmit,
 }: PassageQuestionClientProps) {
   const router = useRouter();
+  const participantId = useAppStore((s) => s.participantId);
+  const groupLetter = useAppStore((s) => s.groupLetter);
   const initialSelections = useMemo(
     () => Object.fromEntries(passage.questions.map((q) => [q.id, undefined])),
     [passage.questions]
@@ -54,7 +63,87 @@ export function PassageQuestionClient({
     startTimeRef.current = Date.now();
     captureScreen();
     logEvent({ event: 'question_screen_open', passage_id: passage.id });
-  }, [passage.id]);
+
+    // Collect coordinates after a short delay to ensure rendering is complete
+    const timer = setTimeout(() => {
+      if (!participantId) return;
+
+      // Instruction text
+      const instructionElement = document.querySelector(
+        '[data-passage-instruction="true"]'
+      ) as HTMLElement | null;
+
+      // Timer (in header)
+      const timerElement = document.querySelector('[data-timer="true"]') as HTMLElement | null;
+
+      // Passage sections with detailed extraction
+      const sectionElements = Array.from(
+        document.querySelectorAll('[data-passage-section]')
+      ) as HTMLElement[];
+      const passages = sectionElements.map((el, idx) => extractPassageCoordinates(el, idx));
+
+      // Questions
+      const questionElements = Array.from(
+        document.querySelectorAll('[data-question]')
+      ) as HTMLElement[];
+      const questions = questionElements.map((qEl) => {
+        const questionId = qEl.getAttribute('data-question') || '';
+        const questionIndex = parseInt(qEl.getAttribute('data-question-index') || '0');
+        const promptElement = qEl.querySelector(
+          '[data-question-prompt="true"]'
+        ) as HTMLElement | null;
+
+        const choiceElements = Array.from(qEl.querySelectorAll('[data-choice]')) as HTMLElement[];
+        const choices = choiceElements.map((cEl) => ({
+          choice_id: cEl.getAttribute('data-choice') || '',
+          choice_index: parseInt(cEl.getAttribute('data-choice-index') || '0'),
+          choice_text: collectTextCoordinates(
+            cEl.querySelector('[data-choice-text="true"]') as HTMLElement | null
+          ),
+          choice_bbox: getElementBBox(cEl),
+        }));
+
+        return {
+          question_id: questionId,
+          question_index: questionIndex,
+          question_text: collectTextCoordinates(promptElement),
+          choices,
+        };
+      });
+
+      // Submit button (in footer)
+      const submitButtonElement = document.querySelector(
+        '[data-submit-button="true"]'
+      ) as HTMLElement | null;
+
+      // Use panel-based structure
+      const coordinates = {
+        page_type: 'question',
+        passage_id: passage.id,
+        timestamp: new Date().toISOString(),
+
+        left_panel: {
+          instruction: collectTextCoordinates(instructionElement),
+          passages,
+        },
+
+        right_panel: {
+          questions,
+          ui_components: {
+            timer: getElementBBox(timerElement),
+          },
+        },
+
+        footer: {
+          submit_button: getElementBBox(submitButtonElement),
+        },
+      };
+
+      saveCoordinates(participantId, groupLetter || '', `question_${passage.id}`, coordinates);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [passage.id, participantId]);
 
   const handleSelect = (questionId: string, choiceId: string) => {
     setSelections((prev) => ({ ...prev, [questionId]: choiceId }));
@@ -164,6 +253,7 @@ export function PassageQuestionClient({
               logEvent({ event: 'confirm_dialog_open', passage_id: passage.id });
               setDialogOpen(true);
             }}
+            data-submit-button="true"
           >
             {confirmLabel}
           </Button>

@@ -41,8 +41,13 @@ export function QuestionList({
   return (
     <div className={containerClass} style={containerStyle}>
       {questions.map((q, index) => (
-        <div key={q.id} className={twoColumns ? 'space-y-0.5' : 'space-y-1'}>
-          <div className="text-[14px] leading-[2.4]">
+        <div
+          key={q.id}
+          className={twoColumns ? 'space-y-0.5' : 'space-y-1'}
+          data-question={q.id}
+          data-question-index={index}
+        >
+          <div className="text-[14px] leading-[2.4]" data-question-prompt="true">
             Q{index + 1}. {q.promptEn}
           </div>
           {showJapanese && q.promptJa ? (
@@ -58,9 +63,11 @@ export function QuestionList({
               <Label
                 key={choice.id}
                 className="flex cursor-pointer items-start gap-2 hover:bg-slate-50"
+                data-choice={choice.id}
+                data-choice-index={choiceIndex}
               >
                 <RadioGroupItem value={choice.id} className="mt-2" />
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5" data-choice-text="true">
                   <span className="text-[14px] leading-[2.4]">{CHOICE_LABELS[choiceIndex]}</span>
                   <div>
                     <div className="text-[14px] leading-[2.4]">{choice.textEn}</div>

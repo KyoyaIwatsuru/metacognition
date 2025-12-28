@@ -27,17 +27,46 @@ function isTauri(): boolean {
   return tauriAvailable;
 }
 
+/**
+ * Determine the phase folder name from the phase string and optional trainingSet
+ */
+function getPhaseFolder(phase: string, trainingSet?: string): string {
+  // training with number: training1, training2, training3
+  const trainingMatch = phase.match(/training(\d+)/);
+  if (trainingMatch) {
+    return `training${trainingMatch[1]}`;
+  }
+  // pre, post - use as-is
+  if (phase === 'pre' || phase === 'post') {
+    return phase;
+  }
+  // For 'training' phase, use trainingSet if available
+  if (phase === 'training') {
+    if (trainingSet) {
+      return `training${trainingSet}`;
+    }
+    return 'training1';
+  }
+  return phase;
+}
+
 async function ensureLogPath(seed?: LogEvent): Promise<string | null> {
   if (logPathPromise) return logPathPromise;
   logPathPromise = (async () => {
     const ts = new Date().toISOString().replace(/[:.]/g, '-');
     const participant = seed?.participantId;
     const phase = seed?.phase;
-    // 参加者/フェーズ未設定ならまだファイルを作らない
-    if (!participant || !phase) return null;
+    const groupLetter = seed?.groupLetter;
+    const trainingSet = seed?.trainingSet;
+    // 参加者/フェーズ/グループ未設定ならまだファイルを作らない
+    if (!participant || !phase || !groupLetter) return null;
+
+    const phaseFolder = getPhaseFolder(phase, trainingSet);
+
     const base = await homeDir();
-    const logDir = await join(base, 'metacognition', 'logs');
-    return join(logDir, `${participant}-${phase}-${ts}.jsonl`);
+    // Path structure: metacognition/{groupLetter}/{participant}/{phase}/logs/events_{timestamp}.jsonl
+    const logDir = await join(base, 'metacognition', groupLetter, participant, phaseFolder, 'logs');
+    return join(logDir, `events_${ts}.jsonl`);
   })();
   return logPathPromise;
 }

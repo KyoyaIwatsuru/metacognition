@@ -12,6 +12,12 @@ import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Passage, Question } from '@/lib/types';
 import { PassageBody } from '@/components/passage/passage-body';
+import {
+  collectTextCoordinates,
+  getElementBBox,
+  saveCoordinates,
+  extractPassageCoordinates,
+} from '@/lib/coordinate-collector';
 
 const CHOICE_LABELS = ['A', 'B', 'C', 'D'] as const;
 const EMPTY_TRAINING_RESULT = {
@@ -53,16 +59,173 @@ export function TrainingReflectionClient({
   const [selectedQuestion, setSelectedQuestion] = useState('0');
   const [value, setValue] = useState('');
   const startedRef = useRef(false);
+  const coordinatesCollectedRef = useRef(false);
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
+  const participantId = useAppStore((s) => s.participantId);
+  const groupLetter = useAppStore((s) => s.groupLetter);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
 
   useEffect(() => {
     captureScreen();
     logEvent({ event: `${eventPrefix}_open`, passage_id: passage.id });
+
+    // Collect coordinates after a short delay to ensure rendering is complete
+    const timer = setTimeout(() => {
+      if (!participantId || coordinatesCollectedRef.current) return;
+      coordinatesCollectedRef.current = true;
+
+      // Language tabs
+      const localeTabElements = Array.from(
+        document.querySelectorAll('[data-locale-tab]')
+      ) as HTMLElement[];
+      const localeTabs = localeTabElements.map((el) => ({
+        locale: el.getAttribute('data-locale-tab') || '',
+        bbox: getElementBBox(el),
+      }));
+
+      // Question tabs
+      const questionTabElements = Array.from(
+        document.querySelectorAll('[data-question-tab]')
+      ) as HTMLElement[];
+      const questionTabs = questionTabElements.map((el) => ({
+        question_index: parseInt(el.getAttribute('data-question-tab') || '0'),
+        bbox: getElementBBox(el),
+      }));
+
+      // Instruction text (left panel) - both locales
+      const visibleInstructionElement = document.querySelector(
+        '[data-passage-instruction="true"]'
+      ) as HTMLElement | null;
+      const hiddenInstructionElement = document.querySelector(
+        '[data-passage-instruction-hidden="true"]'
+      ) as HTMLElement | null;
+      const visibleInstructionLocale =
+        visibleInstructionElement?.getAttribute('data-passage-instruction-locale') || 'en';
+
+      const instruction_en =
+        visibleInstructionLocale === 'en'
+          ? collectTextCoordinates(visibleInstructionElement)
+          : collectTextCoordinates(hiddenInstructionElement);
+      const instruction_ja =
+        visibleInstructionLocale === 'ja'
+          ? collectTextCoordinates(visibleInstructionElement)
+          : collectTextCoordinates(hiddenInstructionElement);
+
+      // Passage sections - both locales
+      const visibleSectionElements = Array.from(
+        document.querySelectorAll('[data-passage-section]')
+      ) as HTMLElement[];
+      const hiddenSectionElements = Array.from(
+        document.querySelectorAll('[data-passage-section-hidden]')
+      ) as HTMLElement[];
+
+      const visibleLocale =
+        visibleSectionElements[0]?.getAttribute('data-passage-section-locale') || 'en';
+
+      const visiblePassages = visibleSectionElements.map((el, idx) =>
+        extractPassageCoordinates(el, idx)
+      );
+      const hiddenPassages = hiddenSectionElements.map((el, idx) =>
+        extractPassageCoordinates(el, idx)
+      );
+
+      const passages_en = visibleLocale === 'en' ? visiblePassages : hiddenPassages;
+      const passages_ja = visibleLocale === 'ja' ? visiblePassages : hiddenPassages;
+
+      // All questions (regardless of visibility)
+      const reflectionQuestionElements = Array.from(
+        document.querySelectorAll('[data-reflection-question]')
+      ) as HTMLElement[];
+      const questionsData = reflectionQuestionElements.map((qEl) => {
+        const questionId = qEl.getAttribute('data-reflection-question') || '';
+        const questionIndex = parseInt(qEl.getAttribute('data-reflection-question-index') || '0');
+        const promptElementEn = qEl.querySelector(
+          '[data-reflection-prompt-en="true"]'
+        ) as HTMLElement | null;
+        const promptElementJa = qEl.querySelector(
+          '[data-reflection-prompt-ja="true"]'
+        ) as HTMLElement | null;
+
+        const choiceElements = Array.from(
+          qEl.querySelectorAll('[data-reflection-choice]')
+        ) as HTMLElement[];
+        const choices = choiceElements.map((cEl) => ({
+          choice_id: cEl.getAttribute('data-reflection-choice') || '',
+          choice_index: parseInt(cEl.getAttribute('data-reflection-choice-index') || '0'),
+          choice_text_en: collectTextCoordinates(
+            cEl.querySelector('[data-reflection-choice-text-en="true"]') as HTMLElement | null
+          ),
+          choice_text_ja: collectTextCoordinates(
+            cEl.querySelector('[data-reflection-choice-text-ja="true"]') as HTMLElement | null
+          ),
+          bbox: getElementBBox(cEl),
+        }));
+
+        return {
+          question_id: questionId,
+          question_index: questionIndex,
+          question_text_en: collectTextCoordinates(promptElementEn),
+          question_text_ja: collectTextCoordinates(promptElementJa),
+          choices,
+        };
+      });
+
+      // Reflection form
+      const reflectionPromptElement = document.querySelector(
+        '[data-reflection-form-prompt="true"]'
+      ) as HTMLElement | null;
+      const reflectionTextareaElement = document.querySelector(
+        '[data-reflection-textarea="true"]'
+      ) as HTMLElement | null;
+
+      // Submit button
+      const submitButtonElement = document.querySelector(
+        '[data-submit-button="true"]'
+      ) as HTMLElement | null;
+
+      const coordinates = {
+        page_type: eventPrefix,
+        passage_id: passage.id,
+        timestamp: new Date().toISOString(),
+
+        header: {
+          locale_tabs: localeTabs,
+          question_tabs: questionTabs,
+        },
+
+        left_panel: {
+          instruction_en,
+          instruction_ja,
+          passages_en,
+          passages_ja,
+        },
+
+        right_panel: {
+          questions: questionsData,
+          reflection_form: {
+            prompt: collectTextCoordinates(reflectionPromptElement),
+            textarea: getElementBBox(reflectionTextareaElement),
+          },
+        },
+
+        footer: {
+          submit_button: getElementBBox(submitButtonElement),
+        },
+      };
+
+      saveCoordinates(
+        participantId,
+        groupLetter || '',
+        `${eventPrefix}_${passage.id}`,
+        coordinates
+      );
+    }, 1000);
+
     return () => {
+      clearTimeout(timer);
       logEvent({ event: `${eventPrefix}_exit`, passage_id: passage.id });
     };
-  }, [eventPrefix, passage.id]);
+  }, [eventPrefix, passage.id, participantId, groupLetter]);
 
   const handleTypingStart = () => {
     if (!startedRef.current) {
@@ -100,9 +263,13 @@ export function TrainingReflectionClient({
   // ヘッダー用言語切り替えタブ
   const headerLocaleToggle = (
     <Tabs value={locale} onValueChange={handleLocaleChange}>
-      <TabsList>
-        <TabsTrigger value="en">English</TabsTrigger>
-        <TabsTrigger value="ja">日本語</TabsTrigger>
+      <TabsList data-locale-tabs="true">
+        <TabsTrigger value="en" data-locale-tab="en">
+          English
+        </TabsTrigger>
+        <TabsTrigger value="ja" data-locale-tab="ja">
+          日本語
+        </TabsTrigger>
       </TabsList>
     </Tabs>
   );
@@ -128,9 +295,9 @@ export function TrainingReflectionClient({
           {/* 問題タブ */}
           <div className="shrink-0">
             <Tabs value={selectedQuestion} onValueChange={handleQuestionTabChange}>
-              <TabsList>
+              <TabsList data-question-tabs="true">
                 {questions.map((_, idx) => (
-                  <TabsTrigger key={idx} value={String(idx)}>
+                  <TabsTrigger key={idx} value={String(idx)} data-question-tab={idx}>
                     Q{idx + 1}
                   </TabsTrigger>
                 ))}
@@ -139,59 +306,130 @@ export function TrainingReflectionClient({
           </div>
 
           {/* 選択された問題の内容 */}
-          <div className="flex-1 mt-2 overflow-y-auto">
+          <div className="flex-1 mt-2 overflow-y-auto relative">
             {questions.map((q, idx) => {
-              if (String(idx) !== selectedQuestion) return null;
               const userAnswer = trainingResult.answers[q.id];
               const isUnanswered = !userAnswer;
+              const isSelected = String(idx) === selectedQuestion;
               return (
-                <div key={q.id} className="space-y-2">
-                  {/* 設問 */}
-                  <div className="text-sm text-foreground">
-                    <span className="font-semibold">Q{idx + 1}</span>{' '}
-                    {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
-                    {isUnanswered ? (
-                      <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
-                        未回答
-                      </span>
-                    ) : null}
-                  </div>
-
-                  {/* 選択肢 */}
-                  <ul className="space-y-0.5 text-sm">
-                    {q.choices.map((c, cIdx) => {
-                      const isCorrect = c.id === q.correctChoiceId;
-                      const isUserAnswer = c.id === userAnswer;
-                      const isWrongAnswer = isUserAnswer && !isCorrect;
-                      return (
-                        <li
-                          key={c.id}
-                          className={
-                            isCorrect
-                              ? 'text-blue-600 font-medium'
-                              : isWrongAnswer
-                                ? 'text-red-600'
-                                : ''
-                          }
+                <div
+                  key={q.id}
+                  className="space-y-2 absolute top-0 left-0 right-0"
+                  style={{ visibility: isSelected ? 'visible' : 'hidden' }}
+                  data-reflection-question={q.id}
+                  data-reflection-question-index={idx}
+                >
+                  <div className="select-none">
+                    {/* 設問 */}
+                    <div
+                      className="text-sm text-foreground"
+                      style={{ overflow: 'hidden' }}
+                      data-reflection-prompt="true"
+                    >
+                      <span className="font-semibold">Q{idx + 1}.</span>{' '}
+                      <span style={{ position: 'relative' }}>
+                        {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
+                        {/* Hidden spans for coordinate collection */}
+                        <span
+                          style={{
+                            visibility: 'hidden',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            whiteSpace: 'nowrap',
+                          }}
+                          data-reflection-prompt-en="true"
                         >
-                          <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                          {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
-                          {isCorrect ? (
-                            <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
-                              正解
+                          Q{idx + 1}. {q.promptEn}
+                        </span>
+                        <span
+                          style={{
+                            visibility: 'hidden',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            whiteSpace: 'nowrap',
+                          }}
+                          data-reflection-prompt-ja="true"
+                        >
+                          Q{idx + 1}. {q.promptJa ?? q.promptEn}
+                        </span>
+                      </span>
+                      {isUnanswered ? (
+                        <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
+                          未回答
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {/* 選択肢 */}
+                    <ul className="space-y-0.5 text-sm mt-2">
+                      {q.choices.map((c, cIdx) => {
+                        const isCorrect = c.id === q.correctChoiceId;
+                        const isUserAnswer = c.id === userAnswer;
+                        const isWrongAnswer = isUserAnswer && !isCorrect;
+                        return (
+                          <li
+                            key={c.id}
+                            className={
+                              isCorrect
+                                ? 'text-blue-600 font-medium'
+                                : isWrongAnswer
+                                  ? 'text-red-600'
+                                  : ''
+                            }
+                            style={{ overflow: 'hidden' }}
+                            data-reflection-choice={c.id}
+                            data-reflection-choice-index={cIdx}
+                          >
+                            <span data-reflection-choice-text="true">
+                              <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                              <span style={{ position: 'relative' }}>
+                                {locale === 'en' ? c.textEn : (c.textJa ?? c.textEn)}
+                                {/* Hidden spans for coordinate collection */}
+                                <span
+                                  style={{
+                                    visibility: 'hidden',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    whiteSpace: 'nowrap',
+                                  }}
+                                  data-reflection-choice-text-en="true"
+                                >
+                                  ({CHOICE_LABELS[cIdx]}) {c.textEn}
+                                </span>
+                                <span
+                                  style={{
+                                    visibility: 'hidden',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    whiteSpace: 'nowrap',
+                                  }}
+                                  data-reflection-choice-text-ja="true"
+                                >
+                                  ({CHOICE_LABELS[cIdx]}) {c.textJa ?? c.textEn}
+                                </span>
+                              </span>
                             </span>
-                          ) : null}
-                          {isUserAnswer ? (
-                            <span
-                              className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
-                            >
-                              あなたの解答
-                            </span>
-                          ) : null}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                            {isCorrect ? (
+                              <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
+                                正解
+                              </span>
+                            ) : null}
+                            {isUserAnswer ? (
+                              <span
+                                className={`ml-2 rounded px-2 py-0.5 text-xs text-white font-bold ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}
+                              >
+                                あなたの解答
+                              </span>
+                            ) : null}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
 
                   {/* 振り返り欄 */}
                   <div className="mt-4 pt-4 border-t border-gray-200">

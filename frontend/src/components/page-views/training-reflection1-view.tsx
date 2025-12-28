@@ -9,6 +9,12 @@ import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Passage } from '@/lib/types';
+import {
+  collectTextCoordinates,
+  getElementBBox,
+  saveCoordinates,
+  extractPassageCoordinates,
+} from '@/lib/coordinate-collector';
 
 const CHOICE_LABELS = ['A', 'B', 'C', 'D'] as const;
 const EMPTY_TRAINING_RESULT = {
@@ -30,16 +36,107 @@ const reflection1Prompt = (
 export function TrainingReflection1View({ passage }: TrainingReflection1ViewProps) {
   const [value, setValue] = useState('');
   const startedRef = useRef(false);
+  const coordinatesCollectedRef = useRef(false);
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
+  const participantId = useAppStore((s) => s.participantId);
+  const groupLetter = useAppStore((s) => s.groupLetter);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id] ?? EMPTY_TRAINING_RESULT);
 
   useEffect(() => {
     captureScreen();
     logEvent({ event: 'reflection1_open', passage_id: passage.id });
+
+    // Collect coordinates after a short delay to ensure rendering is complete
+    const timer = setTimeout(() => {
+      if (!participantId || coordinatesCollectedRef.current) return;
+      coordinatesCollectedRef.current = true;
+
+      // Instruction text
+      const instructionElement = document.querySelector(
+        '[data-passage-instruction="true"]'
+      ) as HTMLElement | null;
+
+      // Passage sections
+      const sectionElements = Array.from(
+        document.querySelectorAll('[data-passage-section]')
+      ) as HTMLElement[];
+      const passages = sectionElements.map((el, idx) => extractPassageCoordinates(el, idx));
+
+      // All questions
+      const questionElements = Array.from(
+        document.querySelectorAll('[data-reflection1-question]')
+      ) as HTMLElement[];
+      const questions = questionElements.map((qEl) => {
+        const questionId = qEl.getAttribute('data-reflection1-question') || '';
+        const questionIndex = parseInt(qEl.getAttribute('data-reflection1-question-index') || '0');
+        const promptElement = qEl.querySelector(
+          '[data-reflection1-prompt="true"]'
+        ) as HTMLElement | null;
+
+        const choiceElements = Array.from(
+          qEl.querySelectorAll('[data-reflection1-choice]')
+        ) as HTMLElement[];
+        const choices = choiceElements.map((cEl) => ({
+          choice_id: cEl.getAttribute('data-reflection1-choice') || '',
+          choice_index: parseInt(cEl.getAttribute('data-reflection1-choice-index') || '0'),
+          choice_text: collectTextCoordinates(
+            cEl.querySelector('[data-reflection1-choice-text="true"]') as HTMLElement | null
+          ),
+          bbox: getElementBBox(cEl),
+        }));
+
+        return {
+          question_id: questionId,
+          question_index: questionIndex,
+          question_text: collectTextCoordinates(promptElement),
+          choices,
+        };
+      });
+
+      // Reflection form
+      const reflectionPromptElement = document.querySelector(
+        '[data-reflection-form-prompt="true"]'
+      ) as HTMLElement | null;
+      const reflectionTextareaElement = document.querySelector(
+        '[data-reflection-textarea="true"]'
+      ) as HTMLElement | null;
+
+      // Submit button
+      const submitButtonElement = document.querySelector(
+        '[data-submit-button="true"]'
+      ) as HTMLElement | null;
+
+      const coordinates = {
+        page_type: 'reflection1',
+        passage_id: passage.id,
+        timestamp: new Date().toISOString(),
+
+        left_panel: {
+          instruction: collectTextCoordinates(instructionElement),
+          passages,
+        },
+
+        right_panel: {
+          questions,
+          reflection_form: {
+            prompt: collectTextCoordinates(reflectionPromptElement),
+            textarea: getElementBBox(reflectionTextareaElement),
+          },
+        },
+
+        footer: {
+          submit_button: getElementBBox(submitButtonElement),
+        },
+      };
+
+      saveCoordinates(participantId, groupLetter || '', `reflection1_${passage.id}`, coordinates);
+    }, 1000);
+
     return () => {
+      clearTimeout(timer);
       logEvent({ event: 'reflection1_exit', passage_id: passage.id });
     };
-  }, [passage.id]);
+  }, [passage.id, participantId]);
 
   const handleTypingStart = () => {
     if (!startedRef.current) {
@@ -78,10 +175,15 @@ export function TrainingReflection1View({ passage }: TrainingReflection1ViewProp
                 const userAnswer = trainingResult.answers[q.id];
                 const isUnanswered = !userAnswer;
                 return (
-                  <div key={q.id} className="space-y-1 select-none">
+                  <div
+                    key={q.id}
+                    className="space-y-1 select-none"
+                    data-reflection1-question={q.id}
+                    data-reflection1-question-index={idx}
+                  >
                     {/* 設問 */}
-                    <div className="text-sm text-foreground">
-                      <span className="font-semibold">Q{idx + 1}</span> {q.promptEn}
+                    <div className="text-sm text-foreground" data-reflection1-prompt="true">
+                      <span className="font-semibold">Q{idx + 1}.</span> {q.promptEn}
                       {isUnanswered ? (
                         <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
                           未回答
@@ -97,9 +199,13 @@ export function TrainingReflection1View({ passage }: TrainingReflection1ViewProp
                           <li
                             key={c.id}
                             className={isUserAnswer ? 'text-blue-600 font-medium' : ''}
+                            data-reflection1-choice={c.id}
+                            data-reflection1-choice-index={cIdx}
                           >
-                            <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
-                            {c.textEn}
+                            <span data-reflection1-choice-text="true">
+                              <span className="font-mono mr-1">({CHOICE_LABELS[cIdx]})</span>
+                              {c.textEn}
+                            </span>
                             {isUserAnswer ? (
                               <span className="ml-2 rounded bg-blue-600 px-2 py-0.5 text-xs text-white font-bold">
                                 あなたの解答

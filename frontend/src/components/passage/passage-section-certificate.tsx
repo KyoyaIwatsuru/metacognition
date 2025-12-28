@@ -14,16 +14,26 @@ export function CertificateBody({ certificate }: CertificateBodyProps) {
         {/* Main content */}
         <div className="text-center text-[14px] leading-[2.4] text-slate-800">
           {/* Organization name */}
-          <p className="text-sm tracking-wide mb-2">{certificate.organization}</p>
+          <p className="text-sm tracking-wide mb-2" data-passage-metadata="organization">
+            {certificate.organization}
+          </p>
 
           {/* Certificate title */}
-          <h2 className="text-xl font-bold mb-1">{certificate.title}</h2>
+          <h2 className="text-xl font-bold mb-1" data-passage-title="true">
+            {certificate.title}
+          </h2>
 
           {/* Subtitle */}
-          {certificate.subtitle && <p className="text-sm mb-1">{certificate.subtitle}</p>}
+          {certificate.subtitle && (
+            <p className="text-sm mb-1" data-passage-subtitle="true">
+              {certificate.subtitle}
+            </p>
+          )}
 
           {/* Recipient */}
-          <p className="text-2xl font-serif italic mb-2">{certificate.recipient}</p>
+          <p className="text-2xl font-serif italic mb-2" data-passage-metadata="recipient">
+            {certificate.recipient}
+          </p>
 
           {/* Double line */}
           <div className="border-t-2 border-b border-black my-3 py-0.5" />
@@ -31,7 +41,9 @@ export function CertificateBody({ certificate }: CertificateBodyProps) {
           {/* Body text */}
           <div className="text-left space-y-2 mb-6">
             {certificate.body.map((paragraph, idx) => (
-              <p key={idx}>{paragraph}</p>
+              <p key={idx} data-passage-paragraph>
+                {paragraph}
+              </p>
             ))}
           </div>
 
@@ -39,11 +51,14 @@ export function CertificateBody({ certificate }: CertificateBodyProps) {
           <div className="flex justify-between items-end">
             <div className="text-left">
               {/* Signature (italic script style) */}
-              <p className="font-serif italic text-lg mb-0 border-b border-black pb-1">
+              <p
+                className="font-serif italic text-lg mb-0 border-b border-black pb-1"
+                data-passage-metadata="signature"
+              >
                 {certificate.signature}
               </p>
               {/* Signer name and title */}
-              <p className="text-sm mt-1">
+              <p className="text-sm mt-1" data-passage-metadata="signer">
                 {certificate.signerName}, {certificate.signerTitle}
               </p>
             </div>

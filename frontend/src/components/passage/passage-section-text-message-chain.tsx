@@ -26,9 +26,12 @@ export function TextMessageChainBody({ textMessageChain }: TextMessageChainBodyP
         {textMessageChain.messages.map((msg, idx) => (
           <div key={idx} className="border border-slate-300 rounded-lg p-3 bg-white">
             <p className="font-bold mb-1">
-              {msg.sender} [{msg.time}]
+              <span data-passage-metadata={`sender_${idx}`}>{msg.sender}</span>{' '}
+              <span data-passage-metadata={`time_${idx}`}>[{msg.time}]</span>
             </p>
-            <p className="whitespace-pre-line">{msg.text}</p>
+            <p className="whitespace-pre-line" data-passage-paragraph>
+              {msg.text}
+            </p>
           </div>
         ))}
       </div>

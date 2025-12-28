@@ -55,9 +55,11 @@ export default function HomePage() {
   const router = useRouter();
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
   const participantId = useAppStore((s) => s.participantId);
-  const group = useAppStore((s) => s.group);
+  const groupLetter = useAppStore((s) => s.groupLetter);
+  const trainingSet = useAppStore((s) => s.trainingSet);
   const setParticipant = useAppStore((s) => s.setParticipant);
-  const setGroup = useAppStore((s) => s.setGroup);
+  const setGroupLetter = useAppStore((s) => s.setGroupLetter);
+  const setTrainingSet = useAppStore((s) => s.setTrainingSet);
   const setPhase = useAppStore((s) => s.setPhase);
 
   // 初期化時にアイトラッカーの接続状態を確認
@@ -70,9 +72,14 @@ export default function HomePage() {
       toast.error('参加者IDを選択してください');
       return false;
     }
-    // グループはtrainingの時のみ必須
-    if (phase === 'training' && !group) {
+    // グループ（A/B）は全フェーズで必須
+    if (!groupLetter) {
       toast.error('グループを選択してください');
+      return false;
+    }
+    // 教材セット（1/2/3）はtrainingの時のみ必須
+    if (phase === 'training' && !trainingSet) {
+      toast.error('教材セットを選択してください');
       return false;
     }
     if (eyeTrackerStatus !== 'connected') {
@@ -106,9 +113,9 @@ export default function HomePage() {
         <header className="space-y-1">
           <h1 className="text-3xl font-semibold">Reading Practice</h1>
           <p className="text-sm text-zinc-600">
-            参加者IDを選択し、Eye trackerを接続してからフェーズを開始してください。
+            参加者ID・グループを選択し、Eye trackerを接続してからフェーズを開始してください。
             <br />
-            <span className="text-xs text-zinc-500">※グループの選択はPractice時のみ必須です</span>
+            <span className="text-xs text-zinc-500">※教材セットの選択はPractice時のみ必須です</span>
           </p>
         </header>
 
@@ -131,55 +138,56 @@ export default function HomePage() {
 
           <div className="space-y-3">
             <label className="text-sm font-medium text-foreground">グループ</label>
-            <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
-              {/* A群グループ */}
-              <span className="text-xs font-semibold text-zinc-500 self-center">A群</span>
-              <div className="flex gap-2">
-                {(['A1', 'A2', 'A3'] as const).map((g) => (
-                  <label
-                    key={g}
-                    className={`inline-flex items-center justify-center w-16 py-2 rounded-md border cursor-pointer transition-all duration-150 ${
-                      group === g
-                        ? 'bg-primary text-primary-foreground border-primary shadow-sm'
-                        : 'bg-background border-input hover:bg-accent hover:border-primary/50'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="group"
-                      value={g}
-                      checked={group === g}
-                      onChange={() => setGroup(g)}
-                      className="sr-only"
-                    />
-                    <span className="font-medium">{g}</span>
-                  </label>
-                ))}
-              </div>
-              {/* B群グループ */}
-              <span className="text-xs font-semibold text-zinc-500 self-center">B群</span>
-              <div className="flex gap-2">
-                {(['B1', 'B2', 'B3'] as const).map((g) => (
-                  <label
-                    key={g}
-                    className={`inline-flex items-center justify-center w-16 py-2 rounded-md border cursor-pointer transition-all duration-150 ${
-                      group === g
-                        ? 'bg-primary text-primary-foreground border-primary shadow-sm'
-                        : 'bg-background border-input hover:bg-accent hover:border-primary/50'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="group"
-                      value={g}
-                      checked={group === g}
-                      onChange={() => setGroup(g)}
-                      className="sr-only"
-                    />
-                    <span className="font-medium">{g}</span>
-                  </label>
-                ))}
-              </div>
+            <div className="flex gap-2">
+              {(['A', 'B'] as const).map((g) => (
+                <label
+                  key={g}
+                  className={`inline-flex items-center justify-center w-16 py-2 rounded-md border cursor-pointer transition-all duration-150 ${
+                    groupLetter === g
+                      ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                      : 'bg-background border-input hover:bg-accent hover:border-primary/50'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="groupLetter"
+                    value={g}
+                    checked={groupLetter === g}
+                    onChange={() => setGroupLetter(g)}
+                    className="sr-only"
+                  />
+                  <span className="font-medium">{g}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-foreground">
+              教材セット
+              <span className="ml-2 text-xs text-zinc-500">（Practice時のみ必須）</span>
+            </label>
+            <div className="flex gap-2">
+              {(['1', '2', '3'] as const).map((s) => (
+                <label
+                  key={s}
+                  className={`inline-flex items-center justify-center w-16 py-2 rounded-md border cursor-pointer transition-all duration-150 ${
+                    trainingSet === s
+                      ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                      : 'bg-background border-input hover:bg-accent hover:border-primary/50'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="trainingSet"
+                    value={s}
+                    checked={trainingSet === s}
+                    onChange={() => setTrainingSet(s)}
+                    className="sr-only"
+                  />
+                  <span className="font-medium">{s}</span>
+                </label>
+              ))}
             </div>
           </div>
 

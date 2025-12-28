@@ -12,6 +12,12 @@ import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
 import { useAppStore } from '@/lib/store';
 import type { Analog } from '@/lib/types';
+import {
+  collectTextCoordinates,
+  getElementBBox,
+  saveCoordinates,
+  extractPassageCoordinates,
+} from '@/lib/coordinate-collector';
 
 type AnalogQuestionClientProps = {
   passageId: string;
@@ -37,6 +43,8 @@ export function AnalogQuestionClient({
   // (1.5×設問数 + 0.5×本文数) + 0.5分 (本文数は1)
   const timerMs = timerMsProp ?? (analog.questions.length * 1.5 + 1) * 60 * 1000;
   const router = useRouter();
+  const participantId = useAppStore((s) => s.participantId);
+  const groupLetter = useAppStore((s) => s.groupLetter);
   const setAnalogResult = useAppStore((s) => s.setAnalogResult);
   const initialSelections = useMemo(
     () => Object.fromEntries(analog.questions.map((q) => [q.id, undefined])),
@@ -47,6 +55,7 @@ export function AnalogQuestionClient({
   const [timedOut, setTimedOut] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const startTimeRef = useRef<number>(0);
+  const coordinatesCollectedRef = useRef(false);
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
 
@@ -54,7 +63,94 @@ export function AnalogQuestionClient({
     startTimeRef.current = Date.now();
     captureScreen();
     logEvent({ event: 'analog_question_open', passage_id: passageId, analog_id: analog.id });
-  }, [analog.id, passageId]);
+
+    // Collect coordinates after a short delay to ensure rendering is complete
+    const timer = setTimeout(() => {
+      if (!participantId || coordinatesCollectedRef.current) return;
+      coordinatesCollectedRef.current = true;
+
+      // Timer
+      const timerElement = document.querySelector('[data-timer="true"]') as HTMLElement | null;
+
+      // Instruction text
+      const instructionElement = document.querySelector(
+        '[data-passage-instruction="true"]'
+      ) as HTMLElement | null;
+
+      // Passage sections
+      const sectionElements = Array.from(
+        document.querySelectorAll('[data-passage-section]')
+      ) as HTMLElement[];
+      const passages = sectionElements.map((el, idx) => extractPassageCoordinates(el, idx));
+
+      // All questions
+      const questionElements = Array.from(
+        document.querySelectorAll('[data-question]')
+      ) as HTMLElement[];
+      const questions = questionElements.map((qEl) => {
+        const questionId = qEl.getAttribute('data-question') || '';
+        const questionIndex = parseInt(qEl.getAttribute('data-question-index') || '0');
+        const promptElement = qEl.querySelector(
+          '[data-question-prompt="true"]'
+        ) as HTMLElement | null;
+
+        const choiceElements = Array.from(qEl.querySelectorAll('[data-choice]')) as HTMLElement[];
+        const choices = choiceElements.map((cEl) => ({
+          choice_id: cEl.getAttribute('data-choice') || '',
+          choice_index: parseInt(cEl.getAttribute('data-choice-index') || '0'),
+          choice_text: collectTextCoordinates(
+            cEl.querySelector('[data-choice-text="true"]') as HTMLElement | null
+          ),
+          bbox: getElementBBox(cEl),
+        }));
+
+        return {
+          question_id: questionId,
+          question_index: questionIndex,
+          question_text: collectTextCoordinates(promptElement),
+          choices,
+        };
+      });
+
+      // Submit button
+      const submitButtonElement = document.querySelector(
+        '[data-confirm-button="true"]'
+      ) as HTMLElement | null;
+
+      const coordinates = {
+        page_type: 'analog_question',
+        passage_id: passageId,
+        analog_id: analog.id,
+        timestamp: new Date().toISOString(),
+
+        header: {
+          timer: getElementBBox(timerElement),
+        },
+
+        left_panel: {
+          instruction: collectTextCoordinates(instructionElement),
+          passages,
+        },
+
+        right_panel: {
+          questions,
+        },
+
+        footer: {
+          confirm_button: getElementBBox(submitButtonElement),
+        },
+      };
+
+      saveCoordinates(
+        participantId,
+        groupLetter || '',
+        `analog_question_${passageId}_${analog.id}`,
+        coordinates
+      );
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [analog.id, passageId, participantId]);
 
   const handleSelect = (questionId: string, choiceId: string) => {
     setSelections((prev) => ({ ...prev, [questionId]: choiceId }));
@@ -157,6 +253,7 @@ export function AnalogQuestionClient({
               });
               setDialogOpen(true);
             }}
+            data-confirm-button="true"
           >
             {confirmLabel}
           </Button>

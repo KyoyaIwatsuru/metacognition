@@ -31,6 +31,7 @@ export function CustomerReviewsBody({ customerReviews }: CustomerReviewsBodyProp
               className={`flex-1 px-4 py-2 text-center border-r border-black last:border-r-0 ${
                 item === customerReviews.activeNav ? 'font-bold underline' : 'border-b border-black'
               }`}
+              data-passage-metadata="navigation"
             >
               {item}
             </div>
@@ -43,11 +44,13 @@ export function CustomerReviewsBody({ customerReviews }: CustomerReviewsBodyProp
             <div key={idx}>
               {/* Review content with padding */}
               <div className="px-4 py-3">
-                <p className="mb-1">
+                <p className="mb-1" data-passage-metadata="reviewer">
                   <span className="font-bold">{review.name}</span>
                   <StarRating rating={review.rating} />
                 </p>
-                <p className="whitespace-pre-line">{review.text}</p>
+                <p className="whitespace-pre-line" data-passage-paragraph>
+                  {review.text}
+                </p>
               </div>
               {/* Dashed separator extending full width (not after last review) */}
               {idx < customerReviews.reviews.length - 1 && (

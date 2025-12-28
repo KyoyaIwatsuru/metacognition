@@ -20,10 +20,13 @@ export function CustomerServiceExchangeBody({
         <div className="px-2 py-1 space-y-2 text-[14px] leading-[2.4] text-slate-800">
           {customerServiceExchange.messages.map((msg, idx) => (
             <p key={idx}>
-              <span className="font-bold">
-                {msg.sender} ({msg.time}):
+              <span className="font-bold" data-passage-metadata="sender">
+                {msg.sender}
               </span>{' '}
-              {msg.text}
+              <span className="font-bold" data-passage-metadata="time">
+                ({msg.time}):
+              </span>{' '}
+              <span data-passage-paragraph>{msg.text}</span>
             </p>
           ))}
         </div>

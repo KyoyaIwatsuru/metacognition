@@ -1,9 +1,18 @@
 import { create } from 'zustand';
 import { resetLogPath } from '@/lib/tauri-log-bridge';
-import type { EyeTrackerStatus, Group, LogEvent, Phase } from '@/lib/types';
+import type {
+  EyeTrackerStatus,
+  Group,
+  GroupLetter,
+  LogEvent,
+  Phase,
+  TrainingSet,
+} from '@/lib/types';
 
 export type AppState = {
   participantId?: string;
+  groupLetter?: GroupLetter;
+  trainingSet?: TrainingSet;
   group?: Group;
   phase?: Phase;
   eyeTrackerStatus: EyeTrackerStatus;
@@ -16,6 +25,8 @@ export type AppState = {
   analogResults: Record<string, Record<string, string | undefined>>;
   logs: LogEvent[];
   setParticipant: (id: string | undefined) => void;
+  setGroupLetter: (groupLetter: GroupLetter | undefined) => void;
+  setTrainingSet: (trainingSet: TrainingSet | undefined) => void;
   setGroup: (group: Group | undefined) => void;
   setPhase: (phase: Phase | undefined) => void;
   setEyeTrackerStatus: (status: EyeTrackerStatus) => void;
@@ -26,12 +37,19 @@ export type AppState = {
     result: { answers: Record<string, string | undefined>; allCorrect: boolean }
   ) => void;
   setAnalogResult: (analogId: string, answers: Record<string, string | undefined>) => void;
-  pushLog: (event: Omit<LogEvent, 'timestamp' | 'participantId' | 'group' | 'phase'>) => LogEvent;
+  pushLog: (
+    event: Omit<
+      LogEvent,
+      'timestamp' | 'participantId' | 'groupLetter' | 'trainingSet' | 'group' | 'phase'
+    >
+  ) => LogEvent;
   reset: () => void;
 };
 
 export const useAppStore = create<AppState>((set, get) => ({
   participantId: undefined,
+  groupLetter: undefined,
+  trainingSet: undefined,
   group: undefined,
   phase: undefined,
   eyeTrackerStatus: 'disconnected',
@@ -45,6 +63,20 @@ export const useAppStore = create<AppState>((set, get) => ({
     set(() => {
       resetLogPath();
       return { participantId: id };
+    }),
+  setGroupLetter: (groupLetter) =>
+    set((state) => {
+      const trainingSet = state.trainingSet;
+      const group =
+        groupLetter && trainingSet ? (`${groupLetter}${trainingSet}` as Group) : undefined;
+      return { groupLetter, group };
+    }),
+  setTrainingSet: (trainingSet) =>
+    set((state) => {
+      const groupLetter = state.groupLetter;
+      const group =
+        groupLetter && trainingSet ? (`${groupLetter}${trainingSet}` as Group) : undefined;
+      return { trainingSet, group };
     }),
   setGroup: (group) => set({ group }),
   setPhase: (phase) =>
@@ -65,10 +97,12 @@ export const useAppStore = create<AppState>((set, get) => ({
     })),
 
   pushLog: (event) => {
-    const { participantId, group, phase } = get();
+    const { participantId, groupLetter, trainingSet, group, phase } = get();
     const log: LogEvent = {
       timestamp: new Date().toISOString(),
       participantId,
+      groupLetter,
+      trainingSet,
       group,
       phase,
       ...event,
@@ -87,6 +121,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       resetLogPath();
       return {
         participantId: undefined,
+        groupLetter: undefined,
+        trainingSet: undefined,
         group: undefined,
         phase: undefined,
         eyeTrackerStatus: 'disconnected',

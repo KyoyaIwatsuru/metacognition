@@ -28,6 +28,19 @@ fn append_log_line(path: String, line: String) -> Result<(), String> {
         .map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn save_coordinates(path: String, content: String) -> Result<(), String> {
+    let target: PathBuf = PathBuf::from(&path);
+
+    // Create parent directories if they don't exist
+    if let Some(dir) = target.parent() {
+        std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+    }
+
+    // Write content to file
+    std::fs::write(&target, content.as_bytes()).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -45,7 +58,7 @@ pub fn run() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![append_log_line])
+        .invoke_handler(tauri::generate_handler![append_log_line, save_coordinates])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

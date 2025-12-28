@@ -20,7 +20,7 @@ type MetacogFeedbackClientProps = {
 export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   const [locale, setLocale] = useState<'en' | 'ja'>('en');
   const [selectedQuestion, setSelectedQuestion] = useState('0');
-  const group = useAppStore((s) => s.group);
+  const groupLetter = useAppStore((s) => s.groupLetter);
   const trainingResult = useAppStore((s) => s.trainingResults[passage.id]);
   const router = useRouter();
   const loggedOpenRef = useRef(false);
@@ -33,14 +33,14 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
   const nextLabel = firstAnalogId ? '次へ' : '振り返りへ';
 
   useEffect(() => {
-    if (!group?.startsWith('B')) {
+    if (groupLetter !== 'B') {
       logEvent({ event: 'metacog_feedback_exit', passage_id: passage.id });
       router.replace(analogHref);
     }
-  }, [analogHref, group, passage.id, router]);
+  }, [analogHref, groupLetter, passage.id, router]);
 
   useEffect(() => {
-    if (group?.startsWith('B')) {
+    if (groupLetter === 'B') {
       if (!loggedOpenRef.current) {
         captureScreen();
         logEvent({ event: 'metacog_feedback_open', passage_id: passage.id });
@@ -53,7 +53,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
         }
       };
     }
-  }, [group, passage.id]);
+  }, [groupLetter, passage.id]);
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
 
@@ -176,7 +176,7 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
                   ) : null}
 
                   {/* メタ認知フィードバック */}
-                  {group?.startsWith('B') && q.metacogFeedbackJa ? (
+                  {groupLetter === 'B' && q.metacogFeedbackJa ? (
                     <div className="text-sm text-slate-800 mt-4 space-y-1">
                       {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
                         <p key={pIdx} className="whitespace-pre-line leading-snug">

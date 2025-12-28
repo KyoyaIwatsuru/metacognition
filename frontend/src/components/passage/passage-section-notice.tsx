@@ -32,12 +32,14 @@ export function NoticeBody({ notice }: NoticeBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 p-4">
       {/* タイトル */}
-      <h2 className="text-lg font-bold text-center mb-3">{notice.title}</h2>
+      <h2 className="text-lg font-bold text-center mb-3" data-passage-title="true">
+        {notice.title}
+      </h2>
 
       {/* 本文 */}
       <div className="space-y-3">
         {notice.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify">
+          <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
             {renderParagraph(p)}
           </p>
         ))}

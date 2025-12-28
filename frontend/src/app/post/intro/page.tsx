@@ -5,17 +5,51 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
+import {
+  collectTextCoordinates,
+  getElementBBox,
+  saveCoordinates,
+} from '@/lib/coordinate-collector';
+import { useAppStore } from '@/lib/store';
 
 export default function PostIntroPage() {
   const router = useRouter();
+  const participantId = useAppStore((s) => s.participantId);
+  const groupLetter = useAppStore((s) => s.groupLetter);
 
   useEffect(() => {
     captureScreen();
     logEvent({ event: 'phase_intro_enter', phase: 'post' });
+
+    // Collect coordinates after a short delay to ensure rendering is complete
+    const timer = setTimeout(() => {
+      if (!participantId) return;
+
+      const titleElement = document.querySelector('h1') as HTMLElement | null;
+      const descriptionElements = Array.from(
+        document.querySelectorAll('div.space-y-2 > p')
+      ) as HTMLElement[];
+      const buttonElement = document.querySelector('button') as HTMLElement | null;
+
+      const coordinates = {
+        page_type: 'post_intro',
+        timestamp: new Date().toISOString(),
+        title: collectTextCoordinates(titleElement),
+        description: {
+          lines: descriptionElements.flatMap((el) => collectTextCoordinates(el)?.lines || []),
+          text: descriptionElements.map((el) => el.textContent?.trim() || '').join(' '),
+        },
+        button: getElementBBox(buttonElement),
+      };
+
+      saveCoordinates(participantId, groupLetter || '', 'post_intro', coordinates);
+    }, 1000);
+
     return () => {
+      clearTimeout(timer);
       logEvent({ event: 'phase_intro_exit', phase: 'post' });
     };
-  }, []);
+  }, [participantId]);
 
   return (
     <main className="space-y-4 p-8">

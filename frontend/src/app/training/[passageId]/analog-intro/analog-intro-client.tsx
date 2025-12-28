@@ -6,6 +6,12 @@ import { Button } from '@/components/ui/button';
 import { logEvent } from '@/lib/logger';
 import { captureScreen } from '@/lib/capture';
 import { mockTrainingPassages } from '@/lib/mock-data';
+import {
+  collectTextCoordinates,
+  getElementBBox,
+  saveCoordinates,
+} from '@/lib/coordinate-collector';
+import { useAppStore } from '@/lib/store';
 
 type AnalogIntroClientProps = {
   passageId: string;
@@ -13,6 +19,9 @@ type AnalogIntroClientProps = {
 
 export function AnalogIntroClient({ passageId }: AnalogIntroClientProps) {
   const router = useRouter();
+  const participantId = useAppStore((s) => s.participantId);
+  const groupLetter = useAppStore((s) => s.groupLetter);
+  const trainingSet = useAppStore((s) => s.trainingSet);
 
   const passage = mockTrainingPassages.find((p) => p.id === passageId);
   const firstAnalogId = passage?.analogs?.[0]?.id;
@@ -20,10 +29,38 @@ export function AnalogIntroClient({ passageId }: AnalogIntroClientProps) {
   useEffect(() => {
     captureScreen();
     logEvent({ event: 'analog_intro_enter', passage_id: passageId });
+
+    // Collect coordinates after a short delay to ensure rendering is complete
+    const timer = setTimeout(() => {
+      if (!participantId) return;
+
+      const titleElement = document.querySelector('h1') as HTMLElement | null;
+      const descriptionElements = Array.from(
+        document.querySelectorAll('div.space-y-2 > p')
+      ) as HTMLElement[];
+      const buttonElement = document.querySelector('button') as HTMLElement | null;
+
+      const coordinates = {
+        page_type: 'analog_intro',
+        passage_id: passageId,
+        timestamp: new Date().toISOString(),
+        instruction: collectTextCoordinates(titleElement),
+        description: {
+          lines: descriptionElements.flatMap((el) => collectTextCoordinates(el)?.lines || []),
+          text: descriptionElements.map((el) => el.textContent?.trim() || '').join(' '),
+        },
+        button: getElementBBox(buttonElement),
+      };
+
+      const phase = trainingSet ? `training${trainingSet}` : 'training1';
+      saveCoordinates(participantId, groupLetter || '', 'analog_intro', coordinates, phase);
+    }, 1000);
+
     return () => {
+      clearTimeout(timer);
       logEvent({ event: 'analog_intro_exit', passage_id: passageId });
     };
-  }, [passageId]);
+  }, [passageId, participantId, groupLetter, trainingSet]);
 
   const handleStart = () => {
     if (firstAnalogId) {

@@ -12,27 +12,35 @@ export function MemoBody({ memo }: MemoBodyProps) {
       {/* Header fields */}
       <div className="space-y-1 mb-4">
         <div className="flex">
-          <span className="w-20 font-medium">To:</span>
-          <span>{memo.to}</span>
+          <span className="w-20 font-medium" data-passage-metadata-label="recipient">
+            To:
+          </span>
+          <span data-passage-metadata="recipient">{memo.to}</span>
         </div>
         <div className="flex">
-          <span className="w-20 font-medium">From:</span>
-          <span>{memo.from}</span>
+          <span className="w-20 font-medium" data-passage-metadata-label="sender">
+            From:
+          </span>
+          <span data-passage-metadata="sender">{memo.from}</span>
         </div>
         <div className="flex">
-          <span className="w-20 font-medium">Date:</span>
-          <span>{memo.date}</span>
+          <span className="w-20 font-medium" data-passage-metadata-label="date">
+            Date:
+          </span>
+          <span data-passage-metadata="date">{memo.date}</span>
         </div>
         <div className="flex">
-          <span className="w-20 font-medium">Subject:</span>
-          <span>{memo.subject}</span>
+          <span className="w-20 font-medium" data-passage-metadata-label="subject">
+            Subject:
+          </span>
+          <span data-passage-metadata="subject">{memo.subject}</span>
         </div>
       </div>
 
       {/* Body paragraphs */}
       <div className="space-y-4">
         {memo.body.map((paragraph, idx) => (
-          <p key={idx} className="whitespace-pre-line">
+          <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
             {paragraph}
           </p>
         ))}

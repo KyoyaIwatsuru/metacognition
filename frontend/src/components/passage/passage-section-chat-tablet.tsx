@@ -24,10 +24,13 @@ export function ChatTabletBody({ chatTablet }: ChatTabletBodyProps) {
         <div className="px-4 py-3 space-y-3 text-[14px] leading-[2.4] text-slate-800">
           {chatTablet.messages.map((msg, idx) => (
             <p key={idx}>
-              <span className="font-bold">
-                {msg.sender} ({msg.time})
+              <span className="font-bold" data-passage-metadata={`sender_${idx}`}>
+                {msg.sender}
               </span>{' '}
-              {msg.text}
+              <span className="font-bold" data-passage-metadata={`time_${idx}`}>
+                ({msg.time})
+              </span>{' '}
+              <span data-passage-paragraph>{msg.text}</span>
             </p>
           ))}
         </div>

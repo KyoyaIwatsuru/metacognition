@@ -13,20 +13,36 @@ export function EmailFormBody({ emailForm }: EmailFormBodyProps) {
       <table className="w-full border-collapse">
         <tbody>
           <tr className="border-b border-black">
-            <td className="border-r border-black px-2 py-0 font-bold w-16">To:</td>
-            <td className="px-2 py-0">{emailForm.to}</td>
+            <td className="border-r border-black px-2 py-0 font-bold w-16">
+              <span data-passage-metadata-label="recipient">To:</span>
+            </td>
+            <td className="px-2 py-0">
+              <span data-passage-metadata="recipient">{emailForm.to}</span>
+            </td>
           </tr>
           <tr className="border-b border-black">
-            <td className="border-r border-black px-2 py-0 font-bold">From:</td>
-            <td className="px-2 py-0">{emailForm.from}</td>
+            <td className="border-r border-black px-2 py-0 font-bold">
+              <span data-passage-metadata-label="sender">From:</span>
+            </td>
+            <td className="px-2 py-0">
+              <span data-passage-metadata="sender">{emailForm.from}</span>
+            </td>
           </tr>
           <tr className="border-b border-black">
-            <td className="border-r border-black px-2 py-0 font-bold">Date:</td>
-            <td className="px-2 py-0">{emailForm.date}</td>
+            <td className="border-r border-black px-2 py-0 font-bold">
+              <span data-passage-metadata-label="date">Date:</span>
+            </td>
+            <td className="px-2 py-0">
+              <span data-passage-metadata="date">{emailForm.date}</span>
+            </td>
           </tr>
           <tr className="border-b border-black">
-            <td className="border-r border-black px-2 py-0 font-bold">Subject:</td>
-            <td className="px-2 py-0">{emailForm.subject}</td>
+            <td className="border-r border-black px-2 py-0 font-bold">
+              <span data-passage-metadata-label="subject">Subject:</span>
+            </td>
+            <td className="px-2 py-0">
+              <span data-passage-metadata="subject">{emailForm.subject}</span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -34,18 +50,20 @@ export function EmailFormBody({ emailForm }: EmailFormBodyProps) {
       {/* Body area */}
       <div className="px-2 py-1">
         {/* Greeting */}
-        <p>{emailForm.greeting}</p>
+        <p data-passage-paragraph>{emailForm.greeting}</p>
 
         {/* Body paragraphs */}
         {emailForm.body.map((paragraph, idx) => (
-          <p key={idx}>{paragraph}</p>
+          <p key={idx} data-passage-paragraph>
+            {paragraph}
+          </p>
         ))}
 
         {/* Closing */}
-        <p>{emailForm.closing}</p>
+        <p data-passage-paragraph>{emailForm.closing}</p>
 
         {/* Signature */}
-        <p>
+        <p data-passage-paragraph>
           {emailForm.signature.name}, {emailForm.signature.title}
         </p>
       </div>

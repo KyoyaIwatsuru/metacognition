@@ -40,7 +40,9 @@ export function ConfirmNavigateButton({
       confirmLabel={confirmLabel}
       onConfirm={handleConfirm}
     >
-      <Button disabled={disabled}>{triggerLabel ?? confirmLabel}</Button>
+      <Button disabled={disabled} data-submit-button="true">
+        {triggerLabel ?? confirmLabel}
+      </Button>
     </ConfirmDialog>
   );
 }

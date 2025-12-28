@@ -17,16 +17,21 @@ export function ArticleBody({ article }: ArticleBodyProps) {
     return (
       <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 p-4">
         {/* タイトル */}
-        <h2 className="text-lg font-bold text-center mb-1">{article.headline}</h2>
+        <h2 className="text-lg font-bold text-center mb-1" data-passage-title="true">
+          {article.headline}
+        </h2>
         {/* 著者（イタリック・中央揃え・下線付き） */}
         {article.byline ? (
-          <p className="text-sm italic text-center border-b border-black pb-2 mb-3">
+          <p
+            className="text-sm italic text-center border-b border-black pb-2 mb-3"
+            data-passage-subtitle="true"
+          >
             {article.byline}
           </p>
         ) : null}
         {/* 本文 */}
         {article.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify mb-3">
+          <p key={idx} className="whitespace-pre-line text-justify mb-3" data-passage-paragraph>
             {p}
           </p>
         ))}
@@ -45,10 +50,16 @@ export function ArticleBody({ article }: ArticleBodyProps) {
       <div className="flex gap-6 items-start">
         {/* 左カラム：タイトル + 著者 + 本文 */}
         <div className="flex-1">
-          <h2 className="text-base font-bold mb-1 text-center">{article.headline}</h2>
-          {article.byline ? <p className="text-sm mb-2">{article.byline}</p> : null}
+          <h2 className="text-base font-bold mb-1 text-center" data-passage-title="true">
+            {article.headline}
+          </h2>
+          {article.byline ? (
+            <p className="text-sm mb-2" data-passage-subtitle="true">
+              {article.byline}
+            </p>
+          ) : null}
           {leftBody.map((p, idx) => (
-            <p key={idx} className="whitespace-pre-line text-justify mb-3">
+            <p key={idx} className="whitespace-pre-line text-justify mb-3" data-passage-paragraph>
               {p}
             </p>
           ))}
@@ -56,7 +67,7 @@ export function ArticleBody({ article }: ArticleBodyProps) {
         {/* 右カラム：本文のみ（タイトルと同じ高さから開始） */}
         <div className="flex-1">
           {rightBody.map((p, idx) => (
-            <p key={idx} className="whitespace-pre-line text-justify mb-3">
+            <p key={idx} className="whitespace-pre-line text-justify mb-3" data-passage-paragraph>
               {p}
             </p>
           ))}

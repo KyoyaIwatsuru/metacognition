@@ -37,13 +37,16 @@ export function ReflectionForm({
 
   return (
     <div className="space-y-3">
-      <div className="text-sm text-foreground">{prompt}</div>
+      <div className="text-sm text-foreground" data-reflection-form-prompt="true">
+        {prompt}
+      </div>
       <Textarea
         value={value}
         onChange={handleChange}
         disabled={disabled}
         rows={5}
         placeholder="自由に記述してください"
+        data-reflection-textarea="true"
       />
       {showSubmitButton ? (
         <div className="flex justify-end">
