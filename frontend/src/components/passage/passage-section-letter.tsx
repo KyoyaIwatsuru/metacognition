@@ -86,7 +86,7 @@ export function LetterBody({ letter }: LetterBodyProps) {
   // フォールバック: 本文のみ（どちらの形式もない場合）
   if (!hasBusinessFormat) {
     return (
-      <div className="space-y-2 border-2 border-black bg-white p-2 text-[14px] leading-[2.4] text-slate-800">
+      <div className="space-y-3 border-2 border-black bg-white p-2 text-[14px] leading-[2.4] text-slate-800">
         {letter.body.map((p, idx) => (
           <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
             {p}
@@ -138,7 +138,7 @@ export function LetterBody({ letter }: LetterBodyProps) {
       ) : null}
 
       {/* 本文 */}
-      <div className="space-y-2 mb-1">
+      <div className="space-y-3 mb-1">
         {letter.body.map((p, idx) => (
           <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
             {p}

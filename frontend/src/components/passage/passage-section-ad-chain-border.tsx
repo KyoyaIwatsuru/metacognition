@@ -15,7 +15,7 @@ export function AdChainBorderBody({ adChainBorder }: AdChainBorderBodyProps) {
       </h2>
 
       {/* Body paragraphs */}
-      <div className="text-[14px] leading-[2.4] text-slate-800 mb-2">
+      <div className="text-[14px] leading-[2.4] text-slate-800 mb-2 space-y-3">
         {adChainBorder.body.map((paragraph, idx) => (
           <p key={idx} data-passage-paragraph>
             {paragraph}

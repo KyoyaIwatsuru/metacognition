@@ -32,7 +32,7 @@ export function PressReleaseBody({ pressRelease }: PressReleaseBodyProps) {
       </h2>
 
       {/* Body paragraphs */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {pressRelease.body.map((paragraph, idx) => (
           <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
             {paragraph}

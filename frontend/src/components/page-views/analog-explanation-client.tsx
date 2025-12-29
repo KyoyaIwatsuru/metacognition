@@ -499,7 +499,11 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                   data-analog-explanation-question-index={idx}
                 >
                   <div className="select-none">
-                    <div className="text-sm text-foreground" data-analog-explanation-prompt="true">
+                    <div
+                      className="text-sm text-foreground"
+                      style={{ overflow: 'hidden' }}
+                      data-analog-explanation-prompt="true"
+                    >
                       <span className="font-semibold">Q{idx + 1}.</span>{' '}
                       <span style={{ position: 'relative' }}>
                         {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
@@ -551,6 +555,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                                   ? 'text-red-600'
                                   : ''
                             }
+                            style={{ overflow: 'hidden' }}
                             data-analog-explanation-choice={c.id}
                             data-analog-explanation-choice-index={cIdx}
                           >

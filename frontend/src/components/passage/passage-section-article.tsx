@@ -30,11 +30,13 @@ export function ArticleBody({ article }: ArticleBodyProps) {
           </p>
         ) : null}
         {/* 本文 */}
-        {article.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify mb-3" data-passage-paragraph>
-            {p}
-          </p>
-        ))}
+        <div className="space-y-3">
+          {article.body.map((p, idx) => (
+            <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
+              {p}
+            </p>
+          ))}
+        </div>
       </div>
     );
   }
@@ -58,19 +60,23 @@ export function ArticleBody({ article }: ArticleBodyProps) {
               {article.byline}
             </p>
           ) : null}
-          {leftBody.map((p, idx) => (
-            <p key={idx} className="whitespace-pre-line text-justify mb-3" data-passage-paragraph>
-              {p}
-            </p>
-          ))}
+          <div className="space-y-3">
+            {leftBody.map((p, idx) => (
+              <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
+                {p}
+              </p>
+            ))}
+          </div>
         </div>
         {/* 右カラム：本文のみ（タイトルと同じ高さから開始） */}
         <div className="flex-1">
-          {rightBody.map((p, idx) => (
-            <p key={idx} className="whitespace-pre-line text-justify mb-3" data-passage-paragraph>
-              {p}
-            </p>
-          ))}
+          <div className="space-y-3">
+            {rightBody.map((p, idx) => (
+              <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
+                {p}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </div>

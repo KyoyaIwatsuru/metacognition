@@ -38,7 +38,7 @@ export function MemoBody({ memo }: MemoBodyProps) {
       </div>
 
       {/* Body paragraphs */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {memo.body.map((paragraph, idx) => (
           <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
             {paragraph}

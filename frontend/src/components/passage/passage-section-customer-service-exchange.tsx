@@ -17,7 +17,7 @@ export function CustomerServiceExchangeBody({
         <div className="px-2 py-3 border-b border-black" />
 
         {/* Messages area */}
-        <div className="px-2 py-1 space-y-2 text-[14px] leading-[2.4] text-slate-800">
+        <div className="px-2 py-1 space-y-3 text-[14px] leading-[2.4] text-slate-800">
           {customerServiceExchange.messages.map((msg, idx) => (
             <p key={idx}>
               <span className="font-bold" data-passage-metadata="sender">

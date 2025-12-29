@@ -39,7 +39,7 @@ export function CertificateBody({ certificate }: CertificateBodyProps) {
           <div className="border-t-2 border-b border-black my-3 py-0.5" />
 
           {/* Body text */}
-          <div className="text-left space-y-2 mb-6">
+          <div className="text-left space-y-3 mb-6">
             {certificate.body.map((paragraph, idx) => (
               <p key={idx} data-passage-paragraph>
                 {paragraph}

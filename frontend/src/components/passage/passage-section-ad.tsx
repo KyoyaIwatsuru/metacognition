@@ -40,7 +40,7 @@ export function AdBody({ ad }: AdBodyProps) {
       ) : null}
 
       {/* 本文 */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         {ad.body && ad.body.length > 0
           ? ad.body.map((p, idx) => (
               <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
