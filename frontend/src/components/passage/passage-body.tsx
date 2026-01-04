@@ -33,6 +33,7 @@ type PassageBodyProps = {
   locale?: 'en' | 'ja';
   maxSections?: number; // 表示するセクション数の上限（最初からN個）
   skipSections?: number; // スキップするセクション数（最初のN個を飛ばす）
+  showParagraphNumbers?: boolean; // 解説ページで段落番号を表示するか
 };
 
 /**
@@ -40,45 +41,62 @@ type PassageBodyProps = {
  * Fallback to simple paragraph list when no sections provided.
  */
 // Helper function to render a section based on its layoutType
-function renderSectionContent(section: PassageSection) {
+function renderSectionContent(section: PassageSection, showParagraphNumbers?: boolean) {
   if (section.layoutType === 'ad') {
-    return <AdBody ad={section.ad} />;
+    return <AdBody ad={section.ad} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'letter') {
-    return <LetterBody letter={section.letter} />;
+    return <LetterBody letter={section.letter} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'report') {
-    return <ReportBody report={section.report} />;
+    return <ReportBody report={section.report} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'webpage') {
-    return <WebpageBody webpage={section.webpage} />;
+    return <WebpageBody webpage={section.webpage} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'schedule') {
-    return <ScheduleBody schedule={section.schedule} />;
+    return <ScheduleBody schedule={section.schedule} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'article') {
-    return <ArticleBody article={section.article} />;
+    return <ArticleBody article={section.article} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'notice') {
-    return <NoticeBody notice={section.notice} />;
+    return <NoticeBody notice={section.notice} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'orderForm') {
-    return <OrderFormBody orderForm={section.orderForm} />;
+    return (
+      <OrderFormBody orderForm={section.orderForm} showParagraphNumbers={showParagraphNumbers} />
+    );
   }
   if (section.layoutType === 'textMessageChain') {
-    return <TextMessageChainBody textMessageChain={section.textMessageChain} />;
+    return (
+      <TextMessageChainBody
+        textMessageChain={section.textMessageChain}
+        showParagraphNumbers={showParagraphNumbers}
+      />
+    );
   }
   if (section.layoutType === 'onlineChatDiscussion') {
-    return <OnlineChatDiscussionBody onlineChatDiscussion={section.onlineChatDiscussion} />;
+    return (
+      <OnlineChatDiscussionBody
+        onlineChatDiscussion={section.onlineChatDiscussion}
+        showParagraphNumbers={showParagraphNumbers}
+      />
+    );
   }
   if (section.layoutType === 'memo') {
-    return <MemoBody memo={section.memo} />;
+    return <MemoBody memo={section.memo} showParagraphNumbers={showParagraphNumbers} />;
   }
   if (section.layoutType === 'chatTablet') {
     return <ChatTabletBody chatTablet={section.chatTablet} />;
   }
   if (section.layoutType === 'pressRelease') {
-    return <PressReleaseBody pressRelease={section.pressRelease} />;
+    return (
+      <PressReleaseBody
+        pressRelease={section.pressRelease}
+        showParagraphNumbers={showParagraphNumbers}
+      />
+    );
   }
   if (section.layoutType === 'emailForm') {
     return <EmailFormBody emailForm={section.emailForm} />;
@@ -101,16 +119,31 @@ function renderSectionContent(section: PassageSection) {
     return <EmailTableBody emailTable={section.emailTable} />;
   }
   if (section.layoutType === 'certificate') {
-    return <CertificateBody certificate={section.certificate} />;
+    return (
+      <CertificateBody
+        certificate={section.certificate}
+        showParagraphNumbers={showParagraphNumbers}
+      />
+    );
   }
   if (section.layoutType === 'invoice') {
     return <InvoiceBody invoice={section.invoice} />;
   }
   if (section.layoutType === 'adChainBorder') {
-    return <AdChainBorderBody adChainBorder={section.adChainBorder} />;
+    return (
+      <AdChainBorderBody
+        adChainBorder={section.adChainBorder}
+        showParagraphNumbers={showParagraphNumbers}
+      />
+    );
   }
   if (section.layoutType === 'newsletterProfile') {
-    return <NewsletterProfileBody newsletterProfile={section.newsletterProfile} />;
+    return (
+      <NewsletterProfileBody
+        newsletterProfile={section.newsletterProfile}
+        showParagraphNumbers={showParagraphNumbers}
+      />
+    );
   }
   return (
     <div className="space-y-2 rounded-md border bg-card p-4 text-sm text-muted-foreground whitespace-pre-line">
@@ -129,6 +162,7 @@ export function PassageBody({
   locale = 'en',
   maxSections,
   skipSections = 0,
+  showParagraphNumbers,
 }: PassageBodyProps) {
   if (sections && sections.length > 0) {
     // Get sections for both locales
@@ -192,7 +226,7 @@ export function PassageBody({
             <div key={idx} style={{ position: 'relative' }}>
               {/* Visible section */}
               <div data-passage-section={sectionIndex} data-passage-section-locale={locale}>
-                {renderSectionContent(visibleSection)}
+                {renderSectionContent(visibleSection, showParagraphNumbers)}
               </div>
               {/* Hidden section for coordinate collection (same position) */}
               {hiddenSection ? (

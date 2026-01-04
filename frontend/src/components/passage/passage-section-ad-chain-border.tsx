@@ -1,12 +1,14 @@
 'use client';
 
 import type { AdChainBorderContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type AdChainBorderBodyProps = {
   adChainBorder: AdChainBorderContent;
+  showParagraphNumbers?: boolean;
 };
 
-export function AdChainBorderBody({ adChainBorder }: AdChainBorderBodyProps) {
+export function AdChainBorderBody({ adChainBorder, showParagraphNumbers }: AdChainBorderBodyProps) {
   return (
     <div className="border border-black bg-white px-4 py-2">
       {/* Headline */}
@@ -17,9 +19,16 @@ export function AdChainBorderBody({ adChainBorder }: AdChainBorderBodyProps) {
       {/* Body paragraphs */}
       <div className="text-[14px] leading-[2.4] text-slate-800 mb-2 space-y-3">
         {adChainBorder.body.map((paragraph, idx) => (
-          <p key={idx} data-passage-paragraph>
-            {paragraph}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="flex-1" data-passage-paragraph>
+              {paragraph}
+            </p>
+          </div>
         ))}
       </div>
 

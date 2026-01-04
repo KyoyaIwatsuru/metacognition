@@ -1,12 +1,14 @@
 'use client';
 
 import type { AdContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type AdBodyProps = {
   ad: AdContent;
+  showParagraphNumbers?: boolean;
 };
 
-export function AdBody({ ad }: AdBodyProps) {
+export function AdBody({ ad, showParagraphNumbers }: AdBodyProps) {
   return (
     <div className="border-2 border-black bg-white p-2 text-[14px] leading-[2.4] text-slate-800">
       {/* ヘッドライン（左揃え・太字） */}
@@ -43,9 +45,16 @@ export function AdBody({ ad }: AdBodyProps) {
       <div className="space-y-3">
         {ad.body && ad.body.length > 0
           ? ad.body.map((p, idx) => (
-              <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-                {p}
-              </p>
+              <div key={idx} className="flex">
+                {showParagraphNumbers && (
+                  <span className="w-5 shrink-0 text-slate-600 font-medium">
+                    {PARAGRAPH_NUMBERS[idx]}
+                  </span>
+                )}
+                <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+                  {p}
+                </p>
+              </div>
             ))
           : null}
       </div>

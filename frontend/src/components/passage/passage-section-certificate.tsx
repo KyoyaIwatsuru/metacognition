@@ -1,12 +1,14 @@
 'use client';
 
 import type { CertificateContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type CertificateBodyProps = {
   certificate: CertificateContent;
+  showParagraphNumbers?: boolean;
 };
 
-export function CertificateBody({ certificate }: CertificateBodyProps) {
+export function CertificateBody({ certificate, showParagraphNumbers }: CertificateBodyProps) {
   return (
     <div className="border-2 border-black bg-white p-3">
       {/* Inner border frame */}
@@ -41,9 +43,16 @@ export function CertificateBody({ certificate }: CertificateBodyProps) {
           {/* Body text */}
           <div className="text-left space-y-3 mb-6">
             {certificate.body.map((paragraph, idx) => (
-              <p key={idx} data-passage-paragraph>
-                {paragraph}
-              </p>
+              <div key={idx} className="flex">
+                {showParagraphNumbers && (
+                  <span className="w-5 shrink-0 text-slate-600 font-medium">
+                    {PARAGRAPH_NUMBERS[idx]}
+                  </span>
+                )}
+                <p className="flex-1" data-passage-paragraph>
+                  {paragraph}
+                </p>
+              </div>
             ))}
           </div>
 

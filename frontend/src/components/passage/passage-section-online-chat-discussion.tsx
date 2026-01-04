@@ -1,16 +1,21 @@
 'use client';
 
 import type { OnlineChatDiscussionContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type OnlineChatDiscussionBodyProps = {
   onlineChatDiscussion: OnlineChatDiscussionContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
  * Online Chat Discussion format matching TOEIC style.
  * Header with 3-person icon, messages with [time] format, scrollbar decoration.
  */
-export function OnlineChatDiscussionBody({ onlineChatDiscussion }: OnlineChatDiscussionBodyProps) {
+export function OnlineChatDiscussionBody({
+  onlineChatDiscussion,
+  showParagraphNumbers,
+}: OnlineChatDiscussionBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* Header bar */}
@@ -20,15 +25,22 @@ export function OnlineChatDiscussionBody({ onlineChatDiscussion }: OnlineChatDis
       <div className="flex">
         <div className="flex-1 px-4 py-3 space-y-3">
           {onlineChatDiscussion.messages.map((msg, idx) => (
-            <p key={idx}>
-              <span className="font-bold" data-passage-metadata={`sender_${idx}`}>
-                {msg.sender}
-              </span>{' '}
-              <span className="font-bold" data-passage-metadata={`time_${idx}`}>
-                [{msg.time}]
-              </span>{' '}
-              <span data-passage-paragraph>{msg.text}</span>
-            </p>
+            <div key={idx} className="flex">
+              {showParagraphNumbers && (
+                <span className="w-5 shrink-0 text-slate-600 font-medium">
+                  {PARAGRAPH_NUMBERS[idx]}
+                </span>
+              )}
+              <p className="flex-1">
+                <span className="font-bold" data-passage-metadata={`sender_${idx}`}>
+                  {msg.sender}
+                </span>{' '}
+                <span className="font-bold" data-passage-metadata={`time_${idx}`}>
+                  [{msg.time}]
+                </span>{' '}
+                <span data-passage-paragraph>{msg.text}</span>
+              </p>
+            </div>
           ))}
         </div>
         {/* Right scrollbar decoration */}

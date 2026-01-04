@@ -1,16 +1,18 @@
 'use client';
 
 import type { WebpageContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type WebpageBodyProps = {
   webpage: WebpageContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
  * Webpage format matching TOEIC style.
  * Includes browser-like frame with address bar, page title, and body content.
  */
-export function WebpageBody({ webpage }: WebpageBodyProps) {
+export function WebpageBody({ webpage, showParagraphNumbers }: WebpageBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* ブラウザ風アドレスバー */}
@@ -42,9 +44,16 @@ export function WebpageBody({ webpage }: WebpageBodyProps) {
           {/* 本文 */}
           <div className="space-y-3 text-justify">
             {webpage.body.map((p, idx) => (
-              <p key={idx} className="whitespace-pre-line indent-0" data-passage-paragraph>
-                {p}
-              </p>
+              <div key={idx} className="flex">
+                {showParagraphNumbers && (
+                  <span className="w-5 shrink-0 text-slate-600 font-medium">
+                    {PARAGRAPH_NUMBERS[idx]}
+                  </span>
+                )}
+                <p className="whitespace-pre-line indent-0 flex-1" data-passage-paragraph>
+                  {p}
+                </p>
+              </div>
             ))}
           </div>
         </div>

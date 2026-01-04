@@ -1,16 +1,18 @@
 'use client';
 
 import type { ScheduleContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type ScheduleBodyProps = {
   schedule: ScheduleContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
  * Schedule/Table format matching TOEIC style.
  * Includes header (company name), subheaders, and data table with columns and rows.
  */
-export function ScheduleBody({ schedule }: ScheduleBodyProps) {
+export function ScheduleBody({ schedule, showParagraphNumbers }: ScheduleBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
       {/* ヘッダー部分（会社名 + サブヘッダー） */}
@@ -34,6 +36,9 @@ export function ScheduleBody({ schedule }: ScheduleBodyProps) {
       <table className="w-full border-collapse text-sm" data-passage-table="true">
         <thead>
           <tr>
+            {showParagraphNumbers && (
+              <th className="px-2 py-1 text-center font-bold bg-white border-b border-r border-black w-8" />
+            )}
             {schedule.columns.map((col, idx) => (
               <th
                 key={idx}
@@ -50,6 +55,15 @@ export function ScheduleBody({ schedule }: ScheduleBodyProps) {
         <tbody>
           {schedule.rows.map((row, rowIdx) => (
             <tr key={rowIdx} data-passage-table-row={rowIdx}>
+              {showParagraphNumbers && (
+                <td
+                  className={`px-2 py-1 text-center border-r border-black w-8 text-slate-600 font-medium ${
+                    rowIdx < schedule.rows.length - 1 ? 'border-b border-black' : ''
+                  }`}
+                >
+                  {PARAGRAPH_NUMBERS[rowIdx]}
+                </td>
+              )}
               {row.map((cell, cellIdx) => (
                 <td
                   key={cellIdx}

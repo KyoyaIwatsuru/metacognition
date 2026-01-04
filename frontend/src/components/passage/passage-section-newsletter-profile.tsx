@@ -1,16 +1,21 @@
 'use client';
 
 import type { NewsletterProfileContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type NewsletterProfileBodyProps = {
   newsletterProfile: NewsletterProfileContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
  * Newsletter profile format matching TOEIC style.
  * Includes main title, section title (bold italic), and body paragraphs.
  */
-export function NewsletterProfileBody({ newsletterProfile }: NewsletterProfileBodyProps) {
+export function NewsletterProfileBody({
+  newsletterProfile,
+  showParagraphNumbers,
+}: NewsletterProfileBodyProps) {
   return (
     <div className="bg-white text-[14px] leading-[2.4] text-slate-800 p-4">
       {/* メインタイトル */}
@@ -26,9 +31,16 @@ export function NewsletterProfileBody({ newsletterProfile }: NewsletterProfileBo
       {/* 本文 */}
       <div className="space-y-3">
         {newsletterProfile.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-            {p}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+              {p}
+            </p>
+          </div>
         ))}
       </div>
     </div>

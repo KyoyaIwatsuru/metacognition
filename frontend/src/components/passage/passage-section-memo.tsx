@@ -1,12 +1,14 @@
 'use client';
 
 import type { MemoContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type MemoBodyProps = {
   memo: MemoContent;
+  showParagraphNumbers?: boolean;
 };
 
-export function MemoBody({ memo }: MemoBodyProps) {
+export function MemoBody({ memo, showParagraphNumbers }: MemoBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 px-6 py-4">
       {/* Header fields */}
@@ -40,9 +42,16 @@ export function MemoBody({ memo }: MemoBodyProps) {
       {/* Body paragraphs */}
       <div className="space-y-3">
         {memo.body.map((paragraph, idx) => (
-          <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
-            {paragraph}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="whitespace-pre-line flex-1" data-passage-paragraph>
+              {paragraph}
+            </p>
+          </div>
         ))}
       </div>
     </div>

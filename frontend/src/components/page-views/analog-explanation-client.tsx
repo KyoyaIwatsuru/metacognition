@@ -269,6 +269,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                 direction={analog.direction}
                 directionJa={analog.directionJa}
                 locale={locale}
+                showParagraphNumbers={locale === 'en'}
               />
             </div>
           </div>
@@ -465,6 +466,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
               direction={analog.direction}
               directionJa={analog.directionJa}
               locale={locale}
+              showParagraphNumbers={locale === 'en'}
             />
           </div>
         </div>

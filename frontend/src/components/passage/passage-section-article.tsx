@@ -1,9 +1,11 @@
 'use client';
 
 import type { ArticleContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type ArticleBodyProps = {
   article: ArticleContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
@@ -11,7 +13,7 @@ type ArticleBodyProps = {
  * Includes headline, byline (author), and body paragraphs with [1][2][3][4] markers.
  * Uses 2-column newspaper-style layout by default, or 1-column press-release style.
  */
-export function ArticleBody({ article }: ArticleBodyProps) {
+export function ArticleBody({ article, showParagraphNumbers }: ArticleBodyProps) {
   // 1カラムレイアウト（プレスリリース風）
   if (article.singleColumn) {
     return (
@@ -32,9 +34,16 @@ export function ArticleBody({ article }: ArticleBodyProps) {
         {/* 本文 */}
         <div className="space-y-3">
           {article.body.map((p, idx) => (
-            <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-              {p}
-            </p>
+            <div key={idx} className="flex">
+              {showParagraphNumbers && (
+                <span className="w-5 shrink-0 text-slate-600 font-medium">
+                  {PARAGRAPH_NUMBERS[idx]}
+                </span>
+              )}
+              <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+                {p}
+              </p>
+            </div>
           ))}
         </div>
       </div>
@@ -62,9 +71,16 @@ export function ArticleBody({ article }: ArticleBodyProps) {
           ) : null}
           <div className="space-y-3">
             {leftBody.map((p, idx) => (
-              <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-                {p}
-              </p>
+              <div key={idx} className="flex">
+                {showParagraphNumbers && (
+                  <span className="w-5 shrink-0 text-slate-600 font-medium">
+                    {PARAGRAPH_NUMBERS[idx]}
+                  </span>
+                )}
+                <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+                  {p}
+                </p>
+              </div>
             ))}
           </div>
         </div>
@@ -72,9 +88,16 @@ export function ArticleBody({ article }: ArticleBodyProps) {
         <div className="flex-1">
           <div className="space-y-3">
             {rightBody.map((p, idx) => (
-              <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-                {p}
-              </p>
+              <div key={idx} className="flex">
+                {showParagraphNumbers && (
+                  <span className="w-5 shrink-0 text-slate-600 font-medium">
+                    {PARAGRAPH_NUMBERS[midPoint + idx]}
+                  </span>
+                )}
+                <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+                  {p}
+                </p>
+              </div>
             ))}
           </div>
         </div>

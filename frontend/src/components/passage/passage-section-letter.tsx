@@ -1,9 +1,11 @@
 'use client';
 
 import type { LetterContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type LetterBodyProps = {
   letter: LetterContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
@@ -11,7 +13,7 @@ type LetterBodyProps = {
  * Includes sender, date, recipient, greeting, body, closing, and signature.
  * Also supports email format with from, to, date, subject headers.
  */
-export function LetterBody({ letter }: LetterBodyProps) {
+export function LetterBody({ letter, showParagraphNumbers }: LetterBodyProps) {
   const hasBusinessFormat = letter.sender || letter.recipient;
   const hasEmailFormat = letter.from || letter.to || letter.subject;
 
@@ -53,9 +55,16 @@ export function LetterBody({ letter }: LetterBodyProps) {
 
             {/* 本文 */}
             {letter.body.map((p, idx) => (
-              <p key={idx} data-passage-paragraph>
-                {p}
-              </p>
+              <div key={idx} className="flex">
+                {showParagraphNumbers && (
+                  <span className="w-5 shrink-0 text-slate-600 font-medium">
+                    {PARAGRAPH_NUMBERS[idx]}
+                  </span>
+                )}
+                <p className="flex-1" data-passage-paragraph>
+                  {p}
+                </p>
+              </div>
             ))}
 
             {/* 結び */}
@@ -88,9 +97,16 @@ export function LetterBody({ letter }: LetterBodyProps) {
     return (
       <div className="space-y-3 border-2 border-black bg-white p-2 text-[14px] leading-[2.4] text-slate-800">
         {letter.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
-            {p}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="whitespace-pre-line flex-1" data-passage-paragraph>
+              {p}
+            </p>
+          </div>
         ))}
       </div>
     );
@@ -140,9 +156,16 @@ export function LetterBody({ letter }: LetterBodyProps) {
       {/* 本文 */}
       <div className="space-y-3 mb-1">
         {letter.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-            {p}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+              {p}
+            </p>
+          </div>
         ))}
       </div>
 

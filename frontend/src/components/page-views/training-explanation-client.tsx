@@ -595,6 +595,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
               direction={passage.direction}
               directionJa={passage.directionJa}
               locale={locale}
+              showParagraphNumbers={locale === 'en'}
             />
           </div>
         </div>

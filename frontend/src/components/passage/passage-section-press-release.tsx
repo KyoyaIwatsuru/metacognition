@@ -1,12 +1,14 @@
 'use client';
 
 import type { PressReleaseContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type PressReleaseBodyProps = {
   pressRelease: PressReleaseContent;
+  showParagraphNumbers?: boolean;
 };
 
-export function PressReleaseBody({ pressRelease }: PressReleaseBodyProps) {
+export function PressReleaseBody({ pressRelease, showParagraphNumbers }: PressReleaseBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800 px-6 py-4">
       {/* Header: FOR IMMEDIATE RELEASE + Contact */}
@@ -34,9 +36,16 @@ export function PressReleaseBody({ pressRelease }: PressReleaseBodyProps) {
       {/* Body paragraphs */}
       <div className="space-y-3">
         {pressRelease.body.map((paragraph, idx) => (
-          <p key={idx} className="whitespace-pre-line" data-passage-paragraph>
-            {paragraph}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="whitespace-pre-line flex-1" data-passage-paragraph>
+              {paragraph}
+            </p>
+          </div>
         ))}
       </div>
     </div>

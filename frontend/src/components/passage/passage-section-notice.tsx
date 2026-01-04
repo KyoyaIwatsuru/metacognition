@@ -1,9 +1,11 @@
 'use client';
 
 import type { NoticeContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type NoticeBodyProps = {
   notice: NoticeContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
@@ -11,7 +13,7 @@ type NoticeBodyProps = {
  * Includes centered title and body paragraphs with optional bold section headers.
  * Section headers are detected as text before ":" at the start of a paragraph.
  */
-export function NoticeBody({ notice }: NoticeBodyProps) {
+export function NoticeBody({ notice, showParagraphNumbers }: NoticeBodyProps) {
   // 段落の先頭にある "Header:" パターンを太字にする
   const renderParagraph = (text: string) => {
     // "Header: content" パターンを検出（英語: ":" / 日本語: "："）
@@ -39,9 +41,16 @@ export function NoticeBody({ notice }: NoticeBodyProps) {
       {/* 本文 */}
       <div className="space-y-3">
         {notice.body.map((p, idx) => (
-          <p key={idx} className="whitespace-pre-line text-justify" data-passage-paragraph>
-            {renderParagraph(p)}
-          </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <p className="whitespace-pre-line text-justify flex-1" data-passage-paragraph>
+              {renderParagraph(p)}
+            </p>
+          </div>
         ))}
       </div>
     </div>

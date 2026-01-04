@@ -1,16 +1,21 @@
 'use client';
 
 import type { TextMessageChainContent } from '@/lib/types';
+import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
 
 type TextMessageChainBodyProps = {
   textMessageChain: TextMessageChainContent;
+  showParagraphNumbers?: boolean;
 };
 
 /**
  * Text message chain format matching TOEIC style.
  * Displays messages in a phone/tablet-like frame with rounded borders.
  */
-export function TextMessageChainBody({ textMessageChain }: TextMessageChainBodyProps) {
+export function TextMessageChainBody({
+  textMessageChain,
+  showParagraphNumbers,
+}: TextMessageChainBodyProps) {
   return (
     <div className="border-2 border-black rounded-3xl bg-white text-[14px] leading-[2.4] text-slate-800 p-1 max-w-xl mx-auto">
       {/* 上部のドット装飾 */}
@@ -24,14 +29,21 @@ export function TextMessageChainBody({ textMessageChain }: TextMessageChainBodyP
       {/* メッセージエリア */}
       <div className="px-3 py-2 space-y-3">
         {textMessageChain.messages.map((msg, idx) => (
-          <div key={idx} className="border border-slate-300 rounded-lg p-3 bg-white">
-            <p className="font-bold mb-1">
-              <span data-passage-metadata={`sender_${idx}`}>{msg.sender}</span>{' '}
-              <span data-passage-metadata={`time_${idx}`}>[{msg.time}]</span>
-            </p>
-            <p className="whitespace-pre-line" data-passage-paragraph>
-              {msg.text}
-            </p>
+          <div key={idx} className="flex">
+            {showParagraphNumbers && (
+              <span className="w-5 shrink-0 text-slate-600 font-medium">
+                {PARAGRAPH_NUMBERS[idx]}
+              </span>
+            )}
+            <div className="border border-slate-300 rounded-lg p-3 bg-white flex-1">
+              <p className="font-bold mb-1">
+                <span data-passage-metadata={`sender_${idx}`}>{msg.sender}</span>{' '}
+                <span data-passage-metadata={`time_${idx}`}>[{msg.time}]</span>
+              </p>
+              <p className="whitespace-pre-line" data-passage-paragraph>
+                {msg.text}
+              </p>
+            </div>
           </div>
         ))}
       </div>
