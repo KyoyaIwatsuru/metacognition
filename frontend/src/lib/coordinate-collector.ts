@@ -551,11 +551,14 @@ export async function saveCoordinates(
     // Use groupLetter directly (A or B), fallback to 'unknown' if empty
     const group = groupLetter || 'unknown';
 
-    // Create directory path: metacognition/{group}/{participantId}/{phase}/coordinates/
+    // Create directory path: metacognition/data-science-intro/data/input/{group}/{participantId}/{phase}/coordinates/
     const home = await homeDir();
     const coordDir = await join(
       home,
       'metacognition',
+      'data-science-intro',
+      'data',
+      'input',
       groupLetter,
       participantId,
       phase,

@@ -64,8 +64,18 @@ async function ensureLogPath(seed?: LogEvent): Promise<string | null> {
     const phaseFolder = getPhaseFolder(phase, trainingSet);
 
     const base = await homeDir();
-    // Path structure: metacognition/{groupLetter}/{participant}/{phase}/logs/events_{timestamp}.jsonl
-    const logDir = await join(base, 'metacognition', groupLetter, participant, phaseFolder, 'logs');
+    // Path structure: metacognition/data-science-intro/data/input/{groupLetter}/{participant}/{phase}/logs/events_{timestamp}.jsonl
+    const logDir = await join(
+      base,
+      'metacognition',
+      'data-science-intro',
+      'data',
+      'input',
+      groupLetter,
+      participant,
+      phaseFolder,
+      'logs'
+    );
     return join(logDir, `events_${ts}.jsonl`);
   })();
   return logPathPromise;

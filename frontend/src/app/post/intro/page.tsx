@@ -55,9 +55,9 @@ export default function PostIntroPage() {
     <main className="space-y-4 p-8">
       <h1 className="text-2xl font-semibold">Post-test を開始します</h1>
       <div className="space-y-2 text-sm text-zinc-600">
-        <p>Post-testでは、英語読解力を測定します。</p>
+        <p>Post-testでは、現在の英語の能力を測定します。</p>
         <p>
-          全3問の英語長文読解問題に取り組んでいただきます。制限時間内に最も適切だと思う選択肢を選んでください。
+          全8問の英語の長文読解問題に取り組んでいただきます。制限時間内に最も適切だと思う選択肢を選んでください。
         </p>
       </div>
       <Button onClick={() => router.push('/post/post_01')}>Post-test を開始</Button>
