@@ -2,10 +2,12 @@
 
 import type { TextMessageChainContent } from '@/lib/types';
 import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
+import { renderTextWithUnderlines } from '@/lib/text-underline';
 
 type TextMessageChainBodyProps = {
   textMessageChain: TextMessageChainContent;
   showParagraphNumbers?: boolean;
+  underlineTexts?: string[];
 };
 
 /**
@@ -15,6 +17,7 @@ type TextMessageChainBodyProps = {
 export function TextMessageChainBody({
   textMessageChain,
   showParagraphNumbers,
+  underlineTexts,
 }: TextMessageChainBodyProps) {
   return (
     <div className="border-2 border-black rounded-3xl bg-white text-[14px] leading-[2.4] text-slate-800 p-1 max-w-xl mx-auto">
@@ -41,7 +44,7 @@ export function TextMessageChainBody({
                 <span data-passage-metadata={`time_${idx}`}>[{msg.time}]</span>
               </p>
               <p className="whitespace-pre-line" data-passage-paragraph>
-                {msg.text}
+                {renderTextWithUnderlines(msg.text, underlineTexts || [])}
               </p>
             </div>
           </div>

@@ -34,6 +34,7 @@ type PassageBodyProps = {
   maxSections?: number; // 表示するセクション数の上限（最初からN個）
   skipSections?: number; // スキップするセクション数（最初のN個を飛ばす）
   showParagraphNumbers?: boolean; // 解説ページで段落番号を表示するか
+  underlineTexts?: string[]; // 下線を引くテキスト（解説ページで使用）
 };
 
 /**
@@ -41,7 +42,11 @@ type PassageBodyProps = {
  * Fallback to simple paragraph list when no sections provided.
  */
 // Helper function to render a section based on its layoutType
-function renderSectionContent(section: PassageSection, showParagraphNumbers?: boolean) {
+function renderSectionContent(
+  section: PassageSection,
+  showParagraphNumbers?: boolean,
+  underlineTexts?: string[]
+) {
   if (section.layoutType === 'ad') {
     return <AdBody ad={section.ad} showParagraphNumbers={showParagraphNumbers} />;
   }
@@ -73,6 +78,7 @@ function renderSectionContent(section: PassageSection, showParagraphNumbers?: bo
       <TextMessageChainBody
         textMessageChain={section.textMessageChain}
         showParagraphNumbers={showParagraphNumbers}
+        underlineTexts={underlineTexts}
       />
     );
   }
@@ -81,6 +87,7 @@ function renderSectionContent(section: PassageSection, showParagraphNumbers?: bo
       <OnlineChatDiscussionBody
         onlineChatDiscussion={section.onlineChatDiscussion}
         showParagraphNumbers={showParagraphNumbers}
+        underlineTexts={underlineTexts}
       />
     );
   }
@@ -163,6 +170,7 @@ export function PassageBody({
   maxSections,
   skipSections = 0,
   showParagraphNumbers,
+  underlineTexts,
 }: PassageBodyProps) {
   if (sections && sections.length > 0) {
     // Get sections for both locales
@@ -226,7 +234,7 @@ export function PassageBody({
             <div key={idx} style={{ position: 'relative' }}>
               {/* Visible section */}
               <div data-passage-section={sectionIndex} data-passage-section-locale={locale}>
-                {renderSectionContent(visibleSection, showParagraphNumbers)}
+                {renderSectionContent(visibleSection, showParagraphNumbers, underlineTexts)}
               </div>
               {/* Hidden section for coordinate collection (same position) */}
               {hiddenSection ? (

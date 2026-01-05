@@ -18,6 +18,8 @@ export type Question = {
   correctChoiceId: string;
   explanationGeneralJa?: string;
   metacogFeedbackJa?: string;
+  quotedTextEn?: string; // 英語本文で下線を引くテキスト
+  quotedTextJa?: string; // 日本語本文で下線を引くテキスト
 };
 
 export type Analog = {

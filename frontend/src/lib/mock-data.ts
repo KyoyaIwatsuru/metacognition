@@ -1005,7 +1005,7 @@ const tr02An1Q1 = {
   correctChoiceId: 'a',
   explanationGeneralJa: `LKJスポーツウエア社の現在の状況について、②の4〜5行目に、LKJ Sportswear continues to be a leader in sports apparel in Brazil and throughout South America「LKJスポーツウエア社はブラジルと南米全域におけるスポーツ衣料のトップ企業であり続ける」とあり、さらにsales of its products ..... continue to grow in Europe「同社の製品の売り上げはヨーロッパで成長し続けている」と述べられているので、LKJスポーツウエア社が南米やヨーロッパの複数の国で製品を販売していることが分かる。よって、（A）が正解。multiple「複数の」。
 （C） at a discount「割引価格で」。
-（D）①目の1行目にMoriさんがカナダの大学を卒業したとあるが、創業者の出身地についての言及はない。`,
+（D）①の1行目にMoriさんがカナダの大学を卒業したとあるが、創業者の出身地についての言及はない。`,
   metacogFeedbackJa: `会社についての設問は、物語部分に引っ張られず「現在の事実」を述べる文（とくに末尾の現状まとめ）を根拠に、範囲・規模・対象地域などの"広がり"を拾うのが最重要です。見分け方は、設問が「何が示されているか」のように本文の明示情報を問う形で、推測ではなく言い切りの文を探すタイプだと判断できる点です。今回は、地域が複数にまたがる表現が決め手になります。
 
 ① まず設問の名詞（会社名）に丸をつけ、「会社の特徴（事業範囲・商品・市場・実績）」のどれを聞かれやすいか当たりをつける。
@@ -1443,6 +1443,8 @@ const tr03Question2 = {
     'At 9:35 A.M., what does Mr. Tsukase most likely mean when he writes, "Then, the trainer should come back next week"?',
   promptJa:
     '午前9時35分に"Then, the trainer should come back next week"という発言で、Tsukaseさんは何を意図していると考えられますか。',
+  quotedTextEn: 'Then, the trainer should come back next week.',
+  quotedTextJa: 'では、指導係は来週また来た方がいいですね。',
   choices: [
     {
       id: 'a',
@@ -1562,6 +1564,8 @@ const tr03An1Q1 = {
     'At 11:14 A.M., what does Ms. Hewitt most likely mean when she writes, "There\'s been an update"?',
   promptJa:
     '午前11時14分に、"There\'s been an update"という発言で、Hewittさんは何を意図していると考えられますか。',
+  quotedTextEn: "There's been an update.",
+  quotedTextJa: '更新があったのです。',
   choices: [
     {
       id: 'a',
@@ -1773,6 +1777,8 @@ const tr03An2Q1 = {
     'At 9:17 P.M., what does Ms. Tillman most likely mean when she writes, "I\'ll see to it"?',
   promptJa:
     '午後9時17分に、"I\'ll see to it"という発言で、Tillmanさんは何を意図していると考えられますか。',
+  quotedTextEn: "I'll see to it.",
+  quotedTextJa: '私がやっておきます。',
   choices: [
     {
       id: 'a',
@@ -2034,6 +2040,8 @@ const tr03An3Q2 = {
     'At 11:39 A.M., what does Ms. Berk most likely mean when she writes, "I\'ve got a planned day off"?',
   promptJa:
     '午前11時39分に、"I\'ve got a planned day off"という発言で、Berkさんは何を意図していると考えられますか。',
+  quotedTextEn: "I've got a planned day off.",
+  quotedTextJa: '私は一日休暇を取ることになっていまして。',
   choices: [
     {
       id: 'a',

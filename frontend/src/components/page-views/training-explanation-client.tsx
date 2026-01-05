@@ -48,6 +48,16 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
   const confirmDescription = '戻ることはできません。よろしいですか？';
 
   const paragraphs = useMemo(() => passage.paragraphsEn ?? [], [passage.paragraphsEn]);
+
+  // 選択中の問題の下線テキストを取得
+  const underlineTexts = useMemo(() => {
+    const questionIndex = parseInt(selectedQuestion);
+    const question = passage.questions[questionIndex];
+    if (!question) return [];
+    const text = locale === 'en' ? question.quotedTextEn : question.quotedTextJa;
+    return text ? [text] : [];
+  }, [passage.questions, selectedQuestion, locale]);
+
   const loggedOpenRef = useRef(false);
   const loggedExitRef = useRef(false);
   const coordinatesCollectedRef = useRef(false);
@@ -596,6 +606,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
               directionJa={passage.directionJa}
               locale={locale}
               showParagraphNumbers={locale === 'en'}
+              underlineTexts={underlineTexts}
             />
           </div>
         </div>

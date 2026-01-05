@@ -59,6 +59,16 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
   const confirmLabel = nextAnalog ? '次へ' : '振り返りへ';
 
   const paragraphs = useMemo(() => analog.paragraphsEn ?? [], [analog.paragraphsEn]);
+
+  // 選択中の問題の下線テキストを取得
+  const underlineTexts = useMemo(() => {
+    const questionIndex = parseInt(selectedQuestion);
+    const question = analog.questions[questionIndex];
+    if (!question) return [];
+    const text = locale === 'en' ? question.quotedTextEn : question.quotedTextJa;
+    return text ? [text] : [];
+  }, [analog.questions, selectedQuestion, locale]);
+
   const loggedOpenRef = useRef(false);
   const loggedExitRef = useRef(false);
   const coordinatesCollectedRef = useRef(false);
@@ -270,6 +280,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                 directionJa={analog.directionJa}
                 locale={locale}
                 showParagraphNumbers={locale === 'en'}
+                underlineTexts={underlineTexts}
               />
             </div>
           </div>
@@ -467,6 +478,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
               directionJa={analog.directionJa}
               locale={locale}
               showParagraphNumbers={locale === 'en'}
+              underlineTexts={underlineTexts}
             />
           </div>
         </div>

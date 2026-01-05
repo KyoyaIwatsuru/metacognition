@@ -2,10 +2,12 @@
 
 import type { OnlineChatDiscussionContent } from '@/lib/types';
 import { PARAGRAPH_NUMBERS } from './paragraph-numbers';
+import { renderTextWithUnderlines } from '@/lib/text-underline';
 
 type OnlineChatDiscussionBodyProps = {
   onlineChatDiscussion: OnlineChatDiscussionContent;
   showParagraphNumbers?: boolean;
+  underlineTexts?: string[];
 };
 
 /**
@@ -15,6 +17,7 @@ type OnlineChatDiscussionBodyProps = {
 export function OnlineChatDiscussionBody({
   onlineChatDiscussion,
   showParagraphNumbers,
+  underlineTexts,
 }: OnlineChatDiscussionBodyProps) {
   return (
     <div className="border-2 border-black bg-white text-[14px] leading-[2.4] text-slate-800">
@@ -38,7 +41,9 @@ export function OnlineChatDiscussionBody({
                 <span className="font-bold" data-passage-metadata={`time_${idx}`}>
                   [{msg.time}]
                 </span>{' '}
-                <span data-passage-paragraph>{msg.text}</span>
+                <span data-passage-paragraph>
+                  {renderTextWithUnderlines(msg.text, underlineTexts || [])}
+                </span>
               </p>
             </div>
           ))}
