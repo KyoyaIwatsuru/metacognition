@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/app-shell';
+import { MetacogContent } from '@/components/ui/metacog-content';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { PassageBody } from '@/components/passage/passage-body';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -177,12 +178,8 @@ export function MetacogFeedbackClient({ passage }: MetacogFeedbackClientProps) {
 
                   {/* メタ認知フィードバック */}
                   {groupLetter === 'B' && q.metacogFeedbackJa ? (
-                    <div className="text-sm text-slate-800 mt-4 space-y-1">
-                      {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
-                        <p key={pIdx} className="whitespace-pre-line leading-snug">
-                          {para}
-                        </p>
-                      ))}
+                    <div className="text-slate-800 mt-6">
+                      <MetacogContent content={q.metacogFeedbackJa} />
                     </div>
                   ) : null}
                 </div>

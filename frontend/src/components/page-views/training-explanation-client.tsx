@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppShell } from '@/components/layout/app-shell';
+import { MetacogContent } from '@/components/ui/metacog-content';
 import { ConfirmNavigateButton } from '@/components/navigation/confirm-navigate-button';
 import { PassageBody } from '@/components/passage/passage-body';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -416,15 +417,8 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
 
                 {/* メタ認知フィードバック */}
                 {q.metacogFeedbackJa ? (
-                  <div
-                    className="text-sm text-slate-800 mt-4 space-y-1"
-                    data-metacog-feedback="true"
-                  >
-                    {q.metacogFeedbackJa.split('\n\n').map((para, pIdx) => (
-                      <p key={pIdx} className="whitespace-pre-line leading-snug">
-                        {para}
-                      </p>
-                    ))}
+                  <div className="text-slate-800 mt-6" data-metacog-feedback="true">
+                    <MetacogContent content={q.metacogFeedbackJa} />
                   </div>
                 ) : null}
               </div>
