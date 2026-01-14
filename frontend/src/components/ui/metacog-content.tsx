@@ -26,6 +26,14 @@ export function MetacogContent({ content }: MetacogContentProps) {
     }
   }
 
+  // セクションごとにstrong(太字)のスタイルを変える
+  const getStrongStyle = (heading: string) => {
+    if (heading === 'このタイプを解くには') {
+      return 'font-bold text-red-700'; // 赤
+    }
+    return 'font-bold'; // 黒（解答への手順、選択肢のチェック）
+  };
+
   return (
     <div>
       {parsed.map((section, idx) => (
@@ -35,9 +43,9 @@ export function MetacogContent({ content }: MetacogContentProps) {
             components={{
               // 全段落text-sm
               p: ({ children }) => <p className="mb-1 leading-relaxed text-sm">{children}</p>,
-              // 太字 → 赤色で強調
+              // 太字 → セクションによって色を変える
               strong: ({ children }) => (
-                <strong className="font-bold text-red-600">{children}</strong>
+                <strong className={getStrongStyle(section.heading)}>{children}</strong>
               ),
               // リスト
               ul: ({ children }) => (
