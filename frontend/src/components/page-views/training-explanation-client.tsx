@@ -160,6 +160,9 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
       const questions = explanationQuestionElements.map((qEl) => {
         const questionId = qEl.getAttribute('data-explanation-question') || '';
         const questionIndex = parseInt(qEl.getAttribute('data-explanation-question-index') || '0');
+        const promptElement = qEl.querySelector(
+          '[data-explanation-prompt="true"]'
+        ) as HTMLElement | null;
         const promptElementEn = qEl.querySelector(
           '[data-explanation-prompt-en="true"]'
         ) as HTMLElement | null;
@@ -193,6 +196,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
         return {
           question_id: questionId,
           question_index: questionIndex,
+          question_bbox: getElementBBox(promptElement),
           question_text_en: collectTextCoordinates(promptElementEn),
           question_text_ja: collectTextCoordinates(promptElementJa),
           choices,

@@ -139,6 +139,9 @@ export function TrainingReflectionClient({
       const questionsData = reflectionQuestionElements.map((qEl) => {
         const questionId = qEl.getAttribute('data-reflection-question') || '';
         const questionIndex = parseInt(qEl.getAttribute('data-reflection-question-index') || '0');
+        const promptElement = qEl.querySelector(
+          '[data-reflection-prompt="true"]'
+        ) as HTMLElement | null;
         const promptElementEn = qEl.querySelector(
           '[data-reflection-prompt-en="true"]'
         ) as HTMLElement | null;
@@ -164,6 +167,7 @@ export function TrainingReflectionClient({
         return {
           question_id: questionId,
           question_index: questionIndex,
+          question_bbox: getElementBBox(promptElement),
           question_text_en: collectTextCoordinates(promptElementEn),
           question_text_ja: collectTextCoordinates(promptElementJa),
           choices,

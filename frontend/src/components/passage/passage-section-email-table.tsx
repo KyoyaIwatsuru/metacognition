@@ -44,7 +44,7 @@ export function EmailTableBody({ emailTable }: EmailTableBodyProps) {
               return (
                 <tr key={idx} className="border-b border-black">
                   <td className="border-r border-black px-2 py-0 font-bold w-20">
-                    <span data-passage-metadata={metadataType}>{header.label}</span>
+                    <span data-passage-metadata-label={metadataType}>{header.label}</span>
                   </td>
                   <td className="px-2 py-0">
                     <span data-passage-metadata={metadataType}>{header.value}</span>

@@ -153,6 +153,9 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
         const questionIndex = parseInt(
           qEl.getAttribute('data-analog-explanation-question-index') || '0'
         );
+        const promptElement = qEl.querySelector(
+          '[data-analog-explanation-prompt="true"]'
+        ) as HTMLElement | null;
         const promptElementEn = qEl.querySelector(
           '[data-analog-explanation-prompt-en="true"]'
         ) as HTMLElement | null;
@@ -190,6 +193,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
         return {
           question_id: questionId,
           question_index: questionIndex,
+          question_bbox: getElementBBox(promptElement),
           question_text_en: collectTextCoordinates(promptElementEn),
           question_text_ja: collectTextCoordinates(promptElementJa),
           choices,

@@ -157,6 +157,9 @@ export function AnalogReflectionClient({
           const questionIndex = parseInt(
             qEl.getAttribute('data-reflection2-question-index') || '0'
           );
+          const promptElement = qEl.querySelector(
+            '[data-reflection2-prompt="true"]'
+          ) as HTMLElement | null;
           const promptElementEn = qEl.querySelector(
             '[data-reflection2-prompt-en="true"]'
           ) as HTMLElement | null;
@@ -182,6 +185,7 @@ export function AnalogReflectionClient({
           return {
             question_id: questionId,
             question_index: questionIndex,
+            question_bbox: getElementBBox(promptElement),
             question_text_en: collectTextCoordinates(promptElementEn),
             question_text_ja: collectTextCoordinates(promptElementJa),
             choices,
