@@ -15,7 +15,10 @@ import { logEvent } from '@/lib/logger';
 import { resetLogPath } from '@/lib/tauri-log-bridge';
 import { toast } from 'sonner';
 
-const participants = Array.from({ length: 20 }, (_, i) => `P${String(i + 1).padStart(3, '0')}`);
+const participants = [
+  'Test',
+  ...Array.from({ length: 20 }, (_, i) => `P${String(i + 1).padStart(3, '0')}`),
+];
 
 function HomeHeader() {
   const eyeTrackerStatus = useAppStore((s) => s.eyeTrackerStatus);
