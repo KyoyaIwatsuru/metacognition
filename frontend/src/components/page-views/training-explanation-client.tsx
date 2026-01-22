@@ -319,7 +319,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                       position: 'absolute',
                       top: 0,
                       left: 0,
-                      whiteSpace: 'nowrap',
+                      right: 0,
                     }}
                     data-explanation-prompt-en="true"
                   >
@@ -331,7 +331,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                       position: 'absolute',
                       top: 0,
                       left: 0,
-                      whiteSpace: 'nowrap',
+                      right: 0,
                     }}
                     data-explanation-prompt-ja="true"
                   >
@@ -370,7 +370,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
-                                whiteSpace: 'nowrap',
+                                right: 0,
                               }}
                               data-explanation-choice-text-en="true"
                             >
@@ -382,7 +382,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
-                                whiteSpace: 'nowrap',
+                                right: 0,
                               }}
                               data-explanation-choice-text-ja="true"
                             >
@@ -482,7 +482,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                       position: 'absolute',
                       top: 0,
                       left: 0,
-                      whiteSpace: 'nowrap',
+                      right: 0,
                     }}
                     data-explanation-prompt-en="true"
                   >
@@ -494,7 +494,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                       position: 'absolute',
                       top: 0,
                       left: 0,
-                      whiteSpace: 'nowrap',
+                      right: 0,
                     }}
                     data-explanation-prompt-ja="true"
                   >
@@ -533,7 +533,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
-                                whiteSpace: 'nowrap',
+                                right: 0,
                               }}
                               data-explanation-choice-text-en="true"
                             >
@@ -545,7 +545,7 @@ export function TrainingExplanationClient({ passage }: TrainingExplanationClient
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
-                                whiteSpace: 'nowrap',
+                                right: 0,
                               }}
                               data-explanation-choice-text-ja="true"
                             >

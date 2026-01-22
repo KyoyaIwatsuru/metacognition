@@ -344,7 +344,7 @@ export function TrainingReflectionClient({
                           position: 'absolute',
                           top: 0,
                           left: 0,
-                          whiteSpace: 'nowrap',
+                          right: 0,
                         }}
                         data-reflection-prompt-en="true"
                       >
@@ -356,7 +356,7 @@ export function TrainingReflectionClient({
                           position: 'absolute',
                           top: 0,
                           left: 0,
-                          whiteSpace: 'nowrap',
+                          right: 0,
                         }}
                         data-reflection-prompt-ja="true"
                       >
@@ -395,7 +395,7 @@ export function TrainingReflectionClient({
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
-                                    whiteSpace: 'nowrap',
+                                    right: 0,
                                   }}
                                   data-reflection-choice-text-en="true"
                                 >
@@ -407,7 +407,7 @@ export function TrainingReflectionClient({
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
-                                    whiteSpace: 'nowrap',
+                                    right: 0,
                                   }}
                                   data-reflection-choice-text-ja="true"
                                 >

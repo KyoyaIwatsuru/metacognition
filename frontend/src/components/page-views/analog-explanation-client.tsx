@@ -339,7 +339,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                             position: 'absolute',
                             top: 0,
                             left: 0,
-                            whiteSpace: 'nowrap',
+                            right: 0,
                           }}
                           data-analog-explanation-prompt-en="true"
                         >
@@ -351,7 +351,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                             position: 'absolute',
                             top: 0,
                             left: 0,
-                            whiteSpace: 'nowrap',
+                            right: 0,
                           }}
                           data-analog-explanation-prompt-ja="true"
                         >
@@ -389,7 +389,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                                       position: 'absolute',
                                       top: 0,
                                       left: 0,
-                                      whiteSpace: 'nowrap',
+                                      right: 0,
                                     }}
                                     data-analog-explanation-choice-text-en="true"
                                   >
@@ -401,7 +401,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                                       position: 'absolute',
                                       top: 0,
                                       left: 0,
-                                      whiteSpace: 'nowrap',
+                                      right: 0,
                                     }}
                                     data-analog-explanation-choice-text-ja="true"
                                   >
@@ -524,7 +524,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                             position: 'absolute',
                             top: 0,
                             left: 0,
-                            whiteSpace: 'nowrap',
+                            right: 0,
                           }}
                           data-analog-explanation-prompt-en="true"
                         >
@@ -536,7 +536,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                             position: 'absolute',
                             top: 0,
                             left: 0,
-                            whiteSpace: 'nowrap',
+                            right: 0,
                           }}
                           data-analog-explanation-prompt-ja="true"
                         >
@@ -580,7 +580,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
-                                    whiteSpace: 'nowrap',
+                                    right: 0,
                                   }}
                                   data-analog-explanation-choice-text-en="true"
                                 >
@@ -592,7 +592,7 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
-                                    whiteSpace: 'nowrap',
+                                    right: 0,
                                   }}
                                   data-analog-explanation-choice-text-ja="true"
                                 >

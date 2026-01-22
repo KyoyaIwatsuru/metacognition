@@ -403,7 +403,7 @@ export function AnalogReflectionClient({
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
-                                whiteSpace: 'nowrap',
+                                right: 0,
                               }}
                               data-reflection2-prompt-en="true"
                             >
@@ -415,7 +415,7 @@ export function AnalogReflectionClient({
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
-                                whiteSpace: 'nowrap',
+                                right: 0,
                               }}
                               data-reflection2-prompt-ja="true"
                             >
@@ -453,7 +453,7 @@ export function AnalogReflectionClient({
                                           position: 'absolute',
                                           top: 0,
                                           left: 0,
-                                          whiteSpace: 'nowrap',
+                                          right: 0,
                                         }}
                                         data-reflection2-choice-text-en="true"
                                       >
@@ -465,7 +465,7 @@ export function AnalogReflectionClient({
                                           position: 'absolute',
                                           top: 0,
                                           left: 0,
-                                          whiteSpace: 'nowrap',
+                                          right: 0,
                                         }}
                                         data-reflection2-choice-text-ja="true"
                                       >
