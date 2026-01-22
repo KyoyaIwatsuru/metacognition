@@ -322,43 +322,41 @@ export function AnalogExplanationClient({ passage, analog }: AnalogExplanationCl
                     <div className="select-none">
                       <div
                         className="text-sm text-foreground"
-                        style={{ overflow: 'hidden' }}
+                        style={{ overflow: 'hidden', position: 'relative' }}
                         data-analog-explanation-prompt="true"
                       >
                         <span className="font-semibold">Q{idx + 1}.</span>{' '}
-                        <span style={{ position: 'relative' }}>
-                          {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
-                          {/* Hidden spans for coordinate collection */}
-                          <span
-                            style={{
-                              visibility: 'hidden',
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              whiteSpace: 'nowrap',
-                            }}
-                            data-analog-explanation-prompt-en="true"
-                          >
-                            Q{idx + 1}. {q.promptEn}
-                          </span>
-                          <span
-                            style={{
-                              visibility: 'hidden',
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              whiteSpace: 'nowrap',
-                            }}
-                            data-analog-explanation-prompt-ja="true"
-                          >
-                            Q{idx + 1}. {q.promptJa ?? q.promptEn}
-                          </span>
-                        </span>
+                        {locale === 'en' ? q.promptEn : (q.promptJa ?? q.promptEn)}
                         {isUnanswered ? (
                           <span className="ml-2 rounded bg-zinc-500 px-2 py-0.5 text-xs text-white font-bold">
                             未回答
                           </span>
                         ) : null}
+                        {/* Hidden spans for coordinate collection - positioned relative to the parent div */}
+                        <span
+                          style={{
+                            visibility: 'hidden',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            whiteSpace: 'nowrap',
+                          }}
+                          data-analog-explanation-prompt-en="true"
+                        >
+                          Q{idx + 1}. {q.promptEn}
+                        </span>
+                        <span
+                          style={{
+                            visibility: 'hidden',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            whiteSpace: 'nowrap',
+                          }}
+                          data-analog-explanation-prompt-ja="true"
+                        >
+                          Q{idx + 1}. {q.promptJa ?? q.promptEn}
+                        </span>
                       </div>
 
                       <ul className="space-y-0.5 text-sm mt-2">
