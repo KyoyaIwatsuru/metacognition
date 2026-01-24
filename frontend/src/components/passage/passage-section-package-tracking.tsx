@@ -19,14 +19,14 @@ export function PackageTrackingBody({ packageTracking }: PackageTrackingBodyProp
       </p>
 
       {/* Table - compact */}
-      <table className="w-full border-collapse border border-black">
+      <table className="w-full border-collapse border border-black" data-passage-table="true">
         <thead>
           <tr>
             {packageTracking.columns.map((col, idx) => (
               <th
                 key={idx}
                 className="border border-black px-1 py-0 font-bold text-left"
-                data-passage-metadata="table-header"
+                data-passage-table-header={idx}
               >
                 {col}
               </th>
@@ -35,9 +35,13 @@ export function PackageTrackingBody({ packageTracking }: PackageTrackingBodyProp
         </thead>
         <tbody>
           {packageTracking.rows.map((row, rowIdx) => (
-            <tr key={rowIdx}>
+            <tr key={rowIdx} data-passage-table-row={rowIdx}>
               {row.map((cell, cellIdx) => (
-                <td key={cellIdx} className="border border-black px-1 py-0" data-passage-paragraph>
+                <td
+                  key={cellIdx}
+                  className="border border-black px-1 py-0"
+                  data-passage-table-cell={`${rowIdx}-${cellIdx}`}
+                >
                   {cell}
                 </td>
               ))}

@@ -244,6 +244,7 @@ export function PassageBody({
                     position: 'absolute',
                     top: 0,
                     left: 0,
+                    right: 0,
                   }}
                   data-passage-section-hidden={sectionIndex}
                   data-passage-section-locale={hiddenLocale}

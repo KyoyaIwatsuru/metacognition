@@ -192,6 +192,18 @@ export function AnalogReflectionClient({
           };
         });
 
+        // Reflection form for this analog (each analog has its own reflection form)
+        const reflectionPromptElement = questionContainer
+          ? (questionContainer.querySelector(
+              '[data-reflection-form-prompt="true"]'
+            ) as HTMLElement | null)
+          : null;
+        const reflectionTextareaElement = questionContainer
+          ? (questionContainer.querySelector(
+              '[data-reflection-textarea="true"]'
+            ) as HTMLElement | null)
+          : null;
+
         return {
           analog_id: analog.id,
           analog_index: analogIdx,
@@ -200,16 +212,12 @@ export function AnalogReflectionClient({
           passages_en,
           passages_ja,
           questions,
+          reflection_form: {
+            prompt: collectTextCoordinates(reflectionPromptElement),
+            textarea: getElementBBox(reflectionTextareaElement),
+          },
         };
       });
-
-      // Reflection form
-      const reflectionPromptElement = document.querySelector(
-        '[data-reflection-form-prompt="true"]'
-      ) as HTMLElement | null;
-      const reflectionTextareaElement = document.querySelector(
-        '[data-reflection-textarea="true"]'
-      ) as HTMLElement | null;
 
       // Submit button
       const submitButtonElement = document.querySelector(
@@ -230,6 +238,8 @@ export function AnalogReflectionClient({
           analogs: analogData.map((a) => ({
             analog_id: a.analog_id,
             analog_index: a.analog_index,
+            instruction_en: a.instruction_en,
+            instruction_ja: a.instruction_ja,
             passages_en: a.passages_en,
             passages_ja: a.passages_ja,
           })),
@@ -240,11 +250,8 @@ export function AnalogReflectionClient({
             analog_id: a.analog_id,
             analog_index: a.analog_index,
             questions: a.questions,
+            reflection_form: a.reflection_form,
           })),
-          reflection_form: {
-            prompt: collectTextCoordinates(reflectionPromptElement),
-            textarea: getElementBBox(reflectionTextareaElement),
-          },
         },
 
         footer: {
